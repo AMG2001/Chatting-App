@@ -40,15 +40,18 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField layoutX="69.0" layoutY="243.0" prefHeight="31.0" prefWidth="283.0" promptText="Enter your email here" />
-            <Label layoutX="69.0" layoutY="300.0" text="Password" />
-            <PasswordField layoutX="69.0" layoutY="333.0" prefHeight="31.0" prefWidth="283.0" promptText="Enter your password here" />
-            <Button layoutX="69.0" layoutY="394.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="283.0" style="-fx-background-color: #E5EFF8;" text="Login Here" />
+            <TextField fx:id="tf_email" layoutX="69.0" layoutY="243.0" prefHeight="31.0" prefWidth="283.0" promptText="Enter your email here" />
+            <Label layoutX="69.0" layoutY="300.0" text="Password">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <PasswordField fx:id="tf_password" layoutX="69.0" layoutY="333.0" prefHeight="31.0" prefWidth="283.0" promptText="Enter your password here" />
+            <Button fx:id="btn_login" layoutX="69.0" layoutY="394.0" mnemonicParsing="false" onAction="#loginUser" prefHeight="35.0" prefWidth="283.0" style="-fx-background-color: #E5EFF8;" text="Login Here" />
             <Label layoutX="190.0" layoutY="468.0" text="- OR -" />
             <HBox layoutX="69.0" layoutY="506.0" prefHeight="35.0" prefWidth="283.0" style="-fx-alignment: center;">
                <children>
                   <Label text="Create Your Account ?     " />
-                  <Hyperlink text="Sign-up" />
+                  <Hyperlink fx:id="link_signup" onAction="#navigateToSignUp" text="Sign-up" />
                </children>
             </HBox>
          </children></AnchorPane>
