@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,20 +8,49 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="jets.iti.Controllers.LoginPageController.LoginPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jets.iti.Controllers.LoginPageController.LoginPageController">
     <children>
-        <AnchorPane layoutX="6.0" prefHeight="600.0" prefWidth="400.0">
+        <AnchorPane layoutX="6.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #E5EFF8;">
             <children>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="225.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="236.0" fitWidth="261.0" layoutX="71.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../resources/assets/images/telegraph.png"/>
+                        <Image url="@../assets/images/telegraph.png" />
                     </image>
                 </ImageView>
+            <Label layoutX="89.0" layoutY="386.0" text="Telegraph App">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font></Label>
+            <Label layoutX="83.0" layoutY="479.0" text="Swipe , Type , Connect">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="400.0" layoutY="5.0" prefHeight="600.0" prefWidth="400.0"/>
+        <AnchorPane layoutX="400.0" layoutY="5.0" prefHeight="600.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="101.0" layoutY="111.0" text="Login Your Account">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="209.0" text="Email">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField layoutX="69.0" layoutY="243.0" prefHeight="31.0" prefWidth="283.0" promptText="Enter your email here" />
+            <Label layoutX="69.0" layoutY="300.0" text="Password" />
+            <PasswordField layoutX="69.0" layoutY="333.0" prefHeight="31.0" prefWidth="283.0" promptText="Enter your password here" />
+            <Button layoutX="69.0" layoutY="394.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="283.0" style="-fx-background-color: #E5EFF8;" text="Login Here" />
+            <Label layoutX="190.0" layoutY="468.0" text="- OR -" />
+            <HBox layoutX="69.0" layoutY="506.0" prefHeight="35.0" prefWidth="283.0" style="-fx-alignment: center;">
+               <children>
+                  <Label text="Create Your Account ?     " />
+                  <Hyperlink text="Sign-up" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
     </children>
 </AnchorPane>

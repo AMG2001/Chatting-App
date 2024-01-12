@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b73f8e36-a3c2-4050-8804-442c15b26f4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jets/iti/Login/LoginPageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jets/iti/config/AppPages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Login/LoginPage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jets/iti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jets/iti/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/LoginPage/LoginPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LoginPage/LoginPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -43,7 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "amgad"
   }
 }]]></component>
   <component name="RunManager">
