@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b73f8e36-a3c2-4050-8804-442c15b26f4d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/jets/iti/Controllers/LoginPageController/LoginPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jets/iti/Controllers/LoginPageController/LoginPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jets/iti/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jets/iti/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/LoginPage/LoginPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LoginPage/LoginPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -40,7 +42,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "amgad"
+    "git-widget-placeholder": "amgad",
+    "last_opened_file_path": "C:/Users/mavic/.m2/repository/io/github/palexdev/materialfx/11.17.0/materialfx-11.17.0.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RunManager">
