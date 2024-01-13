@@ -1,23 +1,44 @@
-# Telegraph ☎️ .
+  ![Telegraph Iconn Circular](https://github.com/AMG2001/Chatting-App/assets/21118424/8c781309-91c3-4282-8702-66c539a26fd6)
 
-- One of Jets ITI i44 Projects , which in we provide a couple of chatting features as :
-1. Private Chat Rooms .
-2. Group Chat Rooms .
-3. Ability to send Text , Files , Images and Videos .
-4. Push Notifications Service .
-5. Contacts Adding Feature , and more …. . 
 
-### Technologies ⚙️ .
+# Telegraph ☎️
 
-1. Java Azul v 17 .
-2. Java RMI “Remote Method Invocation”.
-3. ORACLE Database .
-4. JavaFX & Scene Builder to build UI .
+## Project Description
 
----
+A desktop chat application Implemented as the first project in the ITI scholarship for Intake 44.
 
-- this project implemented by :
-1. Mohamad amgad eisald : [https://github.com/AMG2001](https://github.com/AMG2001)
-2. Mohmoud Marwan :
-3. Moataz Mujahid : 
-4. Youssif Hossam :
+The application consists of a Client & Server component implemented using java. The application is structured in a multi-tiered architecture.
+
+## Team
+
+- **Mohammed Amgad** (Lead)
+- **Yousef Hossam**
+- **Moataz Mujahid**
+- **Mahmoud Marwan**
+
+## Main Functionalities
+
+### Client
+
+- Signup / Sign In
+- View & Modify Profile
+- Add contacts (by phone-number)
+- Create Groups
+- Send rich text messages to contacts (or Groups)
+- File transfer
+- Receive Notification
+- AI automatic response
+
+### Server
+
+- Display various statistics on users
+- View/add a new user
+- Send server notification to users
+
+## Technologies ⚙️
+
+- Java Azul v 17 |  Java 21
+- Java RMI “Remote Method Invocation”
+- ORACLE Database
+- JDBC
+- JavaFX & Scene Builder
