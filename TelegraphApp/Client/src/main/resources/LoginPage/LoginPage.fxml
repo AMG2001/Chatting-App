@@ -7,9 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jets.iti.Controllers.LoginPageController.LoginPageController">
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="jets.iti.Controllers.LoginPageController.LoginPageController">
     <items>
-        <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="20.0" style="-fx-background-color: #E5EFF8; -fx-background-image: url('LoginPage/images/left_side.png'); -fx-background-size: cover; -fx-border-image-repeat: no-repeat;">
+        <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="20.0"
+              style="-fx-background-color: #E5EFF8; -fx-background-image: url('LoginPage/images/left_side.png'); -fx-background-size: cover; -fx-border-image-repeat: no-repeat;">
             <children>
                 <!--                <ImageView fitHeight="236.0" fitWidth="261.0" nodeOrientation="INHERIT" pickOnBounds="true"-->
                 <!--                           preserveRatio="true">-->
@@ -31,84 +35,87 @@
         </VBox>
         <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="36.0">
             <children>
-                  <HBox alignment="CENTER_LEFT">
-                      <children>
-                          <ImageView fitHeight="51.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../assets/images/telegraph.png" />
-                              </image>
-                     <HBox.margin>
-                        <Insets left="12.0" right="8.0" />
-                     </HBox.margin>
-                          </ImageView>
-                          <Label text="Telegraph">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="16.0" />
-                     </font>
-                  </Label>
-                      </children>
-               <VBox.margin>
-                  <Insets bottom="56.0" />
-               </VBox.margin>
-                  </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <ImageView fitHeight="51.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/images/telegraph.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets left="12.0" right="8.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                        <Label text="Telegraph">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="16.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="56.0"/>
+                    </VBox.margin>
+                </HBox>
                 <VBox alignment="CENTER">
                     <children>
                         <Label text="Login Your Account">
                             <font>
-                                <Font name="Segoe UI Semibold Italic" size="24.0" />
+                                <Font name="Segoe UI Semibold Italic" size="24.0"/>
                             </font>
                             <padding>
-                                <Insets bottom="18.0" />
+                                <Insets bottom="18.0"/>
                             </padding>
                         </Label>
                         <VBox spacing="10.0">
                             <children>
                                 <Label text="Phone">
                                     <font>
-                                        <Font name="Segoe UI Semibold Italic" size="15.0" />
+                                        <Font name="Segoe UI Semibold Italic" size="15.0"/>
                                     </font>
                                 </Label>
-                                <TextField fx:id="tf_email" minHeight="30.0" minWidth="280.0" promptText="Enter your phone here" />
+                                <TextField fx:id="tf_email" minHeight="30.0" minWidth="280.0"
+                                           promptText="Enter your phone here"/>
                                 <Label text="Password">
                                     <font>
-                                        <Font name="Segoe UI Semibold Italic" size="15.0" />
+                                        <Font name="Segoe UI Semibold Italic" size="15.0"/>
                                     </font>
                                 </Label>
-                                <PasswordField fx:id="tf_password" minHeight="30.0" minWidth="280.0" promptText="Enter your password here" />
+                                <PasswordField fx:id="tf_password" minHeight="30.0" minWidth="280.0"
+                                               promptText="Enter your password here"/>
                             </children>
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </padding>
                         </VBox>
                     </children>
                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="10.0" right="10.0"/>
                     </VBox.margin>
                 </VBox>
-            <VBox alignment="CENTER" spacing="15.0">
-               <children>
-                      <MFXButton fx:id="btn_login" minHeight="35.0" minWidth="360.0" style="-fx-background-color: #E5EFF8;" text="Login Here">
-                          <font>
-                              <Font name="Segoe UI Semibold" size="15.0" />
-                          </font>
-                      </MFXButton>
-                        <Label text="- OR -" />
-                      <HBox alignment="CENTER" minHeight="35.0" minWidth="283.0" style="-fx-alignment: center;">
-                          <children>
-                              <Label text="Create Your Account ?  ">
-                                  <font>
-                                      <Font name="Segoe UI Semibold" size="15.0" />
-                                  </font>
-                              </Label>
-                              <Hyperlink fx:id="link_signup" onAction="#navigateToSignUp" text="Sign-up">
-                                  <font>
-                                      <Font name="Segoe UI" size="16.0" />
-                                  </font>
-                              </Hyperlink>
-                          </children>
-                      </HBox>
-               </children>
-            </VBox>
+                <VBox alignment="CENTER" spacing="15.0">
+                    <children>
+                        <MFXButton fx:id="btn_login" minHeight="35.0" minWidth="360.0"
+                                   style="-fx-background-color: #E5EFF8;" text="Login">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="15.0"/>
+                            </font>
+                        </MFXButton>
+                        <Label text="- OR -"/>
+                        <HBox alignment="CENTER" minHeight="35.0" minWidth="283.0" style="-fx-alignment: center;">
+                            <children>
+                                <Label text="Create Your Account ?  ">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="15.0"/>
+                                    </font>
+                                </Label>
+                                <Hyperlink fx:id="link_signup" onAction="#navigateToSignUp" text="Sign-up">
+                                    <font>
+                                        <Font name="Segoe UI" size="16.0"/>
+                                    </font>
+                                </Hyperlink>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
             </children>
         </VBox>
     </items>
