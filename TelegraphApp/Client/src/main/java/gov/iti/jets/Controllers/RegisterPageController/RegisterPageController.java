@@ -1,11 +1,11 @@
-package jets.iti.Controllers.RegisterPageController;
+package gov.iti.jets.Controllers.RegisterPageController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import jets.iti.config.AppPages;
-import jets.iti.services.Navigator;
+import gov.iti.jets.config.AppPages;
+import gov.iti.jets.services.Navigator;
 
 public class RegisterPageController {
     @FXML

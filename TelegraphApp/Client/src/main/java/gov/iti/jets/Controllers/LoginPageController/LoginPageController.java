@@ -1,4 +1,4 @@
-package jets.iti.Controllers.LoginPageController;
+package gov.iti.jets.Controllers.LoginPageController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,8 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import jets.iti.config.AppPages;
-import jets.iti.services.Navigator;
+import gov.iti.jets.config.AppPages;
+import gov.iti.jets.services.Navigator;
 
 public class LoginPageController {
 

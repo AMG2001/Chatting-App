@@ -3,17 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>jets.iti</groupId>
-    <artifactId>Server</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
     <parent>
-        <groupId>jets.iti</groupId>
-        <artifactId>TelegraphApp</artifactId>
+        <groupId>gov.iti.jets</groupId>
+        <artifactId>telegraphApp</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
+    <artifactId>server</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -37,8 +34,8 @@
         </dependency>
 
         <dependency>
-            <groupId>jets.iti</groupId>
-            <artifactId>Shared</artifactId>
+            <groupId>gov.iti.jets</groupId>
+            <artifactId>shared</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
@@ -50,10 +47,11 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>jets.iti.Main</mainClass>
+                    <mainClass>gov.iti.jets.Server</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 
 </project>

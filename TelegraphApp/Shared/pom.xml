@@ -1,20 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>jets.iti</groupId>
-  <artifactId>Shared</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>gov.iti.jets</groupId>
+        <artifactId>telegraphApp</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-  <parent>
-  <groupId>jets.iti</groupId>
-  <artifactId>TelegraphApp</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  </parent>
-
-  <name>Shared</name>
-  <url>http://maven.apache.org</url>
+    <artifactId>shared</artifactId>
+    <packaging>jar</packaging>
 
 
 </project>
