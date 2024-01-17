@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import gov.iti.jets.config.AppPages;
 import gov.iti.jets.services.Navigator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
-import javax.swing.text.html.ImageView;
+import java.io.File;
 
 public class RegisterPageController {
 
@@ -50,7 +53,22 @@ public class RegisterPageController {
 
     @FXML
     public void pickUserImage(MouseEvent event) {
-
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose an image");
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                try {
+                    img_user.setImage(new Image(file.toURI().toString()));
+                } catch (RuntimeException re) {
+                    re.printStackTrace();
+                }
+            } else {
+                throw new RuntimeException("No image selected.");
+            }
+        } catch (Exception e) {
+            System.out.println("Image Not Taken !!");
+        }
     }
 
     @FXML
