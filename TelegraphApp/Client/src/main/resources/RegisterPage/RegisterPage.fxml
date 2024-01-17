@@ -18,22 +18,7 @@
     <items>
         <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="20.0" style="-fx-background-color: #E5EFF8; -fx-background-image: url('RegisterPage/images/left_side2.png'); -fx-background-size: cover; -fx-border-image-repeat: no-repeat;">
             <children>
-                <!--                <ImageView fitHeight="236.0" fitWidth="261.0" nodeOrientation="INHERIT" pickOnBounds="true"-->
-                <!--                           preserveRatio="true">-->
-                <!--                    <image>-->
-                <!--                        <Image url="@../assets/images/telegraph.png"/>-->
-                <!--                    </image>-->
-                <!--                </ImageView>-->
-                <!--                <Label text="Telegraph App">-->
-                <!--                    <font>-->
-                <!--                        <Font name="Segoe UI Semibold" size="32.0"/>-->
-                <!--                    </font>-->
-                <!--                </Label>-->
-                <!--                <Label text="Swipe , Type , Connect">-->
-                <!--                    <font>-->
-                <!--                        <Font name="Segoe UI" size="24.0"/>-->
-                <!--                    </font>-->
-                <!--                </Label>-->
+
             </children>
         </VBox>
         <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0">
