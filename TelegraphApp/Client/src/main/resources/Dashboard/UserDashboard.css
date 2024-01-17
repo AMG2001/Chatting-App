@@ -1,3 +1,20 @@
-#ContactsVbox{
--fx-background_color:grey;
+.split-pane-divider {
+   -fx-background-color: transparent;
+}
+
+/*Remove the gap left from the split pane divider*/
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 0 0 0;
+}
+
+
+/*Linear Gradient color*/
+.linear-grad-to-bottom{
+    -fx-background-color: linear-gradient(to bottom, #C6C8D2, #AFB2C0);
+}
+
+
+/*To allow scrollpane to have a background color*/
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
 }

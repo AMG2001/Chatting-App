@@ -12,11 +12,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="1107.0" stylesheets="@UserDashboard.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.3" layoutX="52.0" layoutY="214.0" prefHeight="641.0" prefWidth="817.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3" layoutX="52.0" layoutY="214.0" prefHeight="641.0" prefWidth="817.0" style="-fx-border-style: transparent;" stylesheets="@UserDashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="214.0" style="-fx-background-color: #DCDCDC;">
+          <AnchorPane minHeight="0.0" minWidth="300.0" prefHeight="620.0" prefWidth="214.0" style="-fx-background-color: #C6C8D2;">
                <children>
-                  <VBox fx:id="ContactsVbox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="ContactsVbox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #C6C8D2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="56.0" prefWidth="250.0">
                            <children>
@@ -35,7 +35,7 @@
                               </Text>
                            </children>
                         </HBox>
-                        <Separator prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: grey;" />
+                        <Separator prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: black;" />
                         <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="252.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Online" wrappingWidth="84.6708984375">
@@ -52,61 +52,10 @@
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin></Separator>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="250.0" prefWidth="307.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="250.0" prefWidth="307.0" style="-fx-background-color: #C6C8D2;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fillWidth="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="335.0" prefWidth="312.0" style="-fx-background-color: #DCDCDC;">
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #C6C8D2;">
                                  <children>
-                                    <Pane prefHeight="67.0" prefWidth="251.0" style="-fx-background-color: #DCDCDC;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Pane>
                                     <Pane prefHeight="67.0" prefWidth="251.0">
                                        <children>
                                           <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
@@ -164,11 +113,11 @@
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin></Separator>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="245.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="245.0" prefWidth="200.0" style="-fx-background-color: #C6C8D2;" styleClass="linear-grad-to-bottom" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox prefHeight="335.0" prefWidth="295.0" style="-fx-background-color: #DCDCDC;">
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #C6C8D2;">
                                  <children>
-                                    <Pane prefHeight="67.0" prefWidth="251.0" style="-fx-border-style: none;">
+                                    <Pane prefHeight="67.0" prefWidth="250.0" style="-fx-border-style: none;">
                                        <children>
                                           <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
                                              <image>
@@ -182,7 +131,7 @@
                                           </Text>
                                        </children>
                                     </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0">
+                                    <Pane prefHeight="67.0" prefWidth="250.0">
                                        <children>
                                           <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
                                              <image>
@@ -196,7 +145,7 @@
                                           </Text>
                                        </children>
                                     </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0">
+                                    <Pane prefHeight="67.0" prefWidth="250.0">
                                        <children>
                                           <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
                                              <image>
@@ -210,7 +159,7 @@
                                           </Text>
                                        </children>
                                     </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0">
+                                    <Pane prefHeight="67.0" prefWidth="250.0">
                                        <children>
                                           <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
                                              <image>
@@ -224,7 +173,7 @@
                                           </Text>
                                        </children>
                                     </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0">
+                                    <Pane prefHeight="67.0" prefWidth="250.0">
                                        <children>
                                           <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
                                              <image>
@@ -246,13 +195,37 @@
                   </VBox>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="200.0" minWidth="100.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <VBox prefHeight="413.0" prefWidth="651.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Pane minHeight="-Infinity" prefHeight="70.0" prefWidth="604.0">
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <bottom>
+                        <BorderPane prefHeight="172.0" prefWidth="733.0" BorderPane.alignment="CENTER">
+                           <center>
+                              <TextArea maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="77.0" prefWidth="674.0" promptText="Enter your message.." scaleShape="false" wrapText="true" BorderPane.alignment="BOTTOM_CENTER">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <BorderPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </BorderPane.margin>
+                              </TextArea>
+                           </center>
+                           <right>
+                              <ImageView fitHeight="53.0" fitWidth="39.0" preserveRatio="true" BorderPane.alignment="BOTTOM_CENTER">
+                                 <image>
+                                    <Image url="@Images/SendIcon.png" />
+                                 </image>
+                                 <BorderPane.margin>
+                                    <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
+                                 </BorderPane.margin>
+                              </ImageView>
+                           </right>
+                        </BorderPane>
+                     </bottom>
+                     <top>
+                        <Pane minHeight="-Infinity" prefHeight="59.0" prefWidth="737.0" styleClass="linear-grad-to-bottom" BorderPane.alignment="CENTER">
                            <children>
-                              <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="14.0" layoutY="8.0" preserveRatio="true">
+                              <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="14.0" layoutY="8.0" preserveRatio="true">
                                  <image>
                                     <Image url="@Images/personImage1.jpg" />
                                  </image>
@@ -270,130 +243,100 @@
                               </Text>
                            </children>
                         </Pane>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="429.0" prefWidth="733.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                     </top>
+                     <center>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="502.0" prefWidth="733.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
                            <content>
-                              <VBox minWidth="-Infinity">
+                              <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="457.0" prefWidth="731.0">
                                  <children>
-                                    <AnchorPane prefHeight="82.0" prefWidth="685.0">
+                                    <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0" style="-fx-background-color: #BFCFE7; -fx-background-radius: 15 15 15 15;">
                                        <children>
-                                          <ScrollPane hbarPolicy="NEVER" layoutX="61.0" layoutY="13.0" prefHeight="48.0" prefWidth="585.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="13.0">
-                                             <content>
-                                                <VBox prefHeight="60.0" prefWidth="488.0">
-                                                   <children>
-                                                      <TextFlow prefHeight="48.0" prefWidth="458.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello How are you today ?" wrappingWidth="468.6708984375">
-                                                               <font>
-                                                                  <Font name="Segoe UI" size="15.0" />
-                                                               </font>
-                                                            </Text>
-                                                         </children>
-                                                      </TextFlow>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </padding>
-                                                </VBox>
-                                             </content>
-                                          </ScrollPane>
-                                          <Pane layoutX="8.0" layoutY="8.0" style="-fx-border-radius: 50%;">
+                                          <TextFlow layoutX="83.0" layoutY="5.0" prefHeight="48.0" prefWidth="458.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0">
                                              <children>
-                                                <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="6.0" layoutY="6.0" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                                   <image>
-                                                      <Image url="@Images/personImage1.jpg" />
-                                                   </image>
-                                                   <effect>
-                                                      <DropShadow height="15.0" radius="7.0" width="15.0" />
-                                                   </effect>
-                                                </ImageView>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello How are you today ?" wrappingWidth="468.6708984375">
+                                                   <font>
+                                                      <Font name="Segoe UI" size="15.0" />
+                                                   </font>
+                                                </Text>
                                              </children>
-                                          </Pane>
+                                          </TextFlow>
+                                          <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0" layoutY="17.0" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
+                                             <image>
+                                                <Image url="@Images/personImage1.jpg" />
+                                             </image>
+                                             <effect>
+                                                <DropShadow height="15.0" radius="7.0" width="15.0" />
+                                             </effect>
+                                          </ImageView>
                                        </children>
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
                                     </AnchorPane>
-                                    <Pane prefHeight="100.0">
+                                    <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0" style="-fx-background-color: #BFCFE7; -fx-background-radius: 20 20 20 20;">
                                        <children>
-                                          <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="622.0" layoutY="15.0" preserveRatio="true">
+                                          <ImageView fitHeight="44.0" fitWidth="54.0" preserveRatio="true" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                                             <effect>
+                                                <DropShadow height="15.0" radius="7.0" width="15.0" />
+                                             </effect>
                                              <image>
                                                 <Image url="@Images/personImage1.jpg" />
                                              </image>
                                           </ImageView>
-                                          <ScrollPane hbarPolicy="NEVER" layoutX="27.0" layoutY="15.0" prefHeight="70.0" prefWidth="578.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
-                                             <content>
-                                                <VBox prefHeight="60.0" prefWidth="575.0" style="-fx-background-color: transparent;">
+                                          <VBox layoutX="187.0" layoutY="14.0">
+                                             <children>
+                                                <TextFlow layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="458.0" textAlignment="RIGHT" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="14.0">
                                                    <children>
-                                                      <TextFlow textAlignment="RIGHT">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hey steven! I'm great how are you ?" wrappingWidth="101.40380859375" />
-                                                         </children>
-                                                         <padding>
-                                                            <Insets bottom="10.0" left="10.0" top="5.0" />
-                                                         </padding>
-                                                      </TextFlow>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello How are you today ?dasdasdjhasdhgasjdghajsgdkagsdagdfjasgdfhkjagksdjgakjhgsdjagdAGHSDJFASDADFAS" wrappingWidth="273.9169921875">
+                                                         <font>
+                                                            <Font name="Segoe UI" size="15.0" />
+                                                         </font>
+                                                      </Text>
                                                    </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                </VBox>
-                                             </content>
-                                          </ScrollPane>
+                                                </TextFlow>
+                                             </children>
+                                          </VBox>
                                        </children>
-                                       <padding>
-                                          <Insets bottom="5.0" right="20.0" />
-                                       </padding>
                                        <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </VBox.margin>
-                                    </Pane>
-                                    <Pane prefHeight="100.0" prefWidth="571.0">
+                                    </AnchorPane>
+                                    <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0" style="-fx-background-color: #BFCFE7; -fx-background-radius: 15 15 15 15;">
                                        <children>
-                                          <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" preserveRatio="true">
+                                          <TextFlow layoutX="83.0" layoutY="5.0" prefHeight="48.0" prefWidth="458.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello How are you today ?" wrappingWidth="468.6708984375">
+                                                   <font>
+                                                      <Font name="Segoe UI" size="15.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </TextFlow>
+                                          <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0" layoutY="17.0" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
+                                             <effect>
+                                                <DropShadow height="15.0" radius="7.0" width="15.0" />
+                                             </effect>
                                              <image>
                                                 <Image url="@Images/personImage1.jpg" />
                                              </image>
                                           </ImageView>
-                                          <ScrollPane hbarPolicy="NEVER" layoutX="70.0" layoutY="15.0" prefHeight="70.0" prefWidth="489.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
-                                             <content>
-                                                <VBox prefHeight="60.0" prefWidth="488.0">
-                                                   <children>
-                                                      <TextFlow prefHeight="48.0" prefWidth="458.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Well aint that a tootsie to hear" wrappingWidth="468.6708984375">
-                                                               <font>
-                                                                  <Font name="Segoe UI" size="15.0" />
-                                                               </font>
-                                                            </Text>
-                                                         </children>
-                                                      </TextFlow>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
-                                                   </padding>
-                                                </VBox>
-                                             </content>
-                                          </ScrollPane>
                                        </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="20.0" right="20.0" top="20.0" />
-                                       </padding>
-                                    </Pane>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </AnchorPane>
                                  </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <AnchorPane>
-                           <children>
-                              <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="177.0" prefWidth="649.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <Button layoutX="661.0" layoutY="73.0" mnemonicParsing="false" text="Send" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="73.0" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
+                     </center>
+                  </BorderPane>
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <Pane layoutX="-2.0" prefHeight="668.0" prefWidth="54.0" style="-fx-background-color: #292D30;" AnchorPane.leftAnchor="-2.0" />
+      <Pane layoutX="-2.0" prefHeight="668.0" prefWidth="54.0" style="-fx-background-color: #011627;" AnchorPane.leftAnchor="-2.0" />
    </children>
 </AnchorPane>
