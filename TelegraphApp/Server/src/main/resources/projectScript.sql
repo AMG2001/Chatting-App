@@ -1,5 +1,5 @@
 /* ------------------------Create All Tables------------------------------*/
-CREATE TABLE User (
+CREATE TABLE IF NOT EXISTS User (
     phone_number VARCHAR(15) PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255) UNIQUE,
@@ -8,11 +8,12 @@ CREATE TABLE User (
     country VARCHAR(100),
     gender ENUM('MALE', 'FEMALE'),
     bio TEXT,
+    status ENUM('ONLINE','OFFLINE','AWAY','BUSY'),
     picture VARCHAR(255)
 );
 
 
-CREATE TABLE Contact (
+CREATE TABLE IF NOT EXISTS Contact (
     user_phone VARCHAR(15),
     contact_phone VARCHAR(15),
     add_date DATETIME,
@@ -21,7 +22,7 @@ CREATE TABLE Contact (
     FOREIGN KEY (contact_phone) REFERENCES User(phone_number)
 );
 
-CREATE TABLE Contact_Request (
+CREATE TABLE IF NOT EXISTS Contact_Request (
     request_id INT PRIMARY KEY,
     sender_phone VARCHAR(15),
     receiver_phone VARCHAR(15),
@@ -31,28 +32,28 @@ CREATE TABLE Contact_Request (
     FOREIGN KEY (receiver_phone) REFERENCES User(phone_number)
 );
 
-CREATE TABLE Conversation (
+CREATE TABLE IF NOT EXISTS Conversation (
 	conversation_id INT PRIMARY KEY,
-    conversation_name VARCHAR(255),
     conversation_img VARCHAR(255),
     type ENUM('INDIVIDUAL','GROUP') NOT NULL
 );
 
-CREATE TABLE User_Conversation (
+CREATE TABLE IF NOT EXISTS User_Conversation (
     phone_number VARCHAR(15),
     conversation_id INT,
+    conversation_name VARCHAR(255),
     join_date DATETIME,
     PRIMARY KEY (phone_number, conversation_id),
     FOREIGN KEY (phone_number) REFERENCES User(phone_number),
     FOREIGN KEY (conversation_id) REFERENCES Conversation(conversation_id)
 );
 
-CREATE TABLE Attachment(
+CREATE TABLE IF NOT EXISTS Attachment(
 	attachment_id INT PRIMARY KEY,
     attachment_name VARCHAR(255)
 );
 
-CREATE TABLE Message (
+CREATE TABLE IF NOT EXISTS Message (
     message_id INT PRIMARY KEY,
     conversation_id INT,
     sender_phone VARCHAR(15),
@@ -64,32 +65,21 @@ CREATE TABLE Message (
     FOREIGN KEY (attachment_id) REFERENCES Attachment(attachment_id)
 );
 
-CREATE TABLE Notification(
+CREATE TABLE IF NOT EXISTS Notification(
 	notification_id INT PRIMARY KEY,
     notification_body TEXT,
     timestamp DATETIME,
-    type ENUM('ONLINE','OFFLINE','BROADCAST','UNICAST','MULTICAST')
+    type ENUM('FRIEND','REQUEST','MESSAGE','SYSTEM')
 );
 
-CREATE TABLE User_Notification(
-	recipient_id VARCHAR(15),
+CREATE TABLE IF NOT EXISTS User_Notification(
+	recipient_phone VARCHAR(15),
     notification_id INT,
-    PRIMARY KEY (recipient_id, notification_id),
-    FOREIGN KEY (recipient_id) REFERENCES User(phone_number),
+    PRIMARY KEY (recipient_phone, notification_id),
+    FOREIGN KEY (recipient_phone) REFERENCES User(phone_number),
     FOREIGN KEY (notification_id) REFERENCES Notification(notification_id)
 );
 /* -----------------------------------------------------------------------*/
-
-/*----------------------------------Drop All Tables------------------------------------*/
-DROP TABLE User_Notification;
-DROP TABLE Notification;
-DROP TABLE Message;
-DROP TABLE Attachment;
-DROP TABLE User_Conversation;
-DROP TABLE Conversation;
-DROP TABLE Contact;
-DROP TABLE Contact_Request;
-DROP TABLE User;
 /*----------------------------------------------------------------------------------------------*/
 
 /*-----------------------------------------insert some data--------------------------------------------*/
@@ -119,29 +109,29 @@ VALUES
 ('555555555', '987654321', NOW());  -- Yousef has Amgad as a contact
 
 
-INSERT INTO Conversation (conversation_id, conversation_name, conversation_img, type)
+INSERT INTO Conversation (conversation_id, conversation_img, type)
 VALUES
-(1, null, null, 'INDIVIDUAL'),
-(2, null, null, 'INDIVIDUAL'),
-(3, null, null, 'INDIVIDUAL'),
-(4, 'Team Project', 'team_project.jpg', 'GROUP');
+(1, null, 'INDIVIDUAL'),
+(2, null, 'INDIVIDUAL'),
+(3, null, 'INDIVIDUAL'),
+(4, 'team_project.jpg', 'GROUP');
 
 
-INSERT INTO User_Conversation (phone_number, conversation_id, join_date)
+INSERT INTO User_Conversation (phone_number, conversation_id, conversation_name, join_date)
 VALUES
 -- Marwan and Amgad are in a Individual conversation
-('123456789', 1, NOW()),
-('987654321', 1, NOW()),
+('123456789', 1,'Amgad', NOW()),
+('987654321', 1,'Marwan', NOW()),
 -- Marwan and Yousef are in a Individual conversation
-('123456789', 2, NOW()),
-('555555555', 2, NOW()),
+('123456789', 2,'Yousef', NOW()),
+('555555555', 2,'Marwan', NOW()),
 -- Amagd and Yousef are in a Individual conversation
-('987654321', 3, NOW()),
-('555555555', 3, NOW()),
+('987654321', 3,'Yousef', NOW()),
+('555555555', 3,'Amgad', NOW()),
 -- Marwan, Amgad and Yousef are in Group conversation
-('123456789', 4, NOW()),
-('987654321', 4, NOW()),  
-('555555555', 4, NOW());  
+('123456789', 4,'Group1', NOW()),
+('987654321', 4,'Group1', NOW()),
+('555555555', 4,'Group1', NOW());
 
 
 INSERT INTO Attachment (attachment_id, attachment_name)
@@ -163,12 +153,12 @@ VALUES
 
 INSERT INTO Notification (notification_id, notification_body, timestamp, type)
 VALUES
-(1, 'Amagd went offline', NOW(), 'OFFLINE'),
-(2, 'message from the admin', NOW(), 'BROADCAST'),
-(3, 'you have a message from Marwan', NOW(), 'UNICAST');
+(1, 'Amagd went offline', NOW(), 'FRIEND'),
+(2, 'message from the admin', NOW(), 'SYSTEM'),
+(3, 'you have a message from Marwan', NOW(), 'FRIEND');
 
 
-INSERT INTO User_Notification (recipient_id, notification_id)
+INSERT INTO User_Notification (recipient_phone, notification_id)
 VALUES
 -- Marwan and Yousef received a notification that Amagd went offline.
 ('123456789', 1),
@@ -180,3 +170,14 @@ VALUES
 -- Amagd received a notification that Marwan sent a message to him
 ('987654321', 3);
 
+/*----------------------------------Drop All Tables------------------------------------*/
+DROP TABLE User_Notification;
+DROP TABLE Notification;
+DROP TABLE Message;
+DROP TABLE Attachment;
+DROP TABLE User_Conversation;
+DROP TABLE Conversation;
+DROP TABLE Contact;
+DROP TABLE Contact_Request;
+DROP TABLE User;
+/*----------------------------------------------------------------------------------------------*/
