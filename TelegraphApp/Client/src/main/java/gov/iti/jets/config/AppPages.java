@@ -1,4 +1,4 @@
-package jets.iti.config;
+package gov.iti.jets.config;
 
 public class AppPages {
     public static String getLoginPage() {

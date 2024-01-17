@@ -10,7 +10,7 @@
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
            prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="jets.iti.Controllers.LoginPageController.LoginPageController">
+           fx:controller="gov.iti.jets.Controllers.LoginPageController.LoginPageController">
     <items>
         <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="20.0"
               style="-fx-background-color: #E5EFF8; -fx-background-image: url('LoginPage/images/left_side.png'); -fx-background-size: cover; -fx-border-image-repeat: no-repeat;">

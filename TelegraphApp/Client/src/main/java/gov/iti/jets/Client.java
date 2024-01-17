@@ -1,18 +1,18 @@
-package jets.iti;
+package gov.iti.jets;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jets.iti.config.AppPages;
+import gov.iti.jets.config.AppPages;
 
-public class Main extends Application {
+public class Client extends Application {
     FXMLLoader fxmlLoader;
     Scene scene;
 
     @Override
     public void init() throws Exception {
-        fxmlLoader = new FXMLLoader(Main.class.getResource(AppPages.getLoginPage()));
+        fxmlLoader = new FXMLLoader(getClass().getResource(AppPages.getLoginPage()));
         System.out.println("Login page loaded #");
         scene = new Scene(fxmlLoader.load());
         super.init();

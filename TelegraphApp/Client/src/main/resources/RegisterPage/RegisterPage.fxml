@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jets.iti.Controllers.RegisterPageController.RegisterPageController">
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.Controllers.RegisterPageController.RegisterPageController">
     <items>
         <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="20.0" style="-fx-background-color: #E5EFF8; -fx-background-image: url('RegisterPage/images/left_side2.png'); -fx-background-size: cover; -fx-border-image-repeat: no-repeat;">
             <children>
