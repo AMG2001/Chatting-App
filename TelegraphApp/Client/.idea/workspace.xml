@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b73f8e36-a3c2-4050-8804-442c15b26f4d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/images/add_image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gov/iti/jets/Controllers/RegisterPageController/RegisterPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gov/iti/jets/Controllers/RegisterPageController/RegisterPageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/RegisterPage/RegisterPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/RegisterPage/RegisterPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +43,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/ITI Content/15 - Automated Testing/iti-testing-course",
+    "last_opened_file_path": "C:/Users/mavic/OneDrive/Desktop/Chatting-App/TelegraphApp",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
@@ -49,12 +51,26 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mavic\OneDrive\Desktop\Chatting-App\TelegraphApp\Client\src\main\resources\assets\images" />
+      <recent name="C:\Users\mavic\OneDrive\Desktop\Chatting-App\TelegraphApp\Client\src\main\resources" />
       <recent name="C:\Users\mavic\OneDrive\Desktop\Chatting-App\TelegraphApp\Client\src\main\resources\RegisterPage\images" />
       <recent name="C:\Users\mavic\OneDrive\Desktop\Chatting-App\TelegraphApp\Client\src\main\resources\LoginPage\images" />
-      <recent name="C:\Users\mavic\OneDrive\Desktop\Chatting-App\TelegraphApp\Client\src\main\resources\assets\images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Client">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gov.iti.jets.Client" />
+      <module name="client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gov.iti.jets.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="jets.iti.Main" />
       <module name="Client" />
@@ -70,6 +86,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
