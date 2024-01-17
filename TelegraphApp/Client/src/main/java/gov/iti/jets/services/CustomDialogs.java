@@ -12,4 +12,9 @@ public class CustomDialogs {
         alert.showAndWait();
 
     }
+
+    static public void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        alert.showAndWait();
+    }
 }
