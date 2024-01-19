@@ -35,13 +35,13 @@ CREATE TABLE IF NOT EXISTS Contact_Request (
 CREATE TABLE IF NOT EXISTS Conversation (
 	conversation_id INT PRIMARY KEY,
     conversation_img VARCHAR(255),
+    conversation_name VARCHAR(255),
     type ENUM('INDIVIDUAL','GROUP') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS User_Conversation (
     phone_number VARCHAR(15),
     conversation_id INT,
-    conversation_name VARCHAR(255),
     join_date DATETIME,
     PRIMARY KEY (phone_number, conversation_id),
     FOREIGN KEY (phone_number) REFERENCES User(phone_number),
@@ -109,29 +109,29 @@ VALUES
 ('555555555', '987654321', NOW());  -- Yousef has Amgad as a contact
 
 
-INSERT INTO Conversation (conversation_id, conversation_img, type)
+INSERT INTO Conversation (conversation_id, conversation_img,conversation_name, type)
 VALUES
-(1, null, 'INDIVIDUAL'),
-(2, null, 'INDIVIDUAL'),
-(3, null, 'INDIVIDUAL'),
-(4, 'team_project.jpg', 'GROUP');
+(1, null,null, 'INDIVIDUAL'),
+(2, null,null, 'INDIVIDUAL'),
+(3, null,null, 'INDIVIDUAL'),
+(4, 'team_project.jpg','Group1' 'GROUP');
 
 
 INSERT INTO User_Conversation (phone_number, conversation_id, conversation_name, join_date)
 VALUES
 -- Marwan and Amgad are in a Individual conversation
-('123456789', 1,'Amgad', NOW()),
-('987654321', 1,'Marwan', NOW()),
+('123456789', 1, NOW()),
+('987654321', 1, NOW()),
 -- Marwan and Yousef are in a Individual conversation
-('123456789', 2,'Yousef', NOW()),
-('555555555', 2,'Marwan', NOW()),
+('123456789', 2, NOW()),
+('555555555', 2, NOW()),
 -- Amagd and Yousef are in a Individual conversation
-('987654321', 3,'Yousef', NOW()),
-('555555555', 3,'Amgad', NOW()),
+('987654321', 3, NOW()),
+('555555555', 3, NOW()),
 -- Marwan, Amgad and Yousef are in Group conversation
-('123456789', 4,'Group1', NOW()),
-('987654321', 4,'Group1', NOW()),
-('555555555', 4,'Group1', NOW());
+('123456789', 4, NOW()),
+('987654321', 4, NOW()),
+('555555555', 4, NOW());
 
 
 INSERT INTO Attachment (attachment_id, attachment_name)

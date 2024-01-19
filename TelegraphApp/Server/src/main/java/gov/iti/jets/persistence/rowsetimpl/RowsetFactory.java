@@ -13,7 +13,7 @@ import javax.sql.rowset.FilteredRowSet;
 
 public class RowsetFactory {
 
-    public static JdbcRowSet rowsetObj;
+    public static CachedRowSet userRowsetObj;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
 
     private static javax.sql.rowset.RowSetFactory rsFactory;
@@ -21,11 +21,14 @@ public class RowsetFactory {
     public static void initJDBCRowset() {
         try {
             rsFactory = RowSetProvider.newFactory();
-            rowsetObj = rsFactory.createJdbcRowSet();
-            rowsetObj.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
-            rowsetObj.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
-            rowsetObj.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
+            userRowsetObj = rsFactory.createCachedRowSet();
+            userRowsetObj.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
+            userRowsetObj.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
+            userRowsetObj.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
             System.out.println("JDBC Rowset Object Initialized ✅✅");
+            userRowsetObj.setCommand("SELECT * FROM User");
+            userRowsetObj.execute();
+            System.out.println("Users selection done ✅✅");
         } catch (SQLException e) {
             System.out.println("#################### Error while initializing JDBC Rowset Obj , class : RowsetFactory , function : initJDBCRowset");
             e.printStackTrace();
