@@ -1,17 +1,17 @@
 package gov.iti.jets.domain;
 
 public class Conversation {
-    private String conversationId;
+    private int conversationId;
     private String conversationName;
     private String type;
     private String conversationImage;
 
     // Getters and Setters
-    public String getConversationId() {
+    public int getConversationId() {
         return conversationId;
     }
 
-    public void setConversationId(String conversationId) {
+    public void setConversationId(int conversationId) {
         this.conversationId = conversationId;
     }
 
