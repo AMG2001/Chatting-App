@@ -7,8 +7,6 @@
     <list default="true" id="b73f8e36-a3c2-4050-8804-442c15b26f4d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gov/iti/jets/Controllers/RegisterPageController/RegisterPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gov/iti/jets/Controllers/RegisterPageController/RegisterPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gov/iti/jets/services/CustomDialogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gov/iti/jets/services/CustomDialogs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/RegisterPage/RegisterPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/RegisterPage/RegisterPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
