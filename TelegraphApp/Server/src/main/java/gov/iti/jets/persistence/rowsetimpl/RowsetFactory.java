@@ -13,23 +13,23 @@ import javax.sql.rowset.FilteredRowSet;
 
 public class RowsetFactory {
 
+    public static JdbcRowSet rowsetObj;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
 
     private static javax.sql.rowset.RowSetFactory rsFactory;
 
-
-    public static JdbcRowSet getJDBCRowset() {
-        JdbcRowSet jdbcRowSet = null;
+    public static void initJDBCRowset() {
         try {
             rsFactory = RowSetProvider.newFactory();
-            jdbcRowSet = rsFactory.createJdbcRowSet();
-            jdbcRowSet.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
-            jdbcRowSet.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
-            jdbcRowSet.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
+            rowsetObj = rsFactory.createJdbcRowSet();
+            rowsetObj.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
+            rowsetObj.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
+            rowsetObj.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
+            System.out.println("JDBC Rowset Object Initialized ✅✅");
         } catch (SQLException e) {
+            System.out.println("#################### Error while initializing JDBC Rowset Obj , class : RowsetFactory , function : initJDBCRowset");
             e.printStackTrace();
         }
-        return jdbcRowSet;
     }
 
     public static CachedRowSet getCachedRowset() {
@@ -83,7 +83,6 @@ public class RowsetFactory {
         try {
             rsFactory = RowSetProvider.newFactory();
             joinRowset = rsFactory.createJoinRowSet();
-
             joinRowset.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
             joinRowset.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
             joinRowset.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
