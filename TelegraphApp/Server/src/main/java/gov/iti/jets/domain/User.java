@@ -1,11 +1,13 @@
 package gov.iti.jets.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
     private String phoneNumber;
     private String name;
     private String email;
+
+    private String password;
     private String country;
     private String userStatus;
     private String gender;
@@ -13,11 +15,11 @@ public class User {
     private String imageReference;
     private Date dob;
 
-    public User(String phoneNumber, String name, String email, String country, String userStatus,
-                String gender, String bio, String imageReference, Date dob) {
+    public User(String phoneNumber, String name, String email, String password, String country, String userStatus, String gender, String bio, String imageReference, Date dob) {
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.country = country;
         this.userStatus = userStatus;
         this.gender = gender;
@@ -100,12 +102,22 @@ public class User {
         this.dob = dob;
     }
 
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "phoneNumber='" + phoneNumber + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
                 ", userStatus='" + userStatus + '\'' +
                 ", gender='" + gender + '\'' +
