@@ -1,4 +1,6 @@
-package gov.iti.jets.dao;
+package gov.iti.jets.persistence.rowsetimpl;
+
+import gov.iti.jets.persistence.PropertiesFileUtil;
 
 import java.sql.SQLException;
 import java.util.Properties;

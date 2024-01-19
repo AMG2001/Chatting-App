@@ -2,7 +2,7 @@ package gov.iti.jets.domain;
 
 import java.util.Date;
 
-public class FriendRequests {
+public class ContactRequest {
     private String requestId;
     private Date sendDate;
     private String receiverPhone;
