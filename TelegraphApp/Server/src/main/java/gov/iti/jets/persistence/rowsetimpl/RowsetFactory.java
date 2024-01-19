@@ -14,8 +14,6 @@ import javax.sql.rowset.FilteredRowSet;
 public class RowsetFactory {
 
     public static CachedRowSet userCachedRowsetObj;
-    public static CachedRowSet messageCachedRowsetObj;
-    public static CachedRowSet conversationCachedRowsetObj;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
 
     private static javax.sql.rowset.RowSetFactory rsFactory;

@@ -1,4 +1,4 @@
-package gov.iti.jets.persistence.rowsetimpl;
+package gov.iti.jets.persistence.rowsetimpl.notificationRowset;
 
 import gov.iti.jets.domain.Notification;
 import gov.iti.jets.persistence.dao.NotificationDao;
