@@ -1,6 +1,7 @@
 package gov.iti.jets.domain;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class User {
     private String phoneNumber;

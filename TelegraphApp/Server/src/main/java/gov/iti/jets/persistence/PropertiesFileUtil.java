@@ -7,36 +7,36 @@ import java.util.Properties;
 
 public class PropertiesFileUtil {
 
-    private static String DbUrl = "jdbc:mysql://localhost:3306/telegraph";
-    private static String DbUsername ="root";
+    private static String DbUrl = "jdbc:mysql://localhost:3306/telegraphdb";
+    private static String DbUsername = "root";
     private static String DbPassword = "1234";
 
-    public static Properties getPropertiesFromFile(){
+    public static Properties getPropertiesFromFile() {
 
         Properties props = new Properties();
         String currentDirectory = System.getProperty("user.dir");
-        String outputPath = currentDirectory +"\\Server\\src\\main\\resources\\PropertyFiles\\DBprop.properties";
+        String outputPath = currentDirectory + "\\Server\\src\\main\\resources\\PropertyFiles\\DBprop.properties";
         FileInputStream fis = null;
-        try{
+        try {
             fis = new FileInputStream(outputPath);
             props.load(fis);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         // Close file input stream in finally clause
-        finally
-        {
-            try{
+        finally {
+            try {
                 fis.close();
-            }
-            catch(IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return props;
 
+    }
+
+    public static String getDBURLConnection() {
+        return DbUrl;
     }
 
     public static String getDbPassword() {
