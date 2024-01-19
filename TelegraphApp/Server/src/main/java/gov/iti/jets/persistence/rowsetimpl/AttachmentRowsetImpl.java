@@ -29,7 +29,8 @@ public class AttachmentRowsetImpl implements AttachmentDao {
     }
 
     @Override
-    public void delete(Attachment entity) {
+    public void delete(Attachment entity)
+    {
 
     }
 }

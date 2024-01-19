@@ -1,5 +1,6 @@
 package gov.iti.jets.domain;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Message {
@@ -8,7 +9,7 @@ public class Message {
     private String attachmentId;
     private String conversationId;
     private String messageBody;
-    private Date timeStamp;
+    private Time timeStamp;
 
     // Getters and Setters
     public String getMessageId() {
@@ -51,11 +52,11 @@ public class Message {
         this.messageBody = messageBody;
     }
 
-    public Date getTimeStamp() {
+    public Time getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(Time timeStamp) {
         this.timeStamp = timeStamp;
     }
 }
