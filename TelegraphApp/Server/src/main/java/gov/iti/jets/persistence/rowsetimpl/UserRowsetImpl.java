@@ -16,7 +16,7 @@ public class UserRowsetImpl implements UserDao {
                 " (?,?,?,?,?,?,?,?,?)";
 
         try{
-            JdbcRowSet rowset = RowsetFactory.getJDBCRowset();
+            JdbcRowSet rowset = RowsetFactory.rowsetObj;
             rowset.setCommand(insertStatement);
 
             rowset.setString(1,entity.getPhoneNumber());

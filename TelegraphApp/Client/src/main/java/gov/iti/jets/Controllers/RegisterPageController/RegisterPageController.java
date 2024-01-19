@@ -85,11 +85,12 @@ public class RegisterPageController {
          * 2- check if the length of password is 8 or higher . ✅
          * 3. Check if the name entered or not . ✅
          * 4- if email is entered correctly or not . ✅
-         * 5- Check if the Country Entered or not .
+         * 5- Check if the Country Entered or not . ✅
          */
         boolean isValid = true;
         // ************************* Phone Number Checking *****************************
         if (tf_phone.getLength() == 11) {
+            isValid = true;
             char[] phoneInCharArray = tf_phone.getText().toCharArray();
             for (char digit : phoneInCharArray) {
                 if (!Character.isDigit(digit)) {
@@ -100,18 +101,24 @@ public class RegisterPageController {
             }
             // ************************* Password Checking *****************************
             if (isValid && tf_password.getText().length() >= 8) {
+                isValid = true;
                 // ************************* Name Checking *****************************
                 if (tf_name.getText().length() > 3) {
+                    isValid = true;
                     // ************************* Email Format Checking *****************************
                     if (isValidEmail(tf_email.getText())) {
+                        isValid = true;
                         // ************************* Country Format Checking *****************************
                         if (tf_country.getText().length() > 4) {
+                            isValid = true;
                             // ************************* Check if the gender choosen or not *************************
                             if (gender.getSelectedToggle() != null) {
+                                isValid = true;
                                 // TODO implement Registering Functionality .
                                 System.out.println(gender.getSelectedToggle().selectedProperty().getName());
                             } else {
                                 CustomDialogs.showErrorDialog("Gender is not choosen !!");
+                                isValid = false;
                             }
                         } else if (tf_country.getText().length() == 0) {
                             isValid = false;
