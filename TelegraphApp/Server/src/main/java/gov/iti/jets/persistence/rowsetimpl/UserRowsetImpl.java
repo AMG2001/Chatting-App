@@ -28,8 +28,8 @@ public class UserRowsetImpl implements UserDao {
                 entity.getImageReference(),
                 entity.getDob());
         try {
-            CachedRowSet rowset = RowsetFactory.userRowsetObj;
-            RowsetFactory.userRowsetObj.moveToInsertRow();
+            CachedRowSet rowset = RowsetFactory.userCachedRowsetObj;
+            RowsetFactory.userCachedRowsetObj.moveToInsertRow();
             rowset.updateString(1, entity.getPhoneNumber());
             rowset.updateString(2, entity.getName());
             rowset.updateString(3, entity.getEmail());

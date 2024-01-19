@@ -13,7 +13,9 @@ import javax.sql.rowset.FilteredRowSet;
 
 public class RowsetFactory {
 
-    public static CachedRowSet userRowsetObj;
+    public static CachedRowSet userCachedRowsetObj;
+    public static CachedRowSet messageCachedRowsetObj;
+    public static CachedRowSet conversationCachedRowsetObj;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
 
     private static javax.sql.rowset.RowSetFactory rsFactory;
@@ -21,13 +23,13 @@ public class RowsetFactory {
     public static void initJDBCRowset() {
         try {
             rsFactory = RowSetProvider.newFactory();
-            userRowsetObj = rsFactory.createCachedRowSet();
-            userRowsetObj.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
-            userRowsetObj.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
-            userRowsetObj.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
+            userCachedRowsetObj = rsFactory.createCachedRowSet();
+            userCachedRowsetObj.setUrl(prop.getProperty(PropertiesFileUtil.getDbUrl()));
+            userCachedRowsetObj.setUsername(prop.getProperty(PropertiesFileUtil.getDbUsername()));
+            userCachedRowsetObj.setPassword(prop.getProperty(PropertiesFileUtil.getDbPassword()));
             System.out.println("JDBC Rowset Object Initialized ✅✅");
-            userRowsetObj.setCommand("SELECT * FROM User");
-            userRowsetObj.execute();
+            userCachedRowsetObj.setCommand("SELECT * FROM User");
+            userCachedRowsetObj.execute();
             System.out.println("Users selection done ✅✅");
         } catch (SQLException e) {
             System.out.println("#################### Error while initializing JDBC Rowset Obj , class : RowsetFactory , function : initJDBCRowset");
