@@ -1,31 +1,30 @@
-package gov.iti.jets.persistence.rowsetimpl.notificationRowset;
+package gov.iti.jets.persistence.rowsetimpl.conversationRowset;
 
 import gov.iti.jets.persistence.PropertiesFileUtil;
 import gov.iti.jets.persistence.dao.ICacheRowsetFactory;
-
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class NotificationCacheCacheRowset implements ICacheRowsetFactory {
+public class ConversationCacheRowset implements ICacheRowsetFactory {
 
     public CachedRowSet getCacheRowsetObj() {
         return conversationCacheRowset;
     }
 
     private static CachedRowSet conversationCacheRowset;
-    private static NotificationCacheCacheRowset INSTANCE;
+    private static ConversationCacheRowset INSTANCE;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
     private static javax.sql.rowset.RowSetFactory rsFactory;
 
-    private NotificationCacheCacheRowset() {
+    private ConversationCacheRowset() {
 
     }
 
-    public static NotificationCacheCacheRowset getInstance() {
+    public static ConversationCacheRowset getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new NotificationCacheCacheRowset();
+            INSTANCE = new ConversationCacheRowset();
         }
         return INSTANCE;
     }

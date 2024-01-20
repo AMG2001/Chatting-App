@@ -1,4 +1,4 @@
-package gov.iti.jets.persistence.rowsetimpl.attachmentRowset;
+package gov.iti.jets.persistence.rowsetimpl.notificationRowset;
 
 import gov.iti.jets.persistence.PropertiesFileUtil;
 import gov.iti.jets.persistence.dao.ICacheRowsetFactory;
@@ -8,23 +8,24 @@ import javax.sql.rowset.RowSetProvider;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class AttachmentCacheCacheRowset implements ICacheRowsetFactory {
+public class NotificationCacheRowset implements ICacheRowsetFactory {
+
     public CachedRowSet getCacheRowsetObj() {
         return conversationCacheRowset;
     }
 
     private static CachedRowSet conversationCacheRowset;
-    private static AttachmentCacheCacheRowset INSTANCE;
+    private static NotificationCacheRowset INSTANCE;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
     private static javax.sql.rowset.RowSetFactory rsFactory;
 
-    private AttachmentCacheCacheRowset() {
+    private NotificationCacheRowset() {
 
     }
 
-    public static AttachmentCacheCacheRowset getInstance() {
+    public static NotificationCacheRowset getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new AttachmentCacheCacheRowset();
+            INSTANCE = new NotificationCacheRowset();
         }
         return INSTANCE;
     }
