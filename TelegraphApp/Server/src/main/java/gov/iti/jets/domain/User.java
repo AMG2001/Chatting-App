@@ -16,6 +16,9 @@ public class User {
     private String imageReference;
     private Date dob;
 
+    public User() {
+
+    }
     public User(String phoneNumber, String name, String email, String password, String country, String userStatus, String gender, String bio, String imageReference, Date dob) {
         this.phoneNumber = phoneNumber;
         this.name = name;

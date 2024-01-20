@@ -11,6 +11,15 @@ public class Message {
     private String messageBody;
     private Time timeStamp;
 
+    public Message(String messageId, String senderPhone, String attachmentId, String conversationId, String messageBody, Date timeStamp) {
+        this.messageId = messageId;
+        this.senderPhone = senderPhone;
+        this.attachmentId = attachmentId;
+        this.conversationId = conversationId;
+        this.messageBody = messageBody;
+        this.timeStamp = timeStamp;
+    }
+
     // Getters and Setters
     public int getMessageId() {
         return messageId;
