@@ -1,7 +1,8 @@
-package gov.iti.jets.persistence.rowsetimpl;
+package gov.iti.jets.persistence.rowsetimpl.messageRowset;
 
 import gov.iti.jets.domain.Message;
 import gov.iti.jets.persistence.dao.MessageDao;
+import gov.iti.jets.persistence.rowsetimpl.RowsetFactory;
 import gov.iti.jets.services.database.LocalDatabaseServices;
 
 import javax.sql.rowset.CachedRowSet;
