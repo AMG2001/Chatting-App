@@ -2,7 +2,7 @@ package gov.iti.jets.persistence.rowsetimpl.messageRowset;
 
 import gov.iti.jets.persistence.PropertiesFileUtil;
 import gov.iti.jets.persistence.dao.ICacheRowsetFactory;
-import gov.iti.jets.persistence.rowsetimpl.conversationRowset.ConversationCacheCacheRowset;
+
 
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
