@@ -19,8 +19,8 @@ public class ConversationRowsetImpl implements ConversationDao {
     @Override
     public void add(Conversation entity) {
         try {
-            CachedRowSet rowset = ConversationCacheCacheRowset.getInstance().getCacheRowsetObj();
-            RowsetFactory.userCachedRowsetObj.moveToInsertRow();
+            CachedRowSet rowset = ConversationCacheRowset.getInstance().getCacheRowsetObj();
+            rowset.moveToInsertRow();
             rowset.updateInt(1, entity.getConversationId());
             rowset.updateString(2, entity.getConversationImage());
             rowset.updateString(3, entity.getType());

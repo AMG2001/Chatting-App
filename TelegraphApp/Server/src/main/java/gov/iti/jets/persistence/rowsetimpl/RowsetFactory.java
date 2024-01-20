@@ -12,12 +12,9 @@ import javax.sql.rowset.JoinRowSet;
 import javax.sql.rowset.FilteredRowSet;
 
 public class RowsetFactory {
-
     public static CachedRowSet userCachedRowsetObj;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
-
     private static javax.sql.rowset.RowSetFactory rsFactory;
-
     public static void initJDBCRowset() {
         try {
             rsFactory = RowSetProvider.newFactory();

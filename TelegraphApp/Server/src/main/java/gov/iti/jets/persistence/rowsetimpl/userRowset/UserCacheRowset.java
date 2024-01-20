@@ -21,7 +21,6 @@ public class UserCacheRowset implements ICacheRowsetFactory {
     private UserCacheRowset() {
 
     }
-
     public static UserCacheRowset getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new UserCacheRowset();
