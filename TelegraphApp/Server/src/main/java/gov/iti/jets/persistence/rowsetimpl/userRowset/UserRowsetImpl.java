@@ -94,21 +94,21 @@ public class UserRowsetImpl implements UserDao {
         try {
             rowset = UserCacheRowset.getInstance().getUserCacheRowset();
             rowset.absolute(rowset.findColumn("phoneNumber"));
-            while (rowset.next()) {
-                if (entity.getPhoneNumber().equals(rowset.getString("phoneNumber"))) {
-                    rowset.updateString(1, entity.getPhoneNumber());
-                    rowset.updateString(2, entity.getName());
-                    rowset.updateString(3, entity.getEmail());
-                    rowset.updateString(4, entity.getPassword());
-                    rowset.updateDate(5, entity.getDob());
-                    rowset.updateString(6, entity.getCountry());
-                    rowset.updateString(7, entity.getGender());
-                    rowset.updateString(8, entity.getBio());
-                    rowset.updateString(9, entity.getUserStatus());
-                    rowset.updateString(10, entity.getImageReference());
-                    rowset.updateRow();
-                    break;
-                }
+                while (rowset.next()) {
+                    if (entity.getPhoneNumber().equals(rowset.getString("phoneNumber"))) {
+                        rowset.updateString(1, entity.getPhoneNumber());
+                        rowset.updateString(2, entity.getName());
+                        rowset.updateString(3, entity.getEmail());
+                        rowset.updateString(4, entity.getPassword());
+                        rowset.updateDate(5, entity.getDob());
+                        rowset.updateString(6, entity.getCountry());
+                        rowset.updateString(7, entity.getGender());
+                        rowset.updateString(8, entity.getBio());
+                        rowset.updateString(9, entity.getUserStatus());
+                        rowset.updateString(10, entity.getImageReference());
+                        rowset.updateRow();
+                        break;
+                    }
             }
             rowset.acceptChanges(LocalDatabaseServices.getConnectionObj());
         } catch (SQLException e) {

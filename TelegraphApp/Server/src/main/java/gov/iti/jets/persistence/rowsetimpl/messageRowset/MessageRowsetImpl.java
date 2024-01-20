@@ -4,6 +4,7 @@ import gov.iti.jets.domain.Message;
 import gov.iti.jets.persistence.dao.MessageDao;
 import gov.iti.jets.persistence.rowsetimpl.RowsetFactory;
 import gov.iti.jets.persistence.rowsetimpl.conversationRowset.ConversationCacheRowset;
+import gov.iti.jets.persistence.rowsetimpl.userRowset.UserCacheRowset;
 import gov.iti.jets.services.database.LocalDatabaseServices;
 
 import javax.sql.rowset.CachedRowSet;
@@ -56,6 +57,7 @@ public class MessageRowsetImpl implements MessageDao {
             }catch(SQLException e)
             {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
             return list;
     }
@@ -64,12 +66,44 @@ public class MessageRowsetImpl implements MessageDao {
     public void update(Message entity)
     {
         CachedRowSet rowset = MessageCacheRowset.getInstance().getCacheRowsetObj();
-        rowset.absolute(entity.getRow);
+        try {
+            rowset.absolute(rowset.findColumn("message_id"));
+            while (rowset.next()) {
+                if (entity.getMessageId() == rowset.getInt("message_id")) {
+                    rowset.updateInt(1, entity.getMessageId());
+                    rowset.updateInt(2, entity.getConversationId());
+                    rowset.updateString(3, entity.getSenderPhone());
+                    rowset.updateInt(4, entity.getAttachmentId());
+                    rowset.updateString(5, entity.getMessageBody());
+                    rowset.updateTime(6, entity.getTimeStamp());
+                    rowset.updateRow();
+                    break;
+                }
+            }
+        }catch(SQLException e)
+            {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+            }
 
     }
 
     @Override
     public void delete(Message message) {
+        try {
+            CachedRowSet rowset = MessageCacheRowset.getInstance().getCacheRowsetObj();
+            rowset.absolute(rowset.findColumn("message_id"));
+            while (rowset.next()) {
+                if (message.getMessageId()== rowset.getInt("message_id")) {
+                    rowset.deleteRow();
+                    break;
+                }
+            }
+            rowset.acceptChanges(LocalDatabaseServices.getConnectionObj());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
 
     }
 

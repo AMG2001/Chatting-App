@@ -10,8 +10,11 @@ public class Message {
     private int conversationId;
     private String messageBody;
     private Time timeStamp;
+    public Message(){
 
-    public Message(String messageId, String senderPhone, String attachmentId, String conversationId, String messageBody, Date timeStamp) {
+    }
+
+    public Message(int messageId, String senderPhone, int attachmentId, int conversationId, String messageBody, Time timeStamp) {
         this.messageId = messageId;
         this.senderPhone = senderPhone;
         this.attachmentId = attachmentId;
