@@ -1,21 +1,34 @@
 package gov.iti.jets.domain;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Message {
-    private String messageId;
+    private int messageId;
     private String senderPhone;
-    private String attachmentId;
-    private String conversationId;
+    private int attachmentId;
+    private int conversationId;
     private String messageBody;
-    private Date timeStamp;
+    private Time timeStamp;
+    public Message(){
+
+    }
+
+    public Message(int messageId, String senderPhone, int attachmentId, int conversationId, String messageBody, Time timeStamp) {
+        this.messageId = messageId;
+        this.senderPhone = senderPhone;
+        this.attachmentId = attachmentId;
+        this.conversationId = conversationId;
+        this.messageBody = messageBody;
+        this.timeStamp = timeStamp;
+    }
 
     // Getters and Setters
-    public String getMessageId() {
+    public int getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(String messageId) {
+    public void setMessageId(int messageId) {
         this.messageId = messageId;
     }
 
@@ -27,19 +40,19 @@ public class Message {
         this.senderPhone = senderPhone;
     }
 
-    public String getAttachmentId() {
+    public int getAttachmentId() {
         return attachmentId;
     }
 
-    public void setAttachmentId(String attachmentId) {
+    public void setAttachmentId(int attachmentId) {
         this.attachmentId = attachmentId;
     }
 
-    public String getConversationId() {
+    public int getConversationId() {
         return conversationId;
     }
 
-    public void setConversationId(String conversationId) {
+    public void setConversationId(int conversationId) {
         this.conversationId = conversationId;
     }
 
@@ -51,11 +64,11 @@ public class Message {
         this.messageBody = messageBody;
     }
 
-    public Date getTimeStamp() {
+    public Time getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(Time timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

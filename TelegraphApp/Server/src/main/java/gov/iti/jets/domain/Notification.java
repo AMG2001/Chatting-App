@@ -1,11 +1,23 @@
 package gov.iti.jets.domain;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Notification {
     private String notificationId;
     private String type;
-    private Date timeStamp;
+    private Time timeStamp;
+
+    private String body;
+
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 
     // Getters and Setters
     public String getNotificationId() {
@@ -24,11 +36,11 @@ public class Notification {
         this.type = type;
     }
 
-    public Date getTimeStamp() {
+    public Time getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(Time timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

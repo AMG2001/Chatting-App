@@ -1,4 +1,4 @@
-package gov.iti.jets.persistence.rowsetimpl;
+package gov.iti.jets.persistence.rowsetimpl.attachmentRowset;
 
 import gov.iti.jets.domain.Attachment;
 import gov.iti.jets.persistence.dao.AttachmentDao;
@@ -29,7 +29,8 @@ public class AttachmentRowsetImpl implements AttachmentDao {
     }
 
     @Override
-    public void delete(Attachment entity) {
+    public void delete(Attachment entity)
+    {
 
     }
 }

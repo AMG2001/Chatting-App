@@ -114,7 +114,7 @@ VALUES
 (1, null,null, 'INDIVIDUAL'),
 (2, null,null, 'INDIVIDUAL'),
 (3, null,null, 'INDIVIDUAL'),
-(4, 'team_project.jpg','Group1' 'GROUP');
+(4, 'team_project.jpg','Group1','GROUP');
 
 
 INSERT INTO User_Conversation (phone_number, conversation_id, conversation_name, join_date)
