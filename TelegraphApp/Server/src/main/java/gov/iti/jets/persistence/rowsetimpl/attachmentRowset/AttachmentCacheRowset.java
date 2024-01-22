@@ -12,23 +12,19 @@ public class AttachmentCacheRowset implements ICacheRowsetFactory {
     public CachedRowSet getCacheRowsetObj() {
         return conversationCacheRowset;
     }
-
     private static CachedRowSet conversationCacheRowset;
     private static AttachmentCacheRowset INSTANCE;
     private static Properties prop = PropertiesFileUtil.getPropertiesFromFile();
     private static javax.sql.rowset.RowSetFactory rsFactory;
-
     private AttachmentCacheRowset() {
 
     }
-
     public static AttachmentCacheRowset getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new AttachmentCacheRowset();
         }
         return INSTANCE;
     }
-
     @Override
     public void initRowsetObj(String tableName) {
         try {
