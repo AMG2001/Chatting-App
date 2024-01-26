@@ -1,4 +1,4 @@
-package gov.iti.jets.persistence.rowsetimpl.attachmentRowset;
+package gov.iti.jets.persistence.rowsetimpl;
 
 import gov.iti.jets.domain.Attachment;
 import gov.iti.jets.persistence.dao.AttachmentDao;

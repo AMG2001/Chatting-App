@@ -1,8 +1,9 @@
-package gov.iti.jets.persistence.rowsetimpl.notificationRowset;
+package gov.iti.jets.persistence.rowsetimpl;
 
 import gov.iti.jets.domain.Notification;
 import gov.iti.jets.persistence.dao.NotificationDao;
 import gov.iti.jets.persistence.rowsetimpl.RowsetFactory;
+import gov.iti.jets.persistence.rowsetimpl.notificationRowset.NotificationCacheRowset;
 import gov.iti.jets.persistence.rowsetimpl.userRowset.UserCacheRowset;
 import gov.iti.jets.services.database.LocalDatabaseServices;
 
