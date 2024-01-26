@@ -37,8 +37,8 @@ The application consists of a Client & Server component implemented using java. 
 
 ## Technologies ⚙️
 
-- Java Azul v 17 |  Java 21
+- Java Azul v 17
 - Java RMI “Remote Method Invocation”
-- ORACLE Database
-- JDBC
-- JavaFX & Scene Builder
+- MySql Database - My Sql Workbench CE 8 .
+- JDBC - Rowsets .
+- JavaFX & Scene Builder + MaterailFX Libs .
