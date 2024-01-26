@@ -1,9 +1,10 @@
-package gov.iti.jets.persistence.rowsetimpl.messageRowset;
+package gov.iti.jets.persistence.rowsetimpl;
 
 import gov.iti.jets.domain.Message;
 import gov.iti.jets.persistence.dao.MessageDao;
 import gov.iti.jets.persistence.rowsetimpl.RowsetFactory;
 import gov.iti.jets.persistence.rowsetimpl.conversationRowset.ConversationCacheRowset;
+import gov.iti.jets.persistence.rowsetimpl.messageRowset.MessageCacheRowset;
 import gov.iti.jets.persistence.rowsetimpl.userRowset.UserCacheRowset;
 import gov.iti.jets.services.database.LocalDatabaseServices;
 
@@ -18,7 +19,7 @@ public class MessageRowsetImpl implements MessageDao {
     @Override
     public void add(Message entity)
     {try {
-        CachedRowSet rowset = MessageCacheRowset.getInstance().getCacheRowsetObj();
+        CachedRowSet rowset = gov.iti.jets.persistence.rowsetimpl.messageRowset.MessageCacheRowset.getInstance().getCacheRowsetObj();
         rowset.moveToInsertRow();
         rowset.updateInt(1, entity.getMessageId());
         rowset.updateInt(2, entity.getConversationId());
@@ -41,7 +42,7 @@ public class MessageRowsetImpl implements MessageDao {
     public List<Message> getAll()
     {
             List<Message> list = new ArrayList<Message>();
-            CachedRowSet rowset = MessageCacheRowset.getInstance().getCacheRowsetObj();
+            CachedRowSet rowset = gov.iti.jets.persistence.rowsetimpl.messageRowset.MessageCacheRowset.getInstance().getCacheRowsetObj();
             try {
                 rowset.beforeFirst();
                 while (rowset.next()) {
@@ -65,7 +66,7 @@ public class MessageRowsetImpl implements MessageDao {
     @Override
     public void update(Message entity)
     {
-        CachedRowSet rowset = MessageCacheRowset.getInstance().getCacheRowsetObj();
+        CachedRowSet rowset = gov.iti.jets.persistence.rowsetimpl.messageRowset.MessageCacheRowset.getInstance().getCacheRowsetObj();
         try {
             rowset.absolute(rowset.findColumn("message_id"));
             while (rowset.next()) {

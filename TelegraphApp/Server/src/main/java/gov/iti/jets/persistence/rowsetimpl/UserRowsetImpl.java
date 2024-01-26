@@ -1,4 +1,4 @@
-package gov.iti.jets.persistence.rowsetimpl.userRowset;
+package gov.iti.jets.persistence.rowsetimpl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import java.util.List;
 import gov.iti.jets.persistence.dao.UserDao;
 import gov.iti.jets.domain.User;
 import gov.iti.jets.persistence.rowsetimpl.RowsetFactory;
+import gov.iti.jets.persistence.rowsetimpl.userRowset.UserCacheRowset;
 import gov.iti.jets.services.database.LocalDatabaseServices;
 
 import javax.sql.RowSet;
