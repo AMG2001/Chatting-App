@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -89,6 +90,12 @@
                                     </font>
                                 </Label>
                                 <TextField fx:id="tf_country" layoutX="20.0" layoutY="264.0" minHeight="30.0" minWidth="280.0" promptText="Enter your country here" />
+                        <Label layoutX="20.0" layoutY="306.0" text="Date of Birth">
+                           <font>
+                              <Font name="Segoe UI Semibold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePicker" minHeight="-Infinity" minWidth="-Infinity" promptText="choose date" />
                                 <Label layoutX="20.0" layoutY="236.0" text="Bio">
                                     <font>
                                         <Font name="Segoe UI Semibold Italic" size="15.0" />

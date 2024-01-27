@@ -1,7 +1,9 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
+import gov.iti.jets.domain.User;
 import gov.iti.jets.services.CustomDialogs;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -53,6 +55,8 @@ public class RegisterPageController {
 
     @FXML
     private TextField tf_phone;
+    @FXML
+    private DatePicker datePicker;
 
     private boolean isGenderChoosen = false;
 
@@ -111,15 +115,22 @@ public class RegisterPageController {
                         // ************************* Country Format Checking *****************************
                         if (tf_country.getText().length() > 4) {
                             isValid = true;
-                            // ************************* Check if the gender choosen or not *************************
-                            if (gender.getSelectedToggle() != null) {
-                                isValid = true;
-                                // TODO implement Registering Functionality .
-                                System.out.println(gender.getSelectedToggle().selectedProperty().getName());
-                            } else {
-                                CustomDialogs.showErrorDialog("Gender is not choosen !!");
-                                isValid = false;
-                            }
+//                            if (datePicker.) {
+//                                CustomDialogs.showErrorDialog("You can't leave Date of Birth Field Empty");
+//                                isValid = false;
+//                            } else {
+//                                // ************************* Check if the gender choosen or not *************************
+//                                if (gender.getSelectedToggle() != null) {
+//                                    isValid = true;
+//                                    User user = new User(tf_phone.getText(), tf_name.getText().trim(), tf_email.getText().trim(), tf_password.getText().trim(), tf_country.getText().trim(), "Online", gender.getSelectedToggle().toString(), ta_bio.getText().trim(), "ImageRef", getDate());
+//                                    System.out.println("User data filled successfully ##");
+//                                    // TODO implement Registering Functionality .
+//                                    System.out.println(gender.getSelectedToggle().selectedProperty().getName());
+//                                } else {
+//                                    CustomDialogs.showErrorDialog("Gender is not choosen !!");
+//                                    isValid = false;
+//                                }
+//                            }
                         } else if (tf_country.getText().length() == 0) {
                             isValid = false;
                             CustomDialogs.showErrorDialog("You can't leave Country Field Empty !!");
@@ -138,7 +149,6 @@ public class RegisterPageController {
                     isValid = false;
                     CustomDialogs.showErrorDialog("This is not valid Name");
                 }
-
             } else {
                 isValid = false;
                 CustomDialogs.showErrorDialog("Password must be 8 Character or Higher !!");
@@ -148,6 +158,14 @@ public class RegisterPageController {
             CustomDialogs.showErrorDialog("This is Not valid Phone Number !!");
         }
     }
+
+//    private Date getDate() {
+//        String dobStr = ta_dob.getText();
+//        SimpleDateFormat format = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
+//        Date dob = format.parse(dobStr);
+//        java.sql.Date sqlDate = new java.sql.Date(dob.getTime());
+//        return dobSqlDate;
+//    }
 
     @FXML
     public void gotoLogin(ActionEvent actionEvent) {
