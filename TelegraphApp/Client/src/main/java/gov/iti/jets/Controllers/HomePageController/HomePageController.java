@@ -6,20 +6,33 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-
-import java.io.IOException;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 public class HomePageController {
+
+    @FXML
+    private ImageView homepageOption;
+
+    @FXML
+    private ImageView logoutOption;
+
     @FXML
     private ListView<ContactCardDataModel> lv_offlineContacts;
 
     @FXML
     private ListView<ContactCardDataModel> lv_onlineContacts;
+
+    @FXML
+    private ImageView notificationsOption;
+
+    @FXML
+    private ImageView profileOption;
+
 
     private ObservableList<ContactCardDataModel> onlineContactsList = FXCollections.observableArrayList();
 
@@ -35,6 +48,27 @@ public class HomePageController {
         changeListViewCell();
         // to add action for each item in listview .
         setListViewItemsAction();
+        // init leftSide Bar Actions.
+        setLeftSideBarActions();
+    }
+
+
+    private void setLeftSideBarActions() {
+        homepageOption.setOnMouseClicked(event -> {
+            System.out.println("Home Page Option Clicked ##");
+        });
+
+        logoutOption.setOnMouseClicked(event -> {
+            System.out.println("logoutOption Clicked ##");
+        });
+
+        notificationsOption.setOnMouseClicked(event -> {
+            System.out.println("notificationsOption Clicked ##");
+        });
+
+        profileOption.setOnMouseClicked(event -> {
+            System.out.println("profileOption Clicked ##");
+        });
     }
 
     private void changeListViewCell() {
@@ -82,9 +116,9 @@ public class HomePageController {
     private void setListViewItemsAction() {
         lv_onlineContacts.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                System.out.println(newVal.getController().getContactName());
-                // Use properties or methods of ContactCardDataModel to get the values
-//                CustomDialogs.showInformativeDialog("Online contact clicked: " + contactCardDataModel.getText_contactName());
+                // TODO implement open Contact Chat Functionallity .
+                ContactCardDataModel contactCardObj = newVal.getController();
+                CustomDialogs.showInformativeDialog("Online contact clicked: " + contactCardObj.getContactName());
             }
         });
     }
