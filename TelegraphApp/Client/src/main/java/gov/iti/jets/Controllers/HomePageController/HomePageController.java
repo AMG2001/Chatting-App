@@ -18,14 +18,12 @@ public class HomePageController {
 
     private ObservableList<ContactCardDataModel> onlineContactsList = FXCollections.observableArrayList();
 
-    private ObservableList<ContactCardDataModel> offlineContacts = FXCollections.observableArrayList();
+    private ObservableList<ContactCardDataModel> offlineContactsList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         initListViewsBindings();
-        System.out.println("List view binding");
         loadOnlineContacts();
-        System.out.println("Online contacts loaded");
         changeListViewCell();
     }
 
@@ -35,10 +33,22 @@ public class HomePageController {
             protected void updateItem(ContactCardDataModel contactCardDataModel, boolean empty) {
                 super.updateItem(contactCardDataModel, empty);
                 if (empty || contactCardDataModel == null) {
-                    setGraphic(null);
+//                    setGraphic(null);
                 } else {
-                    ContactCardDataModel contactCardObj = new ContactCardDataModel().setComponentAttribute("Amgad", "Amgad Contact Bio", new Image("/assets/images/add_image.png"));
-                    setGraphic(contactCardObj.getLoader());
+                    setGraphic(contactCardDataModel.getLoader());
+                    System.out.println("online listview graphic changed ..");
+                }
+            }
+        });
+        lv_offlineContacts.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(ContactCardDataModel contactCardDataModel, boolean empty) {
+                super.updateItem(contactCardDataModel, empty);
+                if (empty || contactCardDataModel == null) {
+//                    setGraphic(null);
+                } else {
+                    setGraphic(contactCardDataModel.getLoader());
+                    System.out.println("online listview graphic changed ..");
                 }
             }
         });
@@ -48,12 +58,19 @@ public class HomePageController {
 
     private void initListViewsBindings() {
         lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(onlineContactsList));
+        lv_offlineContacts.itemsProperty().bind(new SimpleListProperty<>(offlineContactsList));
     }
 
     private void loadOnlineContacts() {
-        ContactCardDataModel contactCardObj = new ContactCardDataModel();
-        contactCardObj.setComponentAttribute("Amgad", "Bio", new Image("/assets/images/add_image.png"));
-        onlineContactsList.add(contactCardObj);
+        for (int i = 0; i < 10; i++) {
+            ContactCardDataModel contactCardObjOnline = new ContactCardDataModel();
+            contactCardObjOnline.setComponentAttribute("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
+            onlineContactsList.add(contactCardObjOnline);
+
+            ContactCardDataModel contactCardObjOffline = new ContactCardDataModel();
+            contactCardObjOffline.setComponentAttribute("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
+            offlineContactsList.add(contactCardObjOffline);
+        }
         System.out.println("Contact added to online contacts ");
     }
 }

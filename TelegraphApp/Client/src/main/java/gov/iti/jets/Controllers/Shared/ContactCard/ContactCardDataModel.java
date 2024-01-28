@@ -31,17 +31,20 @@ public class ContactCardDataModel {
     }
 
     public ContactCardDataModel setComponentAttribute(String name, String bio, Image image) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Shared/ContactCard.fxml"));
-            loader = fxmlLoader.load();
-            controller = fxmlLoader.getController();
-            controller.text_contactName.setText(name);
-            controller.text_contactBio.setText(bio);
-            controller.img_contact.setImage(image);
-            return controller;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+        if (loader == null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Shared/ContactCard.fxml"));
+                loader = fxmlLoader.load();
+                controller = fxmlLoader.getController();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
         }
+        controller.text_contactName.setText(name);
+        controller.text_contactBio.setText(bio);
+        controller.img_contact.setImage(image);
+        return controller;
     }
+
 }
