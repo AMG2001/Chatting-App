@@ -1,13 +1,18 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
+import gov.iti.jets.services.CustomDialogs;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+
+import java.io.IOException;
 
 public class HomePageController {
     @FXML
@@ -22,37 +27,39 @@ public class HomePageController {
 
     @FXML
     public void initialize() {
+        // to make listviews streamed with contacts list ObservableArrayList .
         initListViewsBindings();
+        // TODO : load online contacts from database .
         loadOnlineContacts();
+        // To change the shape of contact card .
         changeListViewCell();
+        // to add action for each item in listview .
+        setListViewItemsAction();
     }
 
     private void changeListViewCell() {
-        lv_onlineContacts.setCellFactory(param -> new ListCell<>() {
+        lv_onlineContacts.setCellFactory(param -> new ListCell<ContactCardDataModel>() {
             @Override
             protected void updateItem(ContactCardDataModel contactCardDataModel, boolean empty) {
                 super.updateItem(contactCardDataModel, empty);
                 if (empty || contactCardDataModel == null) {
-//                    setGraphic(null);
+                    setGraphic(null);
                 } else {
-                    setGraphic(contactCardDataModel.getLoader());
-                    System.out.println("online listview graphic changed ..");
+                    setGraphic(contactCardDataModel.getLayout());
                 }
             }
         });
-        lv_offlineContacts.setCellFactory(param -> new ListCell<>() {
+        lv_offlineContacts.setCellFactory(param -> new ListCell<ContactCardDataModel>() {
             @Override
             protected void updateItem(ContactCardDataModel contactCardDataModel, boolean empty) {
                 super.updateItem(contactCardDataModel, empty);
                 if (empty || contactCardDataModel == null) {
-//                    setGraphic(null);
+                    setGraphic(null);
                 } else {
-                    setGraphic(contactCardDataModel.getLoader());
-                    System.out.println("online listview graphic changed ..");
+                    setGraphic(contactCardDataModel.getLayout());
                 }
             }
         });
-        System.out.println("Onlie listview cell changed");
     }
 
 
@@ -62,15 +69,25 @@ public class HomePageController {
     }
 
     private void loadOnlineContacts() {
+        System.out.println("Data Loaded ##");
         for (int i = 0; i < 10; i++) {
-            ContactCardDataModel contactCardObjOnline = new ContactCardDataModel();
-            contactCardObjOnline.setComponentAttribute("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
+            ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
             onlineContactsList.add(contactCardObjOnline);
-
-            ContactCardDataModel contactCardObjOffline = new ContactCardDataModel();
-            contactCardObjOffline.setComponentAttribute("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
+            ContactCardDataModel contactCardObjOffline = new ContactCardDataModel("Offline Contact " + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
             offlineContactsList.add(contactCardObjOffline);
         }
         System.out.println("Contact added to online contacts ");
     }
+
+    private void setListViewItemsAction() {
+        lv_onlineContacts.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                System.out.println(newVal.getController().getContactName());
+                // Use properties or methods of ContactCardDataModel to get the values
+//                CustomDialogs.showInformativeDialog("Online contact clicked: " + contactCardDataModel.getText_contactName());
+            }
+        });
+    }
+
+
 }

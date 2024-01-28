@@ -12,4 +12,8 @@ public class AppPages {
     public static String getHomePage() {
         return "/Dashboard/User_Dashboard.fxml";
     }
+
+    public static String getUpdateInfoPage() {
+        return "/UpdateInfo/UpdateInfoPage.fxml";
+    }
 }
