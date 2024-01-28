@@ -1,9 +1,8 @@
 package SharedInterfaces;
 
-import SharedClasses.UserDataModel;
+import DTO.UserDataModel;
 
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 
 public interface RIUser extends Remote {
     void registerUser(UserDataModel userModel);

@@ -2,6 +2,7 @@ package gov.iti.jets;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import gov.iti.jets.config.AppPages;
@@ -12,8 +13,8 @@ public class Client extends Application {
 
     @Override
     public void init() throws Exception {
-        fxmlLoader = new FXMLLoader(getClass().getResource(AppPages.getLoginPage()));
-        System.out.println("Login page loaded #");
+        fxmlLoader = new FXMLLoader(getClass().getResource(AppPages.getHomePage()));
+        System.out.println("Main page loaded #");
         scene = new Scene(fxmlLoader.load());
         super.init();
     }
@@ -25,6 +26,7 @@ public class Client extends Application {
         primaryStage.setTitle("Telegraph - Client");
         primaryStage.show();
     }
+
     public static void main(String[] args) {
         launch(args);
     }

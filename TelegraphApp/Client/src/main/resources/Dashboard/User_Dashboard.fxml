@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -18,388 +19,322 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<SplitPane dividerPositions="0.2824107793153678" minHeight="700.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <items>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="254.0">
-         <children>
-            <HBox prefHeight="734.0" prefWidth="308.0">
-               <children>
-                  <VBox alignment="CENTER" spacing="100.0" style="-fx-background-color: black;">
-                     <children>
-                        <VBox alignment="CENTER" spacing="14.0">
-                           <children>
-                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../UpdateInfo/icons8-person-64.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../UpdateInfo/icons8-home-144%20(1).png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../UpdateInfo/icons8-contacts-500.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../UpdateInfo/icons8-notifications-78.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
+<SplitPane dividerPositions="0.2824107793153678" minHeight="700.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="gov.iti.jets.Controllers.HomePageController.HomePageController">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="254.0">
+            <children>
+                <HBox prefHeight="734.0" prefWidth="308.0">
+                    <children>
+                        <VBox alignment="CENTER" spacing="100.0" style="-fx-background-color: black;">
+                            <children>
+                                <VBox alignment="CENTER" spacing="14.0">
+                                    <children>
+                                        <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true"
+                                                   preserveRatio="true"/>
+                                        <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../UpdateInfo/icons8-person-64.png"/>
+                                            </image>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </ImageView>
+                                        <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../UpdateInfo/icons8-home-144%20(1).png"/>
+                                            </image>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </ImageView>
+                                        <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../UpdateInfo/icons8-contacts-500.png"/>
+                                            </image>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </ImageView>
+                                        <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../UpdateInfo/icons8-notifications-78.png"/>
+                                            </image>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </ImageView>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="BOTTOM_CENTER" spacing="5.0">
+                                    <children>
+                                        <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../UpdateInfo/icons8-logout-96.png"/>
+                                            </image>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </ImageView>
+                                    </children>
+                                </VBox>
+                            </children>
                         </VBox>
-                        <VBox alignment="BOTTOM_CENTER" spacing="5.0">
-                           <children>
-                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../UpdateInfo/icons8-logout-96.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
+                        <VBox alignment="TOP_CENTER" prefHeight="666.0" prefWidth="242.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="56.0" prefWidth="250.0"
+                                      style="-fx-background-color: white; -fx-border-color: black;">
+                                    <children>
+                                        <ImageView fitHeight="24.0" fitWidth="30.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@Images/message_icon.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Contacts"
+                                              wrappingWidth="84.6708984375">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="19.0"/>
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets left="10.0"/>
+                                            </HBox.margin>
+                                        </Text>
+                                    </children>
+                                </HBox>
+                                <Separator prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: black;"/>
+                                <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="252.0"
+                                      style="-fx-background-color: white;">
+                                    <children>
+                                        <Circle fill="#4bff1f" radius="5.0" stroke="BLACK" strokeType="INSIDE"/>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Online" wrappingWidth="60.0">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="19.0"/>
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets left="12.0"/>
+                                            </HBox.margin>
+                                        </Text>
+                                    </children>
+                                    <padding>
+                                        <Insets left="15.0"/>
+                                    </padding>
+                                </HBox>
+                                <Separator prefWidth="200.0" style="-fx-background-color: grey;">
+                                    <VBox.margin>
+                                        <Insets left="10.0" right="10.0"/>
+                                    </VBox.margin>
+                                </Separator>
+                                <ListView fx:id="lv_onlineContacts" editable="true" prefHeight="312.0"
+                                          prefWidth="242.0"/>
+                                <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="252.0"
+                                      style="-fx-background-color: white;">
+                                    <children>
+                                        <Circle fill="#ff2121" radius="5.0" stroke="BLACK" strokeType="INSIDE"/>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Offline"
+                                              wrappingWidth="60.0">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="19.0"/>
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets left="12.0"/>
+                                            </HBox.margin>
+                                        </Text>
+                                    </children>
+                                    <padding>
+                                        <Insets left="15.0"/>
+                                    </padding>
+                                </HBox>
+                                <Separator prefWidth="40.0" style="-fx-background-color: grey;">
+                                    <VBox.margin>
+                                        <Insets left="10.0" right="10.0"/>
+                                    </VBox.margin>
+                                </Separator>
+                                <ListView fx:id="lv_offlineContacts" prefHeight="280.0" prefWidth="242.0"/>
+                            </children>
                         </VBox>
-                     </children>
-                  </VBox>
-                  <VBox fx:id="ContactsVbox" alignment="TOP_CENTER" prefHeight="666.0" prefWidth="242.0" style="-fx-background-color: #C6C8D2;">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="250.0" style="-fx-background-color: white; -fx-border-color: black;">
-                           <children>
-                              <ImageView fitHeight="24.0" fitWidth="30.0" preserveRatio="true">
-                                 <image>
-                                    <Image url="@Images/message_icon.png" />
-                                 </image>
-                              </ImageView>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Contacts" wrappingWidth="84.6708984375">
-                                 <font>
-                                    <Font name="Segoe UI Semibold" size="19.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <Separator prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: black;" />
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="252.0" style="-fx-background-color: white; -fx-border-color: black;">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Online" wrappingWidth="84.6708984375">
-                                 <font>
-                                    <Font name="Segoe UI Semibold" size="19.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                        </HBox>
-                        <Separator prefWidth="200.0" style="-fx-background-color: grey;">
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="250.0" prefWidth="307.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                           <content>
-                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
-                                 <children>
-                                    <Pane prefHeight="67.0" prefWidth="251.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="251.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Pane>
-                                 </children>
-                              </VBox>
-                           </content>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="734.0" prefWidth="768.0">
+            <children>
+                <BorderPane>
+                    <bottom>
+                        <BorderPane prefHeight="172.0" prefWidth="733.0" BorderPane.alignment="CENTER">
+                            <center>
+                                <TextArea maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="77.0" prefWidth="674.0"
+                                          promptText="Enter your message.." scaleShape="false" wrapText="true"
+                                          BorderPane.alignment="BOTTOM_CENTER">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                    <BorderPane.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </BorderPane.margin>
+                                </TextArea>
+                            </center>
+                            <right>
+                                <ImageView fitHeight="53.0" fitWidth="39.0" preserveRatio="true"
+                                           BorderPane.alignment="BOTTOM_CENTER">
+                                    <image>
+                                        <Image url="@Images/SendIcon.png"/>
+                                    </image>
+                                    <BorderPane.margin>
+                                        <Insets bottom="30.0" left="10.0" right="10.0" top="10.0"/>
+                                    </BorderPane.margin>
+                                </ImageView>
+                            </right>
+                        </BorderPane>
+                    </bottom>
+                    <top>
+                        <Pane minHeight="-Infinity" prefHeight="59.0" prefWidth="737.0"
+                              style="-fx-background-color: white;" styleClass="linear-grad-to-bottom"
+                              BorderPane.alignment="CENTER">
+                            <children>
+                                <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="14.0" layoutY="8.0"
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@Images/personImage1.jpg"/>
+                                    </image>
+                                </ImageView>
+                                <Text layoutX="80.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="Username" wrappingWidth="156.6708984375">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="19.0"/>
+                                    </font>
+                                </Text>
+                                <Circle fill="#07ff45" layoutX="87.0" layoutY="41.0" radius="6.0" stroke="BLACK"
+                                        strokeType="INSIDE" strokeWidth="0.0"/>
+                                <Text layoutX="98.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online"
+                                      wrappingWidth="54.0">
+                                    <font>
+                                        <Font name="Segoe UI" size="12.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </Pane>
+                    </top>
+                    <center>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="502.0" prefWidth="733.0"
+                                    style="-fx-background-color: transparent;" vbarPolicy="NEVER"
+                                    BorderPane.alignment="CENTER">
+                            <content>
+                                <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
+                                      prefHeight="457.0" prefWidth="731.0">
+                                    <children>
+                                        <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0"
+                                                    style="-fx-background-color: #BFCFE7; -fx-background-radius: 15 15 15 15;">
+                                            <children>
+                                                <TextFlow layoutX="83.0" layoutY="5.0" prefHeight="48.0"
+                                                          prefWidth="458.0" AnchorPane.leftAnchor="80.0"
+                                                          AnchorPane.topAnchor="20.0">
+                                                    <children>
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                                              text="Hello How are you today ?"
+                                                              wrappingWidth="468.6708984375">
+                                                            <font>
+                                                                <Font name="Segoe UI" size="15.0"/>
+                                                            </font>
+                                                        </Text>
+                                                    </children>
+                                                </TextFlow>
+                                                <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0"
+                                                           layoutY="17.0" preserveRatio="true"
+                                                           AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
+                                                    <image>
+                                                        <Image url="@Images/personImage1.jpg"/>
+                                                    </image>
+                                                    <effect>
+                                                        <DropShadow height="15.0" radius="7.0" width="15.0"/>
+                                                    </effect>
+                                                </ImageView>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </AnchorPane>
+                                        <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0"
+                                                    style="-fx-background-color: #BFCFE7; -fx-background-radius: 20 20 20 20;">
+                                            <children>
+                                                <ImageView fitHeight="44.0" fitWidth="54.0" preserveRatio="true"
+                                                           AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                                                    <effect>
+                                                        <DropShadow height="15.0" radius="7.0" width="15.0"/>
+                                                    </effect>
+                                                    <image>
+                                                        <Image url="@Images/personImage1.jpg"/>
+                                                    </image>
+                                                </ImageView>
+                                                <VBox layoutX="187.0" layoutY="14.0">
+                                                    <children>
+                                                        <TextFlow layoutX="14.0" layoutY="14.0" prefHeight="48.0"
+                                                                  prefWidth="458.0" textAlignment="RIGHT"
+                                                                  AnchorPane.rightAnchor="66.0"
+                                                                  AnchorPane.topAnchor="14.0">
+                                                            <children>
+                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                                                      text="Nice to meet you"
+                                                                      wrappingWidth="273.9169921875">
+                                                                    <font>
+                                                                        <Font name="Segoe UI" size="15.0"/>
+                                                                    </font>
+                                                                </Text>
+                                                            </children>
+                                                        </TextFlow>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </AnchorPane>
+                                        <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0"
+                                                    style="-fx-background-color: #BFCFE7; -fx-background-radius: 15 15 15 15;">
+                                            <children>
+                                                <TextFlow layoutX="83.0" layoutY="5.0" prefHeight="48.0"
+                                                          prefWidth="458.0" AnchorPane.leftAnchor="80.0"
+                                                          AnchorPane.topAnchor="20.0">
+                                                    <children>
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                                              text="Hello How are you today ?"
+                                                              wrappingWidth="468.6708984375">
+                                                            <font>
+                                                                <Font name="Segoe UI" size="15.0"/>
+                                                            </font>
+                                                        </Text>
+                                                    </children>
+                                                </TextFlow>
+                                                <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0"
+                                                           layoutY="17.0" preserveRatio="true"
+                                                           AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
+                                                    <effect>
+                                                        <DropShadow height="15.0" radius="7.0" width="15.0"/>
+                                                    </effect>
+                                                    <image>
+                                                        <Image url="@Images/personImage1.jpg"/>
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                            </VBox.margin>
+                                        </AnchorPane>
+                                    </children>
+                                    <padding>
+                                        <Insets top="15.0"/>
+                                    </padding>
+                                </VBox>
+                            </content>
                         </ScrollPane>
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="252.0" style="-fx-background-color: white;">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Offline" wrappingWidth="84.6708984375">
-                                 <font>
-                                    <Font name="Segoe UI Semibold" size="19.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                        </HBox>
-                        <Separator prefWidth="40.0" style="-fx-background-color: grey;">
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="245.0" prefWidth="200.0" style="-fx-background-color: #C6C8D2;" styleClass="linear-grad-to-bottom" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                           <content>
-                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #C6C8D2;">
-                                 <children>
-                                    <Pane prefHeight="67.0" prefWidth="250.0" style="-fx-border-style: none; -fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="250.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="250.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="250.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="67.0" prefWidth="250.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <ImageView fitHeight="56.0" fitWidth="54.0" layoutX="17.0" layoutY="7.0" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/personImage1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                          <Text layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI Semibold" size="19.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="734.0" prefWidth="768.0">
-         <children>
-            <BorderPane>
-               <bottom>
-                  <BorderPane prefHeight="172.0" prefWidth="733.0" BorderPane.alignment="CENTER">
-                     <center>
-                        <TextArea maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="77.0" prefWidth="674.0" promptText="Enter your message.." scaleShape="false" wrapText="true" BorderPane.alignment="BOTTOM_CENTER">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                           <BorderPane.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </BorderPane.margin>
-                        </TextArea>
-                     </center>
-                     <right>
-                        <ImageView fitHeight="53.0" fitWidth="39.0" preserveRatio="true" BorderPane.alignment="BOTTOM_CENTER">
-                           <image>
-                              <Image url="@Images/SendIcon.png" />
-                           </image>
-                           <BorderPane.margin>
-                              <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
-                           </BorderPane.margin>
-                        </ImageView>
-                     </right>
-                  </BorderPane>
-               </bottom>
-               <top>
-                  <Pane minHeight="-Infinity" prefHeight="59.0" prefWidth="737.0" style="-fx-background-color: white;" styleClass="linear-grad-to-bottom" BorderPane.alignment="CENTER">
-                     <children>
-                        <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="14.0" layoutY="8.0" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/personImage1.jpg" />
-                           </image>
-                        </ImageView>
-                        <Text layoutX="80.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="156.6708984375">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="19.0" />
-                           </font>
-                        </Text>
-                        <Circle fill="#07ff45" layoutX="87.0" layoutY="41.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Text layoutX="98.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online" wrappingWidth="54.0">
-                           <font>
-                              <Font name="Segoe UI" size="12.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
-               </top>
-               <center>
-                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="502.0" prefWidth="733.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
-                     <content>
-                        <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="457.0" prefWidth="731.0">
-                           <children>
-                              <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0" style="-fx-background-color: #BFCFE7; -fx-background-radius: 15 15 15 15;">
-                                 <children>
-                                    <TextFlow layoutX="83.0" layoutY="5.0" prefHeight="48.0" prefWidth="458.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello How are you today ?" wrappingWidth="468.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </TextFlow>
-                                    <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0" layoutY="17.0" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
-                                       <image>
-                                          <Image url="@Images/personImage1.jpg" />
-                                       </image>
-                                       <effect>
-                                          <DropShadow height="15.0" radius="7.0" width="15.0" />
-                                       </effect>
-                                    </ImageView>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </AnchorPane>
-                              <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0" style="-fx-background-color: #BFCFE7; -fx-background-radius: 20 20 20 20;">
-                                 <children>
-                                    <ImageView fitHeight="44.0" fitWidth="54.0" preserveRatio="true" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                       <effect>
-                                          <DropShadow height="15.0" radius="7.0" width="15.0" />
-                                       </effect>
-                                       <image>
-                                          <Image url="@Images/personImage1.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox layoutX="187.0" layoutY="14.0">
-                                       <children>
-                                          <TextFlow layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="458.0" textAlignment="RIGHT" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="14.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nice to meet you" wrappingWidth="273.9169921875">
-                                                   <font>
-                                                      <Font name="Segoe UI" size="15.0" />
-                                                   </font>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </AnchorPane>
-                              <AnchorPane maxHeight="-Infinity" prefHeight="90.0" prefWidth="711.0" style="-fx-background-color: #BFCFE7; -fx-background-radius: 15 15 15 15;">
-                                 <children>
-                                    <TextFlow layoutX="83.0" layoutY="5.0" prefHeight="48.0" prefWidth="458.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello How are you today ?" wrappingWidth="468.6708984375">
-                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </TextFlow>
-                                    <ImageView fitHeight="44.0" fitWidth="54.0" layoutX="14.0" layoutY="17.0" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
-                                       <effect>
-                                          <DropShadow height="15.0" radius="7.0" width="15.0" />
-                                       </effect>
-                                       <image>
-                                          <Image url="@Images/personImage1.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </AnchorPane>
-                           </children>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-               </center>
-            </BorderPane>
-         </children>
-      </AnchorPane>
-   </items>
+                    </center>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </items>
 </SplitPane>

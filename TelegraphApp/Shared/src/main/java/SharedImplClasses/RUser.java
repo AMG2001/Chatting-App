@@ -1,9 +1,7 @@
 package SharedImplClasses;
 
-import SharedClasses.UserDataModel;
+import DTO.UserDataModel;
 import SharedInterfaces.RIUser;
-import gov.iti.jets.Server;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 

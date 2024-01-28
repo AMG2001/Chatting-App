@@ -8,4 +8,8 @@ public class AppPages {
     public static String getRegisterPage() {
         return "/RegisterPage/RegisterPage.fxml";
     }
+
+    public static String getHomePage() {
+        return "/Dashboard/User_Dashboard.fxml";
+    }
 }

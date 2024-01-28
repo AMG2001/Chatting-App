@@ -10,7 +10,6 @@ public class Server {
          * 2. init all rowsets object to be able to perform crud operations on all tables .
          */
         ApplicationServices.initApplicationServices();
-
     }
 
 }

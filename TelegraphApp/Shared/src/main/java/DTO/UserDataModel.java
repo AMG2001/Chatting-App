@@ -1,4 +1,4 @@
-package SharedClasses;
+package DTO;
 
 public class UserDataModel {
     private String phoneNumber;
