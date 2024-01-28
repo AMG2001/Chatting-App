@@ -4,26 +4,37 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<SplitPane dividerPositions="0.2824107793153678" minHeight="700.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/21"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="gov.iti.jets.Controllers.HomePageController.HomePageController">
-    <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="254.0">
+<GridPane alignment="CENTER" prefHeight="736.0" prefWidth="1099.0" xmlns="http://javafx.com/javafx/21"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="gov.iti.jets.Controllers.HomePageController.HomePageController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.5999755859375" minWidth="10.0"
+                           prefWidth="305.79998779296875"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="797.7999877929688" minWidth="10.0"
+                           prefWidth="792.2000122070312"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <AnchorPane minHeight="734.0" minWidth="254.0" prefHeight="734.0" prefWidth="254.0">
             <children>
                 <HBox prefHeight="734.0" prefWidth="308.0">
                     <children>
@@ -162,7 +173,7 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="734.0" prefWidth="768.0">
+        <AnchorPane prefHeight="734.0" prefWidth="768.0" GridPane.columnIndex="1">
             <children>
                 <BorderPane>
                     <bottom>
@@ -336,5 +347,5 @@
                 </BorderPane>
             </children>
         </AnchorPane>
-    </items>
-</SplitPane>
+    </children>
+</GridPane>
