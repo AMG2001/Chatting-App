@@ -1,9 +1,7 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
-import gov.iti.jets.domain.User;
 import gov.iti.jets.services.CustomDialogs;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

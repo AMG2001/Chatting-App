@@ -16,23 +16,10 @@ import javafx.scene.layout.VBox;
 public class HomePageController {
 
     @FXML
-    private ImageView homepageOption;
-
-    @FXML
-    private ImageView logoutOption;
-
-    @FXML
     private ListView<ContactCardDataModel> lv_offlineContacts;
 
     @FXML
     private ListView<ContactCardDataModel> lv_onlineContacts;
-
-    @FXML
-    private ImageView notificationsOption;
-
-    @FXML
-    private ImageView profileOption;
-
 
     private ObservableList<ContactCardDataModel> onlineContactsList = FXCollections.observableArrayList();
 
@@ -54,21 +41,7 @@ public class HomePageController {
 
 
     private void setLeftSideBarActions() {
-        homepageOption.setOnMouseClicked(event -> {
-            System.out.println("Home Page Option Clicked ##");
-        });
 
-        logoutOption.setOnMouseClicked(event -> {
-            System.out.println("logoutOption Clicked ##");
-        });
-
-        notificationsOption.setOnMouseClicked(event -> {
-            System.out.println("notificationsOption Clicked ##");
-        });
-
-        profileOption.setOnMouseClicked(event -> {
-            System.out.println("profileOption Clicked ##");
-        });
     }
 
     private void changeListViewCell() {
