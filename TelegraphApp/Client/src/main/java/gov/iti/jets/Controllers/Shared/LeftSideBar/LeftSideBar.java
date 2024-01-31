@@ -33,7 +33,7 @@ public class LeftSideBar {
 
     @FXML
     void logout(ActionEvent event) {
-
+        Navigator.navigateToRegister();
     }
 
     @FXML

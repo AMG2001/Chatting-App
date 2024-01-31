@@ -40,4 +40,16 @@ public class AppViews {
 
     }
 
+    public void showRegisterPage() {
+        Scene currentScene = stage.getScene();
+        currentScene.setRoot(AppPages.getRegisterPageView());
+        stage.setTitle("Telegraph - Register User");
+    }
+
+    public void showLoginPage() {
+        Scene currentScene = stage.getScene();
+        currentScene.setRoot(AppPages.getLoginPageView());
+        stage.setTitle("Telegraph - Login");
+    }
+
 }

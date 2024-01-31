@@ -16,4 +16,8 @@ public class Navigator {
     public static void navigateToUpdateInfo() {
         AppViews.getInstance().showUpdateInfoPage();
     }
+
+    public static void navigateToRegister() {
+        AppViews.getInstance().showRegisterPage();
+    }
 }
