@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -16,8 +17,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gov.iti.jets.Controllers.ProfilePageController.ProfilePageController">
     <left>
         <fx:include source="/Shared/leftSideBar.fxml"/>
     </left>
@@ -56,14 +57,16 @@
                                 <Font name="System Bold" size="18.0"/>
                             </font>
                         </Label>
-                        <TextArea maxHeight="400.0" maxWidth="500.0" prefHeight="200.0" prefWidth="200.0"
+                        <TextArea fx:id="ta_bio" maxHeight="400.0" maxWidth="500.0" prefHeight="200.0" prefWidth="200.0"
                                   promptText="About me"/>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="36.0">
                             <children>
-                                <MFXButton minHeight="32.0" minWidth="120.0"
+                                <MFXButton fx:id="btn_saveChanges" minHeight="32.0" minWidth="120.0"
+                                           onAction="#saveChanges"
                                            style="-fx-background-color: black; -fx-text-fill: white;"
                                            text="Save Changes" textFill="WHITE"/>
-                                <MFXButton layoutX="10.0" layoutY="10.0" minHeight="32.0" minWidth="60.0"
+                                <MFXButton fx:id="btn_cancel" layoutX="10.0" layoutY="10.0" minHeight="32.0"
+                                           minWidth="60.0" onAction="#cancel"
                                            style="-fx-background-color: Red; -fx-text-fill: white;" text="Cancel"
                                            textFill="WHITE"/>
                             </children>
@@ -83,18 +86,18 @@
                                 <Font name="System Bold" size="18.0"/>
                             </font>
                         </Label>
-                        <MFXTextField borderGap="8.0" floatingText="Username" prefColumnCount="8" prefHeight="28.0"
-                                      prefWidth="268.0"/>
-                        <MFXTextField borderGap="8.0" floatingText="Gender" layoutX="10.0" layoutY="28.0"
-                                      prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
-                        <MFXTextField borderGap="8.0" floatingText="Country" layoutX="10.0" layoutY="77.0"
-                                      prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
-                        <MFXTextField borderGap="8.0" floatingText="Phone" layoutX="10.0" layoutY="127.0"
-                                      prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
-                        <MFXTextField borderGap="8.0" floatingText="Email" layoutX="10.0" layoutY="176.0"
-                                      prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
-                        <MFXTextField borderGap="8.0" floatingText="Date of Birth" layoutX="10.0" layoutY="226.0"
-                                      prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
+                        <MFXTextField fx:id="tf_userName" borderGap="8.0" floatingText="Username" prefColumnCount="8"
+                                      prefHeight="28.0" prefWidth="268.0"/>
+                        <MFXTextField fx:id="tf_gender" borderGap="8.0" floatingText="Gender" layoutX="10.0"
+                                      layoutY="28.0" prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
+                        <MFXTextField fx:id="tf_country" borderGap="8.0" floatingText="Country" layoutX="10.0"
+                                      layoutY="77.0" prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
+                        <MFXTextField fx:id="tf_phoneNumber" borderGap="8.0" floatingText="Phone" layoutX="10.0"
+                                      layoutY="127.0" prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
+                        <MFXTextField fx:id="tf_email" borderGap="8.0" floatingText="Email" layoutX="10.0"
+                                      layoutY="176.0" prefColumnCount="8" prefHeight="28.0" prefWidth="268.0"/>
+                        <Label text="Date of Birth"/>
+                        <DatePicker fx:id="datePicker"/>
                     </children>
                     <GridPane.margin>
                         <Insets left="24.0"/>

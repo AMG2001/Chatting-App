@@ -21,7 +21,7 @@ public class AppPages {
     public static Pane getUpdateInfoView() {
         if (updateInfoView == null) {
             try {
-                FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/UpdateInfo/UpdateInfoPage.fxml"));
+                FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Profile/Profile.fxml"));
                 updateInfoView = loader.load();
             } catch (Exception e) {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Update Info View : " + e.getMessage());

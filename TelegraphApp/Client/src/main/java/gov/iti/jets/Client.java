@@ -9,16 +9,9 @@ import javafx.stage.Stage;
 import gov.iti.jets.Controllers.config.AppPages;
 
 public class Client extends Application {
-//    @Override
-//    public void init() throws Exception {
-//        AppViews.getInstance();
-//        super.init();
-//    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         AppViews.getInstance().initStage(primaryStage);
-        AppViews.getInstance();
     }
 
     public static void main(String[] args) {
