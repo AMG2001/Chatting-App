@@ -1,10 +1,11 @@
 package gov.iti.jets;
 
-import gov.iti.jets.persistence.mysql.DBConnectionPool;
+import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Server {
     public static void main(String[] args) {
