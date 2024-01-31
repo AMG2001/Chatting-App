@@ -38,4 +38,14 @@ public class Conversation {
     public void setConversationImage(String conversationImage) {
         this.conversationImage = conversationImage;
     }
+
+    @Override
+    public String toString() {
+        return "Conversation{" +
+                "conversationId=" + conversationId +
+                ", conversationName='" + conversationName + '\'' +
+                ", type='" + type + '\'' +
+                ", conversationImage='" + conversationImage + '\'' +
+                '}';
+    }
 }

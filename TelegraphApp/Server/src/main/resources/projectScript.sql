@@ -83,11 +83,11 @@ CREATE TABLE IF NOT EXISTS User_Notification(
 /*----------------------------------------------------------------------------------------------*/
 
 /*-----------------------------------------insert some data--------------------------------------------*/
-INSERT INTO User (phone_number, name, email, password, dob, country, gender, bio, picture)
+INSERT INTO User (phone_number, name, email, password, dob, country, gender, bio, status, picture)
 VALUES
-('123456789', 'Marwan', 'Marwan@example.com', 'password123', '1997-01-01', 'Egypt', 'MALE', 'Hello, I am Marwan!', 'Marwan.jpg'),
-('987654321', 'Amgad', 'Amgad@example.com', 'password456', '2001-05-15', 'Egypt','MALE', 'Nice to meet you!', 'Amgad.jpg'),
-('555555555', 'Yousef', 'Yousef@example.com', 'password789', '1998-08-20', 'Egypt',  'MALE', 'Hello from Yousef!', 'Yousef.jpg');
+('123456789', 'Marwan', 'Marwan@example.com', 'password123', '1997-01-01', 'Egypt', 'MALE', 'Hello, I am Marwan!','ONLINE', 'Marwan.jpg'),
+('987654321', 'Amgad', 'Amgad@example.com', 'password456', '2001-05-15', 'Egypt','MALE', 'Nice to meet you!','OFFLINE' ,'Amgad.jpg'),
+('555555555', 'Yousef', 'Yousef@example.com', 'password789', '1998-08-20', 'Egypt',  'MALE', 'Hello from Yousef!', 'AWAY', 'Yousef.jpg');
 
 
 INSERT INTO Contact_Request (request_id, sender_phone, receiver_phone, status, responded_at)
@@ -117,7 +117,7 @@ VALUES
 (4, 'team_project.jpg','Group1','GROUP');
 
 
-INSERT INTO User_Conversation (phone_number, conversation_id, conversation_name, join_date)
+INSERT INTO User_Conversation (phone_number, conversation_id, join_date)
 VALUES
 -- Marwan and Amgad are in a Individual conversation
 ('123456789', 1, NOW()),

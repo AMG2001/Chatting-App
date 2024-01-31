@@ -1,45 +1,45 @@
 package gov.iti.jets.domain;
 
+import gov.iti.jets.domain.enums.Gender;
+import gov.iti.jets.domain.enums.UserStatus;
+
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class User {
-    private String phoneNumber;
+    private String phone_number;
     private String name;
     private String email;
-
     private String password;
     private String country;
-    private String userStatus;
-    private String gender;
+    private UserStatus status;
+    private Gender gender;
     private String bio;
-    private String imageReference;
-    private Date dob;
+    private String picture;
+    private LocalDate dob;
 
     public User() {
-
     }
-    public User(String phoneNumber, String name, String email, String password, String country, String userStatus, String gender, String bio, String imageReference, Date dob) {
-        this.phoneNumber = phoneNumber;
+
+    public User(String phone_number, String name, String email, String password, String country, UserStatus status, Gender gender, String bio, String picture, LocalDate dob) {
+        this.phone_number = phone_number;
         this.name = name;
         this.email = email;
         this.password = password;
         this.country = country;
-        this.userStatus = userStatus;
+        this.status = status;
         this.gender = gender;
         this.bio = bio;
-        this.imageReference = imageReference;
+        this.picture = picture;
         this.dob = dob;
     }
 
-
-    // Getters and Setters
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getName() {
@@ -58,6 +58,14 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -66,19 +74,19 @@ public class User {
         this.country = country;
     }
 
-    public String getUserStatus() {
-        return userStatus;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setUserStatus(String userStatus) {
-        this.userStatus = userStatus;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -90,43 +98,34 @@ public class User {
         this.bio = bio;
     }
 
-    public String getImageReference() {
-        return imageReference;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setImageReference(String imageReference) {
-        this.imageReference = imageReference;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "phoneNumber='" + phoneNumber + '\'' +
+                "phone_number='" + phone_number + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
-                ", userStatus='" + userStatus + '\'' +
-                ", gender='" + gender + '\'' +
+                ", status=" + status +
+                ", gender=" + gender +
                 ", bio='" + bio + '\'' +
-                ", imageReference='" + imageReference + '\'' +
+                ", picture='" + picture + '\'' +
                 ", dob=" + dob +
                 '}';
     }
