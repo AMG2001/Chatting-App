@@ -1,11 +1,11 @@
 package gov.iti.jets;
 
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import gov.iti.jets.config.AppPages;
+import gov.iti.jets.Controllers.config.AppPages;
 
 public class Client extends Application {
     FXMLLoader fxmlLoader;

@@ -1,7 +1,8 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
-import gov.iti.jets.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.ServiceContext.RequestService;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,8 +11,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 public class HomePageController {
 
