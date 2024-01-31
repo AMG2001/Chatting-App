@@ -10,7 +10,6 @@ import gov.iti.jets.config.AppPages;
 public class Client extends Application {
     FXMLLoader fxmlLoader;
     Scene scene;
-
     @Override
     public void init() throws Exception {
         fxmlLoader = new FXMLLoader(getClass().getResource(AppPages.getHomePage()));
