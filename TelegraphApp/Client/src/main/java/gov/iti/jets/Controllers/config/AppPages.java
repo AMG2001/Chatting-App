@@ -1,19 +1,33 @@
 package gov.iti.jets.Controllers.config;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+
 public class AppPages {
-    public static String getLoginPage() {
-        return "/LoginPage/LoginPage.fxml";
+    private static Pane homePageView;
+    private static Pane updateInfoView;
+
+    public static Pane getHomePageView() {
+        if (homePageView == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Dashboard/User_Dashboard.fxml"));
+                homePageView = loader.load();
+            } catch (Exception e) {
+                System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Home Page View : " + e.getMessage());
+            }
+        }
+        return homePageView;
     }
 
-    public static String getRegisterPage() {
-        return "/RegisterPage/RegisterPage.fxml";
-    }
-
-    public static String getHomePage() {
-        return "/Dashboard/User_Dashboard.fxml";
-    }
-
-    public static String getUpdateInfoPage() {
-        return "/UpdateInfo/UpdateInfoPage.fxml";
+    public static Pane getUpdateInfoView() {
+        if (updateInfoView == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/UpdateInfo/UpdateInfoPage.fxml"));
+                updateInfoView = loader.load();
+            } catch (Exception e) {
+                System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Update Info View : " + e.getMessage());
+            }
+        }
+        return updateInfoView;
     }
 }
