@@ -15,6 +15,10 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
 
     @Override
     public UserDTO registerUser(UserDTO newUser) {
+        //Filemanager to save image on HDD and get the filepath
+        //Convert DTO to Domain object
+        //Verify if user already exists
+        //Use DAO to register the user
         return null;
     }
 

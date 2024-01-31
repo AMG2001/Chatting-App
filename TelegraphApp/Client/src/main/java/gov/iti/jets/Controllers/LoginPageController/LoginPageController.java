@@ -30,7 +30,7 @@ public class LoginPageController {
 
     @FXML
     void navigateToSignUp(ActionEvent event) {
-        Navigator.gotToScene(link_signup, AppPages.getRegisterPage());
+//        Navigator.gotToScene(link_signup, AppPages.getRegisterPage());
     }
 
 }

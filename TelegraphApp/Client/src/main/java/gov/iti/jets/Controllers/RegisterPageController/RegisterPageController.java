@@ -1,12 +1,12 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
-import gov.iti.jets.services.CustomDialogs;
+import gov.iti.jets.Controllers.config.AppPages;
+import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.Navigator;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import gov.iti.jets.config.AppPages;
-import gov.iti.jets.services.Navigator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -167,7 +167,8 @@ public class RegisterPageController {
 
     @FXML
     public void gotoLogin(ActionEvent actionEvent) {
-        Navigator.gotToScene(link_gotoLogin, AppPages.getLoginPage());
+
+
     }
 
     /**
