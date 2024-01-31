@@ -1,5 +1,6 @@
 package gov.iti.jets.Controllers.ProfilePageController;
 
+import gov.iti.jets.Controllers.services.Emails.EmailsService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
@@ -37,7 +38,8 @@ public class ProfilePageController {
 
     @FXML
     void cancel(ActionEvent event) {
-
+        EmailsService emailsService = new EmailsService();
+        emailsService.sendEmail("mohamadamgad09@gmail.com", "First Email", "Nice to meet you");
     }
 
     @FXML
