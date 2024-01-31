@@ -2,7 +2,6 @@ package RemoteInterfaces;
 
 import DTO.UserDTO;
 import DTO.UserLoginDTO;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

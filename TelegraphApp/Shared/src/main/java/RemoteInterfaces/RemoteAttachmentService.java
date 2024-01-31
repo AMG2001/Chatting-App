@@ -1,7 +1,6 @@
 package RemoteInterfaces;
 
 import DTO.AttachmentDTO;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
