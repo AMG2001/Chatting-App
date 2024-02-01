@@ -75,6 +75,7 @@ public class HomePageController {
     }
 
     private void loadOnlineContacts() {
+        // TODO - fetch contacts from server .
         System.out.println("Data Loaded ##");
         for (int i = 0; i < 10; i++) {
             ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
