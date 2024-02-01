@@ -14,7 +14,7 @@ public class AttachmentDTO implements Serializable {
         this.attachmentType = attachmentType;
         this.attachmentContent = attachmentContent;
     }
-    public void serializeContent(String filePath) throws IOException {
+    public void serializeContent(String filePath,byte[] file) throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
