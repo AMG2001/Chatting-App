@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 public class AppViews {
     private static AppViews instance;
     private Stage stage;
-
     private AppViews() {
+
     }
 
     public void initStage(Stage stage) {
@@ -37,7 +37,6 @@ public class AppViews {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getUpdateInfoView());
         stage.setTitle("Telegraph - Update Info");
-
     }
 
     public void showRegisterPage() {

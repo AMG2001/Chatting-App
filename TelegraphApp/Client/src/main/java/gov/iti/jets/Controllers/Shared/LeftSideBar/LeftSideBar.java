@@ -1,10 +1,14 @@
 package gov.iti.jets.Controllers.Shared.LeftSideBar;
 
+import gov.iti.jets.Controllers.services.CustomFXMLLoader;
+import gov.iti.jets.Controllers.services.CustomPopupMenus;
 import gov.iti.jets.Controllers.services.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class LeftSideBar {
@@ -26,6 +30,21 @@ public class LeftSideBar {
     @FXML
     private VBox leftSideBar;
 
+    private ContextMenu notificationsMenu;
+
+    @FXML
+    void showNotifications(MouseEvent event) {
+        notificationsMenu.show(btn_notifications, event.getScreenX(), event.getScreenY());
+    }
+
+
+    @FXML
+    public void initialize() {
+        notificationsMenu = CustomPopupMenus.getNotificationsMenu();
+        btn_notifications.setOnMouseClicked(this::showNotifications);
+    }
+
+
     @FXML
     void addGroup(ActionEvent event) {
 
@@ -34,6 +53,7 @@ public class LeftSideBar {
     @FXML
     void logout(ActionEvent event) {
         Navigator.navigateToRegister();
+        // TODO cast in Server - marwan work .
     }
 
     @FXML
@@ -44,10 +64,5 @@ public class LeftSideBar {
     @FXML
     void moveToProfile(ActionEvent event) {
         Navigator.navigateToUpdateInfo();
-    }
-
-    @FXML
-    void showNotifications(ActionEvent event) {
-
     }
 }
