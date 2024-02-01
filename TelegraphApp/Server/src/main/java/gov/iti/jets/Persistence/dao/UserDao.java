@@ -1,13 +1,14 @@
 package gov.iti.jets.Persistence.dao;
 
 import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.UserStatus;
 
 import java.util.List;
 
 public interface UserDao extends GenericDatabaseDao<User> ,RetrievableByID<User,String>{
 
-     List<User> getOnlineContactsByPhone(String phone);
-     List<User> getOfflineContactsByPhone(String phone);
+     List<User> getContactsByPhoneAndStatus(String phone, UserStatus status);
      int getNumberOfUsers();
      int getNumberOfOnlineUsers();
+     void updateStatus(User entity);
 }
