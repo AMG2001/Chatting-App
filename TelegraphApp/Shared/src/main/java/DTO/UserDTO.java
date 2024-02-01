@@ -1,6 +1,6 @@
 package DTO;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,18 +20,18 @@ public class UserDTO implements Serializable {
     private String status;
     private byte[] serializedImage;
 
-    public UserDTO(String phoneNumber, String name, String email, String password, String dataOfBirth, String country, String gender, String bio, String status, Image image) {
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.dateOfBirth = dataOfBirth;
-        this.country = country;
-        this.gender = gender;
-        this.bio = bio;
-        this.status = status;
-        this.serializedImage = serializeImage(image);
-    }
+//    public UserDTO(String phoneNumber, String name, String email, String password, String dataOfBirth, String country, String gender, String bio, String status, Image image) {
+//        this.phoneNumber = phoneNumber;
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//        this.dateOfBirth = dataOfBirth;
+//        this.country = country;
+//        this.gender = gender;
+//        this.bio = bio;
+//        this.status = status;
+//        this.serializedImage = serializeImage(image);
+//    }
     public UserDTO(String phoneNumber, String name, String email, String password, String dataOfBirth, String country, String gender, String bio, String status, byte[] image) {
         this.phoneNumber = phoneNumber;
         this.name = name;
@@ -121,19 +121,19 @@ public class UserDTO implements Serializable {
         return serializedImage;
     }
 
-    private byte[] serializeImage(javafx.scene.image.Image image) {
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
-
-            objectOutputStream.writeObject(image);
-
-            return byteArrayOutputStream.toByteArray();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private byte[] serializeImage(javafx.scene.image.Image image) {
+//        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
+//
+//            objectOutputStream.writeObject(image);
+//
+//            return byteArrayOutputStream.toByteArray();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     public void setSerializedImage(byte[] serializedImage) {
         this.serializedImage = serializedImage;
