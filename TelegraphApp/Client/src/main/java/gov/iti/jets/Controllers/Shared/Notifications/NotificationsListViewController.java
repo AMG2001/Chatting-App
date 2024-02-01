@@ -17,16 +17,14 @@ public class NotificationsListViewController {
     public ListView<NotificationController> notifications_listView;
     private ObservableList<NotificationController> notificationsList = FXCollections.observableArrayList();
 
+    private FXMLLoader loader;
+
     @FXML
     public void initialize() {
+        System.out.println("✅✅✅✅✅✅ Notifications List view initialized");
         // Bind listview on Observable ArrayList .
         notifications_listView.itemsProperty().bind(new SimpleListProperty<>(notificationsList));
-        // TODO - fetch contacts from server .
-        System.out.println("Data Online & Offline Contact ..............");
-        for (int i = 0; i < 10; i++) {
-            NotificationController contactCardObjOnline = new NotificationController("Notification " + i, "This is the notification body content .", "Date", "Time");
-            notificationsList.add(contactCardObjOnline);
-        }
+        // Set the cell factory
         notifications_listView.setCellFactory(param -> new ListCell<NotificationController>() {
             @Override
             protected void updateItem(NotificationController notificationController, boolean empty) {
@@ -34,10 +32,17 @@ public class NotificationsListViewController {
                 if (empty || notificationController == null) {
                     setGraphic(null);
                 } else {
+                    // Use the layout of the notificationController as the graphic
                     setGraphic(notificationController.getLayout());
                 }
             }
         });
+
+        // TODO - fetch contacts from server .
+        for (int i = 0; i < 10; i++) {
+            NotificationController contactCardObjOnline = new NotificationController("Notification " + i, "This is the notification body content .", "Date", "Time", new Image(getClass().getResource("/assets/images/telegraph.png").toExternalForm()));
+            notificationsList.add(contactCardObjOnline);
+        }
     }
 
     public ListView<NotificationController> getNotifications_listView() {
@@ -45,14 +50,15 @@ public class NotificationsListViewController {
     }
 
     public NotificationsListViewController() {
+        loader = new FXMLLoader(getClass().getResource("/Notifications/NotificationsListView.fxml"));
+        loader.setController(this);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Notifications/NotificationsListView.fxml"));
-            loader.setController(this);
-//            loader.setRoot(this);
             loader.load();
         } catch (IOException e) {
             System.out.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading NotificationsListViewController : " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+
 }

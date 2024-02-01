@@ -1,26 +1,23 @@
 package gov.iti.jets.Controllers.services;
 
-import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 
 public class CustomPopupMenus {
-    public static NotificationsListViewController notificationsListView = new NotificationsListViewController();
-    public static NotificationController notificationController = new NotificationController("test", "test", "test", "test");
+    private static NotificationsListViewController notificationsListView = new NotificationsListViewController();
 
     public static ContextMenu getNotificationsMenu() {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem = new MenuItem();
-        // Add elements to your custom Pane
-        menuItem.setGraphic(notificationsListView.getNotifications_listView());
+        // Create a BorderPane to hold the ListView
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(notificationsListView.getNotifications_listView());
+        // Set the BorderPane as the graphic for the MenuItem
+        menuItem.setGraphic(borderPane);
+
         contextMenu.getItems().add(menuItem);
         return contextMenu;
     }
