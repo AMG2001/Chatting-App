@@ -75,14 +75,14 @@ public class HomePageController {
     }
 
     private void loadOnlineContacts() {
-        System.out.println("Data Loaded ##");
+        // TODO - fetch contacts from server .
+        System.out.println("Data Online & Offline Contact ..............");
         for (int i = 0; i < 10; i++) {
             ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
             onlineContactsList.add(contactCardObjOnline);
             ContactCardDataModel contactCardObjOffline = new ContactCardDataModel("Offline Contact " + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
             offlineContactsList.add(contactCardObjOffline);
         }
-        System.out.println("Contact added to online contacts ");
     }
 
     private void setListViewItemsAction() {
