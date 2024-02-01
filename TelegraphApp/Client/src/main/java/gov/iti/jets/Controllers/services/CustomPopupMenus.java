@@ -1,5 +1,10 @@
 package gov.iti.jets.Controllers.services;
 
+import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
+import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
+import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -8,14 +13,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class CustomPopupMenus {
+    public static NotificationsListViewController notificationsListView = new NotificationsListViewController();
+    public static NotificationController notificationController = new NotificationController("test", "test", "test", "test");
+
     public static ContextMenu getNotificationsMenu() {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItem = new MenuItem();
-        Pane customPane = new Pane(); // Add your custom Pane here
-        customPane.setPrefSize(600, 600);
         // Add elements to your custom Pane
-        customPane.getChildren().add(new Label("All Notifications"));
-        menuItem.setGraphic(customPane);
+        menuItem.setGraphic(notificationsListView.getNotifications_listView());
         contextMenu.getItems().add(menuItem);
         return contextMenu;
     }
