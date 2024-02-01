@@ -5,5 +5,6 @@ import gov.iti.jets.Domain.Message;
 import java.util.List;
 
 public interface MessageDao extends GenericDatabaseDao<Message>{
-    List<Message> getMessagesByConversationId(String conversationId);
+    List<Message> getMessagesByConversationId(int conversationId);
+    int getIndividualConversationId(String userPhone,String contactPhone);
 }

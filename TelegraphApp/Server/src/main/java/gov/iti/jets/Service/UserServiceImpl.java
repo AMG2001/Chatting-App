@@ -15,6 +15,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
 
     @Override
     public UserDTO registerUser(UserDTO newUser) {
+
         return null;
     }
 

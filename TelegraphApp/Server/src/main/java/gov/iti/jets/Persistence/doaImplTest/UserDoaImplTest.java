@@ -41,11 +41,8 @@ public class UserDoaImplTest {
         userDoaImpl.update(user);
     }
 
-    private void get_online_contacts_by_phone_test(){
-        System.out.println(userDoaImpl.getOnlineContactsByPhone("555555555"));
-    }
-    private void getOfflineContactsByPhone(){
-        System.out.println(userDoaImpl.getOfflineContactsByPhone("555555555"));
+    private void getContactsByPhoneTest(){
+        System.out.println(userDoaImpl.getContactsByPhoneAndStatus("555555555",UserStatus.OFFLINE));
     }
 
     public static void main(String[] args) {
@@ -53,7 +50,6 @@ public class UserDoaImplTest {
 
         //userDoaImplTest.add_user_test();
         //userDoaImplTest.update_user_test();
-        //userDoaImplTest.get_online_contacts_by_phone_test();
-        //userDoaImplTest.getOfflineContactsByPhone();
+       userDoaImplTest.getContactsByPhoneTest();
     }
 }
