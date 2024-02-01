@@ -11,6 +11,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class NotificationsListViewController {
     @FXML
@@ -40,9 +46,16 @@ public class NotificationsListViewController {
 
         // TODO - fetch contacts from server .
         for (int i = 0; i < 10; i++) {
-            NotificationController contactCardObjOnline = new NotificationController("Notification " + i, "This is the notification body content .", "Date", "Time", new Image(getClass().getResource("/assets/images/telegraph.png").toExternalForm()));
+            NotificationController contactCardObjOnline = new NotificationController("Notification " + i, "This is the notification body content .", "" + LocalDate.now(), getCurrentTimeFormatted(), new Image(getClass().getResource("/assets/images/telegraph.png").toExternalForm()));
             notificationsList.add(contactCardObjOnline);
         }
+    }
+
+    private String getCurrentTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalTime currentTime = LocalTime.now();
+        String formattedTime = currentTime.format(formatter);
+        return formattedTime;
     }
 
     public ListView<NotificationController> getNotifications_listView() {
