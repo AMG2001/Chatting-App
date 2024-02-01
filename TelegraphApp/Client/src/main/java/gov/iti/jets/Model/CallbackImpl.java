@@ -1,22 +1,23 @@
-package gov.iti.jets.ServiceContext.callback;
+package gov.iti.jets.Model;
 
 import DTO.MessageDTO;
 import DTO.NotificationDTO;
 import DTO.RequestDTO;
 import DTO.UserDTO;
 import RemoteInterfaces.callback.RemoteUserCallback;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class ServerCallback extends UnicastRemoteObject implements RemoteUserCallback
-{
-    protected ServerCallback() throws RemoteException {
+public class CallbackImpl extends UnicastRemoteObject implements RemoteUserCallback {
+
+    ClientState clientState;
+    protected CallbackImpl() throws RemoteException {
     }
 
     @Override
-    public void recieveMessage(MessageDTO message) {
-        //TODO Add the message to the CONVERSATION obserable object
+    public void recieveMessage(MessageDTO message) throws RemoteException {
 
     }
 

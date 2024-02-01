@@ -13,5 +13,6 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
     @Override
     public void sendMessage(MessageDTO message) throws RemoteException {
 
+
     }
 }

@@ -7,6 +7,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface RemoteConversationService extends Remote {
-    ArrayList<ConversationDTO> getAllConversationsForUser(String userPhone)throws RemoteException;
+    ConversationDTO getAllConversationForUser(String userPhone)throws RemoteException;
 
 }

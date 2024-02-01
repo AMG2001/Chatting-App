@@ -14,34 +14,31 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
     }
 
     @Override
-    public UserDTO registerUser(UserDTO newUser) {
-        //Filemanager to save image on HDD and get the filepath
-        /*
-            //ImageDeSerializer.(newUser.getImage());
-
-           String imagePath = UserProfileFIleSystemManager.SaveImage(newUser.getImage, newUser.getPhone);
-        */
-        //TODO YOUSEF MAPSTRUCT
-        //Convert DTO to Domain object
-
-        //Verify if user already exists
-        //DAO - CHECK IF USER EXISTS -- Get by ID and handle null value
-
-        //Use DAO to register the user
-        //DAO CREATE USER
-        //If successfull Return the same DTO
-        //If not successfull return Null
-        return null;
+    public boolean registerUser(UserDTO newUser) {
+        //TODO Check if user exists - Userdao.getbyID(DTO.getphone) and handle null
+        //TODO Use  String path = FileManager.SaveProfileImage()
+        //TODO Convert DTO to Domain entity
+        //TODO User user = UserDao.AddUser(newUser);
+        return false;
     }
 
     @Override
     public UserDTO login(UserLoginDTO loginInfo) {
-        //Check if in database
+        //TODO User user =  Dao.getUserByPhone(loginInfo.phone)
+        //TODO If not null Check if user.password = loginInfo.password;
+        //TODO use FileManager.getProfileImage
+        //TODO Convert Domain object to DTO
+        //TODO Update Server online array
+        //TODO DAO.getAll contacts
+        //TODO Use Callback for notifications to online FRIENDS
+        //TODO NotificationHandler.sendNotification(ArrayList<String> phonenumbers);
+
         //If yes DAO get user by phone
         //User Domain object
         //User user = USerDao.getUserbyPhone(loginInfo.phone);
         //Needs to check password
         //User image path to get image file
+        //Server----Onlineusers.add();
         // byte[] image = UserProfileFIleSystemManager.getImage(user.getPhone());
         //Create DTO and return
         //Server.notifyOnlineFriends(UserPhone);
