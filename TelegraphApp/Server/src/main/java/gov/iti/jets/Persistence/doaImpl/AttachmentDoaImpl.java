@@ -54,9 +54,40 @@ public class AttachmentDoaImpl implements AttachmentDao {
         }
         return attachment;
     }
-
+//TODO yousef
     @Override
-    public void add(Attachment entity) {
+    public void add(Attachment entity)
+    {
+        Connection con = null;
+        PreparedStatement pst = null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql = "insert into attachment (message_id,attachment_name,attachment_type)\n" +
+                    "values (?,?,?);";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1,entity.getMessageId());
+            pst.setString(2,entity.getAttachmentName());
+            pst.setString(3,entity.getAttachmentType());
+
+            pst.executeUpdate();
+            System.out.println("Insertion Complete");
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
 
     }
 
