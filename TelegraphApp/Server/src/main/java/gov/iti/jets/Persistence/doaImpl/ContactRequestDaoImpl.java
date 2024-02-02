@@ -16,6 +16,11 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
     public List<ContactRequest> getRequestsByReceiver(String phoneNumber) {
         return null;
     }
+    //TODO moataz
+    @Override
+    public Boolean checkIfRequestExist(ContactRequest request) {
+        return null;
+    }
 
     //TODO yousef
     @Override
@@ -28,6 +33,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
         return null;
     }
 
+    //TODO moataz
     @Override
     public void update(ContactRequest entity) {
 

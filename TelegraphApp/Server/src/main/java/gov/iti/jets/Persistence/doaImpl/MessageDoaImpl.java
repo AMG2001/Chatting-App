@@ -88,5 +88,11 @@ public class MessageDoaImpl implements MessageDao {
         return messages;
     }
 
+    //TODO moataz
+    @Override
+    public int createMessage(Message message) {
+        return 0;
+    }
+
 
 }
