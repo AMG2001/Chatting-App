@@ -12,9 +12,9 @@ public class AttachmentDaoImplTest
     }
     private void addTest(){
         Attachment entity = new Attachment();
-        entity.setMessageId(3);
-        entity.setAttachmentName("image2.png");
+        entity.setAttachmentName("image4.png");
         entity.setAttachmentType("png");
+        entity.setMessageId(5);
         object.add(entity);
     }
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.Domain.Attachment;
 import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
@@ -80,8 +81,41 @@ public class ConversationDaoImpl implements ConversationDao {
 
     //TODO yousef
     @Override
-    public void update(Conversation entity) {
+    public void update(Conversation entity)
+    {
+        Connection con=null;
+        PreparedStatement pst= null;
 
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+
+            con.setAutoCommit(true);
+
+            String sql ="update conversation set conversation_img = ? , conversation_name= ? where conversation_id = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1,entity.getConversationImage());
+            pst.setString(2,entity.getConversationName());
+            pst.setInt(3,entity.getConversationId());
+
+            pst.executeUpdate();
+
+
+            System.out.println("updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -93,7 +127,41 @@ public class ConversationDaoImpl implements ConversationDao {
     //TODO yousef
     @Override
     public Conversation getById(Integer conversationId) {
-        return null;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Conversation conversation = null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from conversation where conversation_id=?;";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1,conversationId);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                conversation = new Conversation();
+                conversation.setConversationId(conversationId);
+                conversation.setConversationImage(rs.getString("conversation_img"));
+                conversation.setConversationName(rs.getString("conversation_name"));
+                conversation.setType(rs.getString("type"));
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return conversation;
     }
 
     @Override
@@ -145,16 +213,18 @@ public class ConversationDaoImpl implements ConversationDao {
 
 
     @Override
-    public void createGroupConversation(String userPhone,Conversation group) {
+    public int createGroupConversation(String userPhone,Conversation group) {
 
+        int groupId = 0;
         Connection con=null;
+
         try{
             con=DBConnectionPool.DATASOURCE.getConnection();
 
             con.setAutoCommit(false);
 
-            int groupId = createGroup(con, group);
-            addUserToGroup(userPhone,groupId);
+            groupId = createGroup(con, group);
+            addUserToGroup(con,userPhone,groupId);
 
             con.commit();
         }
@@ -182,6 +252,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 e.printStackTrace();
             }
         }
+        return groupId;
     }
 
     private int createGroup(Connection con, Conversation group) throws SQLException{
@@ -204,17 +275,19 @@ public class ConversationDaoImpl implements ConversationDao {
         return groupId;
     }
 
-    private void addUserToGroup(String userPhone, int groupId) throws SQLException{
+    private void addUserToGroup(Connection con, String userPhone, int groupId) throws SQLException{
         String sql = "INSERT INTO User_Conversation (phone_number, conversation_id, join_date)\n" +
                 "VALUES (?, ?, ?)";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+           pst.setString(1,userPhone);
+           pst.setInt(2,groupId);
+
+           java.sql.Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+           pst.setTimestamp(3, currentTimestamp);
+
+            pst.executeUpdate();
+        }
     }
 
-    public static void main(String[] args) {
-        ConversationDaoImpl conversationDao = new ConversationDaoImpl();
-        Conversation group = new Conversation();
-        group.setConversationImage("im2");
-        group.setConversationName("testGroup");
-        conversationDao.createGroupConversation("123456789",group);
-    }
 
 }
