@@ -1,74 +1,74 @@
 package gov.iti.jets.Domain;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 
 public class Message {
-    private int messageId;
-    private String senderPhone;
-    private int attachmentId;
-    private int conversationId;
-    private String messageBody;
-    private Time timeStamp;
-    public Message(){
+    private int message_id;
+    private String sender_phone;
+    private int conversation_id;
+    private String message_body;
+    private LocalDateTime timestamp;
+
+
+    public Message(int message_id, String sender_phone, int conversation_id, String message_body, LocalDateTime timestamp) {
+        this.message_id = message_id;
+        this.sender_phone = sender_phone;
+        this.conversation_id = conversation_id;
+        this.message_body = message_body;
+        this.timestamp = timestamp;
 
     }
 
-    public Message(int messageId, String senderPhone, int attachmentId, int conversationId, String messageBody, Time timeStamp) {
-        this.messageId = messageId;
-        this.senderPhone = senderPhone;
-        this.attachmentId = attachmentId;
-        this.conversationId = conversationId;
-        this.messageBody = messageBody;
-        this.timeStamp = timeStamp;
+    public int getMessage_id() {
+        return message_id;
     }
 
-    // Getters and Setters
-    public int getMessageId() {
-        return messageId;
+    public void setMessage_id(int message_id) {
+        this.message_id = message_id;
     }
 
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
+    public String getSender_phone() {
+        return sender_phone;
     }
 
-    public String getSenderPhone() {
-        return senderPhone;
+    public void setSender_phone(String sender_phone) {
+        this.sender_phone = sender_phone;
     }
 
-    public void setSenderPhone(String senderPhone) {
-        this.senderPhone = senderPhone;
+    public int getConversation_id() {
+        return conversation_id;
     }
 
-    public int getAttachmentId() {
-        return attachmentId;
+    public void setConversation_id(int conversation_id) {
+        this.conversation_id = conversation_id;
     }
 
-    public void setAttachmentId(int attachmentId) {
-        this.attachmentId = attachmentId;
+    public String getMessage_body() {
+        return message_body;
     }
 
-    public int getConversationId() {
-        return conversationId;
+    public void setMessage_body(String message_body) {
+        this.message_body = message_body;
     }
 
-    public void setConversationId(int conversationId) {
-        this.conversationId = conversationId;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public String getMessageBody() {
-        return messageBody;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public void setMessageBody(String messageBody) {
-        this.messageBody = messageBody;
-    }
 
-    public Time getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(Time timeStamp) {
-        this.timeStamp = timeStamp;
+    @Override
+    public String toString() {
+        return "Message{" +
+                "message_id=" + message_id +
+                ", sender_phone='" + sender_phone + '\'' +
+                ", conversation_id=" + conversation_id +
+                ", message_body='" + message_body + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }
 

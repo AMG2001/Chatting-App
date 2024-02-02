@@ -100,14 +100,16 @@ public class UserDoaImpl implements UserDao {
     public void delete(User entity) {
 
     }
+    // TODO Yousef
 
     @Override
-    public User getById(String s) {
+    public User getById(String phone) {
         return null;
     }
 
+
     @Override
-    public List<User> getOnlineContactsByPhone(String phone) {
+    public List<User> getContactsByPhoneAndStatus(String phone,UserStatus status) {
         List<User> users = new ArrayList<>();
 
         Connection con=null;
@@ -125,7 +127,7 @@ public class UserDoaImpl implements UserDao {
             pst=con.prepareStatement(sql);
 
             pst.setString(1,phone);
-            pst.setString(2,"ONLINE");
+            pst.setString(2,status.name());
 
             rs = pst.executeQuery();
 
@@ -160,62 +162,6 @@ public class UserDoaImpl implements UserDao {
         }
         return users;
     }
-
-    @Override
-    public List<User> getOfflineContactsByPhone(String phone) {
-        List<User> users = new ArrayList<>();
-
-        Connection con=null;
-        PreparedStatement pst= null;
-        ResultSet rs=null;
-
-        try{
-            con=DBConnectionPool.DATASOURCE.getConnection();
-
-            String sql ="select c.contact_phone As contact_phone, u.name As contact_name, u.status As contact_status, u.picture As contact_picture " +
-                    "from Contact c,User u " +
-                    "where u.phone_number = c.contact_phone " +
-                    "and c.user_phone=? "+
-                    "and u.status= ?";
-            pst=con.prepareStatement(sql);
-
-            pst.setString(1,phone);
-            pst.setString(2,"OFFLINE");
-
-            rs = pst.executeQuery();
-
-            while (rs.next()){
-                String contactPhone = rs.getString("contact_phone");
-                String contactName = rs.getString("contact_name");
-                String contactStatus = rs.getString("contact_status");
-                String contactPic= rs.getString("contact_picture");
-
-                User user= new User();
-                user.setPhone_number(contactPhone);
-                user.setName(contactName);
-                user.setStatus(UserStatus.valueOf(contactStatus));
-                user.setPicture(contactPic);
-
-                users.add(user);
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        finally {
-            try {
-                if(rs != null) rs.close();
-                if(pst != null) pst.close();
-                if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
-            }
-            catch (SQLException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        return users;
-    }
-
 
 
     @Override
@@ -226,5 +172,11 @@ public class UserDoaImpl implements UserDao {
     @Override
     public int getNumberOfOnlineUsers() {
         return 0;
+    }
+
+    //TODO Yousef
+    @Override
+    public void updateStatus(String phone, UserStatus status) {
+
     }
 }

@@ -1,8 +1,10 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
+import DTO.UserDTO;
 import gov.iti.jets.Controllers.config.AppPages;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.Navigator;
+import gov.iti.jets.ServiceContext.UserService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -123,6 +125,9 @@ public class RegisterPageController {
 //                                    User user = new User(tf_phone.getText(), tf_name.getText().trim(), tf_email.getText().trim(), tf_password.getText().trim(), tf_country.getText().trim(), "Online", gender.getSelectedToggle().toString(), ta_bio.getText().trim(), "ImageRef", getDate());
 //                                    System.out.println("User data filled successfully ##");
 //                                    // TODO implement Registering Functionality .
+                            //byte[] image = serializer.serialize(img_user);
+                            // UserDTO ahmed = new UserDTO("","",image)
+                            // UserService.getInstance().getRemoteService().registerUser();
 //                                    System.out.println(gender.getSelectedToggle().selectedProperty().getName());
 //                                } else {
 //                                    CustomDialogs.showErrorDialog("Gender is not choosen !!");

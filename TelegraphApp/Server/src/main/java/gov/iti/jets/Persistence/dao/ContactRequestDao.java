@@ -9,5 +9,6 @@ public interface ContactRequestDao extends GenericDatabaseDao<ContactRequest> {
     List<ContactRequest> getRequestsBySender(String phoneNumber);
     List<ContactRequest> getRequestsByReceiver(String phoneNumber);
 
+
 }
 

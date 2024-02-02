@@ -1,4 +1,4 @@
-package gov.iti.jets.Service;
+package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.ConversationDTO;
 import RemoteInterfaces.RemoteConversationService;
@@ -12,7 +12,8 @@ public class ConversationServiceImpl extends UnicastRemoteObject implements Remo
     }
 
     @Override
-    public ArrayList<ConversationDTO> getAllConversationsForUser(String userPhone) throws RemoteException {
+    public ConversationDTO getAllConversationForUser(String userPhone) throws RemoteException {
+
         return null;
     }
 }

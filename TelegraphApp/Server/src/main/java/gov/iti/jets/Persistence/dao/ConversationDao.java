@@ -4,6 +4,9 @@ import gov.iti.jets.Domain.Conversation;
 
 import java.util.List;
 
-public interface ConversationDao extends GenericDatabaseDao<Conversation>,RetrievableByID<Conversation,String> {
+public interface ConversationDao extends GenericDatabaseDao<Conversation>,RetrievableByID<Conversation,Integer> {
     List<Conversation> getGroupConversationsByPhone(String phone);
+    List<String> getConversationParticipants(int conversationId);
+    int getIndividualConversationId(String userPhone,String contactPhone);
+    void createGroupConversation(String userPhone, Conversation group);
 }

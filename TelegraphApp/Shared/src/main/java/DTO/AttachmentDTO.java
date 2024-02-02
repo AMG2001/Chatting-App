@@ -5,6 +5,7 @@ import java.io.*;
 public class AttachmentDTO implements Serializable {
     private String attachmentId;
     private String attachmentName;
+    private String messageId;
     private String attachmentType;
     private byte[] attachmentContent;
 
@@ -14,7 +15,7 @@ public class AttachmentDTO implements Serializable {
         this.attachmentType = attachmentType;
         this.attachmentContent = attachmentContent;
     }
-    public void serializeContent(String filePath) throws IOException {
+    public void serializeContent(String filePath,byte[] file) throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
