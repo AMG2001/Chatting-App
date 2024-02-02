@@ -63,6 +63,11 @@ public class ConversationDaoImpl implements ConversationDao {
     }
 
     @Override
+    public List<String> getConversationParticipants(int conversationId) {
+        return null;
+    }
+
+    @Override
     public void add(Conversation entity) {
 
     }

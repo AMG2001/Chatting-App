@@ -4,12 +4,12 @@ import DTO.MessageDTO;
 import DTO.NotificationDTO;
 import DTO.RequestDTO;
 import DTO.UserDTO;
-import RemoteInterfaces.callback.RemoteUserCallback;
+import RemoteInterfaces.callback.RemoteCallbackInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class ServerCallback extends UnicastRemoteObject implements RemoteUserCallback
+public class ServerCallback extends UnicastRemoteObject implements RemoteCallbackInterface
 {
     protected ServerCallback() throws RemoteException {
     }

@@ -1,4 +1,4 @@
-package gov.iti.jets.Service;
+package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.ConversationDTO;
 import RemoteInterfaces.RemoteConversationService;

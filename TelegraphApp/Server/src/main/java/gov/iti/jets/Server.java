@@ -1,6 +1,6 @@
 package gov.iti.jets;
 
-import RemoteInterfaces.callback.RemoteUserCallback;
+import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
 import java.sql.*;
@@ -16,7 +16,7 @@ public class Server {
          * 2. init all rowsets object to be able to perform crud operations on all tables .
          */
         //ApplicationServices.initApplicationServices();
-        ArrayList<RemoteUserCallback> onlineUsers;
+        ArrayList<RemoteCallbackInterface> onlineUsers;
 
         List<User> userList = new ArrayList<>();
 
