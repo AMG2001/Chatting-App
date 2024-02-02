@@ -249,6 +249,36 @@ public class UserDoaImpl implements UserDao {
     //TODO Yousef
     @Override
     public void updateStatus(String phone, UserStatus status) {
+        Connection con=null;
+        PreparedStatement pst= null;
 
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update user\n" +
+                    "set status = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, String.valueOf(status));
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
