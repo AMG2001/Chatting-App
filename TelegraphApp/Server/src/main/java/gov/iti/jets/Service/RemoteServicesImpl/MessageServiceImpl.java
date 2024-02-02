@@ -4,6 +4,7 @@ import DTO.MessageDTO;
 import RemoteInterfaces.RemoteMessageService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
+import gov.iti.jets.Persistence.doaImpl.MessageDoaImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.MessageHandler;
 import gov.iti.jets.Service.OnlineUsers;
@@ -20,21 +21,21 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
     }
 
     @Override
-    public void sendMessage(MessageDTO message) throws RemoteException {
+    public void sendMessage(MessageDTO message) throws RemoteException{
+        MessageDoaImpl messageImpl = new MessageDoaImpl();
+        ConversationDaoImpl conversationImpl = new ConversationDaoImpl();
+        //messageImpl.add(message);
+
         List<String> contacts;
-
-        ConversationDaoImpl impl = new ConversationDaoImpl();
-
-        contacts = impl.getConversationParticipants(message.getConversationId());
-
+        contacts = conversationImpl.getConversationParticipants(message.getConversationId());
         MessageHandler handler = new MessageHandler();
-
         final ConcurrentHashMap<String, RemoteCallbackInterface> friends =
-                OnlineUsers.getFriendsFromOnlineList(contacts);
+                OnlineUsers .getFriendsFromOnlineList(contacts);
+        handler.sendMessages(message,friends);
 
-        ThreadPoolManager.submitOperation(
-                ()->handler.sendMessages(message,friends)
-        );
+//        ThreadPoolManager.submitOperation(
+//                ()->handler.sendMessages(message,friends)
+//        );
 
     }
 }
