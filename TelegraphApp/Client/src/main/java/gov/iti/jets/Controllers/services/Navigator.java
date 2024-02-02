@@ -20,4 +20,8 @@ public class Navigator {
     public static void navigateToRegister() {
         AppViews.getInstance().showRegisterPage();
     }
+
+    public static void navigateToLogin() {
+        AppViews.getInstance().showLoginPage();
+    }
 }
