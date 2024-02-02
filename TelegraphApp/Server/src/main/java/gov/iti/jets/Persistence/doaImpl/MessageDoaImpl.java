@@ -34,53 +34,7 @@ public class MessageDoaImpl implements MessageDao {
 
     }
 
-    @Override
-    public int getIndividualConversationId(String userPhone,String contactPhone){
-        List<Message> messages= new ArrayList<>();
 
-        Connection con = null;
-        PreparedStatement pst = null;
-        ResultSet rs=null;
-        int conversationId = 0;
-
-        try{
-            con = DBConnectionPool.DATASOURCE.getConnection();
-
-            String sql = "select uc.conversation_id As conversation_id\n" +
-                    "from User_Conversation uc, Conversation c\n" +
-                    "where uc.conversation_id = c.conversation_id\n" +
-                    "and c.type = 'INDIVIDUAL'\n" +
-                    "and uc.phone_number in (?,?)\n" +
-                    "group by uc.conversation_id\n" +
-                    "having COUNT(uc.phone_number) = 2;";
-            pst = con.prepareStatement(sql);
-
-            pst.setString(1,userPhone);
-            pst.setString(2,contactPhone);
-
-            rs = pst.executeQuery();
-
-            while (rs.next()){
-                conversationId = rs.getInt("conversation_id");
-            }
-
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        finally {
-            try {
-                if (con != null) con.close();
-                if(pst != null) pst.close();
-                if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
-            }
-            catch (SQLException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        return conversationId;
-    }
 
     // get group messages or individual conversation messages
     @Override
