@@ -13,7 +13,6 @@ public class Client extends Application {
     public void start(Stage primaryStage) throws Exception {
         AppViews.getInstance().initStage(primaryStage);
     }
-
     public static void main(String[] args) {
         launch(args);
     }

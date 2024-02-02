@@ -7,11 +7,9 @@ public class Attachment {
     public String getAttachmentId() {
         return attachmentId;
     }
-
     public void setAttachmentId(String attachmentId) {
         this.attachmentId = attachmentId;
     }
-
     public String getAttachmentName() {
         return attachmentName;
     }
