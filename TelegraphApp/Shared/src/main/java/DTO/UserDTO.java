@@ -118,21 +118,7 @@ public class UserDTO implements Serializable {
     public byte[] getSerializedImageURL() {
         return serializedImage;
     }
-
-//    private byte[] serializeImage(javafx.scene.image.Image image) {
-//        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
-//
-//            objectOutputStream.writeObject(image);
-//
-//            return byteArrayOutputStream.toByteArray();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
+    
     public void setSerializedImage(byte[] serializedImage) {
         this.serializedImage = serializedImage;
     }

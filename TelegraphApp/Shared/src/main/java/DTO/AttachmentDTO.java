@@ -9,27 +9,30 @@ public class AttachmentDTO implements Serializable {
     private String attachmentType;
     private byte[] attachmentContent;
 
-    public AttachmentDTO(String attachmentId, String attachmentName, String attachmentType, byte[] attachmentContent) {
+    public AttachmentDTO(String attachmentId, String attachmentName, String messageId, String attachmentType, byte[] attachmentContent) {
         this.attachmentId = attachmentId;
         this.attachmentName = attachmentName;
+        this.messageId = messageId;
         this.attachmentType = attachmentType;
         this.attachmentContent = attachmentContent;
     }
-    public void serializeContent(String filePath,byte[] file) throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
-            objectOutputStream.writeObject(attachmentContent);
-        }
-    }
 
-    public void deserializeContent(String filePath) throws IOException, ClassNotFoundException {
-        try (FileInputStream fileInputStream = new FileInputStream(filePath);
-             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-
-            attachmentContent = (byte[]) objectInputStream.readObject();
-        }
-    }
+//    public void serializeContent(String filePath,byte[] file) throws IOException {
+//        try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+//             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+//
+//            objectOutputStream.writeObject(attachmentContent);
+//        }
+//    }
+//
+//    public void deserializeContent(String filePath) throws IOException, ClassNotFoundException {
+//        try (FileInputStream fileInputStream = new FileInputStream(filePath);
+//             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+//
+//            attachmentContent = (byte[]) objectInputStream.readObject();
+//        }
+//    }
 
     public String getAttachmentId() {
         return attachmentId;
@@ -61,5 +64,13 @@ public class AttachmentDTO implements Serializable {
 
     public void setAttachmentContent(byte[] attachmentContent) {
         this.attachmentContent = attachmentContent;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 }

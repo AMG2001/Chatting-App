@@ -11,6 +11,7 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
     }
     @Override
     public AttachmentDTO getAttachment(String messageID) throws RemoteException {
+
         return null;
     }
 }

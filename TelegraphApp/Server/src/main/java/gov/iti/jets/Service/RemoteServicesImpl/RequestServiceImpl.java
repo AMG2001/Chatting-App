@@ -14,6 +14,15 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
     @Override
     public void sendRequest(RequestDTO request) throws RemoteException {
+        //Todo Yousef - Check if a request already exists. If not add the request to the DB.
+        /**
+         * 1) Check if receiver phone exists
+         *  User user = UserDao.getByID is not Null
+         * 2) Check if a request has already been sent between Sender & Reciever
+         *  RequestDAO.checkifexists(Request)
+         * 3) Map RequestDTO to Request Domain
+         */
+
 
     }
 
@@ -24,6 +33,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
     @Override
     public ArrayList<RequestDTO> getAllRequest(String Phone) throws RemoteException {
+        //Todo Retrieve all the requests recieved by the user and return them after mapping the domain objects to DTO
         return null;
     }
 }

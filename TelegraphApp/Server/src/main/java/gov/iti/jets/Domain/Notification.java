@@ -1,9 +1,11 @@
 package gov.iti.jets.Domain;
 
+import gov.iti.jets.Domain.enums.NotificationType;
+
 import java.sql.Time;
 public class Notification {
     private String notificationId;
-    private String type;
+    private NotificationType type;
     private Time timeStamp;
     private String body;
 
@@ -24,11 +26,11 @@ public class Notification {
         this.notificationId = notificationId;
     }
 
-    public String getType() {
+    public NotificationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(NotificationType type) {
         this.type = type;
     }
 

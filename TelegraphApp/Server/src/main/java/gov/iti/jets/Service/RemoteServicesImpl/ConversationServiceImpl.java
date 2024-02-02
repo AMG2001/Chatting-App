@@ -12,7 +12,7 @@ public class ConversationServiceImpl extends UnicastRemoteObject implements Remo
     }
 
     @Override
-    public ConversationDTO getAllConversationForUser(String userPhone) throws RemoteException {
+    public ConversationDTO getConversationForUserPhone(String userPhone) throws RemoteException {
 
         return null;
     }
