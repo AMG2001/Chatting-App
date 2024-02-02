@@ -48,6 +48,10 @@ public class UserDoaImplTest {
     {
         System.out.println(userDoaImpl.getById("555555555"));
     }
+    private void getNumberOfOnlineUsersTest()
+    {
+        System.out.println(userDoaImpl.getNumberOfOnlineUsers());
+    }
 
     public static void main(String[] args) {
         UserDoaImplTest userDoaImplTest= new UserDoaImplTest();
@@ -55,6 +59,7 @@ public class UserDoaImplTest {
         //userDoaImplTest.add_user_test();
         //userDoaImplTest.update_user_test();
        //userDoaImplTest.getContactsByPhoneTest();
-        userDoaImplTest.getByIdTest();
+       // userDoaImplTest.getByIdTest();
+        userDoaImplTest.getNumberOfOnlineUsersTest();
     }
 }

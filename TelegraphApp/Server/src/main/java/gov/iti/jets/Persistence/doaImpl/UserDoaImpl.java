@@ -214,7 +214,36 @@ public class UserDoaImpl implements UserDao {
     //TODO yousef
     @Override
     public int getNumberOfOnlineUsers() {
-        return 0;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        int count = 0;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from user where status = 'ONLINE';";
+            pst = con.prepareStatement(sql);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                count++;
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return count;
     }
 
     //TODO Yousef
