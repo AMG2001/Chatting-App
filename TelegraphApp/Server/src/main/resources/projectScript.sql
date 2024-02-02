@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Contact (
 );
 
 CREATE TABLE IF NOT EXISTS Contact_Request (
-    request_id INT PRIMARY KEY,
+    request_id INT PRIMARY KEY AUTO_INCREMENT,
     sender_phone VARCHAR(15),
     receiver_phone VARCHAR(15),
     status ENUM('PENDING', 'ACCEPTED', 'DENIED') DEFAULT 'PENDING',
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Contact_Request (
 );
 
 CREATE TABLE IF NOT EXISTS Conversation (
-	conversation_id INT PRIMARY KEY,
+	conversation_id INT PRIMARY KEY AUTO_INCREMENT,
     conversation_img VARCHAR(255),
     conversation_name VARCHAR(255),
     type ENUM('INDIVIDUAL','GROUP') NOT NULL
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS User_Conversation (
     FOREIGN KEY (conversation_id) REFERENCES Conversation(conversation_id)
 );
 CREATE TABLE IF NOT EXISTS Message (
-    message_id INT PRIMARY KEY,
+    message_id INT PRIMARY KEY AUTO_INCREMENT,
     conversation_id INT,
     sender_phone VARCHAR(15),
     message_body TEXT,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Message (
 );
 
 CREATE TABLE IF NOT EXISTS Attachment(
-	attachment_id INT PRIMARY KEY,
+	attachment_id INT PRIMARY KEY AUTO_INCREMENT,
     message_id INT,
     attachment_name VARCHAR(255),
     attachment_type VARCHAR(50),
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Attachment(
 
 
 CREATE TABLE IF NOT EXISTS Notification(
-	notification_id INT PRIMARY KEY,
+	notification_id INT PRIMARY KEY AUTO_INCREMENT,
     notification_body TEXT,
     timestamp DATETIME,
     type ENUM('FRIEND','REQUEST','MESSAGE','SYSTEM')

@@ -143,4 +143,78 @@ public class ConversationDaoImpl implements ConversationDao {
         return conversationId;
     }
 
+
+    @Override
+    public void createGroupConversation(String userPhone,Conversation group) {
+
+        Connection con=null;
+        try{
+            con=DBConnectionPool.DATASOURCE.getConnection();
+
+            con.setAutoCommit(false);
+
+            int groupId = createGroup(con, group);
+            addUserToGroup(userPhone,groupId);
+
+            con.commit();
+        }
+        catch (SQLException e){
+            try {
+                if (con != null) con.rollback();
+            }
+            catch (SQLException rollbackException) {
+                System.out.println(rollbackException.getMessage());
+                rollbackException.printStackTrace();
+            }
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private int createGroup(Connection con, Conversation group) throws SQLException{
+        int groupId = 0;
+
+        String sql = "insert into Conversation (conversation_img, conversation_name,type)\n" +
+                    "values (?, ?, ?);";
+        try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pst.setString(1, group.getConversationImage());
+            pst.setString(2, group.getConversationName());
+            pst.setString(3,"GROUP");
+            pst.executeUpdate();
+
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    groupId = generatedKeys.getInt(1);
+                }
+            }
+        }
+        return groupId;
+    }
+
+    private void addUserToGroup(String userPhone, int groupId) throws SQLException{
+        String sql = "INSERT INTO User_Conversation (phone_number, conversation_id, join_date)\n" +
+                "VALUES (?, ?, ?)";
+    }
+
+    public static void main(String[] args) {
+        ConversationDaoImpl conversationDao = new ConversationDaoImpl();
+        Conversation group = new Conversation();
+        group.setConversationImage("im2");
+        group.setConversationName("testGroup");
+        conversationDao.createGroupConversation("123456789",group);
+    }
+
 }

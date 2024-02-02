@@ -8,4 +8,5 @@ public interface ConversationDao extends GenericDatabaseDao<Conversation>,Retrie
     List<Conversation> getGroupConversationsByPhone(String phone);
     List<String> getConversationParticipants(int conversationId);
     int getIndividualConversationId(String userPhone,String contactPhone);
+    void createGroupConversation(String userPhone, Conversation group);
 }
