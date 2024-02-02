@@ -5,15 +5,18 @@ import java.util.concurrent.Executors;
 
 public class ThreadPoolManager {
     private static final int THREAD_COUNT = 10;
-    private final ExecutorService executorService;
+    private static ThreadPoolManager instance;
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);;
 
-    public ThreadPoolManager() {
-        this.executorService = Executors.newFixedThreadPool(THREAD_COUNT);
+    private ThreadPoolManager() {
+        //this.executorService = Executors.newFixedThreadPool(THREAD_COUNT);
     }
-    public void submitOperation(Runnable operation){
+
+    public static void submitOperation(Runnable operation) {
         executorService.execute(operation);
     }
-    public void shutdown(){
+
+    public static void shutdown() {
         executorService.shutdown();
     }
 }
