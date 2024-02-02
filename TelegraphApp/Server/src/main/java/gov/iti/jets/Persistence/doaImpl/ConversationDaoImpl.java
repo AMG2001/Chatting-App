@@ -145,16 +145,18 @@ public class ConversationDaoImpl implements ConversationDao {
 
 
     @Override
-    public void createGroupConversation(String userPhone,Conversation group) {
+    public int createGroupConversation(String userPhone,Conversation group) {
 
+        int groupId = 0;
         Connection con=null;
+
         try{
             con=DBConnectionPool.DATASOURCE.getConnection();
 
             con.setAutoCommit(false);
 
-            int groupId = createGroup(con, group);
-            addUserToGroup(userPhone,groupId);
+            groupId = createGroup(con, group);
+            addUserToGroup(con,userPhone,groupId);
 
             con.commit();
         }
@@ -182,6 +184,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 e.printStackTrace();
             }
         }
+        return groupId;
     }
 
     private int createGroup(Connection con, Conversation group) throws SQLException{
@@ -204,17 +207,19 @@ public class ConversationDaoImpl implements ConversationDao {
         return groupId;
     }
 
-    private void addUserToGroup(String userPhone, int groupId) throws SQLException{
+    private void addUserToGroup(Connection con, String userPhone, int groupId) throws SQLException{
         String sql = "INSERT INTO User_Conversation (phone_number, conversation_id, join_date)\n" +
                 "VALUES (?, ?, ?)";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+           pst.setString(1,userPhone);
+           pst.setInt(2,groupId);
+
+           java.sql.Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+           pst.setTimestamp(3, currentTimestamp);
+
+            pst.executeUpdate();
+        }
     }
 
-    public static void main(String[] args) {
-        ConversationDaoImpl conversationDao = new ConversationDaoImpl();
-        Conversation group = new Conversation();
-        group.setConversationImage("im2");
-        group.setConversationName("testGroup");
-        conversationDao.createGroupConversation("123456789",group);
-    }
 
 }
