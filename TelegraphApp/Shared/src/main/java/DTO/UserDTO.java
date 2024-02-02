@@ -2,10 +2,8 @@ package DTO;
 
 //import javafx.scene.image.Image;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 
 public class UserDTO implements Serializable {
@@ -13,7 +11,7 @@ public class UserDTO implements Serializable {
     private String name;
     private String email;
     private String password;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String country;
     private String gender;
     private String bio;
@@ -32,7 +30,7 @@ public class UserDTO implements Serializable {
 //        this.status = status;
 //        this.serializedImage = serializeImage(image);
 //    }
-    public UserDTO(String phoneNumber, String name, String email, String password, String dataOfBirth, String country, String gender, String bio, String status, byte[] image) {
+    public UserDTO(String phoneNumber, String name, String email, String password, LocalDate dataOfBirth, String country, String gender, String bio, String status, byte[] image) {
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.email = email;
@@ -77,11 +75,11 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

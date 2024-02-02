@@ -1,4 +1,6 @@
-package gov.iti.jets.Service.RemoteServicesImpl;
+package gov.iti.jets.Service;
+
+import gov.iti.jets.Service.RemoteServicesImpl.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

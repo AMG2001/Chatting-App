@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserService {
 
-    protected UserServiceImpl() throws RemoteException {
+    public UserServiceImpl() throws RemoteException {
     }
 
     @Override

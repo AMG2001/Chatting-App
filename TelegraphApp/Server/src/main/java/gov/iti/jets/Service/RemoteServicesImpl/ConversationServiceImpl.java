@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class ConversationServiceImpl extends UnicastRemoteObject implements RemoteConversationService {
-    protected ConversationServiceImpl() throws RemoteException {
+    public ConversationServiceImpl() throws RemoteException {
     }
 
     @Override

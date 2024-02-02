@@ -22,7 +22,7 @@ public class UserDoaImpl implements UserDao {
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             pst=con.prepareStatement(sql);
 
-            pst.setString(1, entity.getPhone_number());
+            pst.setString(1, entity.getPhoneNumber());
             pst.setString(2, entity.getName());
             pst.setString(3, entity.getEmail());
             pst.setString(4, entity.getPassword());
@@ -77,7 +77,7 @@ public class UserDoaImpl implements UserDao {
             pst.setString(6, entity.getGender().name());
             pst.setString(7, entity.getBio());
             pst.setString(8, entity.getPicture());
-            pst.setString(9, entity.getPhone_number());
+            pst.setString(9, entity.getPhoneNumber());
 
             pst.executeUpdate();
         }
@@ -137,7 +137,7 @@ public class UserDoaImpl implements UserDao {
                 String contactPic= rs.getString("contact_picture");
 
                 User user= new User();
-                user.setPhone_number(contactPhone);
+                user.setPhoneNumber(contactPhone);
                 user.setName(contactName);
                 user.setStatus(UserStatus.valueOf(contactStatus));
                 user.setPicture(contactPic);
