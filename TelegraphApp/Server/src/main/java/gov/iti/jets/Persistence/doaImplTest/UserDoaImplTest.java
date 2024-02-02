@@ -44,12 +44,17 @@ public class UserDoaImplTest {
     private void getContactsByPhoneTest(){
         System.out.println(userDoaImpl.getContactsByPhoneAndStatus("555555555",UserStatus.OFFLINE));
     }
+    private void getByIdTest()
+    {
+        System.out.println(userDoaImpl.getById("555555555"));
+    }
 
     public static void main(String[] args) {
         UserDoaImplTest userDoaImplTest= new UserDoaImplTest();
 
         //userDoaImplTest.add_user_test();
         //userDoaImplTest.update_user_test();
-       userDoaImplTest.getContactsByPhoneTest();
+       //userDoaImplTest.getContactsByPhoneTest();
+        userDoaImplTest.getByIdTest();
     }
 }

@@ -1,6 +1,8 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.Domain.Attachment;
 import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.Gender;
 import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
@@ -104,7 +106,47 @@ public class UserDoaImpl implements UserDao {
 
     @Override
     public User getById(String phone) {
-        return null;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        User user = null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from user where phone_number=?;";
+            pst = con.prepareStatement(sql);
+            pst.setString(1,phone);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                user = new User();
+                user.setPhone_number(phone);
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setDob(rs.getDate("dob").toLocalDate());
+                user.setCountry(rs.getString("country"));
+                user.setGender(Gender.valueOf(rs.getString("gender")));
+                user.setBio(rs.getString("bio"));
+                user.setStatus(UserStatus.valueOf(rs.getString("status")));
+                user.setPicture(rs.getString("picture"));
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return user;
     }
 
 
@@ -169,6 +211,7 @@ public class UserDoaImpl implements UserDao {
         return 0;
     }
 
+    //TODO yousef
     @Override
     public int getNumberOfOnlineUsers() {
         return 0;
