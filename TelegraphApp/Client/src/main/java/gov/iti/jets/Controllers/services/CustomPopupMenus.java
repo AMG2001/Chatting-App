@@ -17,7 +17,6 @@ public class CustomPopupMenus {
         borderPane.setCenter(notificationsListView.getNotifications_listView());
         // Set the BorderPane as the graphic for the MenuItem
         menuItem.setGraphic(borderPane);
-
         contextMenu.getItems().add(menuItem);
         return contextMenu;
     }

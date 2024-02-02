@@ -1,14 +1,41 @@
 package gov.iti.jets.Model;
 
 import javafx.beans.value.ObservableObjectValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 public class ClientState {
-    ObservableObjectValue<UserModel> loggedinUser;
+    private static ClientState instance;
+    ObservableValue<UserModel> loggedinUser;
     ObservableList<UserModel> contacts;
-
-    //TODO There has be a conversation object for each contact - the messages can be loaded later
     ObservableList<ConversationModel> conversations;
-    ObservableObjectValue<ConversationModel> currentConversation;
+    ObjectProperty<ConversationModel> currentConversation;
 
+    private ClientState() {
+        loggedinUser = new SimpleObjectProperty<>();
+        contacts = FXCollections.observableArrayList();
+        conversations = FXCollections.observableArrayList();
+        currentConversation = new SimpleObjectProperty<>();
+    }
+
+    public static ClientState getInstance() {
+        if (instance == null) {
+            instance = new ClientState();
+        }
+        return instance;
+    }
+
+    public UserModel getLoggedinUserModel() {
+        return loggedinUser.getValue();
+    }
+
+    public void setLoggedinUserProperty(UserModel userModel) {
+        this.loggedinUser = new SimpleObjectProperty<>(userModel);
+    }
 }
+

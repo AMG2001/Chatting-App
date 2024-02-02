@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import gov.iti.jets.Controllers.config.AppPages;
 
-public class    Client extends Application {
+public class Client extends Application {
     @Override
     public void start(Stage primaryStage) {
         AppViews.getInstance().initStage(primaryStage);
