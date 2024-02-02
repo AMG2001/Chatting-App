@@ -281,4 +281,12 @@ public class UserDoaImpl implements UserDao {
             }
         }
     }
+
+    //TODO yousef
+    @Override
+    public List<User> getAllContactsByPhone(String phone) {
+        return null;
+    }
+
+
 }

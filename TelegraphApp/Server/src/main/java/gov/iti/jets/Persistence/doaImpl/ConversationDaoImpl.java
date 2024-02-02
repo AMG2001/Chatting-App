@@ -62,7 +62,7 @@ public class ConversationDaoImpl implements ConversationDao {
         }
         return groups;
     }
-
+    //TODO moataz
     @Override
     public List<String> getConversationParticipants(int conversationId) {
         return null;
@@ -212,6 +212,19 @@ public class ConversationDaoImpl implements ConversationDao {
     }
 
 
+
+
+    @Override
+    public List<Conversation> getIndividualConversationsByPhone(String phone) {
+        return null;
+    }
+
+    //TODO yousef
+    @Override
+    public List<Conversation> getAllConversationsByPhone(String phone) {
+        return null;
+    }
+
     @Override
     public int createGroupConversation(String userPhone,Conversation group) {
 
@@ -253,11 +266,6 @@ public class ConversationDaoImpl implements ConversationDao {
             }
         }
         return groupId;
-    }
-
-    @Override
-    public List<Conversation> getIndividualConversationsByPhone(String phone) {
-        return null;
     }
 
     private int createGroup(Connection con, Conversation group) throws SQLException{

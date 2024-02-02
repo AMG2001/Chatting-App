@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface MessageDao extends GenericDatabaseDao<Message>{
     List<Message> getMessagesByConversationId(int conversationId);
+    int createMessage(Message message);
 }
