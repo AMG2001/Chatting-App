@@ -10,5 +10,5 @@ public interface UserDao extends GenericDatabaseDao<User> ,RetrievableByID<User,
      List<User> getContactsByPhoneAndStatus(String phone, UserStatus status);
      int getNumberOfUsers();
      int getNumberOfOnlineUsers();
-     void updateStatus(User entity);
+     void updateStatus(String phone , UserStatus status);
 }

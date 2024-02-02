@@ -174,7 +174,7 @@ public class UserDoaImpl implements UserDao {
     }
 
     @Override
-    public void updateStatus(User entity) {
+    public void updateStatus(String phone, UserStatus status) {
 
     }
 }
