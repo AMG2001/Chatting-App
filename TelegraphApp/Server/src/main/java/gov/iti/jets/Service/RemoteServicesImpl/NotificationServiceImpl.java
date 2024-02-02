@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class NotificationServiceImpl extends UnicastRemoteObject implements RemoteNotificationService {
-    protected NotificationServiceImpl() throws RemoteException {
+    public NotificationServiceImpl() throws RemoteException {
     }
     @Override
     public ArrayList<NotificationDTO> getAllNotifications(String userPhone) throws RemoteException {

@@ -3,34 +3,44 @@ package gov.iti.jets.Service.RemoteServicesImpl;
 import DTO.MessageDTO;
 import RemoteInterfaces.RemoteMessageService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.Domain.Message;
+import gov.iti.jets.Persistence.dao.ConversationDao;
+import gov.iti.jets.Persistence.dao.MessageDao;
 import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.MessageDoaImpl;
-import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.MessageHandler;
-import gov.iti.jets.Service.OnlineUsers;
-import gov.iti.jets.Service.ThreadPoolManager;
+import gov.iti.jets.Service.OnlineUserManager;
+import gov.iti.jets.Service.mappers.MessageMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMessageService {
-    protected MessageServiceImpl() throws RemoteException {
+    public MessageServiceImpl() throws RemoteException {
     }
 
     @Override
     public void sendMessage(MessageDTO message) throws RemoteException{
-        MessageDoaImpl messageImpl = new MessageDoaImpl();
-        ConversationDaoImpl conversationImpl = new ConversationDaoImpl();
-        //messageImpl.add(message);
 
-        List<String> contacts;
-        contacts = conversationImpl.getConversationParticipants(message.getConversationId());
+        MessageDao messageImpl = new MessageDoaImpl();
+        ConversationDao conversationImpl = new ConversationDaoImpl();
+
+        Message domainMessage = MessageMapper.INSTANCE.messageDTOToMessage(message);
+        //Add message to the conversation in Database
+        messageImpl.add(domainMessage);
+
+        //Use callbacks to send message to online users
+        List<String> conversationParticipants;
+
+        //Get a list of phone numbers of all conversation participants
+        conversationParticipants = conversationImpl.getConversationParticipants(message.getConversationId());
         MessageHandler handler = new MessageHandler();
+        //Retrieve the callbackinterfaces of all online users who are also in the conversation
         final ConcurrentHashMap<String, RemoteCallbackInterface> friends =
-                OnlineUsers .getFriendsFromOnlineList(contacts);
+                OnlineUserManager.getFriendsFromOnlineList(conversationParticipants);
+
         handler.sendMessages(message,friends);
 
 //        ThreadPoolManager.submitOperation(

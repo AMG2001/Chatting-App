@@ -6,7 +6,7 @@ import gov.iti.jets.Domain.enums.UserStatus;
 import java.time.LocalDate;
 
 public class User {
-    private String phone_number;
+    private String phoneNumber;
     private String name;
     private String email;
     private String password;
@@ -21,8 +21,8 @@ public class User {
 
     }
 
-    public User(String phone_number, String name, String email, String password, String country, UserStatus status, Gender gender, String bio, String picture, LocalDate dob) {
-        this.phone_number = phone_number;
+    public User(String phoneNumber, String name, String email, String password, String country, UserStatus status, Gender gender, String bio, String picture, LocalDate dob) {
+        this.phoneNumber = phoneNumber;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,12 +34,12 @@ public class User {
         this.dob = dob;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -117,7 +117,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "phone_number='" + phone_number + '\'' +
+                "phone_number='" + phoneNumber + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

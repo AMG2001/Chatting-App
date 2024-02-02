@@ -13,7 +13,7 @@ public class UserDoaImplTest {
 
     private void add_user_test(){
         User user = new User();
-        user.setPhone_number("12345678910");
+        user.setPhoneNumber("12345678910");
         user.setName("John Doe");
         user.setEmail("john@example.com");
         user.setPassword("securepassword");
@@ -28,7 +28,7 @@ public class UserDoaImplTest {
     }
     private void update_user_test(){
         User user = new User();
-        user.setPhone_number("12345678910");
+        user.setPhoneNumber("12345678910");
         user.setName("mona");
         user.setEmail("mona@example.com");
         user.setPassword("securepassword");

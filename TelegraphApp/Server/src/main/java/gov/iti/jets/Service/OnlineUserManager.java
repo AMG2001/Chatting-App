@@ -1,14 +1,14 @@
 package gov.iti.jets.Service;
 
 import RemoteInterfaces.callback.RemoteCallbackInterface;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class OnlineUsers {
+public class OnlineUserManager {
     private static ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers = new ConcurrentHashMap<>();
 
-    OnlineUsers(){
+    OnlineUserManager(){
         onlineUsers = new ConcurrentHashMap<>();
     }
 
@@ -17,7 +17,7 @@ public class OnlineUsers {
     }
 
     public static void setOnlineUsers(ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers) {
-        OnlineUsers.onlineUsers = onlineUsers;
+        OnlineUserManager.onlineUsers = onlineUsers;
     }
 
     public static void addOnlineUser(String phone, RemoteCallbackInterface user){
