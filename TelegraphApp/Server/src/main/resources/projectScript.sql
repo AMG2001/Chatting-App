@@ -145,8 +145,8 @@ VALUES
 
 INSERT INTO Attachment (attachment_id,message_id, attachment_type,attachment_name)
 VALUES
-(1,1,'pdf','image1.jpg'),
-(2,2,'png','document.pdf');
+(1,1,'jpg','image1.jpg'),
+(2,2,'pdf','document.pdf');
 
 INSERT INTO Notification (notification_id, notification_body, timestamp, type)
 VALUES
