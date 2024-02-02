@@ -6,15 +6,13 @@ import java.time.LocalTime;
 public class MessageDTO implements Serializable {
     private int messageId;
     private String senderPhone;
-    private AttachmentDTO attachment;
     private int conversationId;
     private String messageBody;
     private LocalTime timeStamp;
 
-    public MessageDTO(int messageId, String senderPhone, AttachmentDTO attachment, int conversationId, String messageBody, LocalTime timeStamp) {
+    public MessageDTO(int messageId, String senderPhone, int conversationId, String messageBody, LocalTime timeStamp) {
         this.messageId = messageId;
         this.senderPhone = senderPhone;
-        this.attachment = attachment;
         this.conversationId = conversationId;
         this.messageBody = messageBody;
         this.timeStamp = timeStamp;
@@ -34,14 +32,6 @@ public class MessageDTO implements Serializable {
 
     public void setSenderPhone(String senderPhone) {
         this.senderPhone = senderPhone;
-    }
-
-    public AttachmentDTO getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(AttachmentDTO attachment) {
-        this.attachment = attachment;
     }
 
     public int getConversationId() {

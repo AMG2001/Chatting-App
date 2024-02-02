@@ -1,10 +1,6 @@
 package gov.iti.jets.Persistence.doaImpl;
 
-import gov.iti.jets.Domain.Attachment;
-import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Domain.Message;
-import gov.iti.jets.Domain.User;
-import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.MessageDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
@@ -116,7 +112,7 @@ public class MessageDoaImpl implements MessageDao {
                 String message_body=rs.getString("message_body");
                 java.sql.Timestamp timestamp = rs.getTimestamp("timestamp");
 
-                Message message = new Message(message_id,sender_phone,attachment_id,conversation_id,message_body,timestamp.toLocalDateTime());
+                Message message = new Message(message_id,sender_phone, conversation_id,message_body,timestamp.toLocalDateTime());
 
                 messages.add(message);
             }

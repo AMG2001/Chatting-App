@@ -5,6 +5,7 @@ import java.io.*;
 public class AttachmentDTO implements Serializable {
     private String attachmentId;
     private String attachmentName;
+    private String messageId;
     private String attachmentType;
     private byte[] attachmentContent;
 
