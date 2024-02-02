@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS User (
     password VARCHAR(255) NOT NULL,
     dob DATE,
     country VARCHAR(100),
+    country VARCHAR(100),
     gender ENUM('MALE', 'FEMALE'),
     bio TEXT,
     status ENUM('ONLINE','OFFLINE','AWAY','BUSY'),
@@ -27,7 +28,8 @@ CREATE TABLE IF NOT EXISTS Contact_Request (
     sender_phone VARCHAR(15),
     receiver_phone VARCHAR(15),
     status ENUM('PENDING', 'ACCEPTED', 'DENIED') DEFAULT 'PENDING',
-    responded_at DATETIME,
+    send_date DATETIME,
+    response_date DATETIME,
     FOREIGN KEY (sender_phone) REFERENCES User(phone_number),
     FOREIGN KEY (receiver_phone) REFERENCES User(phone_number)
 );
@@ -91,11 +93,11 @@ VALUES
 ('555555555', 'Yousef', 'Yousef@example.com', 'password789', '1998-08-20', 'Egypt',  'MALE', 'Hello from Yousef!', 'AWAY', 'Yousef.jpg');
 
 
-INSERT INTO Contact_Request (request_id, sender_phone, receiver_phone, status, responded_at)
+INSERT INTO Contact_Request (request_id, sender_phone, receiver_phone, status, send_date,response_date)
 VALUES
-(1, '123456789', '555555555', 'ACCEPTED', NOW()),  -- Marwan sends a contact request to Yousef and Youssef accepted it
-(2, '555555555', '987654321', 'ACCEPTED', NOW()),   -- Yousef sends a contact request to Amgad and ACCEPTED accepted it
-(3, '987654321', '123456789', 'ACCEPTED', NOW()); -- Amgad sends a contact request to Marwan and ACCEPTED accepted it
+(1, '123456789', '555555555', 'ACCEPTED', NOW(),NOW()),  -- Marwan sends a contact request to Yousef and Youssef accepted it
+(2, '555555555', '987654321', 'ACCEPTED', NOW(),NOW()),   -- Yousef sends a contact request to Amgad and ACCEPTED accepted it
+(3, '987654321', '123456789', 'ACCEPTED', NOW(),NOW()); -- Amgad sends a contact request to Marwan and ACCEPTED accepted it
 
 
 INSERT INTO Contact (user_phone, contact_phone, add_date)

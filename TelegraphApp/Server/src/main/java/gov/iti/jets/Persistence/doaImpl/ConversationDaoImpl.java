@@ -255,6 +255,11 @@ public class ConversationDaoImpl implements ConversationDao {
         return groupId;
     }
 
+    @Override
+    public List<Conversation> getIndividualConversationsByPhone(String phone) {
+        return null;
+    }
+
     private int createGroup(Connection con, Conversation group) throws SQLException{
         int groupId = 0;
 
