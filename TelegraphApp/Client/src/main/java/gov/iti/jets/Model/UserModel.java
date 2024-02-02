@@ -1,5 +1,7 @@
 package gov.iti.jets.Model;
 
+import DTO.UserDTO;
+import gov.iti.jets.Controllers.services.FileConverter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,4 +24,19 @@ public class UserModel {
     StringProperty bio = new SimpleStringProperty();
     ObjectProperty<LocalDate> dob = new SimpleObjectProperty<LocalDate>();
     ObjectProperty<Image> profilePic = new SimpleObjectProperty<Image>();
+
+    public UserModel() {
+
+    }
+    public UserModel(UserDTO userDTO) {
+        this.userName.set(userDTO.getName());
+        this.userPhone.set(userDTO.getPhoneNumber());
+        this.email.set(userDTO.getEmail());
+        this.country.set(userDTO.getCountry());
+        this.status.set(userDTO.getStatus());
+        this.gender.set(userDTO.getGender());
+        this.bio.set(userDTO.getBio());
+        this.dob.set(LocalDate.parse(userDTO.getDateOfBirth()));
+        this.profilePic.set(FileConverter.convert_bytesToImage(userDTO.getSerializedImageURL()));
+    }
 }

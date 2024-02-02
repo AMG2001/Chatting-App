@@ -1,6 +1,8 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.Domain.Attachment;
 import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.Gender;
 import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
@@ -100,10 +102,51 @@ public class UserDoaImpl implements UserDao {
     public void delete(User entity) {
 
     }
+    // TODO Yousef
 
     @Override
     public User getById(String phone) {
-        return null;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        User user = null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from user where phone_number=?;";
+            pst = con.prepareStatement(sql);
+            pst.setString(1,phone);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                user = new User();
+                user.setPhone_number(phone);
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setDob(rs.getDate("dob").toLocalDate());
+                user.setCountry(rs.getString("country"));
+                user.setGender(Gender.valueOf(rs.getString("gender")));
+                user.setBio(rs.getString("bio"));
+                user.setStatus(UserStatus.valueOf(rs.getString("status")));
+                user.setPicture(rs.getString("picture"));
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return user;
     }
 
 
@@ -168,13 +211,74 @@ public class UserDoaImpl implements UserDao {
         return 0;
     }
 
+    //TODO yousef
     @Override
     public int getNumberOfOnlineUsers() {
-        return 0;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        int count = 0;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from user where status = 'ONLINE';";
+            pst = con.prepareStatement(sql);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                count++;
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return count;
     }
 
+    //TODO Yousef
     @Override
     public void updateStatus(String phone, UserStatus status) {
+        Connection con=null;
+        PreparedStatement pst= null;
 
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update user\n" +
+                    "set status = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, String.valueOf(status));
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

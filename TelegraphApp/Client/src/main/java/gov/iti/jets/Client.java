@@ -10,10 +10,9 @@ import gov.iti.jets.Controllers.config.AppPages;
 
 public class Client extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         AppViews.getInstance().initStage(primaryStage);
     }
-
     public static void main(String[] args) {
         launch(args);
     }

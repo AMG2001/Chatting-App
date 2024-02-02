@@ -1,8 +1,8 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
 import DTO.UserDTO;
-import gov.iti.jets.Controllers.config.AppPages;
-import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.FileConverter;
+import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.ServiceContext.UserService;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
-import java.util.regex.Pattern;
+import java.rmi.RemoteException;
 
 import java.io.File;
 
@@ -61,7 +61,7 @@ public class RegisterPageController {
     private boolean isGenderChoosen = false;
 
     @FXML
-    public void pickUserImage(MouseEvent event) {
+    private void pickUserImage(MouseEvent event) {
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choose an image");
@@ -80,89 +80,37 @@ public class RegisterPageController {
         }
     }
 
-
     @FXML
     void signupUser(ActionEvent event) {
-        /**
-         * Signup function work as the following :
-         * 1- Check if the entered Number is 11 number or not , check if all entered are digits or not. ✅
-         * 2- check if the length of password is 8 or higher . ✅
-         * 3. Check if the name entered or not . ✅
-         * 4- if email is entered correctly or not . ✅
-         * 5- Check if the Country Entered or not . ✅
+        /*
+        validate all input fields .
          */
-        boolean isValid = true;
-        // ************************* Phone Number Checking *****************************
-        if (tf_phone.getLength() == 11) {
-            isValid = true;
-            char[] phoneInCharArray = tf_phone.getText().toCharArray();
-            for (char digit : phoneInCharArray) {
-                if (!Character.isDigit(digit)) {
-                    CustomDialogs.showErrorDialog("This is Not valid Phone Number !!");
-                    isValid = false;
-                    break;
-                }
+        String name = tf_name.getText();
+        String email = tf_email.getText();
+        String password = tf_password.getText();
+        String phoneNumber = tf_phone.getText();
+        String country = tf_country.getText();
+        String bio = ta_bio.getText();
+        String gender = "";
+        if (rb_male.isSelected()) {
+            gender = "male";
+        } else if (rb_female.isSelected()) {
+            gender = "female";
+        }
+        byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
+        if (FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && imageBytes != null) {
+            try {
+                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue().toString(), country, gender, bio, "active", imageBytes);
+                UserService.getInstance().getRemoteService().registerUser(userDTO);
+                Navigator.navigateToHomePage();
+            } catch (RemoteException e) {
+                System.out.println("❌❌❌❌❌❌❌❌❌❌ Error while Registering user ." + e.getMessage());
+                e.printStackTrace();
             }
-            // ************************* Password Checking *****************************
-            if (isValid && tf_password.getText().length() >= 8) {
-                isValid = true;
-                // ************************* Name Checking *****************************
-                if (tf_name.getText().length() > 3) {
-                    isValid = true;
-                    // ************************* Email Format Checking *****************************
-                    if (isValidEmail(tf_email.getText())) {
-                        isValid = true;
-                        // ************************* Country Format Checking *****************************
-                        if (tf_country.getText().length() > 4) {
-                            isValid = true;
-//                            if (datePicker.) {
-//                                CustomDialogs.showErrorDialog("You can't leave Date of Birth Field Empty");
-//                                isValid = false;
-//                            } else {
-//                                // ************************* Check if the gender choosen or not *************************
-//                                if (gender.getSelectedToggle() != null) {
-//                                    isValid = true;
-//                                    User user = new User(tf_phone.getText(), tf_name.getText().trim(), tf_email.getText().trim(), tf_password.getText().trim(), tf_country.getText().trim(), "Online", gender.getSelectedToggle().toString(), ta_bio.getText().trim(), "ImageRef", getDate());
-//                                    System.out.println("User data filled successfully ##");
-//                                    // TODO implement Registering Functionality .
-                            //byte[] image = serializer.serialize(img_user);
-                            // UserDTO ahmed = new UserDTO("","",image)
-                            // UserService.getInstance().getRemoteService().registerUser();
-//                                    System.out.println(gender.getSelectedToggle().selectedProperty().getName());
-//                                } else {
-//                                    CustomDialogs.showErrorDialog("Gender is not choosen !!");
-//                                    isValid = false;
-//                                }
-//                            }
-                        } else if (tf_country.getText().length() == 0) {
-                            isValid = false;
-                            CustomDialogs.showErrorDialog("You can't leave Country Field Empty !!");
-                        } else {
-                            isValid = false;
-                            CustomDialogs.showErrorDialog("This is not valid Country Name");
-                        }
-                    } else {
-                        isValid = false;
-                        CustomDialogs.showErrorDialog("This is not valid Email !!");
-                    }
-                } else if (tf_name.getText().length() == 0) {
-                    isValid = false;
-                    CustomDialogs.showErrorDialog("You can't leave Name Field Empty !!");
-                } else {
-                    isValid = false;
-                    CustomDialogs.showErrorDialog("This is not valid Name");
-                }
-            } else {
-                isValid = false;
-                CustomDialogs.showErrorDialog("Password must be 8 Character or Higher !!");
-            }
-        } else {
-            isValid = false;
-            CustomDialogs.showErrorDialog("This is Not valid Phone Number !!");
         }
     }
 
-//    private Date getDate() {
+    //    private Date getDate() {
 //        String dobStr = ta_dob.getText();
 //        SimpleDateFormat format = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
 //        Date dob = format.parse(dobStr);
@@ -172,18 +120,7 @@ public class RegisterPageController {
 
     @FXML
     public void gotoLogin(ActionEvent actionEvent) {
-
-
-    }
-
-    /**
-     * ********************************  Internal Operational Function **************************
-     */
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex);
-        return pat.matcher(email).matches();
+        Navigator.navigateToLogin();
     }
 
 

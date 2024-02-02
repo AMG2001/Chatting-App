@@ -10,6 +10,8 @@ public class MessageDTO implements Serializable {
     private String messageBody;
     private LocalTime timeStamp;
 
+
+
     public MessageDTO(int messageId, String senderPhone, int conversationId, String messageBody, LocalTime timeStamp) {
         this.messageId = messageId;
         this.senderPhone = senderPhone;
