@@ -100,6 +100,7 @@ public class UserDoaImpl implements UserDao {
     public void delete(User entity) {
 
     }
+    // TODO Yousef
 
     @Override
     public User getById(String phone) {
@@ -173,6 +174,7 @@ public class UserDoaImpl implements UserDao {
         return 0;
     }
 
+    //TODO Yousef
     @Override
     public void updateStatus(String phone, UserStatus status) {
 
