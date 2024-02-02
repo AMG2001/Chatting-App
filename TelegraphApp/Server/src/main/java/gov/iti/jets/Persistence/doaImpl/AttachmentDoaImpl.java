@@ -62,6 +62,7 @@ public class AttachmentDoaImpl implements AttachmentDao {
         PreparedStatement pst = null;
         try{
             con = DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
             String sql = "insert into attachment (message_id,attachment_name,attachment_type)\n" +
                     "values (?,?,?);";
             pst = con.prepareStatement(sql);
