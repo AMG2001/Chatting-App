@@ -1,5 +1,7 @@
 package gov.iti.jets.Controllers.LoginPageController;
 
+import DTO.UserDTO;
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
