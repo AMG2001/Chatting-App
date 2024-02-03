@@ -2,6 +2,7 @@ package gov.iti.jets.Service;
 
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,18 +31,31 @@ public class OnlineUserManager {
         onlineUsers.remove(phone);
     }
 
-    public static ConcurrentHashMap<String, RemoteCallbackInterface> getFriendsFromOnlineList
-            (List<String> phones) {
-
-        ConcurrentHashMap<String, RemoteCallbackInterface> result = new ConcurrentHashMap<>();
+    public static List<RemoteCallbackInterface> getFriendsFromOnlineList(List<String> phones) {
+        List<RemoteCallbackInterface> result = new ArrayList<>();
 
         for (String key : phones) {
             if (onlineUsers.containsKey(key)) {
                 RemoteCallbackInterface value = onlineUsers.get(key);
-                result.put(key, value);
+                result.add(value);
             }
         }
 
         return result;
     }
+
+//    public static ConcurrentHashMap<String, RemoteCallbackInterface> getFriendsFromOnlineList
+//            (List<String> phones) {
+//
+//        ConcurrentHashMap<String, RemoteCallbackInterface> result = new ConcurrentHashMap<>();
+//
+//        for (String key : phones) {
+//            if (onlineUsers.containsKey(key)) {
+//                RemoteCallbackInterface value = onlineUsers.get(key);
+//                result.put(key, value);
+//            }
+//        }
+//
+//        return result;
+//    }
 }

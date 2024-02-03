@@ -1,9 +1,6 @@
 package gov.iti.jets.ServiceContext.callback;
 
-import DTO.MessageDTO;
-import DTO.NotificationDTO;
-import DTO.RequestDTO;
-import DTO.UserDTO;
+import DTO.*;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -31,23 +28,23 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
-    public void addContact(UserDTO newContact) throws RemoteException {
+    public void addContact(ContactDTO newContact) throws RemoteException {
 
     }
 
 
     @Override
-    public void updateContactName(String name) throws RemoteException {
+    public void updateContactName(String phone ,String name) throws RemoteException {
 
     }
 
     @Override
-    public void updateContactPic(byte[] picture) throws RemoteException {
+    public void updateContactPic(String phone , byte[] picture) throws RemoteException {
 
     }
 
     @Override
-    public void updateContactStatus(String status) throws RemoteException {
+    public void updateContactStatus(String phone, String status) throws RemoteException {
 
     }
 }

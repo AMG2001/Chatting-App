@@ -77,7 +77,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                         .map(User::getPhoneNumber)
                         .toList();
 
-                ConcurrentHashMap<String, RemoteCallbackInterface> remoteFriends
+                List<RemoteCallbackInterface> remoteFriends
                         = OnlineUserManager.getFriendsFromOnlineList(phoneNumbers);
 
 
