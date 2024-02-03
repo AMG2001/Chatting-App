@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 public class ThreadPoolManager {
     private static final int THREAD_COUNT = 10;
     private static ThreadPoolManager instance;
-    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);;
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
     private ThreadPoolManager() {
         //this.executorService = Executors.newFixedThreadPool(THREAD_COUNT);

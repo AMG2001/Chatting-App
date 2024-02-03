@@ -6,6 +6,8 @@ public class Attachment {
     private String attachmentName;
     private String attachmentType;
 
+    //TODO add String FileLocation
+
     public Attachment() {
     }
 

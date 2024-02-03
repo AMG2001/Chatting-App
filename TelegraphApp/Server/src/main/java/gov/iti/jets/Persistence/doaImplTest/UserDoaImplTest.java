@@ -61,6 +61,14 @@ public class UserDoaImplTest {
     private void getAllContactsByPhoneTest(){
         System.out.println(userDoaImpl.getAllContactsByPhone("123456789"));
     }
+    private void getAllTest()
+    {
+        System.out.println(userDoaImpl.getAll());
+    }
+    private void getNumberOfUsersTest()
+    {
+        System.out.println(userDoaImpl.getNumberOfUsers());
+    }
 
     public static void main(String[] args) {
         UserDoaImplTest userDoaImplTest= new UserDoaImplTest();
@@ -71,6 +79,8 @@ public class UserDoaImplTest {
        // userDoaImplTest.getByIdTest();
         //userDoaImplTest.getNumberOfOnlineUsersTest();
         //userDoaImplTest.updateStatusTest();
-        userDoaImplTest.getAllContactsByPhoneTest();
+        //userDoaImplTest.getAllContactsByPhoneTest();
+        //userDoaImplTest.getAllTest();
+        userDoaImplTest.getNumberOfUsersTest();
     }
 }
