@@ -2,10 +2,15 @@ package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.RequestDTO;
 import RemoteInterfaces.RemoteRequestService;
+import gov.iti.jets.Domain.ContactRequest;
+import gov.iti.jets.Persistence.dao.ContactRequestDao;
+import gov.iti.jets.Persistence.doaImpl.ContactRequestDaoImpl;
+import gov.iti.jets.Service.Mapstructs.RequestMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RequestServiceImpl extends UnicastRemoteObject implements RemoteRequestService {
 
@@ -43,9 +48,17 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
     }
 
     @Override
-    public ArrayList<RequestDTO> getAllRequest(String Phone) throws RemoteException {
-        //Todo Yousef
-        // Retrieve all the requests recieved by the user and return them after mapping the domain objects to DTO
-        return null;
+    public ArrayList<RequestDTO> getAllRequest(String phone) throws RemoteException {
+
+        ContactRequestDao requestDao = new ContactRequestDaoImpl();
+        List<ContactRequest> requests = requestDao.getRequestsByReceiver(phone);
+        List<RequestDTO> requestDTOs = new ArrayList<>();
+        for(ContactRequest request : requests)
+        {
+            RequestDTO requestDto = RequestMapper.INSTANCE.contactRequestToRequestDto(request);
+            requestDTOs.add(requestDto);
+        }
+        return (ArrayList<RequestDTO>) requestDTOs;
+
     }
 }
