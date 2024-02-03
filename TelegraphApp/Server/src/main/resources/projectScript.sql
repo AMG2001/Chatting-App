@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS User (
     password VARCHAR(255) NOT NULL,
     dob DATE,
     country VARCHAR(100),
-    country VARCHAR(100),
     gender ENUM('MALE', 'FEMALE'),
     bio TEXT,
     status ENUM('ONLINE','OFFLINE','AWAY','BUSY'),

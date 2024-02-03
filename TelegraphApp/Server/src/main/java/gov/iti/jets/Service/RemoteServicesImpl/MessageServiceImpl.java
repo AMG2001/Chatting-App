@@ -10,7 +10,7 @@ import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.MessageDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.MessageCallbackHandler;
 import gov.iti.jets.Service.OnlineUserManager;
-import gov.iti.jets.Service.mappers.MessageMapper;
+import gov.iti.jets.Service.Mapstructs.MessageMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

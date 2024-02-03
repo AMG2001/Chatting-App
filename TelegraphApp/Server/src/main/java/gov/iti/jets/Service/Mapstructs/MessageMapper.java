@@ -1,4 +1,4 @@
-package gov.iti.jets.Service.mappers;
+package gov.iti.jets.Service.Mapstructs;
 
 import DTO.MessageDTO;
 import gov.iti.jets.Domain.Message;
@@ -15,7 +15,7 @@ public interface MessageMapper {
     @Mapping(source = "sender_phone", target = "senderPhone")
     @Mapping(source = "conversation_id", target = "conversationId")
     @Mapping(source = "message_body", target = "messageBody")
-    @Mapping(source = "timestamp", target = "timeStamp")
+    //@Mapping(source = "timestamp", target = "timeStamp")
     MessageDTO messageToMessageDTO(Message message);
 
     // You can add more mappings as needed
@@ -24,6 +24,6 @@ public interface MessageMapper {
     @Mapping(source = "senderPhone", target = "sender_phone")
     @Mapping(source = "conversationId", target = "conversation_id")
     @Mapping(source = "messageBody", target = "message_body")
-    @Mapping(source = "timeStamp", target = "timestamp")
+    //@Mapping(source = "timeStamp", target = "timestamp")
     Message messageDTOToMessage(MessageDTO messageDTO);
 }

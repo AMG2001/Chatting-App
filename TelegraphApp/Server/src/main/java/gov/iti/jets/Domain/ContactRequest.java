@@ -4,6 +4,7 @@ import gov.iti.jets.Domain.enums.RequestStatus;
 
 import java.time.LocalDateTime;
 
+
 public class ContactRequest {
     private int requestId;
     private LocalDateTime sendDate;
@@ -59,6 +60,17 @@ public class ContactRequest {
 
     public void setSenderPhone(String senderPhone) {
         this.senderPhone = senderPhone;
+    }
+    @Override
+    public String toString() {
+        return "ContactRequest{" +
+                "requestId=" + requestId +
+                ", senderPhone='" + senderPhone + '\'' +
+                ", receiverPhone='" + receiverPhone + '\'' +
+                ", status='" + requestStatus + '\'' +
+                ", responseDate='" + responseDate + '\'' +
+                ", sendDate='" + sendDate + '\'' +
+                '}';
     }
 }
 

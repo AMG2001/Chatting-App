@@ -14,7 +14,7 @@ import gov.iti.jets.Service.FileType;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.OnlineUserManager;
 import gov.iti.jets.Service.ProfilepicStorageUtil;
-import gov.iti.jets.Service.mappers.UserMapper;
+import gov.iti.jets.Service.Mapstructs.UserMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;

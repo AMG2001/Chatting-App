@@ -41,7 +41,7 @@ public class UserDoaImplTest {
         userDoaImpl.update(user);
     }
 
-    private void getContactsByPhoneTest(){
+    private void getContactsByPhoneAndStatusTest(){
         System.out.println(userDoaImpl.getContactsByPhoneAndStatus("555555555",UserStatus.OFFLINE));
     }
     private void getByIdTest()
@@ -58,6 +58,9 @@ public class UserDoaImplTest {
         UserStatus status = UserStatus.valueOf("AWAY");
         userDoaImpl.updateStatus(phone,status);
     }
+    private void getAllContactsByPhoneTest(){
+        System.out.println(userDoaImpl.getAllContactsByPhone("123456789"));
+    }
 
     public static void main(String[] args) {
         UserDoaImplTest userDoaImplTest= new UserDoaImplTest();
@@ -67,6 +70,7 @@ public class UserDoaImplTest {
        //userDoaImplTest.getContactsByPhoneTest();
        // userDoaImplTest.getByIdTest();
         //userDoaImplTest.getNumberOfOnlineUsersTest();
-        userDoaImplTest.updateStatusTest();
+        //userDoaImplTest.updateStatusTest();
+        userDoaImplTest.getAllContactsByPhoneTest();
     }
 }

@@ -2,7 +2,6 @@ package gov.iti.jets.Service.CallbackHandlers;
 
 import DTO.MessageDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
-
 import java.rmi.RemoteException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
