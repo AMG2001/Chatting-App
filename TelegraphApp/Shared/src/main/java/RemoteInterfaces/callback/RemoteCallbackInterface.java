@@ -12,7 +12,9 @@ public interface RemoteCallbackInterface extends Remote {
     public void recieveMessage(MessageDTO message) throws RemoteException;
     public void recieveNotification(NotificationDTO notification) throws RemoteException;
     public void recieveRequest(RequestDTO request) throws RemoteException;
-    void updateContacts(ArrayList<UserDTO> contacts) throws RemoteException;
-    //Contact updated their status
-    void updateContact(UserDTO user) throws RemoteException;
+    //void updateContacts(ArrayList<UserDTO> contacts) throws RemoteException;
+    void addContact(UserDTO newContact) throws RemoteException;
+    void updateContactName(String name) throws RemoteException;
+    void updateContactPic(byte[] picture) throws RemoteException;
+    void updateContactStatus(String status) throws RemoteException;
 }

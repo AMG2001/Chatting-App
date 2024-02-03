@@ -1,6 +1,7 @@
 package DTO;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class RequestDTO implements Serializable {
@@ -8,11 +9,11 @@ public class RequestDTO implements Serializable {
     private Date sendDate;
     private String receiverPhone;
     private String requestStatus;
-    private Date responseDate;
+    private LocalDateTime responseDate;
     private String senderPhone;
 
 
-    public RequestDTO(String requestId, Date sendDate, String receiverPhone, String requestStatus, Date responseDate, String senderPhone) {
+    public RequestDTO(String requestId, Date sendDate, String receiverPhone, String requestStatus, LocalDateTime responseDate, String senderPhone) {
         this.requestId = requestId;
         this.sendDate = sendDate;
         this.receiverPhone = receiverPhone;
@@ -53,11 +54,11 @@ public class RequestDTO implements Serializable {
         this.requestStatus = requestStatus;
     }
 
-    public Date getResponseDate() {
+    public LocalDateTime getResponseDate() {
         return responseDate;
     }
 
-    public void setResponseDate(Date responseDate) {
+    public void setResponseDate(LocalDateTime responseDate) {
         this.responseDate = responseDate;
     }
 

@@ -11,19 +11,17 @@ import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.FileType;
-import gov.iti.jets.Service.NotificationHandler;
+import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.OnlineUserManager;
 import gov.iti.jets.Service.ProfilepicStorageUtil;
 import gov.iti.jets.Service.mappers.UserMapper;
 
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserService {
 
@@ -87,11 +85,11 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                         = OnlineUserManager.getFriendsFromOnlineList(phoneNumbers);
 
 
-                NotificationHandler handler = new NotificationHandler();
+                NotificationCallbackHandler handler = new NotificationCallbackHandler();
 
                 NotificationDTO notification = new
                         NotificationDTO("1", NotificationType.FRIEND.toString(),
-                        LocalTime.now(),user.getName()+" is now Online");
+                        LocalDateTime.now(),user.getName()+" is now Online");
 
                 handler.sendNotification(notification,remoteFriends);
 

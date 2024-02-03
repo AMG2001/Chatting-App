@@ -8,7 +8,7 @@ import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.dao.MessageDao;
 import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.MessageDoaImpl;
-import gov.iti.jets.Service.MessageHandler;
+import gov.iti.jets.Service.CallbackHandlers.MessageCallbackHandler;
 import gov.iti.jets.Service.OnlineUserManager;
 import gov.iti.jets.Service.mappers.MessageMapper;
 
@@ -36,7 +36,7 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
 
         //Get a list of phone numbers of all conversation participants
         conversationParticipants = conversationImpl.getConversationParticipants(message.getConversationId());
-        MessageHandler handler = new MessageHandler();
+        MessageCallbackHandler handler = new MessageCallbackHandler();
         //Retrieve the callbackinterfaces of all online users who are also in the conversation
         final ConcurrentHashMap<String, RemoteCallbackInterface> friends =
                 OnlineUserManager.getFriendsFromOnlineList(conversationParticipants);
