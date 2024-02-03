@@ -1,6 +1,8 @@
 package DTO;
 
-public class LogoutDTO {
+import java.io.Serializable;
+
+public class LogoutDTO implements Serializable {
     private String name;
     private String userPhone;
 

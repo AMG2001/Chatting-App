@@ -1,17 +1,27 @@
 package DTO;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class ContactDTO {
+public class ContactDTO implements Serializable {
     private String phonenumber;
     private String status;
     private String name;
+    ConversationDTO conversation;
     private byte[] profilepic;
 
-    public ContactDTO(String phonenumber, String status, String name, byte[] profilepic) {
+    public ConversationDTO getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(ConversationDTO conversation) {
+        this.conversation = conversation;
+    }
+    public ContactDTO(String phonenumber, String status, String name, ConversationDTO conversation, byte[] profilepic) {
         this.phonenumber = phonenumber;
         this.status = status;
         this.name = name;
+        this.conversation = conversation;
         this.profilepic = profilepic;
     }
 

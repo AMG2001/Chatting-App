@@ -43,4 +43,9 @@ public class OnlineUserManager {
 
         return result;
     }
+    public static RemoteCallbackInterface getOnlineUser(String phone)
+    {
+        //TODO moataz
+        return null;
+    }
 }

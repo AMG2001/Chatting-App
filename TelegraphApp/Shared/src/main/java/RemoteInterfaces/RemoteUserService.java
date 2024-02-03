@@ -1,9 +1,6 @@
 package RemoteInterfaces;
 
-import DTO.ContactDTO;
-import DTO.LogoutDTO;
-import DTO.UserDTO;
-import DTO.UserLoginDTO;
+import DTO.*;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
 import java.rmi.Remote;
@@ -14,6 +11,7 @@ public interface RemoteUserService extends Remote {
     boolean registerUser(UserDTO newUser)throws RemoteException;
     UserDTO login(UserLoginDTO loginInfo, RemoteCallbackInterface userInterface)throws RemoteException;
     List<ContactDTO> getContacts(String userPhone)throws RemoteException;
+    List<GroupsDTO> getGroups(String userPhone) throws RemoteException;
     void logout(LogoutDTO userPhone)throws RemoteException;
     UserDTO updateUser(UserDTO newUser)throws RemoteException;
 }
