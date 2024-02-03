@@ -18,6 +18,11 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
+    public void recieveAttachment(AttachmentDTO attachment) throws RemoteException {
+
+    }
+
+    @Override
     public void recieveNotification(NotificationDTO notification) throws RemoteException {
 
     }

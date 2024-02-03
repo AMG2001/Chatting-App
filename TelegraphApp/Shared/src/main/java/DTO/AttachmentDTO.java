@@ -1,45 +1,28 @@
 package DTO;
 
-import java.io.*;
+import java.io.Serializable;
 
 public class AttachmentDTO implements Serializable {
-    private String attachmentId;
-    private String attachmentName;
-    private String messageId;
+    private int attachmentId;
     private String attachmentType;
-    private byte[] attachmentContent;
+    private int conversationId;
+    private String attachmentName;
+    private byte[] attachment;
 
-    public AttachmentDTO(String attachmentId, String attachmentName, String messageId, String attachmentType, byte[] attachmentContent) {
+    public AttachmentDTO(int attachmentId, String attachmentType, int conversationId, String attachmentName, byte[] attachment) {
         this.attachmentId = attachmentId;
-        this.attachmentName = attachmentName;
-        this.messageId = messageId;
         this.attachmentType = attachmentType;
-        this.attachmentContent = attachmentContent;
+        this.conversationId = conversationId;
+        this.attachmentName = attachmentName;
+        this.attachment = attachment;
     }
 
-
-//    public void serializeContent(String filePath,byte[] file) throws IOException {
-//        try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-//             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
-//
-//            objectOutputStream.writeObject(attachmentContent);
-//        }
-//    }
-//
-//    public void deserializeContent(String filePath) throws IOException, ClassNotFoundException {
-//        try (FileInputStream fileInputStream = new FileInputStream(filePath);
-//             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-//
-//            attachmentContent = (byte[]) objectInputStream.readObject();
-//        }
-//    }
-
-    public String getAttachmentId() {
-        return attachmentId;
+    public int getConversationId() {
+        return conversationId;
     }
 
-    public void setAttachmentId(String attachmentId) {
-        this.attachmentId = attachmentId;
+    public void setConversationId(int conversationId) {
+        this.conversationId = conversationId;
     }
 
     public String getAttachmentName() {
@@ -50,6 +33,14 @@ public class AttachmentDTO implements Serializable {
         this.attachmentName = attachmentName;
     }
 
+    public int getAttachmentId() {
+        return attachmentId;
+    }
+
+    public void setAttachmentId(int attachmentId) {
+        this.attachmentId = attachmentId;
+    }
+
     public String getAttachmentType() {
         return attachmentType;
     }
@@ -58,19 +49,11 @@ public class AttachmentDTO implements Serializable {
         this.attachmentType = attachmentType;
     }
 
-    public byte[] getAttachmentContent() {
-        return attachmentContent;
+    public byte[] getAttachment() {
+        return attachment;
     }
 
-    public void setAttachmentContent(byte[] attachmentContent) {
-        this.attachmentContent = attachmentContent;
-    }
-
-    public String getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
+    public void setAttachment(byte[] attachment) {
+        this.attachment = attachment;
     }
 }

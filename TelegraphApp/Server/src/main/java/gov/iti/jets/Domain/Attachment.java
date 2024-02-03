@@ -2,29 +2,20 @@ package gov.iti.jets.Domain;
 
 public class Attachment {
     private int attachmentId;
-    private int messageId;
     private String attachmentName;
     private String attachmentType;
-
-    //TODO add String FileLocation
+    private String attachmentLocation;
+    private int conversationId;
 
     public Attachment() {
     }
 
-    public Attachment(int attachmentId, int messageId, String attachmentName, String attachmentType) {
+    public Attachment(int attachmentId, String attachmentName, String attachmentType, String attachmentLocation, int conversationId) {
         this.attachmentId = attachmentId;
-        this.messageId = messageId;
         this.attachmentName = attachmentName;
         this.attachmentType = attachmentType;
-    }
-
-
-    public int getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
+        this.attachmentLocation = attachmentLocation;
+        this.conversationId = conversationId;
     }
 
     public int getAttachmentId() {
@@ -42,6 +33,7 @@ public class Attachment {
     public void setAttachmentName(String attachmentName) {
         this.attachmentName = attachmentName;
     }
+
     public String getAttachmentType() {
         return attachmentType;
     }
@@ -50,13 +42,19 @@ public class Attachment {
         this.attachmentType = attachmentType;
     }
 
-    @Override
-    public String toString() {
-        return "Attachment{" +
-                "attachmentId=" + attachmentId +
-                ", messageId=" + messageId +
-                ", attachmentName='" + attachmentName + '\'' +
-                ", attachmentType='" + attachmentType + '\'' +
-                '}';
+    public String getAttachmentLocation() {
+        return attachmentLocation;
+    }
+
+    public void setAttachmentLocation(String attachmentLocation) {
+        this.attachmentLocation = attachmentLocation;
+    }
+
+    public int getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(int conversationId) {
+        this.conversationId = conversationId;
     }
 }
