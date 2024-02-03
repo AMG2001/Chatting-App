@@ -55,8 +55,63 @@ public class UserDoaImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        //TODO yousef
-        return null;
+        List<User> users = new ArrayList<>();
+
+        Connection con=null;
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+
+        try{
+            con=DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql ="select * from user;";
+            pst=con.prepareStatement(sql);
+
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                String phoneNumber = rs.getString("phone_number");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                Date dob = rs.getDate("dob");
+                String country = rs.getString("country");
+                String gender = rs.getString("gender");
+                String bio = rs.getString("bio");
+                String status = rs.getString("status");
+                String picture = rs.getString("picture");
+
+                User user= new User();
+                user.setPhoneNumber(phoneNumber);
+                user.setName(name);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setDob(dob.toLocalDate());
+                user.setCountry(country);
+                user.setGender(Gender.valueOf(gender));
+                user.setBio(bio);
+                user.setStatus(UserStatus.valueOf(status));
+                user.setPicture(picture);
+
+                users.add(user);
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return users;
     }
 
     @Override
