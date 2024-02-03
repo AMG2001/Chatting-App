@@ -73,24 +73,30 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                         .map(User::getPhoneNumber)
                         .toList();
 
-                List<RemoteCallbackInterface> remoteFriends
+                //Fetch CallbackInterfaces for online Contacts
+                List<RemoteCallbackInterface> remoteContacts
                         = OnlineUserManager.getFriendsFromOnlineList(phoneNumbers);
 
 
+                //Initialize callback Handlers
                 NotificationCallbackHandler handler = new NotificationCallbackHandler();
                 ContactCallbackHandler contactHandler = new ContactCallbackHandler();
 
+                //Create Notification object
                 NotificationDTO notification = new
                         NotificationDTO("1", NotificationType.FRIEND.toString(),
                         LocalDateTime.now(), user.getName() + " is now Online");
 
-                handler.sendNotification(notification, remoteFriends);
-                //contactHandler.updateStatus(String phone , UserStatus.ONLINE.toString());
+                //Send notification to contacts (User is online)
+                handler.sendNotification(notification, remoteContacts);
+                contactHandler.updateContactStatus(
+                        user.getPhoneNumber(),UserStatus.ONLINE.toString(),remoteContacts);
 
+                //Map user domain object to DTO
                 UserDTO returnedUser = UserMapper.INSTANCE.userToUserDTO(user);
                 //TODO Handle Null Image return
+                //Fetch user Profile pic from FileSystem
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
-
                 returnedUser.setSerializedImage(image);
 
                 return returnedUser;

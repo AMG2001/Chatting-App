@@ -51,15 +51,15 @@ public class ProfilePageController {
     @FXML
     public void initialize() {
         // TODO load all data from ClientStatus User Model 👇🏻👇🏻 .
-//        UserModel userModel = ClientState.getInstance().getLoggedinUserModel();
-//        tf_email.setText(userModel.getEmail());
-//        tf_phoneNumber.setText(userModel.getUserPhone());
-//        tf_userName.setText(userModel.getUserName());
-//        tf_country.setText(userModel.getCountry());
-//        tf_gender.setText(userModel.getGender());
-//        ta_bio.setText(userModel.getBio());
-//        datePicker.setValue(userModel.getDob());
-//        img_userImage.setImage(userModel.getProfilePic());
+        UserModel userModel = ClientState.getInstance().getLoggedinUserModel();
+        tf_email.setText(userModel.getEmail());
+        tf_phoneNumber.setText(userModel.getUserPhone());
+        tf_userName.setText(userModel.getUserName());
+        tf_country.setText(userModel.getCountry());
+        tf_gender.setText(userModel.getGender());
+        ta_bio.setText(userModel.getBio());
+        datePicker.setValue(userModel.getDob());
+        img_userImage.setImage(userModel.getProfilePic());
     }
 
     @FXML

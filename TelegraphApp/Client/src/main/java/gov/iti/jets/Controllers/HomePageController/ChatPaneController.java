@@ -40,7 +40,6 @@ public class ChatPaneController {
     public void initialize() {
 
     }
-
     public ChatPaneController() {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/chatPane.fxml"));

@@ -19,7 +19,7 @@ public class ServerRegistry {
     private static Registry registry;
     private static ServerRegistry instance;
 
-    private ServerRegistry() {
+    public ServerRegistry() {
         try {
             // Create or obtain a reference to the registry
             System.out.println("Initializing Registry...");
