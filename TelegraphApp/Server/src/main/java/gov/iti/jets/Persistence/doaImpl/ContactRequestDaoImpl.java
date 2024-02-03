@@ -18,7 +18,6 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
 
     //TODO youssef
     //I changed the localDateTime to date
-    //The database has 5 elements and contact request domain object has 6 elements ... why?
     @Override
     public List<ContactRequest> getRequestsByReceiver(String phoneNumber) {
         List<ContactRequest> requests= new ArrayList<>();
@@ -42,14 +41,16 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
                 String sender_phone = rs.getString("sender_phone");
                 String receiver_phone = rs.getString("receiver_phone");
                 String status = rs.getString("status");
-                Date responded_at =rs.getDate("responded_at");
+                Date response_date =rs.getDate("response_date");
+                Date send_date = rs.getDate("send_date");
 
                 ContactRequest request = new ContactRequest();
                 request.setRequestId(request_id);
                 request.setSenderPhone(sender_phone);
                 request.setReceiverPhone(receiver_phone);
                 request.setRequestStatus(RequestStatus.valueOf(status));
-                request.setResponseDate(responded_at);
+                request.setResponseDate(response_date);
+                request.setSendDate(send_date);
 
                 requests.add(request);
             }
@@ -79,6 +80,35 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
     //TODO yousef
     @Override
     public void add(ContactRequest entity) {
+        Connection con = null;
+        PreparedStatement pst = null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql = "insert into contact_request (sender_phone,receiver_phone,send_date)\n" +
+                    "values (?,?,?);";
+            pst = con.prepareStatement(sql);
+            pst.setString(1,entity.getSenderPhone());
+            pst.setString(2,entity.getReceiverPhone());
+            //pst.setDate(3, new java.sql.Date(new Date().getTime()));
+            pst.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+            pst.executeUpdate();
+            System.out.println("Insertion Complete");
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
 

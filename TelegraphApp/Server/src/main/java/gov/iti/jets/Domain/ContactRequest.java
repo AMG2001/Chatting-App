@@ -67,7 +67,8 @@ public class ContactRequest {
                 ", senderPhone='" + senderPhone + '\'' +
                 ", receiverPhone='" + receiverPhone + '\'' +
                 ", status='" + requestStatus + '\'' +
-                ", responded_at='" + responseDate + '\'' +
+                ", responseDate='" + responseDate + '\'' +
+                ", sendDate='" + sendDate + '\'' +
                 '}';
     }
 }
