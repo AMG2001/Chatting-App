@@ -43,9 +43,13 @@ public class LoginPageController {
             try {
                 ServerCallback serverCallBack = new ServerCallback();
                 UserDTO userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
-                UserModel userModel = new UserModel(userDTO);
                 if (userDTO != null) {
+                    UserModel userModel = new UserModel(userDTO);
+                    ClientState.getInstance().setLoggedinUserProperty(userModel);
                     Navigator.navigateToHomePage();
+                } else {
+                    System.out.println("User DTO is Null");
+                    CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");
                 }
             } catch (RemoteException e) {
                 CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");

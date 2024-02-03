@@ -76,7 +76,7 @@ public class MessageDoaImpl implements MessageDao {
                 if(rs != null)  rs.close();
                 if(pst != null) pst.close();
                 if(con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -123,7 +123,7 @@ public class MessageDoaImpl implements MessageDao {
             try {
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
