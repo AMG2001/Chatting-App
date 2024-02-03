@@ -60,6 +60,9 @@ public class LeftSideBar {
     public void initialize() {
         notificationsMenu = CustomPopupMenus.getNotificationsMenu();
         btn_notifications.setOnMouseClicked(this::showNotifications);
+        userName.setText(ClientState.getInstance().getLoggedinUserModel().getUserName());
+        userEmail.setText(ClientState.getInstance().getLoggedinUserModel().getEmail());
+        userImage.setImage(ClientState.getInstance().getLoggedinUserModel().getProfilePic());
     }
 
 
