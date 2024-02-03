@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AttachmentDoaImpl implements AttachmentDao {
-
-    //TODO yousef
     @Override
     public Attachment getAttachmentByMessageId(int messageId) {
 
@@ -54,7 +52,6 @@ public class AttachmentDoaImpl implements AttachmentDao {
         }
         return attachment;
     }
-//TODO yousef
     @Override
     public void add(Attachment entity)
     {

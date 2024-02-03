@@ -7,16 +7,25 @@ public class ConversationDTO implements Serializable {
     private int conversationId;
     private String conversationName;
     private String type;
-    ArrayList<MessageDTO> messages;
+    private ArrayList<MessageDTO> messages;
+    private ArrayList<AttachmentDTO> attachments;
     private byte[] conversationImage;
 
-
-    public ConversationDTO(int conversationId, String conversationName, String type, byte[] conversationImage, ArrayList<MessageDTO> messages) {
+    public ConversationDTO(int conversationId, String conversationName, String type, ArrayList<MessageDTO> messages, ArrayList<AttachmentDTO> attachments, byte[] conversationImage) {
         this.conversationId = conversationId;
         this.conversationName = conversationName;
         this.type = type;
-        this.conversationImage = conversationImage;
         this.messages = messages;
+        this.attachments = attachments;
+        this.conversationImage = conversationImage;
+    }
+
+    public ArrayList<AttachmentDTO> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(ArrayList<AttachmentDTO> attachments) {
+        this.attachments = attachments;
     }
 
 
