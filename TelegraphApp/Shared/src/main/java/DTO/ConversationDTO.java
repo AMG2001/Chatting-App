@@ -6,9 +6,9 @@ public class ConversationDTO implements Serializable {
     private int conversationId;
     private String conversationName;
     private String type;
-    private String conversationImage;
+    private byte[] conversationImage;
 
-    public ConversationDTO(int conversationId, String conversationName, String type, String conversationImage) {
+    public ConversationDTO(int conversationId, String conversationName, String type, byte[] conversationImage) {
         this.conversationId = conversationId;
         this.conversationName = conversationName;
         this.type = type;
@@ -39,11 +39,11 @@ public class ConversationDTO implements Serializable {
         this.type = type;
     }
 
-    public String getConversationImage() {
+    public byte[] getConversationImage() {
         return conversationImage;
     }
 
-    public void setConversationImage(String conversationImage) {
+    public void setConversationImage(byte[] conversationImage) {
         this.conversationImage = conversationImage;
     }
 

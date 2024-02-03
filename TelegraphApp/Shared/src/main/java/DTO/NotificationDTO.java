@@ -1,15 +1,15 @@
 package DTO;
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class NotificationDTO implements Serializable {
     private String notificationId;
     private String type;
-    private LocalTime timeStamp;
+    private LocalDateTime timeStamp;
     private String body;
 
-    public NotificationDTO(String notificationId, String type, LocalTime timeStamp, String body) {
+    public NotificationDTO(String notificationId, String type, LocalDateTime timeStamp, String body) {
         this.notificationId = notificationId;
         this.type = type;
         this.timeStamp = timeStamp;
@@ -32,11 +32,11 @@ public class NotificationDTO implements Serializable {
         this.type = type;
     }
 
-    public LocalTime getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(LocalTime timeStamp) {
+    public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 

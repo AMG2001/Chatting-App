@@ -1,4 +1,4 @@
-package gov.iti.jets.Service.mappers;
+package gov.iti.jets.Service.Mapstructs;
 import DTO.UserDTO;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.Gender;

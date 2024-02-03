@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ServerCallback extends UnicastRemoteObject implements RemoteCallbackInterface
 {
-    protected ServerCallback() throws RemoteException {
+    public ServerCallback() throws RemoteException {
     }
 
     @Override
@@ -31,12 +31,23 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
-    public void updateContacts(ArrayList<UserDTO> contacts) throws RemoteException {
+    public void addContact(UserDTO newContact) throws RemoteException {
+
+    }
+
+
+    @Override
+    public void updateContactName(String name) throws RemoteException {
 
     }
 
     @Override
-    public void updateContact(UserDTO user) throws RemoteException {
+    public void updateContactPic(byte[] picture) throws RemoteException {
+
+    }
+
+    @Override
+    public void updateContactStatus(String status) throws RemoteException {
 
     }
 }

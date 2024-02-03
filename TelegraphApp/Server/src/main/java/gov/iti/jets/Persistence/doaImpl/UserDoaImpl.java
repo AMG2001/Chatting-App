@@ -55,6 +55,7 @@ public class UserDoaImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
+        //TODO yousef
         return null;
     }
 
@@ -208,10 +209,10 @@ public class UserDoaImpl implements UserDao {
 
     @Override
     public int getNumberOfUsers() {
+        //TODO yousef
         return 0;
     }
 
-    //TODO yousef
     @Override
     public int getNumberOfOnlineUsers() {
         Connection con = null;
@@ -246,7 +247,6 @@ public class UserDoaImpl implements UserDao {
         return count;
     }
 
-    //TODO Yousef
     @Override
     public void updateStatus(String phone, UserStatus status) {
         Connection con=null;

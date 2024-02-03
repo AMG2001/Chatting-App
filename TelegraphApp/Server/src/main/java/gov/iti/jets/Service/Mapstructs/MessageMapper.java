@@ -1,4 +1,4 @@
-package gov.iti.jets.Service.mappers;
+package gov.iti.jets.Service.Mapstructs;
 
 import DTO.MessageDTO;
 import gov.iti.jets.Domain.Message;

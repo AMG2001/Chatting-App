@@ -2,7 +2,7 @@ package gov.iti.jets.Service;
 
 import java.io.IOException;
 import java.nio.file.*;
-public class ProfilepicStorageUtil {
+public class FileSystemUtil {
 
     private static final String PROFILEPIC_DIRECTORY = System.getProperty("user.home") + "/telegraph/profilepic";
     private static final String ATTACHMENT_DIRECTORY = System.getProperty("user.home") + "/telegraph/attachment";
