@@ -20,7 +20,6 @@ public class AttachmentService {
             System.out.println("Error getting Attachment Service from remote registry: "+e.getMessage());
         }
     }
-
     public static AttachmentService getInstance() {
         if (instance == null) {
             synchronized (AttachmentService.class) {
@@ -31,7 +30,6 @@ public class AttachmentService {
         }
         return instance;
     }
-
     public RemoteAttachmentService getRemoteService()
     {
         return service;

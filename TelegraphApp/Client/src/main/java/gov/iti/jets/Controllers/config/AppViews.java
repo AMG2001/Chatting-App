@@ -8,15 +8,20 @@ import javafx.stage.Stage;
 public class AppViews {
     private static AppViews instance;
     private Stage stage;
+
     private AppViews() {
 
     }
 
     public void initStage(Stage stage) {
         this.stage = stage;
-        Scene scene = new Scene(AppPages.getLoginPageView());
+        Scene scene = new Scene(AppPages.getHomePageView());
         stage.setScene(scene);
         stage.setTitle("Telegraph - Home Page");
+        stage.setWidth(1100);
+        stage.setHeight(770);
+        stage.setMaxWidth(1100);
+        stage.setMaxHeight(770);
         stage.show();
     }
 
@@ -31,12 +36,20 @@ public class AppViews {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getHomePageView());
         stage.setTitle("Telegraph - Home Page");
+        stage.setWidth(1100);
+        stage.setHeight(750);
+        stage.setMaxWidth(1100);
+        stage.setMaxHeight(750);
     }
 
     public void showUpdateInfoPage() {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getUpdateInfoView());
         stage.setTitle("Telegraph - Update Info");
+        stage.setWidth(800);
+        stage.setHeight(780);
+        stage.setMaxWidth(800);
+        stage.setMaxHeight(780);
     }
 
     public void showRegisterPage() {
@@ -46,6 +59,8 @@ public class AppViews {
         // Set the size of the Stage
         stage.setWidth(1000);
         stage.setHeight(800);
+        stage.setMaxWidth(1000);
+        stage.setMaxHeight(800);
 //        stage.setMaxWidth(1000);
 //        stage.setMaxHeight(800);
     }
