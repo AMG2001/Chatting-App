@@ -93,14 +93,14 @@ public class RegisterPageController {
         String bio = ta_bio.getText();
         String gender = "";
         if (rb_male.isSelected()) {
-            gender = "male";
+            gender = "MALE";
         } else if (rb_female.isSelected()) {
-            gender = "female";
+            gender = "FEMALE";
         }
         byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
         if (FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && imageBytes != null && gender != "") {
             try {
-                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, gender, bio, "active", imageBytes);
+                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, gender, bio, "ONLINE", imageBytes);
                 UserService.getInstance().getRemoteService().registerUser(userDTO);
                 Navigator.navigateToHomePage();
             } catch (RemoteException e) {

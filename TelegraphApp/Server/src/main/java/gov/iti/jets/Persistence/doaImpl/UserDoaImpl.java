@@ -44,7 +44,7 @@ public class UserDoaImpl implements UserDao {
             try{
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -196,7 +196,7 @@ public class UserDoaImpl implements UserDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
