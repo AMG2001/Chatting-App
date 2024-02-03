@@ -8,4 +8,6 @@ import java.rmi.RemoteException;
 public interface RemoteConversationService extends Remote {
     ConversationDTO getConversationForUserPhone(String userPhone)throws RemoteException;
 
+    ConversationDTO createGroup(CreateGroupDTO newGroup) throws RemoteException;
+
 }

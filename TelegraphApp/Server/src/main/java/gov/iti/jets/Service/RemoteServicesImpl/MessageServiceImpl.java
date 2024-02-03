@@ -14,6 +14,7 @@ import gov.iti.jets.Service.Mapstructs.MessageMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,7 +39,7 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
         conversationParticipants = conversationImpl.getConversationParticipants(message.getConversationId());
         MessageCallbackHandler handler = new MessageCallbackHandler();
         //Retrieve the callbackinterfaces of all online users who are also in the conversation
-        final ConcurrentHashMap<String, RemoteCallbackInterface> friends =
+        final List<RemoteCallbackInterface> friends =
                 OnlineUserManager.getFriendsFromOnlineList(conversationParticipants);
 
         handler.sendMessages(message,friends);
