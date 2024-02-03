@@ -1,9 +1,6 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
-import DTO.ContactDTO;
-import DTO.NotificationDTO;
-import DTO.UserDTO;
-import DTO.UserLoginDTO;
+import DTO.*;
 import RemoteInterfaces.RemoteUserService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Domain.User;
@@ -23,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserService {
 
@@ -78,24 +74,30 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                         .map(User::getPhoneNumber)
                         .toList();
 
-                List<RemoteCallbackInterface> remoteFriends
+                //Fetch CallbackInterfaces for online Contacts
+                List<RemoteCallbackInterface> remoteContacts
                         = OnlineUserManager.getFriendsFromOnlineList(phoneNumbers);
 
 
+                //Initialize callback Handlers
                 NotificationCallbackHandler handler = new NotificationCallbackHandler();
                 ContactCallbackHandler contactHandler = new ContactCallbackHandler();
 
+                //Create Notification object
                 NotificationDTO notification = new
                         NotificationDTO("1", NotificationType.FRIEND.toString(),
                         LocalDateTime.now(), user.getName() + " is now Online");
 
-                handler.sendNotification(notification, remoteFriends);
-                //contactHandler.updateStatus(String phone , UserStatus.ONLINE.toString());
+                //Send notification to contacts (User is online)
+                handler.sendNotification(notification, remoteContacts);
+                contactHandler.updateContactStatus(
+                        user.getPhoneNumber(),UserStatus.ONLINE.toString(),remoteContacts);
 
+                //Map user domain object to DTO
                 UserDTO returnedUser = UserMapper.INSTANCE.userToUserDTO(user);
                 //TODO Handle Null Image return
+                //Fetch user Profile pic from FileSystem
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
-
                 returnedUser.setSerializedImage(image);
 
                 return returnedUser;
@@ -127,18 +129,33 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
     }
 
     @Override
-    public void logout(String userPhone) {
-        //TODO Moataz
-        /*
-        1)Handle server- Remove From OnlineUserManager
-        2)Get Online Friends - get from DB then Get from hashmap
-        3)Update Contact in friends  ContactCallback - UpdateUserStatus for friends
-        ContactCallbackHandler.updateStatus(String status, String phone, List<String> phone);
-        4)Send Notification using Callback - CREATE NOTIFICATION DTO
-        NotificationCallbackHandler.sendNotification(NotificationDTO, List<String> phone)
-        5) Set Status in DB UserDAO.setStatus(userPhone);
+    public void logout(LogoutDTO loggedOutUser) {
 
-        * */
+        UserDao userDao = new UserDoaImpl();
+
+        OnlineUserManager.removeOnlineUser(loggedOutUser.getUserPhone());
+
+        List<User> OnlineContacts = userDao.getContactsByPhoneAndStatus(loggedOutUser.getUserPhone(), UserStatus.ONLINE);
+        List<String> OnlineContactsPhones = OnlineContacts.stream()
+                .map(User::getPhoneNumber)
+                .toList();
+
+        List<RemoteCallbackInterface> OnlineContactsCallBacks
+                = OnlineUserManager.getFriendsFromOnlineList(OnlineContactsPhones);
+
+        NotificationCallbackHandler handler = new NotificationCallbackHandler();
+        ContactCallbackHandler contactHandler = new ContactCallbackHandler();
+
+        NotificationDTO notification = new
+                NotificationDTO("1", NotificationType.FRIEND.toString(),
+                LocalDateTime.now(), loggedOutUser.getName() + " is now Offline");
+
+        handler.sendNotification(notification, OnlineContactsCallBacks);
+
+        contactHandler.updateContactStatus(loggedOutUser.getUserPhone(),UserStatus.OFFLINE.name(),OnlineContactsCallBacks);
+
+        userDao.updateStatus(loggedOutUser.getUserPhone(), UserStatus.OFFLINE);
+        //TODO handle exception from DB
     }
 
     @Override

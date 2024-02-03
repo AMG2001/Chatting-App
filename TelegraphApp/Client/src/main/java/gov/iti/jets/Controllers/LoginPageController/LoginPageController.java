@@ -7,6 +7,7 @@ import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
+import gov.iti.jets.ServiceContext.callback.ServerCallback;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,6 +28,7 @@ public class LoginPageController {
     private Button btn_login;
     @FXML
     private TextField tf_email;
+
     @FXML
     void loginUser(ActionEvent event) {
         /**
@@ -39,18 +41,21 @@ public class LoginPageController {
         String password = tf_password.getText().trim();
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidPassword(password)) {
             try {
-                UserDTO userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password));
-                UserModel userModel = new UserModel(userDTO);
+                ServerCallback serverCallBack = new ServerCallback();
+                UserDTO userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
                 if (userDTO != null) {
+                    UserModel userModel = new UserModel(userDTO);
+                    ClientState.getInstance().setLoggedinUserProperty(userModel);
                     Navigator.navigateToHomePage();
+                } else {
+                    System.out.println("User DTO is Null");
+                    CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");
                 }
             } catch (RemoteException e) {
                 CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");
                 e.printStackTrace();
             }
         }
-//        UserLoginDTO user = new UserLoginDTO();
-//        UserService.getInstance().getRemoteService().login();
     }
 
     @FXML
@@ -59,9 +64,3 @@ public class LoginPageController {
     }
 
 }
-/**
- * Login will return null in many cases .
- * 1. Phone Number or password .
- * 2. password is null .
- * So when i need to print "Please Enter Valid Phone Number or Password"
- */

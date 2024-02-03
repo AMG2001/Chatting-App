@@ -74,7 +74,7 @@ public class UserConversationDoaImpl implements UserConversationDao {
                     con.setAutoCommit(true);
                     con.close();
                 }
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e) {
                 System.out.println(e.getMessage());

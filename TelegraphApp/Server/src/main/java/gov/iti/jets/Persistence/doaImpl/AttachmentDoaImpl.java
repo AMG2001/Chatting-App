@@ -46,7 +46,7 @@ public class AttachmentDoaImpl implements AttachmentDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -81,7 +81,7 @@ public class AttachmentDoaImpl implements AttachmentDao {
             try {
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());

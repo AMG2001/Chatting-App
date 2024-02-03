@@ -54,7 +54,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -67,6 +67,7 @@ public class ConversationDaoImpl implements ConversationDao {
     public List<String> getConversationParticipants(int conversationId) {
 
         List<String> phoneNumbers= new ArrayList<>();
+
 
         Connection con = null;
         PreparedStatement pst = null;
@@ -99,7 +100,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -150,7 +151,7 @@ public class ConversationDaoImpl implements ConversationDao {
             try{
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -160,7 +161,7 @@ public class ConversationDaoImpl implements ConversationDao {
 
     @Override
     public void delete(Conversation entity) {
-
+        //ignore
     }
 
     //group or individual conversation
@@ -195,7 +196,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -242,7 +243,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 if (rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -304,7 +305,7 @@ public class ConversationDaoImpl implements ConversationDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -346,7 +347,7 @@ public class ConversationDaoImpl implements ConversationDao {
                     con.setAutoCommit(true);
                     con.close();
                 }
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());

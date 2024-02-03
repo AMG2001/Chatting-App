@@ -1,7 +1,11 @@
 package gov.iti.jets.Controllers.Shared.LeftSideBar;
 
+import gov.iti.jets.Client;
+import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.CustomPopupMenus;
 import gov.iti.jets.Controllers.services.Navigator;
+import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import java.rmi.RemoteException;
 
 public class LeftSideBar {
     @FXML
@@ -54,6 +60,9 @@ public class LeftSideBar {
     public void initialize() {
         notificationsMenu = CustomPopupMenus.getNotificationsMenu();
         btn_notifications.setOnMouseClicked(this::showNotifications);
+        userName.setText(ClientState.getInstance().getLoggedinUserModel().getUserName());
+        userEmail.setText(ClientState.getInstance().getLoggedinUserModel().getEmail());
+        userImage.setImage(ClientState.getInstance().getLoggedinUserModel().getProfilePic());
     }
 
 
@@ -64,7 +73,15 @@ public class LeftSideBar {
 
     @FXML
     void logout(ActionEvent event) {
-        Navigator.navigateToRegister();
+        try {
+            Navigator.navigateToRegister();
+            // TODO Uncomment this line 👇🏻👇🏻 when you launch the server .
+//            UserService.getInstance().getRemoteService().logout(ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+            // Change Exception type to remote Exception 👇🏻👇🏻 .
+        } catch (Exception e) {
+            CustomDialogs.showErrorDialog("Error while Logging out !!");
+            e.printStackTrace();
+        }
         // TODO cast in Server - marwan work .
     }
 
