@@ -11,10 +11,10 @@ public class MessageCallbackHandler {
     public MessageCallbackHandler() {
     }
 
-    public void sendMessages(MessageDTO message, List<RemoteCallbackInterface> clients) {
+    public void sendMessages(MessageDTO message, List<RemoteCallbackInterface> contacts) {
         try {
-            for (RemoteCallbackInterface client : clients) {
-                client.recieveMessage(message);
+            for (RemoteCallbackInterface contact : contacts) {
+                contact.recieveMessage(message);
             }
         } catch (RemoteException e) {
             System.out.println("Error Sending message: " + e.getMessage());
