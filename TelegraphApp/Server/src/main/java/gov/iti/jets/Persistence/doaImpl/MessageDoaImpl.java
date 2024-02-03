@@ -4,10 +4,7 @@ import gov.iti.jets.Domain.Message;
 import gov.iti.jets.Persistence.dao.MessageDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,10 +85,51 @@ public class MessageDoaImpl implements MessageDao {
         return messages;
     }
 
-    //TODO moataz
+
     @Override
-    public int createMessage(Message message) {
-        return 0;
+    public int createMessage(Message message)
+    {
+        Connection con = null;
+        PreparedStatement pst = null;
+        int messageId = 0;
+
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql = "INSERT INTO Message (conversation_id, sender_phone, message_body, timestamp)\n" +
+                    "VALUES (?, ?, ?, ?)";
+            pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1,message.getConversation_id());
+            pst.setString(2,message.getSender_phone());
+            pst.setString(3,message.getMessage_body());
+            java.sql.Timestamp timestamp1 = Timestamp.valueOf(message.getTimestamp());
+            pst.setTimestamp(4, timestamp1);
+
+            pst.executeUpdate();
+
+
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    messageId = generatedKeys.getInt(1);
+                }
+            }
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return messageId;
     }
 
 

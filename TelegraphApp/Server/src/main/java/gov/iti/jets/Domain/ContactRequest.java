@@ -2,14 +2,15 @@ package gov.iti.jets.Domain;
 
 import gov.iti.jets.Domain.enums.RequestStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public class ContactRequest {
     private int requestId;
-    private Date sendDate;
+    private LocalDateTime sendDate;
     private String receiverPhone;
     private RequestStatus requestStatus;
-    private Date responseDate;
+    private LocalDateTime responseDate;
     private String senderPhone;
 
     // Getters and Setters
@@ -21,11 +22,11 @@ public class ContactRequest {
         this.requestId = requestId;
     }
 
-    public Date getSendDate() {
+    public LocalDateTime getSendDate() {
         return sendDate;
     }
 
-    public void setSendDate(Date sendDate) {
+    public void setSendDate(LocalDateTime sendDate) {
         this.sendDate = sendDate;
     }
 
@@ -45,11 +46,11 @@ public class ContactRequest {
         this.requestStatus = requestStatus;
     }
 
-    public Date getResponseDate() {
+    public LocalDateTime getResponseDate() {
         return responseDate;
     }
 
-    public void setResponseDate(Date responseDate) {
+    public void setResponseDate(LocalDateTime responseDate) {
         this.responseDate = responseDate;
     }
 
