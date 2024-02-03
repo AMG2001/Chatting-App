@@ -4,13 +4,13 @@
 
 .leftSideBar .option{
     -fx-alignment: left;
-    -fx-text-fill: black;
-    -fx-fill: black;
+    -fx-text-fill: white;
+    -fx-fill: white;
     -fx-padding: 10;
     -fx-graphic-text-gap: 12;
     -fx-border-color: white;
-    -fx-background-color: #E1F0DA;
-    -fx-pref-width: 12.0em;
+    -fx-background-color: #2272E5;
+    -fx-min-width: 180px;
 }
 
 .leftSideBar .option:hover{
@@ -20,8 +20,8 @@
     -fx-padding: 10;
     -fx-graphic-text-gap: 12;
     -fx-border-color: black;
-    -fx-background-color: #E1F0DA;
-    -fx-pref-width: 12.0em;
+    -fx-background-color: white;
+    -fx-min-width: 180px;
 }
 
 

@@ -36,6 +36,12 @@ public class FieldsValidator {
         if (phoneNumber.isEmpty()) {
             CustomDialogs.showErrorDialog("You can't leave Phone Number field empty !!");
             return false;
+        } else if (phoneNumber.length() != 11) {
+            CustomDialogs.showErrorDialog("Phone Number must be 11 Digit !!");
+            return false;
+        } else if (phoneNumber.charAt(0) != '0' || phoneNumber.charAt(1) != '1') {
+            CustomDialogs.showErrorDialog("Phone Number must start with 01 !!");
+            return false;
         } else {
             boolean isValid = true;
             char[] phoneInCharArray = phoneNumber.toCharArray();

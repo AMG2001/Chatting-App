@@ -68,6 +68,7 @@ public class ConversationDaoImpl implements ConversationDao {
 
         List<String> phoneNumbers= new ArrayList<>();
 
+
         Connection con = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -160,7 +161,7 @@ public class ConversationDaoImpl implements ConversationDao {
 
     @Override
     public void delete(Conversation entity) {
-
+        //ignore
     }
 
     //group or individual conversation
