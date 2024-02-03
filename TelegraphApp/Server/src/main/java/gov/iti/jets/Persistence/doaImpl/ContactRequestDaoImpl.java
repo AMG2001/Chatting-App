@@ -1,8 +1,11 @@
 package gov.iti.jets.Persistence.doaImpl;
 
 import gov.iti.jets.Domain.ContactRequest;
+import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
+import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
+import java.sql.*;
 import java.util.List;
 
 public class ContactRequestDaoImpl implements ContactRequestDao {
@@ -16,10 +19,45 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
     public List<ContactRequest> getRequestsByReceiver(String phoneNumber) {
         return null;
     }
-    //TODO moataz
+
     @Override
     public Boolean checkIfRequestExist(ContactRequest request) {
-        return null;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Boolean isExist=false;
+
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql = "select * from Contact_Request\n" +
+                        "where sender_phone= ?\n" +
+                        "and receiver_phone= ?;";
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1,request.getSenderPhone());
+            pst.setString(2,request.getReceiverPhone());
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) isExist= true;
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return isExist;
     }
 
     //TODO yousef
@@ -33,11 +71,146 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
         return null;
     }
 
-    //TODO moataz
+
     @Override
-    public void update(ContactRequest entity) {
+    public void update(ContactRequest request) {
+
+        Connection con = null;
+
+        try{
+            con= DBConnectionPool.DATASOURCE.getConnection();
+
+            if(request.getRequestStatus().name().equals("DENIED")){
+                deleteRequest(con,request);
+            }
+            else if(request.getRequestStatus().name().equals("ACCEPTED")){
+
+                con.setAutoCommit(false);
+
+                updateContactRequestTable(con,request);
+                insertIntoContactTable(con,request);
+                int individualConversationId = insertIntoConversationTable(con);
+                InsertIntoUserConversationTable(con,request,individualConversationId);
+
+                con.commit();
+            }
+        }
+        catch (SQLException e){
+            try {
+                if (con != null) con.rollback();
+            }
+            catch (SQLException rollbackException) {
+                System.out.println(rollbackException.getMessage());
+                rollbackException.printStackTrace();
+            }
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
     }
+
+    private void InsertIntoUserConversationTable(Connection con, ContactRequest request, int individualConversationId)  throws SQLException{
+
+        String sql = "INSERT INTO User_Conversation (phone_number, conversation_id, join_date)\n" +
+                "VALUES (?, ?, ?),\n" +
+                       "(?, ?, ?)";
+
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+
+            pst.setString(1,request.getSenderPhone());
+            pst.setInt(2,individualConversationId);
+            java.sql.Timestamp timestamp1 = Timestamp.valueOf(request.getResponseDate());
+            pst.setTimestamp(3, timestamp1);
+
+            pst.setString(4,request.getReceiverPhone());
+            pst.setInt(5,individualConversationId);
+            java.sql.Timestamp timestamp2 = Timestamp.valueOf(request.getResponseDate());
+            pst.setTimestamp(6, timestamp2);
+
+            pst.executeUpdate();
+        }
+    }
+
+    private int insertIntoConversationTable(Connection con) throws SQLException{
+        int conversationId = 0;
+
+        String sql = "insert into Conversation (type)\n" +
+                "values (?);";
+        try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pst.setString(1,"INDIVIDUAL");
+            pst.executeUpdate();
+
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    conversationId = generatedKeys.getInt(1);
+                }
+            }
+        }
+        return conversationId;
+    }
+
+    private void insertIntoContactTable(Connection con, ContactRequest request)  throws SQLException{
+        String sql="INSERT INTO Contact (user_phone, contact_phone, add_date)\n" +
+                "VALUES (?, ?, ?),\n" +
+                       "(?, ?, ?);";
+
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setString(1,request.getSenderPhone());
+            pst.setString(2,request.getReceiverPhone());
+            java.sql.Timestamp timestamp1 = Timestamp.valueOf(request.getResponseDate());
+            pst.setTimestamp(3, timestamp1);
+
+            pst.setString(4,request.getReceiverPhone());
+            pst.setString(5,request.getSenderPhone());
+            java.sql.Timestamp timestamp2 = Timestamp.valueOf(request.getResponseDate());
+            pst.setTimestamp(6, timestamp2);
+
+            pst.executeUpdate();
+        }
+    }
+
+    private void updateContactRequestTable(Connection con, ContactRequest request) throws SQLException {
+        String sql = "update Contact_Request\n" +
+                     "set status = 'ACCEPTED' , response_date = ?\n" +
+                    "where sender_phone= ?\n" +
+                    "and receiver_phone= ?;";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+
+            java.sql.Timestamp timestamp = Timestamp.valueOf(request.getResponseDate());
+            pst.setTimestamp(1, timestamp);
+
+            pst.setString(2,request.getSenderPhone());
+            pst.setString(3,request.getReceiverPhone());
+
+            pst.executeUpdate();
+        }
+    }
+
+    private void deleteRequest(Connection con , ContactRequest request) throws SQLException{
+        String sql = "delete from Contact_Request\n" +
+                    "WHERE sender_phone= ?\n" +
+                    "and receiver_phone= ?;";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setString(1,request.getSenderPhone());
+            pst.setString(2,request.getReceiverPhone());
+
+            pst.executeUpdate();
+        }
+    }
+
 
     @Override
     public void delete(ContactRequest entity) {

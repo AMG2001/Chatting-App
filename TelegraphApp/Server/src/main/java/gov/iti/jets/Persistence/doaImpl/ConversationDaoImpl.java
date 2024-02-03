@@ -62,10 +62,50 @@ public class ConversationDaoImpl implements ConversationDao {
         }
         return groups;
     }
-    //TODO moataz
+
     @Override
     public List<String> getConversationParticipants(int conversationId) {
-        return null;
+
+        List<String> phoneNumbers= new ArrayList<>();
+
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql = "select phone_number\n" +
+                    "from User_Conversation\n" +
+                    "where conversation_id = ?;";
+            pst = con.prepareStatement(sql);
+
+            pst.setInt(1,conversationId);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+
+                String phoneNumber = rs.getString("phone_number");
+
+                phoneNumbers.add(phoneNumber);
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return phoneNumbers;
     }
 
     @Override

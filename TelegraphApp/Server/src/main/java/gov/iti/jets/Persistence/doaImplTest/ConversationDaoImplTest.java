@@ -31,9 +31,14 @@ public class ConversationDaoImplTest {
         group.setConversationName("testGroup55");
         System.out.println(conversationDaoImpl.createGroupConversation("123456789", group));
     }
+
+    private void getConversationParticipantsTest(){
+        System.out.println(conversationDaoImpl.getConversationParticipants(2));
+    }
     public static void main(String[] args) {
         ConversationDaoImplTest conversationDaoImplTest = new ConversationDaoImplTest();
         //conversationDaoImplTest.get_group_conversations_by_phone_test();
         //conversationDaoImplTest.getIndividualConversationIdTest();
+        conversationDaoImplTest.getConversationParticipantsTest();
     }
 }

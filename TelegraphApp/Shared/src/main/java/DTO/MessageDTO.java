@@ -1,18 +1,18 @@
 package DTO;
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class MessageDTO implements Serializable {
     private int messageId;
     private String senderPhone;
     private int conversationId;
     private String messageBody;
-    private LocalTime timeStamp;
+    private LocalDateTime timeStamp;
 
 
 
-    public MessageDTO(int messageId, String senderPhone, int conversationId, String messageBody, LocalTime timeStamp) {
+    public MessageDTO(int messageId, String senderPhone, int conversationId, String messageBody, LocalDateTime timeStamp) {
         this.messageId = messageId;
         this.senderPhone = senderPhone;
         this.conversationId = conversationId;
@@ -52,11 +52,11 @@ public class MessageDTO implements Serializable {
         this.messageBody = messageBody;
     }
 
-    public LocalTime getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(LocalTime timeStamp) {
+    public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

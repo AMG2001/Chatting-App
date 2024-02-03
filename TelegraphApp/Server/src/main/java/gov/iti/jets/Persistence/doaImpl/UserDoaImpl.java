@@ -120,7 +120,7 @@ public class UserDoaImpl implements UserDao {
 
             while (rs.next()){
                 user = new User();
-                user.setPhone_number(phone);
+                user.setPhoneNumber(phone);
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));

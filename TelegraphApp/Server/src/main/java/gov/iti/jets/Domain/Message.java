@@ -9,6 +9,8 @@ public class Message {
     private String message_body;
     private LocalDateTime timestamp;
 
+    public Message() {
+    }
 
     public Message(int message_id, String sender_phone, int conversation_id, String message_body, LocalDateTime timestamp) {
         this.message_id = message_id;
