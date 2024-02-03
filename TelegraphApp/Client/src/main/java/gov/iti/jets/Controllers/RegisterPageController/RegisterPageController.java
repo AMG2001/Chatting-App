@@ -98,7 +98,7 @@ public class RegisterPageController {
             gender = "female";
         }
         byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
-        if (FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && imageBytes != null) {
+        if (FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && imageBytes != null && gender != "") {
             try {
                 UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, gender, bio, "active", imageBytes);
                 UserService.getInstance().getRemoteService().registerUser(userDTO);
