@@ -135,6 +135,32 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         5) Set Status in DB UserDAO.setStatus(userPhone);
 
         * */
+        UserDao userDao = new UserDoaImpl();
+
+        User user = userDao.getById(userPhone);
+
+        OnlineUserManager.removeOnlineUser(userPhone);
+
+        List<User> OnlineContacts = userDao.getContactsByPhoneAndStatus(userPhone, UserStatus.ONLINE);
+        List<String> OnlineContactsPhones = OnlineContacts.stream()
+                .map(User::getPhoneNumber)
+                .toList();
+
+        List<RemoteCallbackInterface> OnlineContactsCallBacks
+                = OnlineUserManager.gegtFriendsFromOnlineList(OnlineContactsPhones);
+
+        NotificationCallbackHandler handler = new NotificationCallbackHandler();
+        ContactCallbackHandler contactHandler = new ContactCallbackHandler();
+
+        NotificationDTO notification = new
+                NotificationDTO("1", NotificationType.FRIEND.toString(),
+                LocalDateTime.now(), user.getName() + " is now Offline");
+
+        handler.sendNotification(notification, OnlineContactsCallBacks);
+
+        //contactHandler.updateUserStatusForAllContacts(UserStatus.OFFLINE.name(), userPhone, OnlineContactsCallBacks)
+
+        userDao.updateStatus(user.getPhoneNumber(), UserStatus.OFFLINE);
     }
 
     @Override
