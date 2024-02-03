@@ -19,6 +19,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
     @Override
     public List<ContactRequest> getRequestsBySender(String phoneNumber) {
         return null;
+
     }
 
     //TODO youssef
@@ -117,7 +118,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
         return isExist;
     }
 
-    //TODO yousef
+
     @Override
     public void add(ContactRequest entity) {
         Connection con = null;
