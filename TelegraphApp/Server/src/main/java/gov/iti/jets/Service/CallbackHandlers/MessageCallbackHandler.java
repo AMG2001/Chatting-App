@@ -10,7 +10,6 @@ import java.util.List;
 public class MessageCallbackHandler {
     public MessageCallbackHandler() {
     }
-
     public void sendMessages(MessageDTO message, List<RemoteCallbackInterface> contacts) {
         try {
             for (RemoteCallbackInterface contact : contacts) {

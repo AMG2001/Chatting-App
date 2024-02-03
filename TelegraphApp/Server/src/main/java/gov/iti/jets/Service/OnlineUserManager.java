@@ -43,19 +43,4 @@ public class OnlineUserManager {
 
         return result;
     }
-
-//    public static ConcurrentHashMap<String, RemoteCallbackInterface> getFriendsFromOnlineList
-//            (List<String> phones) {
-//
-//        ConcurrentHashMap<String, RemoteCallbackInterface> result = new ConcurrentHashMap<>();
-//
-//        for (String key : phones) {
-//            if (onlineUsers.containsKey(key)) {
-//                RemoteCallbackInterface value = onlineUsers.get(key);
-//                result.put(key, value);
-//            }
-//        }
-//
-//        return result;
-//    }
 }

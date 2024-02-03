@@ -13,7 +13,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void recieveMessage(MessageDTO message) {
-        //TODO Add the message to the CONVERSATION obserable object
+        //TODO Add the message to the CONVERSATION observable object
 
     }
 
@@ -24,6 +24,11 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void recieveRequest(RequestDTO request) throws RemoteException {
+
+    }
+
+    @Override
+    public void updateRequest(RequestDTO request) throws RemoteException {
 
     }
 
