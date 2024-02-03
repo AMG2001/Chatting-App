@@ -283,9 +283,62 @@ public class UserDoaImpl implements UserDao {
     }
 
     //TODO yousef
+    // I give him in user phone number , name , picture and status only ... I want to know if he needs anything else
+    //TODO marwan
+    //TODO moataz
     @Override
     public List<User> getAllContactsByPhone(String phone) {
-        return null;
+        List<User> users = new ArrayList<>();
+
+        Connection con=null;
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+
+        try{
+            con=DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql ="select c.contact_phone As contact_phone, u.name As contact_name, u.status As contact_status, u.picture As contact_picture " +
+                    "from Contact c,User u " +
+                    "where u.phone_number = c.contact_phone " +
+                    "and c.user_phone=? ";
+
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1,phone);
+
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                String contactPhone = rs.getString("contact_phone");
+                String contactName = rs.getString("contact_name");
+                String contactStatus = rs.getString("contact_status");
+                String contactPic= rs.getString("contact_picture");
+
+                User user= new User();
+                user.setPhoneNumber(contactPhone);
+                user.setName(contactName);
+                user.setStatus(UserStatus.valueOf(contactStatus));
+                user.setPicture(contactPic);
+
+                users.add(user);
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return users;
     }
 
 

@@ -13,6 +13,9 @@ public class ConversationDaoImplTest {
     private void getIndividualConversationIdTest(){
         System.out.println(conversationDaoImpl.getIndividualConversationId("123456789","987654321"));
     }
+    private void getAllConversationsByPhoneTest(){
+        System.out.println(conversationDaoImpl.getAllConversationsByPhone("555555555"));
+    }
     private void getByIdTest(){
         System.out.println(conversationDaoImpl.getById(3));
     }
@@ -35,5 +38,6 @@ public class ConversationDaoImplTest {
         ConversationDaoImplTest conversationDaoImplTest = new ConversationDaoImplTest();
         //conversationDaoImplTest.get_group_conversations_by_phone_test();
         //conversationDaoImplTest.getIndividualConversationIdTest();
+        conversationDaoImplTest.getAllConversationsByPhoneTest();
     }
 }

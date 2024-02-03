@@ -222,7 +222,55 @@ public class ConversationDaoImpl implements ConversationDao {
     //TODO yousef
     @Override
     public List<Conversation> getAllConversationsByPhone(String phone) {
-        return null;
+        List<Conversation> conversations= new ArrayList<>();
+
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql = "select c.conversation_id As con_id, c.conversation_img As con_img , c.conversation_name As con_name ,c.type As con_type\n" +
+                    "from User u, Conversation c, User_Conversation uc \n" +
+                    "where uc.conversation_id= c.conversation_id and uc.phone_number= u.phone_number \n" +
+                    "and u.phone_number = ?;";
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1,phone);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                int con_id = rs.getInt("con_id");
+                String con_img = rs.getString("con_img");
+                String con_name = rs.getString("con_name");
+                String con_type = rs.getString("con_type");
+
+                Conversation conv = new Conversation();
+                conv.setConversationId(con_id);
+                conv.setConversationImage(con_img);
+                conv.setConversationName(con_name);
+                conv.setType(con_type);
+
+                conversations.add(conv);
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return conversations;
     }
 
     @Override
