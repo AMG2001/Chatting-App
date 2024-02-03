@@ -75,7 +75,7 @@ public class HomePageController {
                 System.out.println("Right Pane Cleared");
                 ChatPaneController chatPaneController = new ChatPaneController();
                 // TODO Add Contact Card Model Obj to Chat Pane setController method 👇🏻👇🏻 .
-//                chatPaneController.setControllerValues(contactCardObj);
+                chatPaneController.setControllerValues(contactCardObj);
                 right_pane.getChildren().add(chatPaneController.getLayout());
                 System.out.println("Right Pane Added");
             }

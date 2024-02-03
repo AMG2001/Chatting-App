@@ -15,8 +15,8 @@ public class InitialLayoutController {
     private InitialLayoutController() {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/initialLayout.fxml"));
-            loader.setController(this);
             layout = loader.load();
+            loader.setController(this);
             System.out.println("Initial Layout Pane Loaded ✅✅");
         } catch (Exception e) {
             System.err.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading Initial Layout : " + e.getMessage());

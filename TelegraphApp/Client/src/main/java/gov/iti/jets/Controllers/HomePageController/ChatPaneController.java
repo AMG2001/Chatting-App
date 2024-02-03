@@ -44,13 +44,14 @@ public class ChatPaneController {
     public ChatPaneController() {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/chatPane.fxml"));
-            layout = loader.load();
             loader.setController(this);
+            layout = loader.load();
             System.out.println("Chat Pane Loaded ✅✅");
         } catch (Exception e) {
             System.err.println("Error while loading HomePageView : " + e.getMessage());
         }
     }
+
 
     public VBox getLayout() {
         return layout;
