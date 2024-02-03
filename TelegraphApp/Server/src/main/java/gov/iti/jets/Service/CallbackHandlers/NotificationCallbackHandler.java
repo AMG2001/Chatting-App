@@ -22,4 +22,14 @@ public class NotificationCallbackHandler {
         }
     }
 
+    public void sendNotificationtoClient(NotificationDTO notification, RemoteCallbackInterface client) {
+        try {
+            client.recieveNotification(notification);
+
+        } catch (RemoteException ex) {
+            System.out.println("Error Sending notification: " + ex.getMessage());
+            System.out.println("Notification " + notification.getBody() + " Not sent");
+        }
+    }
+
 }

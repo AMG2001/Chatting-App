@@ -107,7 +107,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
 
     @Override
     public List<ContactDTO> getContacts(String userPhone) {
-        //TODO Yousef Return an array of all contacts to the phone number & return it
+        //TODO Moataz Return an array of all contacts to the phone number & return it
         /*
         1)ArrayList<User> contacts = UserDAO.get all Contacts by phone
         2) Create array of ContactDTO
@@ -121,6 +121,12 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         6) Return List<contactDTO>
 
          */
+        return null;
+    }
+
+    @Override
+    public List<GroupsDTO> getGroups(String userPhone) throws RemoteException {
+        //TODO moataz
         return null;
     }
 
