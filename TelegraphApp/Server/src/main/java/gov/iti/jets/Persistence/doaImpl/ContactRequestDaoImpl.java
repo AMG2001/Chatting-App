@@ -69,7 +69,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -109,7 +109,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
                 if(rs != null) rs.close();
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -143,7 +143,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
             try {
                 if(pst != null) pst.close();
                 if (con != null) con.close();
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
@@ -198,7 +198,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
                     con.setAutoCommit(true);
                     con.close();
                 }
-                DBConnectionPool.DATASOURCE.close();
+                //DBConnectionPool.DATASOURCE.close();
             }
             catch (SQLException e){
                 System.out.println(e.getMessage());
