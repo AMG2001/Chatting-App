@@ -65,6 +65,10 @@ public class UserDoaImplTest {
     {
         System.out.println(userDoaImpl.getAll());
     }
+    private void getNumberOfUsersTest()
+    {
+        System.out.println(userDoaImpl.getNumberOfUsers());
+    }
 
     public static void main(String[] args) {
         UserDoaImplTest userDoaImplTest= new UserDoaImplTest();
@@ -76,6 +80,7 @@ public class UserDoaImplTest {
         //userDoaImplTest.getNumberOfOnlineUsersTest();
         //userDoaImplTest.updateStatusTest();
         //userDoaImplTest.getAllContactsByPhoneTest();
-        userDoaImplTest.getAllTest();
+        //userDoaImplTest.getAllTest();
+        userDoaImplTest.getNumberOfUsersTest();
     }
 }

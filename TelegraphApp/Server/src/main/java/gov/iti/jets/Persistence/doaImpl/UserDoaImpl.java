@@ -158,7 +158,7 @@ public class UserDoaImpl implements UserDao {
     public void delete(User entity) {
 
     }
-    // TODO Yousef
+
 
     @Override
     public User getById(String phone) {
@@ -264,8 +264,36 @@ public class UserDoaImpl implements UserDao {
 
     @Override
     public int getNumberOfUsers() {
-        //TODO yousef
-        return 0;
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        int count = 0;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from user ;";
+            pst = con.prepareStatement(sql);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                count++;
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return count;
     }
 
     @Override
