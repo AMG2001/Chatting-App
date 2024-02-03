@@ -12,20 +12,19 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import javax.mail.Message;
 
 public class HomePageController {
-
-    @FXML
-    private ListView<ContactCardDataModel> lv_offlineContacts;
-
     @FXML
     private ListView<ContactCardDataModel> lv_onlineContacts;
-
-    private ObservableList<ContactCardDataModel> onlineContactsList = FXCollections.observableArrayList();
-
-    private ObservableList<ContactCardDataModel> offlineContactsList = FXCollections.observableArrayList();
+    @FXML
+    private Pane right_pane;
+    private ObservableList<ContactCardDataModel> contactsList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -37,13 +36,7 @@ public class HomePageController {
         changeListViewCell();
         // to add action for each item in listview .
         setListViewItemsAction();
-        // init leftSide Bar Actions.
-        setLeftSideBarActions();
-    }
-
-
-    private void setLeftSideBarActions() {
-
+        right_pane.getChildren().add(InitialLayoutController.getInstance().getLayout());
     }
 
     private void changeListViewCell() {
@@ -58,23 +51,11 @@ public class HomePageController {
                 }
             }
         });
-        lv_offlineContacts.setCellFactory(param -> new ListCell<ContactCardDataModel>() {
-            @Override
-            protected void updateItem(ContactCardDataModel contactCardDataModel, boolean empty) {
-                super.updateItem(contactCardDataModel, empty);
-                if (empty || contactCardDataModel == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(contactCardDataModel.getLayout());
-                }
-            }
-        });
     }
 
 
     private void initListViewsBindings() {
-        lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(onlineContactsList));
-        lv_offlineContacts.itemsProperty().bind(new SimpleListProperty<>(offlineContactsList));
+        lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(contactsList));
     }
 
     private void loadOnlineContacts() {
@@ -82,18 +63,21 @@ public class HomePageController {
         System.out.println("Data Online & Offline Contact ..............");
         for (int i = 0; i < 10; i++) {
             ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
-            onlineContactsList.add(contactCardObjOnline);
-            ContactCardDataModel contactCardObjOffline = new ContactCardDataModel("Offline Contact " + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
-            offlineContactsList.add(contactCardObjOffline);
+            contactsList.add(contactCardObjOnline);
         }
     }
 
     private void setListViewItemsAction() {
         lv_onlineContacts.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                // TODO implement open Contact Chat Functionallity .
                 ContactCardDataModel contactCardObj = newVal.getController();
-                CustomDialogs.showInformativeDialog("Online contact clicked: " + contactCardObj.getContactName());
+                right_pane.getChildren().clear();
+                System.out.println("Right Pane Cleared");
+                ChatPaneController chatPaneController = new ChatPaneController();
+                // TODO Add Contact Card Model Obj to Chat Pane setController method 👇🏻👇🏻 .
+                chatPaneController.setControllerValues(contactCardObj);
+                right_pane.getChildren().add(chatPaneController.getLayout());
+                System.out.println("Right Pane Added");
             }
         });
     }

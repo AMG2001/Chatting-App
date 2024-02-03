@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="img_senderImage" fitHeight="116.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../414711303_4439883049569513_2610268508643775373_n.jpg" />
+         </image>
+         <HBox.margin>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+         </HBox.margin>
+      </ImageView>
+      <Text fx:id="messageContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: #E1F0DA;" text="Text" wrappingWidth="450.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+   </children>
+</HBox>

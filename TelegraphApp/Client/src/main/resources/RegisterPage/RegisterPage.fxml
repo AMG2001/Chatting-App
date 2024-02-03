@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <GridPane alignment="CENTER" minHeight="750.0" minWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.Controllers.RegisterPageController.RegisterPageController">
     <columnConstraints>
@@ -144,10 +145,19 @@
                 <Insets bottom="12.0" />
             </padding>
         </VBox>
-        <ImageView fitHeight="750.0" fitWidth="550.0" nodeOrientation="INHERIT" pickOnBounds="true">
-            <image>
-                <Image url="@images/l1.jpeg" />
-            </image>
-        </ImageView>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="16.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="358.0" fitWidth="523.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/3156814.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome in Telegraph">
+               <font>
+                  <Font name="Segoe UI Semibold" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
     </children>
 </GridPane>
