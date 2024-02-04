@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -22,8 +21,8 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="50.0" minHeight="16.799993896484374" prefHeight="16.799993896484374" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="93.60000610351562" minHeight="60.0" prefHeight="93.60000610351562" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="120.0" minHeight="120.0" prefHeight="120.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="50.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -32,33 +31,6 @@
       <RowConstraints minHeight="10.0" prefHeight="29.39996337890625" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" style="-fx-background-color: #343434;" GridPane.columnSpan="2147483647">
-         <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Users">
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fill="#fff870" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit">
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
-            </Text>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
-         </padding>
-      </HBox>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Server Announcements" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font name="Segoe UI Bold" size="23.0" />
