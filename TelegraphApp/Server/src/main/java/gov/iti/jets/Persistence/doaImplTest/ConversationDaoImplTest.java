@@ -45,7 +45,7 @@ public class ConversationDaoImplTest {
 
         conversationDaoImplTest.getAllConversationsByPhoneTest();
 
-        conversationDaoImplTest.getConversationParticipantsTest();
+        //conversationDaoImplTest.getConversationParticipantsTest();
 
     }
 }

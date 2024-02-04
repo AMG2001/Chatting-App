@@ -165,7 +165,8 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
     }
 
     @Override
-    public UserDTO updateUser(UserDTO newUser) {
+    public UserDTO updateUser(UpdatedUserDTO updatedUserDTO) {
+
         //TODO Moataz
         /*
         //Handle failure with null
@@ -179,6 +180,9 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         Callback to all friends only if it changes (name or profile pic)
 
         * */
+        UserDao userDao = new UserDoaImpl();
+        User userModel = UserMapper.INSTANCE.updatedUserDTOToUser(updatedUserDTO);
+
 
         return null;
     }
