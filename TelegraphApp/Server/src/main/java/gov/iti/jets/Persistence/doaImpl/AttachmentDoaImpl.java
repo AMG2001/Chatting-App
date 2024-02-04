@@ -31,9 +31,12 @@ public class AttachmentDoaImpl implements AttachmentDao {
             rs = pst.executeQuery();
 
             while (rs.next()){
-                 attachment = new Attachment(rs.getInt("attachment_id"),
-                        rs.getInt("message_id"),rs.getString("attachment_name"),
-                                rs.getString("attachment_type"));
+                attachment = new Attachment(rs.getInt("attachment_id"),
+                        rs.getString("attachment_name"),
+                        rs.getString("attachment_type"),
+                        rs.getString("attachment_location"),
+                        rs.getInt("conversation_id")
+                        );
             }
         }
         catch (SQLException e){
@@ -63,7 +66,8 @@ public class AttachmentDoaImpl implements AttachmentDao {
             String sql = "insert into attachment (message_id,attachment_name,attachment_type)\n" +
                     "values (?,?,?);";
             pst = con.prepareStatement(sql);
-            pst.setInt(1,entity.getMessageId());
+            //TODO moataz
+            //pst.setInt(1,entity.getMessageId());
             pst.setString(2,entity.getAttachmentName());
             pst.setString(3,entity.getAttachmentType());
 

@@ -382,7 +382,7 @@ public class UserDoaImpl implements UserDao {
 
 
             pst.executeUpdate();
-            System.out.println("updated successfully");
+            System.out.println("User status for "+phone+" updated successfully");
         }
         catch (SQLException e){
             System.out.println(e.getMessage());

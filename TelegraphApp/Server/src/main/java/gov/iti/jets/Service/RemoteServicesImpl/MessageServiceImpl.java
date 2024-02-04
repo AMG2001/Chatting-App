@@ -12,7 +12,7 @@ import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.MessageDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.MessageCallbackHandler;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
-import gov.iti.jets.Service.OnlineUserManager;
+import gov.iti.jets.Service.Utilities.OnlineUserManager;
 import gov.iti.jets.Service.Mapstructs.MessageMapper;
 
 import java.rmi.RemoteException;
@@ -59,7 +59,7 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
 
     @Override
     public List<MessageDTO> getAllMessagesForConversation(String conversationId) throws RemoteException {
-        //TODO
+        //TODO Yousef
         return null;
     }
 
