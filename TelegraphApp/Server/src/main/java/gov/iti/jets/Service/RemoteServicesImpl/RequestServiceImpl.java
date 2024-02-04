@@ -99,7 +99,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         if(requestDTO.getRequestStatus()=="ACCEPTED"){
 
-            //get individual conversation between sender and receiver
+            //get individual conversation between sender and receiver from DB
             ConversationDao conversationDao = new ConversationDaoImpl();
             int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(),requestDTO.getReceiverPhone());
             Conversation conversationDomain = conversationDao.getById(conversationId);

@@ -3,12 +3,17 @@ package gov.iti.jets.Service.RemoteServicesImpl;
 import DTO.*;
 import RemoteInterfaces.RemoteUserService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.UserStatus;
+import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.dao.UserDao;
+import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
+import gov.iti.jets.Service.Mapstructs.ContactMapper;
+import gov.iti.jets.Service.Mapstructs.ConversationMapper;
 import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
@@ -108,24 +113,39 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
 
     @Override
     public List<ContactDTO> getContacts(String userPhone) {
-        //TODO Moataz Return an array of all contacts to the phone number & return it
-        /*
-        1)ArrayList<User> contacts = UserDAO.get all Contacts by phone
-        2) Create array of ContactDTO
-        3) Map List<User> to List<ContactDTO> (Name , Phone , Status) -- Mapstruct
-        4) get all profile pic for Dto's
-        5) Loop over DTO's
-        for(int i = 0; i< List.size; i++)
-        {
-            contactDTO[i].setProfilepic(FileSystemUtil.getBytesfromSystem(User[i].getPicture));
-        }
-        6) Return List<contactDTO>
-         */
+
+        // get all contacts from DB
         UserDao userDao = new UserDoaImpl();
-        List<User> contacts = userDao.getAllContactsByPhone(userPhone);
+        List<User> contactsDB = userDao.getAllContactsByPhone(userPhone);
+
+        ConversationDao conversationDao = new ConversationDaoImpl();
+
         List<ContactDTO> contactDTOS = new ArrayList<>();
 
-        return null;
+        for(User contactDB :contactsDB){
+            ContactDTO contactDTO=ContactMapper.INSTANCE.userToContactDTO(contactDB);
+
+            //get individual conversation between User and his contact from DB
+            int conversationId = conversationDao.getIndividualConversationId(userPhone,contactDTO.getPhoneNumber());
+            Conversation conversationDomain = conversationDao.getById(conversationId);
+
+            // map conversation domain to conversation dto and set messages and attachments to empty lists
+            ConversationDTO conversationDTO = ConversationMapper.INSTANCE.conversationToConversationDTO(conversationDomain);
+            conversationDTO.setMessages(new ArrayList<>());
+            conversationDTO.setAttachments(new ArrayList<>());
+
+            // get contact image
+            byte[] contactImage = FileSystemUtil.getBytesFromFile(contactDB.getPicture());
+
+            // set conversation and picture to contact dto
+            contactDTO.setConversation(conversationDTO);
+            contactDTO.setProfilepic(contactImage);
+
+            // add contact dto to list of contacts
+            contactDTOS.add(contactDTO);
+        }
+
+        return contactDTOS;
     }
 
     @Override
