@@ -11,6 +11,7 @@ public class AppPages {
             try {
                 FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Dashboard/User_Dashboard.fxml"));
                 homePageView = loader.load();
+                System.out.println("✅✅✅✅✅✅✅✅✅✅✅✅ Home Page View initialized successfully ✅✅✅✅✅✅✅✅✅✅✅✅");
             } catch (Exception e) {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Home Page View : " + e.getMessage());
             }

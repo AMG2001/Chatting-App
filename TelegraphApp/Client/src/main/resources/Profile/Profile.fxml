@@ -111,7 +111,7 @@
                         <TextArea fx:id="ta_bio" maxHeight="400.0" maxWidth="500.0" prefHeight="190.0" prefWidth="864.0" promptText="About me" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="36.0">
                             <children>
-                                <MFXButton fx:id="btn_saveChanges" minHeight="32.0" minWidth="120.0" onAction="#saveChanges" style="-fx-background-color: black; -fx-text-fill: white;" text="Save Changes" textFill="WHITE" />
+                                <MFXButton fx:id="btn_saveChanges" minHeight="32.0" minWidth="120.0" onAction="#saveChanges" style="-fx-background-color: #2272E5; -fx-text-fill: white;" text="Save Changes" textFill="WHITE" />
                                 <MFXButton fx:id="btn_cancel" layoutX="10.0" layoutY="10.0" minHeight="32.0" minWidth="60.0" onAction="#cancel" style="-fx-background-color: Red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" />
                             </children>
                         </HBox>

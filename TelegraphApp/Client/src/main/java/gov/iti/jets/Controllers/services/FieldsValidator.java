@@ -33,7 +33,7 @@ public class FieldsValidator {
     }
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        if (phoneNumber.isEmpty()) {
+        if (phoneNumber.length() == 0) {
             CustomDialogs.showErrorDialog("You can't leave Phone Number field empty !!");
             return false;
         } else if (phoneNumber.length() != 11) {
