@@ -50,7 +50,6 @@ public class ProfilePageController {
 
     @FXML
     public void initialize() {
-        // TODO load all data from ClientStatus User Model 👇🏻👇🏻 .
         UserModel userModel = ClientState.getInstance().getLoggedinUserModel();
         tf_email.setText(userModel.getEmail());
         tf_phoneNumber.setText(userModel.getUserPhone());
@@ -60,6 +59,9 @@ public class ProfilePageController {
         ta_bio.setText(userModel.getBio());
         datePicker.setValue(userModel.getDob());
         img_userImage.setImage(userModel.getProfilePic());
+        tf_gender.setEditable(false);
+        tf_gender.setDisable(true);
+        datePicker.setEditable(false);
     }
 
     @FXML

@@ -3,6 +3,16 @@ package gov.iti.jets.Controllers.services;
 import java.util.regex.Pattern;
 
 public class FieldsValidator {
+
+    public static boolean isValidPasswordConfirmation(String password, String confirmPassword) {
+        if (password.equals(confirmPassword)) {
+            return true;
+        } else {
+            CustomDialogs.showErrorDialog("Password Not Matched !!");
+            return false;
+        }
+    }
+
     public static boolean isValidEmail(String email) {
         if (email.isEmpty()) {
             CustomDialogs.showErrorDialog("You can't leave Email field empty !!");

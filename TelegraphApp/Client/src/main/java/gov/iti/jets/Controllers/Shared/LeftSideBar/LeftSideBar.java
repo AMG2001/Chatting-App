@@ -92,12 +92,10 @@ public class LeftSideBar {
     void moveToHomePage(ActionEvent event) {
         Navigator.navigateToHomePage();
     }
-
     @FXML
     void moveToProfile(ActionEvent event) {
         Navigator.navigateToUpdateInfo();
     }
-
     @FXML
     void showAllFriendRequests(ActionEvent event) {
 
