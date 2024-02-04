@@ -54,7 +54,25 @@ public class ChatPaneController {
 
     @FXML
     public void initialize() {
+        bindListViewOnObservableList();
+        changeListViewCellFactory();
+        setSendButtonAction();
+        clientName = ClientState.getInstance().getLoggedinUserModel().getUserName();
+        clientPhoneNumber = ClientState.getInstance().getLoggedinUserModel().getUserPhone();
+        clientImage = ClientState.getInstance().getLoggedinUserModel().getProfilePic();
+    }
+
+    private void setSendButtonAction() {
+        btn_sendMessage.setOnAction(event -> {
+            sendMessage();
+        });
+    }
+
+    private void bindListViewOnObservableList() {
         lv_chatMessages.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().getOpenedChatMessages()));
+    }
+
+    private void changeListViewCellFactory() {
         lv_chatMessages.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(MessageController messageController, boolean empty) {
@@ -66,12 +84,6 @@ public class ChatPaneController {
                 }
             }
         });
-        btn_sendMessage.setOnAction(event -> {
-            sendMessage();
-        });
-        clientName = ClientState.getInstance().getLoggedinUserModel().getUserName();
-        clientPhoneNumber = ClientState.getInstance().getLoggedinUserModel().getUserPhone();
-        clientImage = ClientState.getInstance().getLoggedinUserModel().getProfilePic();
     }
 
     public ChatPaneController() {
@@ -95,6 +107,7 @@ public class ChatPaneController {
             MessageController messageController = new MessageController();
             messageController.setMessageDetails(clientPhoneNumber, clientImage, messageArea.getHtmlText());
             ClientState.getInstance().openedChatMessagesList.add(messageController);
+            messageArea.setHtmlText("");
         }
     }
 
