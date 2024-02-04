@@ -60,10 +60,11 @@ CREATE TABLE IF NOT EXISTS Message (
 
 CREATE TABLE IF NOT EXISTS Attachment(
 	attachment_id INT PRIMARY KEY AUTO_INCREMENT,
-    message_id INT,
+    conversation_id INT,
     attachment_name VARCHAR(255),
     attachment_type VARCHAR(50),
-    FOREIGN KEY (message_id) REFERENCES Message(message_id)
+    attachment_location VARCHAR(50),
+    FOREIGN KEY (conversation_id) REFERENCES Conversation(conversation_id)
 );
 
 
@@ -144,10 +145,11 @@ VALUES
 (4, 4, '987654321', 'sexy awe', NOW()),            -- Amgad sends a message to the group
 (5, 4, '555555555', 'what is doa ?????', NOW());     -- Yousef sends a message to the group
 
-INSERT INTO Attachment (attachment_id,message_id, attachment_type,attachment_name)
+
+INSERT INTO Attachment (attachment_id,conversation_id, attachment_type,attachment_name,attachment_location)
 VALUES
-(1,1,'jpg','image1.jpg'),
-(2,2,'pdf','document.pdf');
+(1,1,'jpg','image1','C://telegraph/attachment/image1'),
+(2,2,'pdf','document','C://telegraph/attachment/document');
 
 INSERT INTO Notification (notification_id, notification_body, timestamp, type)
 VALUES

@@ -4,5 +4,5 @@ import gov.iti.jets.Domain.Attachment;
 
 public interface AttachmentDao extends GenericDatabaseDao<Attachment> {
 
-    Attachment getAttachmentByMessageId(int messageId);
+    Attachment getAttachmentByConversationId(int ConversationId);
 }

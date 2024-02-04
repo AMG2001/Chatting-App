@@ -16,78 +16,81 @@ import java.util.List;
 
 public class AttachmentDoaImpl implements AttachmentDao {
     @Override
-    public Attachment getAttachmentByMessageId(int messageId) {
+    public Attachment getAttachmentByConversationId(int ConversationId) {
 
-        Connection con = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        Attachment attachment = null;
-        try{
-            con = DBConnectionPool.DATASOURCE.getConnection();
-            String sql = "select * from attachment where message_id=?;";
-            pst = con.prepareStatement(sql);
-            pst.setInt(1,messageId);
+        //TODO yousef
+//        Connection con = null;
+//        PreparedStatement pst = null;
+//        ResultSet rs = null;
+//        Attachment attachment = null;
+//        try{
+//            con = DBConnectionPool.DATASOURCE.getConnection();
+//            String sql = "select * from attachment where message_id=?;";
+//            pst = con.prepareStatement(sql);
+//            pst.setInt(1,messageId);
+//
+//            rs = pst.executeQuery();
+//
+//            while (rs.next()){
+//                attachment = new Attachment(rs.getInt("attachment_id"),
+//                        rs.getString("attachment_name"),
+//                        rs.getString("attachment_type"),
+//                        rs.getString("attachment_location"),
+//                        rs.getInt("conversation_id")
+//                        );
+//            }
+//        }
+//        catch (SQLException e){
+//            System.out.println(e.getMessage());
+//        }
+//        finally {
+//            try {
+//                if(rs != null) rs.close();
+//                if(pst != null) pst.close();
+//                if (con != null) con.close();
+//                //DBConnectionPool.DATASOURCE.close();
+//            }
+//            catch (SQLException e){
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        return attachment;
 
-            rs = pst.executeQuery();
-
-            while (rs.next()){
-                attachment = new Attachment(rs.getInt("attachment_id"),
-                        rs.getString("attachment_name"),
-                        rs.getString("attachment_type"),
-                        rs.getString("attachment_location"),
-                        rs.getInt("conversation_id")
-                        );
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        finally {
-            try {
-                if(rs != null) rs.close();
-                if(pst != null) pst.close();
-                if (con != null) con.close();
-                //DBConnectionPool.DATASOURCE.close();
-            }
-            catch (SQLException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        return attachment;
     }
     @Override
     public void add(Attachment entity)
     {
-        Connection con = null;
-        PreparedStatement pst = null;
-        try{
-            con = DBConnectionPool.DATASOURCE.getConnection();
-            con.setAutoCommit(true);
-            String sql = "insert into attachment (message_id,attachment_name,attachment_type)\n" +
-                    "values (?,?,?);";
-            pst = con.prepareStatement(sql);
-            //TODO moataz
-            //pst.setInt(1,entity.getMessageId());
-            pst.setString(2,entity.getAttachmentName());
-            pst.setString(3,entity.getAttachmentType());
-
-            pst.executeUpdate();
-            System.out.println("Insertion Complete");
-
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        finally {
-            try {
-                if(pst != null) pst.close();
-                if (con != null) con.close();
-                //DBConnectionPool.DATASOURCE.close();
-            }
-            catch (SQLException e){
-                System.out.println(e.getMessage());
-            }
-        }
+        //TODO yousef
+//        Connection con = null;
+//        PreparedStatement pst = null;
+//        try{
+//            con = DBConnectionPool.DATASOURCE.getConnection();
+//            con.setAutoCommit(true);
+//            String sql = "insert into attachment (message_id,attachment_name,attachment_type)\n" +
+//                    "values (?,?,?);";
+//            pst = con.prepareStatement(sql);
+//            //
+//            //pst.setInt(1,entity.getMessageId());
+//            pst.setString(2,entity.getAttachmentName());
+//            pst.setString(3,entity.getAttachmentType());
+//
+//            pst.executeUpdate();
+//            System.out.println("Insertion Complete");
+//
+//        }
+//        catch (SQLException e){
+//            System.out.println(e.getMessage());
+//        }
+//        finally {
+//            try {
+//                if(pst != null) pst.close();
+//                if (con != null) con.close();
+//                //DBConnectionPool.DATASOURCE.close();
+//            }
+//            catch (SQLException e){
+//                System.out.println(e.getMessage());
+//            }
+//        }
 
 
     }
