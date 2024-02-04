@@ -5,13 +5,13 @@ import DTO.RequestDTO;
 import RemoteInterfaces.RemoteRequestService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Domain.ContactRequest;
-import gov.iti.jets.Domain.Notification;
 import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.ContactRequestDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
+import gov.iti.jets.Service.CallbackHandlers.RequestCallbackHandler;
 import gov.iti.jets.Service.Mapstructs.RequestMapper;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
 
@@ -29,8 +29,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
     @Override
     public void sendRequest(RequestDTO request) throws RemoteException {
-        //TODO yousef HANDLE NULLS & Exceptions
-
+        //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
         ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
@@ -41,32 +40,38 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         RemoteCallbackInterface receiverRemoteInt = OnlineUserManager.getOnlineUser(request.getReceiverPhone());
 
-        NotificationCallbackHandler handler = new NotificationCallbackHandler();
+        NotificationCallbackHandler notificationHandler = new NotificationCallbackHandler();
+
+        RequestCallbackHandler requestHandler = new RequestCallbackHandler();
 
         NotificationDTO notification = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), "User Phone not found");
 
         if (user.getById(request.getReceiverPhone()) == null) {
 
-            handler.sendNotificationtoClient(notification, senderRemoteInt);
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
         } else if (contactRequestDao.checkIfRequestExist(contactRequest)!=false) {
 
             notification.setBody("Request has been sent before");
 
-            handler.sendNotificationtoClient(notification, senderRemoteInt);
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
         } else {
 
             contactRequestDao.add(contactRequest);
 
+            System.out.println("Request has been added to database");
+
             notification.setBody("Request has been sent");
 
-            handler.sendNotificationtoClient(notification, senderRemoteInt);
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
             notification.setBody(request.getSenderPhone() + "send you friend request");
 
-            handler.sendNotificationtoClient(notification, receiverRemoteInt);
+            notificationHandler.sendNotificationtoClient(notification, receiverRemoteInt);
+
+            requestHandler.sendRequest(request,receiverRemoteInt);
 
         }
     }

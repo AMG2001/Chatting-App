@@ -57,4 +57,16 @@ public class Attachment {
     public void setConversationId(int conversationId) {
         this.conversationId = conversationId;
     }
+
+    @Override
+    public String toString() {
+        return "Attachment{" +
+                "attachment_id=" + attachmentId +
+                ", conversation_id='" + conversationId + '\'' +
+                ", attachment_name='" + attachmentName + '\'' +
+                ", attachment_type='" + attachmentType + '\'' +
+                ", attachment_location='" + attachmentLocation + '\'' +
+                '}';
+    }
 }
+

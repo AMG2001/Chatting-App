@@ -48,7 +48,7 @@ public class ContactCallbackHandler {
             contact.addContact(newContact);
         } catch (RemoteException e) {
             System.out.println("Error adding new Contact : " + e.getMessage());
-            System.out.println("Contact Name" + newContact.getName() + " failed to be added as friend");
+            System.out.println("Contact Name" + newContact.getName() + " failed to be added");
         }
 
     }
