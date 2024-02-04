@@ -1,7 +1,5 @@
 package gov.iti.jets.Controllers.HomePageController;
 
-import com.gluonhq.richtextarea.RichTextArea;
-import gov.iti.jets.Client;
 import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
 import gov.iti.jets.Controllers.Shared.MessageController;
 import gov.iti.jets.Model.ClientState;

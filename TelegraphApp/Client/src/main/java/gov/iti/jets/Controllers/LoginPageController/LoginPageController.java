@@ -2,6 +2,7 @@ package gov.iti.jets.Controllers.LoginPageController;
 
 import DTO.UserDTO;
 import DTO.UserLoginDTO;
+import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Controllers.services.StagesLauncher;
@@ -65,7 +66,8 @@ public class LoginPageController {
     @FXML
     void navigateToSignUp(ActionEvent event) {
 //        Navigator.navigateToRegister();
-        StagesLauncher.LaunchNewStage(new Label("Register"), "Register page", 500, 500);
+//        StagesLauncher.LaunchNewStage(new Label("Register"), "Register page", 500, 500);
+        CustomNotifications.showCustomNotification("Notification Title", "Notification Body");
     }
 
 
