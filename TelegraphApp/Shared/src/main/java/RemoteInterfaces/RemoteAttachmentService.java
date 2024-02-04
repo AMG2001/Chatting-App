@@ -1,13 +1,12 @@
 package RemoteInterfaces;
 
 import DTO.AttachmentDTO;
-import DTO.MessageDTO;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
+import java.util.List;
 public interface RemoteAttachmentService extends Remote {
     void sendAttachment(AttachmentDTO attachment) throws RemoteException;
-    public AttachmentDTO getAllAttachmentForConversation(String conversationId) throws RemoteException;
+    public List<AttachmentDTO> getAllAttachmentsForConversation(int conversationId) throws RemoteException;
     byte[] getAttachmentData(String attachmentId) throws RemoteException;
 }

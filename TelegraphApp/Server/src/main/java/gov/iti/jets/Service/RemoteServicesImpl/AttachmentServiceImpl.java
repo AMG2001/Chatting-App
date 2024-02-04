@@ -1,11 +1,11 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.AttachmentDTO;
-import DTO.MessageDTO;
 import RemoteInterfaces.RemoteAttachmentService;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class AttachmentServiceImpl extends UnicastRemoteObject implements RemoteAttachmentService {
     public AttachmentServiceImpl() throws RemoteException {
@@ -18,7 +18,7 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
     }
 
     @Override
-    public AttachmentDTO getAllAttachmentForConversation(String conversationId) throws RemoteException {
+    public List<AttachmentDTO> getAllAttachmentsForConversation(int conversationId) throws RemoteException {
         //TODO Moataz
         //This will not fetch the attachment data from the filesystem.
         return null;

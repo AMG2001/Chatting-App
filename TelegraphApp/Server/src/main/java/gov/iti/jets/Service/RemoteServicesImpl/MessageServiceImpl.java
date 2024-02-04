@@ -64,7 +64,7 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
         MessageDao messageDao = new MessageDoaImpl();
 
         List<Message> messages = messageDao.getMessagesByConversationId(conversationId);
-        if(messages.size()==0)
+        if(messages.isEmpty())
             return null;
 
         List<MessageDTO> messageDTOS = new ArrayList<>();
