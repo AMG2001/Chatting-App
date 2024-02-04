@@ -43,9 +43,9 @@ public class ContactCallbackHandler {
         }
     }
 
-    public void addContact(ContactDTO newContact, RemoteCallbackInterface User) {
+    public void addContact(ContactDTO newContact, RemoteCallbackInterface contact) {
         try {
-            User.addContact(newContact);
+            contact.addContact(newContact);
         } catch (RemoteException e) {
             System.out.println("Error adding new Contact : " + e.getMessage());
             System.out.println("Contact Name" + newContact.getName() + " failed to be added as friend");

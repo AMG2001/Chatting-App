@@ -9,10 +9,10 @@ import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
-import gov.iti.jets.Service.FileType;
+import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
-import gov.iti.jets.Service.OnlineUserManager;
-import gov.iti.jets.Service.FileSystemUtil;
+import gov.iti.jets.Service.Utilities.OnlineUserManager;
+import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Mapstructs.UserMapper;
 
 import java.time.LocalDateTime;
@@ -125,7 +125,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
     }
 
     @Override
-    public List<GroupsDTO> getGroups(String userPhone) throws RemoteException {
+    public List<GroupDTO> getGroups(String userPhone) throws RemoteException {
         //TODO moataz
         return null;
     }

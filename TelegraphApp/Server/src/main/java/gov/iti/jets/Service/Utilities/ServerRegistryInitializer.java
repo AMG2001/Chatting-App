@@ -1,4 +1,4 @@
-package gov.iti.jets.Service;
+package gov.iti.jets.Service.Utilities;
 
 import gov.iti.jets.Service.RemoteServicesImpl.*;
 
@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class ServerRegistry {
+public class ServerRegistryInitializer {
 
     private static final String ATTACHMENT_SERVICE = "AttachmentService";
     private static final String CONVERSATION_SERVICE = "ConversationService";
@@ -17,9 +17,9 @@ public class ServerRegistry {
     private static final String USER_SERVICE = "UserService";
     private static final int port = 1099;
     private static Registry registry;
-    private static ServerRegistry instance;
+    private static ServerRegistryInitializer instance;
 
-    public ServerRegistry() {
+    public ServerRegistryInitializer() {
         try {
             // Create or obtain a reference to the registry
             System.out.println("Initializing Registry...");
@@ -35,11 +35,11 @@ public class ServerRegistry {
         }
     }
 
-    public static ServerRegistry getInstance() {
+    public static ServerRegistryInitializer getInstance() {
         if (instance == null) {
-            synchronized (ServerRegistry.class) {
+            synchronized (ServerRegistryInitializer.class) {
                 if (instance == null) {
-                    instance = new ServerRegistry();
+                    instance = new ServerRegistryInitializer();
                 }
             }
         }

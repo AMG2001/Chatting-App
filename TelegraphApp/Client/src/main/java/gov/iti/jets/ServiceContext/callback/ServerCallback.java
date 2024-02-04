@@ -4,7 +4,6 @@ import DTO.*;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 
 public class ServerCallback extends UnicastRemoteObject implements RemoteCallbackInterface
 {
@@ -39,6 +38,11 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void addContact(ContactDTO newContact) throws RemoteException {
+
+    }
+
+    @Override
+    public void addGroup(GroupDTO newGroup) throws RemoteException {
 
     }
 

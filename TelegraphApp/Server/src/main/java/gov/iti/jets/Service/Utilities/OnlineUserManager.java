@@ -1,4 +1,4 @@
-package gov.iti.jets.Service;
+package gov.iti.jets.Service.Utilities;
 
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 

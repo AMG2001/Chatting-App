@@ -16,7 +16,7 @@ public interface RemoteCallbackInterface extends Remote {
     void updateRequest(RequestDTO request) throws RemoteException;
 
     void addContact(ContactDTO newContact) throws RemoteException;
-    void addGroup(GroupsDTO newGroup) throws RemoteException;
+    void addGroup(GroupDTO newGroup) throws RemoteException;
 
     void updateContactName(String phone, String name) throws RemoteException;
 

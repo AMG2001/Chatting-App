@@ -1,16 +1,14 @@
 package gov.iti.jets;
 
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
-import gov.iti.jets.Service.ServerRegistry;
-
-import java.sql.SQLException;
+import gov.iti.jets.Service.Utilities.ServerRegistryInitializer;
 
 public class Server {
     public static void main(String[] args) {
         //Init Registry
         //Create Connection
         DBConnectionPool datasource = DBConnectionPool.DATASOURCE;
-        ServerRegistry registry = new ServerRegistry();
+        ServerRegistryInitializer registry = new ServerRegistryInitializer();
 
     }
 }

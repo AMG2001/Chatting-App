@@ -1,4 +1,4 @@
-package gov.iti.jets.Service;
+package gov.iti.jets.Service.Utilities;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
