@@ -6,9 +6,13 @@ import gov.iti.jets.Persistence.doaImpl.AttachmentDoaImpl;
 public class AttachmentDaoImplTest
 {
     AttachmentDoaImpl object = new AttachmentDoaImpl();
-    private void getAttachmentByMessageIdTest()
+    private void getAllAttachmentsByConversationIdTest()
     {
-        System.out.println(object.getAttachmentByMessageId(1));
+        System.out.println(object.getAllAttachmentsByConversationId(1));
+    }
+    private void getAttachmentByConversationIdAndAttachmentIdTest()
+    {
+        System.out.println(object.getAttachmentByConversationIdAndAttachmentId(2,2));
     }
     private void addTest(){
 //        Attachment entity = new Attachment();
@@ -19,7 +23,8 @@ public class AttachmentDaoImplTest
     }
     public static void main(String[] args) {
         AttachmentDaoImplTest object = new AttachmentDaoImplTest();
-        //object.getAttachmentByMessageIdTest();
-        object.addTest();
+        //object.getAllAttachmentsByConversationIdTest();
+        //object.addTest();
+        object.getAttachmentByConversationIdAndAttachmentIdTest();
     }
 }
