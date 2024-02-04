@@ -14,7 +14,7 @@
 <VBox fx:id="leftSideBar" alignment="CENTER" maxHeight="735.0" maxWidth="200.0" minHeight="735.0" minWidth="200.0"
       prefHeight="735.0" prefWidth="200.0" spacing="40.0"
       style="-fx-background-color: #2272E5; -fx-border-color: black;" styleClass="leftSideBar"
-      stylesheets="@../Styles/leftSideBar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../Styles/leftSideBar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="gov.iti.jets.Controllers.Shared.LeftSideBar.LeftSideBar">
     <children>
         <VBox alignment="CENTER" prefHeight="245.0" prefWidth="120.0" spacing="14.0">
@@ -24,7 +24,7 @@
                         <ImageView fx:id="userImage" fitHeight="73.0" fitWidth="57.0" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
-                                <Image url="@../../../../../../../414711303_4439883049569513_2610268508643775373_n.jpg"/>
+                                <Image url="@../../../../../../../../414711303_4439883049569513_2610268508643775373_n.jpg"/>
                             </image>
                             <HBox.margin>
                                 <Insets right="12.0"/>
