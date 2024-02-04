@@ -1,10 +1,13 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
 import DTO.UserDTO;
+import gov.iti.jets.Controllers.config.AppPages;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Controllers.services.Navigator;
+import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.Model.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
@@ -64,7 +67,7 @@ public class RegisterPageController {
     @FXML
     private TextField tf_phone;
     private boolean isImagePicked = false;
-    boolean isRegistered = false;
+    boolean isNotRegistered = false;
 
     ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
 
@@ -118,13 +121,15 @@ public class RegisterPageController {
             byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
             try {
                 UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, gender, bio, "ONLINE", imageBytes);
-                isRegistered = UserService.getInstance().getRemoteService().registerUser(userDTO);
-                if (isRegistered == false) CustomDialogs.showErrorDialog("User Already Exists !!");
+                isNotRegistered = UserService.getInstance().getRemoteService().registerUser(userDTO);
+                UserModel userModel = new UserModel(userDTO);
+                ClientState.getInstance().setLoggedinUserProperty(userModel);
+                if (!isNotRegistered) CustomDialogs.showErrorDialog("User Already Exists !!");
             } catch (RemoteException e) {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌ Error while Registering user ." + e.getMessage());
                 e.printStackTrace();
             } finally {
-                if (isRegistered) Navigator.navigateToHomePage();
+                if (isNotRegistered) Navigator.navigateToHomePage();
             }
         } else if (gender.isEmpty()) {
             CustomDialogs.showErrorDialog("Please Select Your Gender");
