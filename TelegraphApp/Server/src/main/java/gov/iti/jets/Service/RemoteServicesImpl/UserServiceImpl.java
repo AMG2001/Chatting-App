@@ -105,6 +105,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
                 returnedUser.setSerializedImage(image);
 
+
                 return returnedUser;
             }
         }

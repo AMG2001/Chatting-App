@@ -1,6 +1,7 @@
 package gov.iti.jets.Persistence.dao;
 
 import gov.iti.jets.Domain.Conversation;
+import gov.iti.jets.Domain.User;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ConversationDao extends GenericDatabaseDao<Conversation>,Retrie
     int createGroupConversation(String userPhone, Conversation group);
     List<Conversation> getIndividualConversationsByPhone(String phone);
     List<Conversation> getAllConversationsByPhone(String phone);
+    List<User> getGroupMembersByConversationId(String conversation_id);
+
 }
