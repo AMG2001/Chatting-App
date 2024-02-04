@@ -14,20 +14,16 @@ import java.util.HashMap;
 
 public class ClientState {
     private static ClientState instance;
+    // is used to store logged client .
     ObservableValue<UserModel> loggedinUser;
-    ObservableList<UserModel> contacts;
-    ObservableList<ConversationModel> conversations;
-    ObjectProperty<ConversationModel> currentConversation;
-    ObservableList<MessageController> openedChatMessagesList;
-    HashMap<String, ObservableList<MessageController>> chatsMap;
+    public ObservableList<MessageController> openedChatMessagesList;
+    //    public HashMap<String, ObservableList<MessageController>> chatsMap;
+    String previousChatPhoneNumber;
 
     private ClientState() {
         loggedinUser = new SimpleObjectProperty<>();
-        contacts = FXCollections.observableArrayList();
-        conversations = FXCollections.observableArrayList();
-        currentConversation = new SimpleObjectProperty<>();
         openedChatMessagesList = FXCollections.observableArrayList();
-        chatsMap = new HashMap<>();
+//        chatsMap = new HashMap<>();
     }
 
     public static ClientState getInstance() {
@@ -49,14 +45,19 @@ public class ClientState {
         return openedChatMessagesList;
     }
 
-    public void openChat(String phoneNumber) {
-        if (!chatsMap.containsKey(phoneNumber)) {
-            System.out.println("New Chat Added to ChatMap");
-            chatsMap.put(phoneNumber, FXCollections.observableArrayList());
-        }
-        openedChatMessagesList = chatsMap.get(phoneNumber);
-        System.out.println("Retreive chat of Number : " + phoneNumber);
-        // TODO: add message controller to list
-    }
+//    public void openChat(String phoneNumber) {
+//        if (!chatsMap.containsKey(phoneNumber)) {
+//            System.out.println("New Chat Added to ChatMap");
+//            chatsMap.put(phoneNumber, FXCollections.observableArrayList());
+//        } else {
+//            // store previous chat in chats map
+//            chatsMap.put(previousChatPhoneNumber, openedChatMessagesList);
+//        }
+//        // get new chat messages
+////        openedChatMessagesList = chatsMap.get(phoneNumber);
+////        previousChatPhoneNumber = phoneNumber;
+//        // TODO: add message controller to list
+//    }
+
 }
 

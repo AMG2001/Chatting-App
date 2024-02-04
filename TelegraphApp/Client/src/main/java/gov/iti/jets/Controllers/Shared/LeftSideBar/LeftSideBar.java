@@ -50,6 +50,9 @@ public class LeftSideBar {
 
     private ContextMenu notificationsMenu;
 
+    @FXML
+    private Button btn_addContact;
+
     boolean isErrorOccured = false;
 
     @FXML
@@ -92,12 +95,23 @@ public class LeftSideBar {
     void moveToHomePage(ActionEvent event) {
         Navigator.navigateToHomePage();
     }
+
     @FXML
     void moveToProfile(ActionEvent event) {
         Navigator.navigateToUpdateInfo();
     }
+
     @FXML
     void showAllFriendRequests(ActionEvent event) {
 
+    }
+
+    @FXML
+    void addNewContact(ActionEvent event) {
+        // TODO - Yousef , show Add Contact Pane with text , textArea and Button .
+        /**
+         * Note that if the server respond with null , then it mean that the user is not exist .
+         * use CustomDialog.show.. to show Error Message .
+         */
     }
 }

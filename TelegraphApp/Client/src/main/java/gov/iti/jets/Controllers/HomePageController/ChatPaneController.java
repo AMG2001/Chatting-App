@@ -94,7 +94,7 @@ public class ChatPaneController {
         if (messageArea.getHtmlText().length() != 0) {
             MessageController messageController = new MessageController();
             messageController.setMessageDetails(clientPhoneNumber, clientImage, messageArea.getHtmlText());
-            ClientState.getInstance().getOpenedChatMessages().add(messageController);
+            ClientState.getInstance().openedChatMessagesList.add(messageController);
         }
     }
 
