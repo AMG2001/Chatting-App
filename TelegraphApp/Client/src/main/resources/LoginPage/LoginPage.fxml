@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-           prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="gov.iti.jets.Controllers.LoginPageController.LoginPageController">
-    <items>
-        <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="20.0"
-              style="-fx-background-color: #E5EFF8; -fx-background-image: url('LoginPage/images/left_side.png'); -fx-background-size: cover; -fx-border-image-repeat: no-repeat;">
-            <children>
-
-            </children>
-        </VBox>
-        <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="36.0">
+<GridPane alignment="CENTER" maxHeight="600.0" maxWidth="800.0" prefHeight="600.0" prefWidth="800.0"
+          xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="gov.iti.jets.Controllers.LoginPageController.LoginPageController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.5999755859375" minWidth="10.0"
+                           prefWidth="397.6000122070312"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="444.8000244140625" minWidth="10.0"
+                           prefWidth="403.1999877929687"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" spacing="36.0" GridPane.columnIndex="1">
             <children>
                 <HBox alignment="CENTER_LEFT">
                     <children>
@@ -79,7 +90,7 @@
                 <VBox alignment="CENTER" spacing="15.0">
                     <children>
                         <MFXButton fx:id="btn_login" minHeight="35.0" minWidth="360.0"
-                                   style="-fx-background-color: #E5EFF8;" text="Login">
+                                   style="-fx-background-color: #E5EFF8;" text="Login" onAction="#loginUser">
                             <font>
                                 <Font name="Segoe UI Semibold" size="15.0"/>
                             </font>
@@ -103,5 +114,14 @@
                 </VBox>
             </children>
         </VBox>
-    </items>
-</SplitPane>
+        <ImageView fitHeight="600.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS"
+                   GridPane.vgrow="ALWAYS">
+            <image>
+                <Image url="@images/left_side.png"/>
+            </image>
+            <viewport>
+                <Rectangle2D/>
+            </viewport>
+        </ImageView>
+    </children>
+</GridPane>
