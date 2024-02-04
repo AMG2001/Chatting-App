@@ -14,8 +14,8 @@ public class GroupCallbackHandler {
                 groupMember.addGroup(newGroup);
             }
         } catch (RemoteException e) {
-            System.out.println("Error adding new Contact : " + e.getMessage());
-            System.out.println("Contact Name" + newGroup.getConversation().getConversationName() + " failed to be added as friend");
+            System.out.println("Error adding new Group : " + e.getMessage());
+            System.out.println("Group Name" + newGroup.getConversation().getConversationName() + " failed to be added as friend");
         }
 
 
