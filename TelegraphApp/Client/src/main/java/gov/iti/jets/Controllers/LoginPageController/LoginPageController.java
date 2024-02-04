@@ -66,8 +66,6 @@ public class LoginPageController {
     @FXML
     void navigateToSignUp(ActionEvent event) {
 //        Navigator.navigateToRegister();
-//        StagesLauncher.LaunchNewStage(new Label("Register"), "Register page", 500, 500);
-        CustomNotifications.showCustomNotification("Notification Title", "Notification Body");
     }
 
 
