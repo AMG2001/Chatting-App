@@ -17,7 +17,6 @@ public class AppViews {
         this.stage = stage;
         Scene scene = new Scene(AppPages.getLoginPageView());
         stage.setScene(scene);
-        stage.setTitle("Telegraph - Home Page");
         stage.setWidth(800);
         stage.setHeight(620);
         stage.setMaxWidth(800);
@@ -31,7 +30,6 @@ public class AppViews {
         }
         return instance;
     }
-
     public void showHomePage() {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getHomePageView());
@@ -55,8 +53,7 @@ public class AppViews {
     public void showRegisterPage() {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getRegisterPageView());
-        stage.setTitle("Telegraph - Register User");
-        stage.setTitle("Telegraph - Home Page");
+        stage.setTitle("Telegraph - Register");
         stage.setWidth(1100);
         stage.setHeight(800);
         stage.setMaxWidth(1100);
