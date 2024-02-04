@@ -100,6 +100,12 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
                 returnedUser.setSerializedImage(image);
 
+
+                //test
+                NotificationDTO notificationLoggedUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                        , LocalDateTime.now(), "you logged in successfully");
+                handler.sendNotificationtoClient(notificationLoggedUser,remoteUserInterface);
+
                 return returnedUser;
             }
         }
