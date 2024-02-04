@@ -102,37 +102,37 @@ public class AttachmentDoaImpl implements AttachmentDao {
     @Override
     public void add(Attachment entity)
     {
-        //TODO yousef
-//        Connection con = null;
-//        PreparedStatement pst = null;
-//        try{
-//            con = DBConnectionPool.DATASOURCE.getConnection();
-//            con.setAutoCommit(true);
-//            String sql = "insert into attachment (message_id,attachment_name,attachment_type)\n" +
-//                    "values (?,?,?);";
-//            pst = con.prepareStatement(sql);
-//            //
-//            //pst.setInt(1,entity.getMessageId());
-//            pst.setString(2,entity.getAttachmentName());
-//            pst.setString(3,entity.getAttachmentType());
-//
-//            pst.executeUpdate();
-//            System.out.println("Insertion Complete");
-//
-//        }
-//        catch (SQLException e){
-//            System.out.println(e.getMessage());
-//        }
-//        finally {
-//            try {
-//                if(pst != null) pst.close();
-//                if (con != null) con.close();
-//                //DBConnectionPool.DATASOURCE.close();
-//            }
-//            catch (SQLException e){
-//                System.out.println(e.getMessage());
-//            }
-//        }
+        Connection con = null;
+        PreparedStatement pst = null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql = "insert into attachment (conversation_id,attachment_name,attachment_type,attachment_location)\n" +
+                    "values (?,?,?,?);";
+            pst = con.prepareStatement(sql);
+
+            pst.setInt(1,entity.getConversationId());
+            pst.setString(2,entity.getAttachmentName());
+            pst.setString(3,entity.getAttachmentType());
+            pst.setString(4,entity.getAttachmentLocation());
+
+            pst.executeUpdate();
+            System.out.println("Insertion Complete");
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
 
 
     }

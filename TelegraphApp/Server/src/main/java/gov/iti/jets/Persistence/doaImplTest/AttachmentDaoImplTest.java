@@ -15,16 +15,18 @@ public class AttachmentDaoImplTest
         System.out.println(object.getAttachmentByConversationIdAndAttachmentId(2,2));
     }
     private void addTest(){
-//        Attachment entity = new Attachment();
-//        entity.setAttachmentName("image4.png");
-//        entity.setAttachmentType("png");
-//        entity.setMessageId(5);
-//        object.add(entity);
+        Attachment entity = new Attachment();
+        entity.setAttachmentName("image4.png");
+        entity.setAttachmentType("png");
+        entity.setConversationId(3);
+        entity.setAttachmentLocation("C://telegraph/attachment/image4");
+        object.add(entity);
     }
     public static void main(String[] args) {
         AttachmentDaoImplTest object = new AttachmentDaoImplTest();
         //object.getAllAttachmentsByConversationIdTest();
         //object.addTest();
-        object.getAttachmentByConversationIdAndAttachmentIdTest();
+        //object.getAttachmentByConversationIdAndAttachmentIdTest();
+        object.addTest();
     }
 }
