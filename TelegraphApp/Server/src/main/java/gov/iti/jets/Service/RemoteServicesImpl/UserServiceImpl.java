@@ -167,23 +167,50 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
     @Override
     public UserDTO updateUser(UpdatedUserDTO updatedUserDTO) {
 
-        //TODO Moataz
-        /*
-        //Handle failure with null
-        1) Save to DB
-            Create Domain object and map it from DTO
-            Use filemanager for profile
-            Set image path in User Domain object
-
-        If successful - callback to all users
-
-        Callback to all friends only if it changes (name or profile pic)
-
-        * */
         UserDao userDao = new UserDoaImpl();
-        User userModel = UserMapper.INSTANCE.updatedUserDTOToUser(updatedUserDTO);
 
+        User oldUserModel = userDao.getById(updatedUserDTO.getPhoneNumber());
 
-        return null;
+        User newUserModel = UserMapper.INSTANCE.updatedUserDTOToUser(updatedUserDTO);
+        userDao.update(newUserModel);
+
+        List<User> OnlineContacts;
+        List<String> OnlineContactsPhones;
+        List<RemoteCallbackInterface> OnlineContactsCallBacks=new ArrayList<>();
+        ContactCallbackHandler contactHandler=new ContactCallbackHandler();
+
+        if(updatedUserDTO.getPicChanged() || oldUserModel.getName()!=updatedUserDTO.getName()){
+
+             OnlineContacts = userDao.getContactsByPhoneAndStatus(updatedUserDTO.getPhoneNumber(), UserStatus.ONLINE);
+             OnlineContactsPhones = OnlineContacts.stream()
+                    .map(User::getPhoneNumber)
+                    .toList();
+
+             OnlineContactsCallBacks = OnlineUserManager.getFriendsFromOnlineList(OnlineContactsPhones);
+
+             contactHandler = new ContactCallbackHandler();
+        }
+
+        if (updatedUserDTO.getPicChanged()){
+            String profileImagePath = FileSystemUtil.storeByteArrayAsFile
+                    (updatedUserDTO.getSerializedImage(), updatedUserDTO.getName(), FileType.PROFILE_PIC);
+            userDao.updateProfilePic(updatedUserDTO.getPhoneNumber(),profileImagePath);
+
+            contactHandler.updateContactPic(updatedUserDTO.getPhoneNumber(),updatedUserDTO.getSerializedImage(),OnlineContactsCallBacks);
+        }
+
+        if(oldUserModel.getName()!=updatedUserDTO.getName()) {
+            contactHandler.updateContactName(updatedUserDTO.getPhoneNumber(), updatedUserDTO.getName(), OnlineContactsCallBacks);
+        }
+
+        User updatedUserModel = userDao.getById(updatedUserDTO.getPhoneNumber());
+
+        UserDTO returnedUserDTO = UserMapper.INSTANCE.userToUserDTO(updatedUserModel);
+
+        //TODO Handle Null Image return
+        byte[] image = FileSystemUtil.getBytesFromFile(updatedUserModel.getPicture());
+        returnedUserDTO.setSerializedImage(image);
+
+        return returnedUserDTO;
     }
 }
