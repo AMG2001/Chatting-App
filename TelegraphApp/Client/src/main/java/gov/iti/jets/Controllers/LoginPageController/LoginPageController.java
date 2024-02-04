@@ -57,6 +57,7 @@ public class LoginPageController {
                 e.printStackTrace();
             } finally {
                 if (userDTO != null) {
+                    tf_password.clear();
                     Navigator.navigateToHomePage();
                 }
             }
