@@ -5,20 +5,12 @@ import java.util.List;
 
 public class GroupDTO implements Serializable {
 
-    private List<ContactDTO> groupMembers;
+    private List<GroupMemberDTO> groupMembers;
     private ConversationDTO conversation;
 
-    public GroupDTO(List<ContactDTO> groupMembers, ConversationDTO conversation) {
+    public GroupDTO(List<GroupMemberDTO> groupMembers, ConversationDTO conversation) {
         this.groupMembers = groupMembers;
         this.conversation = conversation;
-    }
-
-    public List<ContactDTO> getGroupMembers() {
-        return groupMembers;
-    }
-
-    public void setGroupMembers(List<ContactDTO> groupMembers) {
-        this.groupMembers = groupMembers;
     }
 
     public ConversationDTO getConversation() {
@@ -30,4 +22,11 @@ public class GroupDTO implements Serializable {
     }
 
 
+    public List<GroupMemberDTO> getGroupMembers() {
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<GroupMemberDTO> groupMembers) {
+        this.groupMembers = groupMembers;
+    }
 }

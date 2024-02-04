@@ -123,7 +123,7 @@ public class UserDoaImpl implements UserDao {
         try {
             con=DBConnectionPool.DATASOURCE.getConnection();
 
-            String sql ="UPDATE User SET name=?, email=?, password=?, dob=?, country=?, gender=?, bio=?, picture=? " +
+            String sql ="UPDATE User SET name=?, email=?, password=?, dob=?, country=?, gender=?, bio=? " +
                         "WHERE phone_number=?";
             pst=con.prepareStatement(sql);
 
@@ -134,8 +134,7 @@ public class UserDoaImpl implements UserDao {
             pst.setString(5, entity.getCountry());
             pst.setString(6, entity.getGender().name());
             pst.setString(7, entity.getBio());
-            pst.setString(8, entity.getPicture());
-            pst.setString(9, entity.getPhoneNumber());
+            pst.setString(8, entity.getPhoneNumber());
 
             pst.executeUpdate();
         }
@@ -328,6 +327,41 @@ public class UserDoaImpl implements UserDao {
             }
         }
         return count;
+    }
+
+    @Override
+    public void updateProfilePic(String phone, String profilePic) {
+        Connection con=null;
+        PreparedStatement pst= null;
+
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update User\n" +
+                    "set picture = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, profilePic);
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     @Override

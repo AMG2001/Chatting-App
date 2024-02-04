@@ -18,6 +18,7 @@ import gov.iti.jets.Service.Mapstructs.MessageMapper;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMessageService {
@@ -58,9 +59,23 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
     }
 
     @Override
-    public List<MessageDTO> getAllMessagesForConversation(String conversationId) throws RemoteException {
-        //TODO Yousef
-        return null;
+    public List<MessageDTO> getAllMessagesForConversation(int conversationId) throws RemoteException {
+
+        MessageDao messageDao = new MessageDoaImpl();
+
+        List<Message> messages = messageDao.getMessagesByConversationId(conversationId);
+        if(messages.isEmpty())
+            return null;
+
+        List<MessageDTO> messageDTOS = new ArrayList<>();
+
+        for(Message message : messages)
+        {
+            messageDTOS.add( MessageMapper.INSTANCE.messageToMessageDTO(message) );
+        }
+
+        System.out.println("messages successfully received");
+        return messageDTOS;
     }
 
 }

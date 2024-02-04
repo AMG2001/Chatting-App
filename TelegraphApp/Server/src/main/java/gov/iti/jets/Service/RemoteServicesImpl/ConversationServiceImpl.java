@@ -11,6 +11,8 @@ public class ConversationServiceImpl extends UnicastRemoteObject implements Remo
     public ConversationServiceImpl() throws RemoteException {
     }
 
+
+    //TO BE REMOVED
     @Override
     public ConversationDTO getConversationForUserPhone(String userPhone) throws RemoteException {
         return null;
