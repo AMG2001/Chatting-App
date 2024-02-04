@@ -119,8 +119,6 @@ public class ConversationDaoImpl implements ConversationDao {
         return null;
     }
 
-
-    //TODO yousef
     @Override
     public void update(Conversation entity)
     {
@@ -164,8 +162,6 @@ public class ConversationDaoImpl implements ConversationDao {
         //ignore
     }
 
-    //group or individual conversation
-    //TODO yousef
     @Override
     public Conversation getById(Integer conversationId) {
         Connection con = null;

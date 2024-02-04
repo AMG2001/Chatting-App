@@ -4,7 +4,6 @@ import DTO.MessageDTO;
 import DTO.NotificationDTO;
 import RemoteInterfaces.RemoteMessageService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
-import com.sun.nio.sctp.NotificationHandler;
 import gov.iti.jets.Domain.Message;
 import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Persistence.dao.ConversationDao;
@@ -19,9 +18,7 @@ import gov.iti.jets.Service.Mapstructs.MessageMapper;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMessageService {
     public MessageServiceImpl() throws RemoteException {
@@ -59,4 +56,11 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
 
 
     }
+
+    @Override
+    public List<MessageDTO> getAllMessagesForConversation(String conversationId) throws RemoteException {
+        //TODO
+        return null;
+    }
+
 }

@@ -16,6 +16,7 @@ import gov.iti.jets.Service.FileSystemUtil;
 import gov.iti.jets.Service.Mapstructs.UserMapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -119,8 +120,11 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
             contactDTO[i].setProfilepic(FileSystemUtil.getBytesfromSystem(User[i].getPicture));
         }
         6) Return List<contactDTO>
-
          */
+        UserDao userDao = new UserDoaImpl();
+        List<User> contacts = userDao.getAllContactsByPhone(userPhone);
+        List<ContactDTO> contactDTOS = new ArrayList<>();
+
         return null;
     }
 
