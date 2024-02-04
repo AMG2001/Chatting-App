@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -26,14 +27,14 @@ public class NotificationController {
     @FXML
     private Label notification_title;
 
-    private Parent layout;
+    private HBox layout;
 
     private String title, content, date, time;
 
     private Image image;
     private FXMLLoader loader;
 
-    public Parent getLayout() {
+    public HBox getLayout() {
         return layout;
     }
 
@@ -43,9 +44,9 @@ public class NotificationController {
         this.date = date;
         this.time = time;
         this.image = image;
-        loader = new FXMLLoader(getClass().getResource("/Notifications/Notification.fxml"));
-        loader.setController(this);
         try {
+            loader = new FXMLLoader(getClass().getResource("/Notifications/Notification.fxml"));
+            loader.setController(this);
             layout = loader.load();
         } catch (IOException e) {
             System.out.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading Notification Controller : " + e.getMessage());
@@ -53,7 +54,6 @@ public class NotificationController {
         }
         System.out.println("Notification Controller Default Constructor called ...");
     }
-
     @FXML
     public void initialize() {
         notification_title.setText(title);
@@ -63,7 +63,6 @@ public class NotificationController {
         notification_image.setFitWidth(100);
         notification_image.setFitHeight(100);
         notification_image.setImage(image);
-        System.out.println("✅✅✅✅✅✅✅✅✅✅✅ Notifications Controller initialized");
     }
 }
 
