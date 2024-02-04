@@ -29,8 +29,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
     @Override
     public void sendRequest(RequestDTO request) throws RemoteException {
-        //TODO yousef HANDLE NULLS & Exceptions
-
+        //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
         ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
