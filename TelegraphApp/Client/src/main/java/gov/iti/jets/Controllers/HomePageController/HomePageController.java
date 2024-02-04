@@ -28,17 +28,12 @@ public class HomePageController {
 
     @FXML
     public void initialize() {
-        // to make listviews streamed with contacts list ObservableArrayList .
         initListViewsBindings();
-        // TODO : load online contacts from database .
         loadOnlineContacts();
-        // To change the shape of contact card .
         changeListViewCell();
-        // to add action for each item in listview .
         setListViewItemsAction();
         right_pane.getChildren().add(InitialLayoutController.getInstance().getLayout());
     }
-
     private void changeListViewCell() {
         lv_onlineContacts.setCellFactory(param -> new ListCell<ContactCardDataModel>() {
             @Override
@@ -52,15 +47,11 @@ public class HomePageController {
             }
         });
     }
-
-
     private void initListViewsBindings() {
         lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(contactsList));
     }
 
     private void loadOnlineContacts() {
-        // TODO - fetch contacts from server .
-        System.out.println("Data Online & Offline Contact ..............");
         for (int i = 0; i < 10; i++) {
             ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
             contactsList.add(contactCardObjOnline);

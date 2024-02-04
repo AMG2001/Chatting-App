@@ -16,6 +16,7 @@ import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Mapstructs.UserMapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -119,8 +120,11 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
             contactDTO[i].setProfilepic(FileSystemUtil.getBytesfromSystem(User[i].getPicture));
         }
         6) Return List<contactDTO>
-
          */
+        UserDao userDao = new UserDoaImpl();
+        List<User> contacts = userDao.getAllContactsByPhone(userPhone);
+        List<ContactDTO> contactDTOS = new ArrayList<>();
+
         return null;
     }
 
@@ -161,7 +165,8 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
     }
 
     @Override
-    public UserDTO updateUser(UserDTO newUser) {
+    public UserDTO updateUser(UpdatedUserDTO updatedUserDTO) {
+
         //TODO Moataz
         /*
         //Handle failure with null
@@ -175,6 +180,9 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         Callback to all friends only if it changes (name or profile pic)
 
         * */
+        UserDao userDao = new UserDoaImpl();
+        User userModel = UserMapper.INSTANCE.updatedUserDTOToUser(updatedUserDTO);
+
 
         return null;
     }

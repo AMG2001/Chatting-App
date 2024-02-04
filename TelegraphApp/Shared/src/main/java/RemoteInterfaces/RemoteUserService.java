@@ -13,5 +13,5 @@ public interface RemoteUserService extends Remote {
     List<ContactDTO> getContacts(String userPhone)throws RemoteException;
     List<GroupDTO> getGroups(String userPhone) throws RemoteException;
     void logout(LogoutDTO userPhone)throws RemoteException;
-    UserDTO updateUser(UserDTO newUser)throws RemoteException;
+    UserDTO updateUser(UpdatedUserDTO newUser)throws RemoteException;
 }

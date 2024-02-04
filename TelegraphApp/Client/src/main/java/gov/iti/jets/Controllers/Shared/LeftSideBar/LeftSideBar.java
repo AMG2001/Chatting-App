@@ -1,6 +1,6 @@
 package gov.iti.jets.Controllers.Shared.LeftSideBar;
 
-import gov.iti.jets.Client;
+import DTO.LogoutDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.CustomPopupMenus;
 import gov.iti.jets.Controllers.services.Navigator;
@@ -50,6 +50,8 @@ public class LeftSideBar {
 
     private ContextMenu notificationsMenu;
 
+    boolean isErrorOccured = false;
+
     @FXML
     void showNotifications(MouseEvent event) {
         notificationsMenu.show(btn_notifications, event.getScreenX(), event.getScreenY());
@@ -65,7 +67,6 @@ public class LeftSideBar {
         userImage.setImage(ClientState.getInstance().getLoggedinUserModel().getProfilePic());
     }
 
-
     @FXML
     void addGroup(ActionEvent event) {
 
@@ -74,15 +75,17 @@ public class LeftSideBar {
     @FXML
     void logout(ActionEvent event) {
         try {
-            Navigator.navigateToRegister();
-            // TODO Uncomment this line 👇🏻👇🏻 when you launch the server .
-//            UserService.getInstance().getRemoteService().logout(ClientState.getInstance().getLoggedinUserModel().getUserPhone());
-            // Change Exception type to remote Exception 👇🏻👇🏻 .
-        } catch (Exception e) {
+            System.out.println("Stored User in Application : " + ClientState.getInstance().getLoggedinUserModel().getUserName() + " and Phone number : " + ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+            LogoutDTO logoutDTO = new LogoutDTO(ClientState.getInstance().getLoggedinUserModel().getUserName(), ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+            UserService.getInstance().getRemoteService().logout(logoutDTO);
+            isErrorOccured = false;
+        } catch (RemoteException e) {
+            isErrorOccured = true;
             CustomDialogs.showErrorDialog("Error while Logging out !!");
             e.printStackTrace();
+        } finally {
+            if (!isErrorOccured) Navigator.navigateToRegister();
         }
-        // TODO cast in Server - marwan work .
     }
 
     @FXML

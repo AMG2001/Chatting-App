@@ -29,6 +29,8 @@ public class LoginPageController {
     @FXML
     private TextField tf_email;
 
+    UserDTO userDTO;
+
     @FXML
     void loginUser(ActionEvent event) {
         /**
@@ -42,11 +44,10 @@ public class LoginPageController {
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidPassword(password)) {
             try {
                 ServerCallback serverCallBack = new ServerCallback();
-                UserDTO userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
+                userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
                 if (userDTO != null) {
                     UserModel userModel = new UserModel(userDTO);
                     ClientState.getInstance().setLoggedinUserProperty(userModel);
-                    Navigator.navigateToHomePage();
                 } else {
                     System.out.println("User DTO is Null");
                     CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");
@@ -54,6 +55,10 @@ public class LoginPageController {
             } catch (RemoteException e) {
                 CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");
                 e.printStackTrace();
+            } finally {
+                if (userDTO != null) {
+                    Navigator.navigateToHomePage();
+                }
             }
         }
     }

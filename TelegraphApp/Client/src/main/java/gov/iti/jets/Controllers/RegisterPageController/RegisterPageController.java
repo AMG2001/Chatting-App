@@ -1,6 +1,7 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
 import DTO.UserDTO;
+import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Controllers.services.Navigator;
@@ -57,8 +58,8 @@ public class RegisterPageController {
     private TextField tf_phone;
     @FXML
     private DatePicker datePicker;
-
-    private boolean isGenderChoosen = false;
+    private boolean isImagePicked = false;
+    boolean isRegistered = false;
 
     @FXML
     private void pickUserImage(MouseEvent event) {
@@ -69,6 +70,7 @@ public class RegisterPageController {
             if (file != null) {
                 try {
                     img_user.setImage(new Image(file.toURI().toString()));
+                    isImagePicked = true;
                 } catch (RuntimeException re) {
                     re.printStackTrace();
                 }
@@ -82,7 +84,7 @@ public class RegisterPageController {
 
     @FXML
     void signupUser(ActionEvent event) {
-        /*
+         /*
         validate all input fields .
          */
         String name = tf_name.getText();
@@ -97,16 +99,24 @@ public class RegisterPageController {
         } else if (rb_female.isSelected()) {
             gender = "FEMALE";
         }
-        byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
-        if (FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && imageBytes != null && gender != "") {
+        if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && isImagePicked == true && gender != "" && datePicker.getValue() != null) {
+            byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
             try {
                 UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, gender, bio, "ONLINE", imageBytes);
-                UserService.getInstance().getRemoteService().registerUser(userDTO);
-                Navigator.navigateToHomePage();
+                isRegistered = UserService.getInstance().getRemoteService().registerUser(userDTO);
+                if (isRegistered == false) CustomDialogs.showErrorDialog("User Already Exists !!");
             } catch (RemoteException e) {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌ Error while Registering user ." + e.getMessage());
                 e.printStackTrace();
+            } finally {
+                if (isRegistered) Navigator.navigateToHomePage();
             }
+        } else if (gender.isEmpty()) {
+            CustomDialogs.showErrorDialog("Please Select Your Gender");
+        } else if (isImagePicked == false) {
+            CustomDialogs.showErrorDialog("Please Select Your Profile Image");
+        } else if (datePicker.getValue() == null) {
+            CustomDialogs.showErrorDialog("Please Select Your Date Of Birth");
         }
     }
 
