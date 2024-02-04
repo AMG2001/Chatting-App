@@ -1,5 +1,6 @@
 package gov.iti.jets.Controllers.Shared.Notifications;
 
+import gov.iti.jets.Model.NotificationModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class NotificationController {
     @FXML
@@ -28,22 +30,18 @@ public class NotificationController {
     private Label notification_title;
 
     private HBox layout;
-
-    private String title, content, date, time;
-
-    private Image image;
+    private String title, content;
+    private LocalDateTime time;
     private FXMLLoader loader;
 
     public HBox getLayout() {
         return layout;
     }
 
-    public NotificationController(String title, String content, String date, String time, Image image) {
-        this.title = title;
-        this.content = content;
-        this.date = date;
-        this.time = time;
-        this.image = image;
+    public NotificationController(NotificationModel notificationModel) {
+        this.title = notificationModel.getType();
+        this.content = notificationModel.getBody();
+        this.time = notificationModel.getTimeStamp();
         try {
             loader = new FXMLLoader(getClass().getResource("/Notifications/Notification.fxml"));
             loader.setController(this);
@@ -54,15 +52,16 @@ public class NotificationController {
         }
         System.out.println("Notification Controller Default Constructor called ...");
     }
+
     @FXML
     public void initialize() {
         notification_title.setText(title);
         notification_content.setText(content);
-        notification_date.setText(date);
-        notification_time.setText(time);
+        notification_date.setText("");
+        notification_time.setText(time.toString());
         notification_image.setFitWidth(100);
         notification_image.setFitHeight(100);
-        notification_image.setImage(image);
+        notification_image.setImage(null);
     }
 }
 
