@@ -10,7 +10,7 @@ import java.rmi.registry.Registry;
 public class ServerRegistryInitializer {
 
     private static final String ATTACHMENT_SERVICE = "AttachmentService";
-    private static final String CONVERSATION_SERVICE = "ConversationService";
+    private static final String GROUP_SERVICE = "GroupService";
     private static final String MESSAGE_SERVICE = "MessageService";
     private static final String NOTIFICATION_SERVICE = "NotificationService";
     private static final String REQUEST_SERVICE = "RequestService";
@@ -48,14 +48,14 @@ public class ServerRegistryInitializer {
     private void bindInterfaces(Registry registry){
         try{
             AttachmentServiceImpl attachmentService = new AttachmentServiceImpl();
-            ConversationServiceImpl conversationService = new ConversationServiceImpl();
+            GroupServiceImpl groupService = new GroupServiceImpl();
             MessageServiceImpl messageService = new MessageServiceImpl();
             NotificationServiceImpl notificationService = new NotificationServiceImpl();
             RequestServiceImpl requestService = new RequestServiceImpl();
             UserServiceImpl userService = new UserServiceImpl();
 
             registry.rebind(ATTACHMENT_SERVICE,attachmentService);
-            registry.rebind(CONVERSATION_SERVICE,conversationService);
+            registry.rebind(GROUP_SERVICE,groupService);
             registry.rebind(MESSAGE_SERVICE,messageService);
             registry.rebind(NOTIFICATION_SERVICE,notificationService);
             registry.rebind(REQUEST_SERVICE,requestService);
