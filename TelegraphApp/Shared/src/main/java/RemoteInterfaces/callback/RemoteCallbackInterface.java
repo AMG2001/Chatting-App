@@ -11,9 +11,9 @@ public interface RemoteCallbackInterface extends Remote {
 
     void recieveNotification(NotificationDTO notification) throws RemoteException;
 
-    void recieveRequest(RequestDTO request) throws RemoteException;
+    void recieveRequest(RecievedRequestDTO request) throws RemoteException;
 
-    void updateRequest(RequestDTO request) throws RemoteException;
+    void updateRequest(SentRequestDTO request) throws RemoteException;
 
     void addContact(ContactDTO newContact) throws RemoteException;
     void addGroup(GroupDTO newGroup) throws RemoteException;

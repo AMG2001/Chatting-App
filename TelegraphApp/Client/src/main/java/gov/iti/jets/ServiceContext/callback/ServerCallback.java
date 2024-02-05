@@ -35,12 +35,12 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
-    public void recieveRequest(RequestDTO request) throws RemoteException {
+    public void recieveRequest(RecievedRequestDTO request) throws RemoteException {
 
     }
 
     @Override
-    public void updateRequest(RequestDTO request) throws RemoteException {
+    public void updateRequest(SentRequestDTO request) throws RemoteException {
 
     }
 

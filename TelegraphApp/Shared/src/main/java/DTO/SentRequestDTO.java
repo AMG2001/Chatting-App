@@ -3,7 +3,7 @@ package DTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class RequestDTO implements Serializable {
+public class SentRequestDTO implements Serializable {
     private int requestId;
     private LocalDateTime sendDate;
     private String receiverPhone;
@@ -12,7 +12,7 @@ public class RequestDTO implements Serializable {
     private String senderPhone;
 
 
-    public RequestDTO(int requestId, LocalDateTime sendDate, String receiverPhone, String requestStatus, LocalDateTime responseDate, String senderPhone) {
+    public SentRequestDTO(int requestId, LocalDateTime sendDate, String receiverPhone, String requestStatus, LocalDateTime responseDate, String senderPhone) {
         this.requestId = requestId;
         this.sendDate = sendDate;
         this.receiverPhone = receiverPhone;
