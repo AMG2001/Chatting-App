@@ -1,15 +1,16 @@
 package DTO.Group;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GroupCreationDTO implements Serializable {
 
     private String groupName;
-    private String[] groupMembers;
+    private List<String> groupMembers; //list of phone numbers
     private String groupFounder;
     private byte[] groupImg;
 
-    public GroupCreationDTO(String groupName, String[] groupMembers, String groupFounder, byte[] groupImg) {
+    public GroupCreationDTO(String groupName, List<String> groupMembers, String groupFounder, byte[] groupImg) {
         this.groupName = groupName;
         this.groupMembers = groupMembers;
         this.groupFounder = groupFounder;
@@ -24,11 +25,11 @@ public class GroupCreationDTO implements Serializable {
         this.groupName = groupName;
     }
 
-    public String[] getGroupMembers() {
+    public List<String> getGroupMembers() {
         return groupMembers;
     }
 
-    public void setGroupMembers(String[] groupMembers) {
+    public void setGroupMembers(List<String> groupMembers) {
         this.groupMembers = groupMembers;
     }
 

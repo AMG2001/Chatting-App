@@ -13,5 +13,6 @@ public interface ConversationDao extends GenericDatabaseDao<Conversation>,Retrie
     List<Conversation> getIndividualConversationsByPhone(String phone);
     List<Conversation> getAllConversationsByPhone(String phone);
     List<User> getGroupMembersByConversationId(int conversation_id);
+    void updateGroupImage(int groupId,String groupImage);
 
 }

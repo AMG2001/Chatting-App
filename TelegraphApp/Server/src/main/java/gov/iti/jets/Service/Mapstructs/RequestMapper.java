@@ -17,11 +17,9 @@ public interface RequestMapper {
     @Mapping(source = "senderPhone",target="senderPhone")
     RequestSendDTO contactRequestToRequestDto(ContactRequest contactRequest);
 
-    @Mapping(source = "requestId",target="requestId")
+
     @Mapping(source = "sendDate",target="sendDate")
     @Mapping(source = "receiverPhone",target="receiverPhone")
-    @Mapping(source = "requestStatus",target="requestStatus")
-    @Mapping(source = "responseDate",target="responseDate")
     @Mapping(source = "senderPhone",target="senderPhone")
     ContactRequest requestDtoToContactRequest(RequestSendDTO requestSendDto);
 

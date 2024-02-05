@@ -44,7 +44,11 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
-        ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
+        //ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
+        ContactRequest contactRequest=new ContactRequest();
+        contactRequest.setSendDate(request.getSendDate());
+        contactRequest.setReceiverPhone(request.getReceiverPhone());
+        contactRequest.setSenderPhone(request.getSenderPhone());
 
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
 
