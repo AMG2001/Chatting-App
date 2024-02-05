@@ -1,16 +1,16 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
-import DTO.ContactDTO;
+import DTO.User.ContactDTO;
 import DTO.ConversationDTO;
 import DTO.NotificationDTO;
 import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
 import DTO.Request.RequestSendDTO;
 import RemoteInterfaces.RemoteRequestService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Domain.ContactRequest;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.Conversation;
-import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.RequestStatus;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
@@ -71,7 +71,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         } else {
 
-            int requestId = contactRequestDao.add(contactRequest);
+            int requestId = contactRequestDao.addRequest(contactRequest);
 
             System.out.println("Request has been added to database");
 
@@ -90,6 +90,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             String recieverPhone = request.getReceiverPhone();
             String senderPhone = request.getSenderPhone();
             LocalDateTime sendDate = request.getSendDate();
+
             RequestRecieveDTO recieverRequest = new RequestRecieveDTO
                     (requestId,sendDate,recieverPhone,senderPhone,senderName);
 
@@ -99,22 +100,31 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
     }
 
     @Override
-    public void updateRequest(RequestDTO requestDTO) throws RemoteException {
+    public void updateRequest(RequestResponseDTO requestDTO) throws RemoteException {
 
         //update DB
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
-        ContactRequest requestModel = RequestMapper.INSTANCE.requestDtoToContactRequest(requestDTO);
-        contactRequestDao.update(requestModel);
+        
+        ContactRequest updatedRequest = new ContactRequest();
+
+        updatedRequest.setRequestId(requestDTO.getRequestID());
+        updatedRequest.setRequestStatus(RequestStatus.valueOf(requestDTO.getRequestStatus()));
+        updatedRequest.setResponseDate(LocalDateTime.now());
+        updatedRequest.setReceiverPhone(requestDTO.getRecieverPhone());
+        updatedRequest.setSenderPhone(requestDTO.getSenderPhone());
+
+
+        contactRequestDao.update(updatedRequest);
 
         //get sender and receiver callbacks
         RemoteCallbackInterface senderCallBack = OnlineUserManager.getOnlineUser(requestDTO.getSenderPhone());
-        RemoteCallbackInterface receiverCallBack = OnlineUserManager.getOnlineUser(requestDTO.getReceiverPhone());
+        RemoteCallbackInterface receiverCallBack = OnlineUserManager.getOnlineUser(requestDTO.getRecieverPhone());
 
         if(requestDTO.getRequestStatus()=="ACCEPTED"){
 
             //get individual conversation between sender and receiver from DB
             ConversationDao conversationDao = new ConversationDaoImpl();
-            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(),requestDTO.getReceiverPhone());
+            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(),requestDTO.getRecieverPhone());
             Conversation conversationDomain = conversationDao.getById(conversationId);
 
             // map conversation domain to conversation dto and set messages and attachments to empty lists
@@ -125,7 +135,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             // get sender and receiver domain
             UserDao userDao = new UserDoaImpl();
             User senderDomain = userDao.getById(requestDTO.getSenderPhone());
-            User receiverDomain = userDao.getById(requestDTO.getReceiverPhone());
+            User receiverDomain = userDao.getById(requestDTO.getRecieverPhone());
 
             // map sender and receiver domain to contact dto
             ContactDTO senderDTO = ContactMapper.INSTANCE.userToContactDTO(senderDomain);
@@ -153,16 +163,34 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
     }
 
     @Override
-    public ArrayList<RequestSendDTO> getAllRequest(String phone) throws RemoteException {
+    public ArrayList<RequestRecieveDTO> getAllRequest(String phone) throws RemoteException {
 
+        //Fetch All requests
         ContactRequestDao requestDao = new ContactRequestDaoImpl();
         List<ContactRequest> requests = requestDao.getRequestsByReceiver(phone);
-        List<RequestSendDTO> requestSendDTOS = new ArrayList<>();
+        List<RequestRecieveDTO> recievedRequests = new ArrayList<>();
+        //Fetch all sender Names
+        UserDao userDao = new UserDoaImpl();
+        String senderPhone;
+        String reciverPhone;
+        String senderName;
+        LocalDateTime sendTime;
+        int requestId;
+        //Create SentRequest Object and pass to array
         for (ContactRequest request : requests) {
-            RequestSendDTO requestSendDto = RequestMapper.INSTANCE.contactRequestToRequestDto(request);
-            requestSendDTOS.add(requestSendDto);
+            senderPhone = request.getSenderPhone();
+            reciverPhone = request.getReceiverPhone();
+            senderName = userDao.getById(senderPhone).getName();
+            sendTime = request.getSendDate();
+            requestId = request.getRequestId();
+
+            RequestRecieveDTO requestSendDto = new RequestRecieveDTO
+                    (requestId,sendTime,reciverPhone,senderPhone,senderName);
+
+            recievedRequests.add(requestSendDto);
         }
-        return (ArrayList<SentRequestDTO>) sentRequestDTOS;
+
+        return (ArrayList<RequestRecieveDTO>) recievedRequests;
 
     }
 }

@@ -3,6 +3,7 @@ package gov.iti.jets.ServiceContext.callback;
 import DTO.*;
 import DTO.Group.GroupDTO;
 import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
 import DTO.Request.RequestSendDTO;
 import DTO.User.ContactDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
@@ -46,7 +47,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
-    public void updateRequest(RequestSendDTO request) throws RemoteException {
+    public void updateRequest(RequestResponseDTO request) throws RemoteException {
 
     }
 

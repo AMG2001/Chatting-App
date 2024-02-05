@@ -1,6 +1,6 @@
 package gov.iti.jets.Service.Mapstructs;
 
-import DTO.ContactDTO;
+import DTO.User.ContactDTO;
 import gov.iti.jets.Domain.User;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

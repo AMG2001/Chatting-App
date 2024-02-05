@@ -3,6 +3,7 @@ package RemoteInterfaces.callback;
 import DTO.*;
 import DTO.Group.GroupDTO;
 import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
 import DTO.Request.RequestSendDTO;
 import DTO.User.ContactDTO;
 
@@ -17,7 +18,7 @@ public interface RemoteCallbackInterface extends Remote {
 
     void recieveRequest(RequestRecieveDTO request) throws RemoteException;
 
-    void updateRequest(RequestSendDTO request) throws RemoteException;
+    void updateRequest(RequestResponseDTO request) throws RemoteException;
 
     void addContact(ContactDTO newContact) throws RemoteException;
     void addGroup(GroupDTO newGroup) throws RemoteException;
