@@ -3,6 +3,8 @@ package gov.iti.jets.Model;
 import gov.iti.jets.Controllers.Shared.MessageController;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestSendModel;
+import gov.iti.jets.Model.User.ContactModel;
+import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.RequestService;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -12,13 +14,12 @@ import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 public class ClientState {
     /*
      *************************************** Current Client Observables ********************************
      */
-    ObservableValue<UserModel> loggedinUser;
+    public ObservableValue<UserModel> loggedinUser;
     /*
      ************************************** Requests Observables **************************************
      */
@@ -30,6 +31,10 @@ public class ClientState {
      */
 
 
+    /*
+     *************************************** Contacts Observables ********************************
+     */
+    public ObservableList<ContactModel> contactsList;
     /*
      *************************************** Notifications Observables ********************************
      */
@@ -51,6 +56,7 @@ public class ClientState {
         notificationsList = FXCollections.observableArrayList();
         // Requests Initialization .
         receivedRequestsList = FXCollections.observableArrayList();
+        contactsList = FXCollections.observableArrayList();
         Platform.runLater(() -> loadAllRequests());
     }
 

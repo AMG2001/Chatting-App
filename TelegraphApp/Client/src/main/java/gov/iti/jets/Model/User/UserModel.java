@@ -1,4 +1,4 @@
-package gov.iti.jets.Model;
+package gov.iti.jets.Model.User;
 
 import DTO.User.UserDTO;
 import gov.iti.jets.Controllers.services.FileConverter;

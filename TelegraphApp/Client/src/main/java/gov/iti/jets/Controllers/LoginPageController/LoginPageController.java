@@ -5,7 +5,7 @@ import DTO.User.UserLoginDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.UserModel;
+import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import gov.iti.jets.ServiceContext.callback.ServerCallback;
 import javafx.application.Platform;
@@ -63,7 +63,7 @@ public class LoginPageController {
 
     @FXML
     void navigateToSignUp(ActionEvent event) {
-//        Navigator.navigateToRegister();
+        Navigator.navigateToRegister();
     }
 
 

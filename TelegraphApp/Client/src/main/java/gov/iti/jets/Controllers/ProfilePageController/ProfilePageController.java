@@ -1,11 +1,8 @@
 package gov.iti.jets.Controllers.ProfilePageController;
 
-import gov.iti.jets.Controllers.services.Emails.EmailsService;
-import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.UserModel;
+import gov.iti.jets.Model.User.UserModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
