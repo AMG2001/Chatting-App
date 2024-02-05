@@ -1,6 +1,11 @@
 package RemoteInterfaces;
 
 import DTO.*;
+import DTO.Group.GroupDTO;
+import DTO.User.ContactDTO;
+import DTO.User.UpdatedUserDTO;
+import DTO.User.UserDTO;
+import DTO.User.UserLoginDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
 import java.rmi.Remote;

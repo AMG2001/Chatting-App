@@ -1,6 +1,6 @@
 package gov.iti.jets.Service.CallbackHandlers;
 
-import DTO.GroupDTO;
+import DTO.Group.GroupDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
 import java.rmi.RemoteException;

@@ -1,6 +1,11 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.*;
+import DTO.Group.GroupDTO;
+import DTO.User.ContactDTO;
+import DTO.User.UpdatedUserDTO;
+import DTO.User.UserDTO;
+import DTO.User.UserLoginDTO;
 import RemoteInterfaces.RemoteUserService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Domain.User;

@@ -1,27 +1,17 @@
-package DTO;
+package DTO.Group;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
-public class ContactDTO implements Serializable {
+public class GroupMemberDTO implements Serializable {
     private String phonenumber;
     private String status;
     private String name;
-    ConversationDTO conversation;
     private byte[] profilepic;
 
-    public ConversationDTO getConversation() {
-        return conversation;
-    }
-
-    public void setConversation(ConversationDTO conversation) {
-        this.conversation = conversation;
-    }
-    public ContactDTO(String phonenumber, String status, String name, ConversationDTO conversation, byte[] profilepic) {
+    public GroupMemberDTO(String phonenumber, String status, String name, byte[] profilepic) {
         this.phonenumber = phonenumber;
         this.status = status;
         this.name = name;
-        this.conversation = conversation;
         this.profilepic = profilepic;
     }
 
@@ -55,15 +45,5 @@ public class ContactDTO implements Serializable {
 
     public void setProfilepic(byte[] profilepic) {
         this.profilepic = profilepic;
-    }
-
-    @Override
-    public String toString() {
-        return "ContactDTO{" +
-                "phonenumber='" + phonenumber + '\'' +
-                ", status='" + status + '\'' +
-                ", name='" + name + '\'' +
-                ", profilepic=" + Arrays.toString(profilepic) +
-                '}';
     }
 }

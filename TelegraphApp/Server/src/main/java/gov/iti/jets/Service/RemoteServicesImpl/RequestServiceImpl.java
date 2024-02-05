@@ -1,8 +1,8 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.NotificationDTO;
-import DTO.RecievedRequestDTO;
-import DTO.SentRequestDTO;
+import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestSendDTO;
 import RemoteInterfaces.RemoteRequestService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Domain.ContactRequest;
@@ -31,7 +31,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
     }
 
     @Override
-    public void sendRequest(SentRequestDTO request) throws RemoteException {
+    public void sendRequest(RequestSendDTO request) throws RemoteException {
         //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
@@ -62,7 +62,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         } else {
 
-            contactRequestDao.add(contactRequest);
+            int requestId = contactRequestDao.add(contactRequest);
 
             System.out.println("Request has been added to database");
 
@@ -81,15 +81,16 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             String recieverPhone = request.getReceiverPhone();
             String senderPhone = request.getSenderPhone();
             LocalDateTime sendDate = request.getSendDate();
-            RecievedRequestDTO recieverRequest = new RecievedRequestDTO
-                    (1,sendDate,recieverPhone, RequestStatus.PENDING.toString(),null,senderPhone,senderName);
+            RequestRecieveDTO recieverRequest = new RequestRecieveDTO
+                    (requestId,sendDate,recieverPhone,senderPhone,senderName);
+
             requestHandler.sendRequest(recieverRequest,receiverRemoteInt);
 
         }
     }
 
     @Override
-    public void updateRequest(SentRequestDTO request) throws RemoteException {
+    public void updateRequest(RequestSendDTO request) throws RemoteException {
         //TODO moataz
         /* Update the request to be accepted or rejected. IF accepted then use DAO to
             Create a conversation- Add relationship between user (Alter User table)
@@ -100,16 +101,16 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
     }
 
     @Override
-    public ArrayList<SentRequestDTO> getAllRequest(String phone) throws RemoteException {
+    public ArrayList<RequestSendDTO> getAllRequest(String phone) throws RemoteException {
 
         ContactRequestDao requestDao = new ContactRequestDaoImpl();
         List<ContactRequest> requests = requestDao.getRequestsByReceiver(phone);
-        List<SentRequestDTO> sentRequestDTOS = new ArrayList<>();
+        List<RequestSendDTO> requestSendDTOS = new ArrayList<>();
         for (ContactRequest request : requests) {
-            SentRequestDTO sentRequestDto = RequestMapper.INSTANCE.contactRequestToRequestDto(request);
-            sentRequestDTOS.add(sentRequestDto);
+            RequestSendDTO requestSendDto = RequestMapper.INSTANCE.contactRequestToRequestDto(request);
+            requestSendDTOS.add(requestSendDto);
         }
-        return (ArrayList<SentRequestDTO>) sentRequestDTOS;
+        return (ArrayList<RequestSendDTO>) requestSendDTOS;
 
     }
 }

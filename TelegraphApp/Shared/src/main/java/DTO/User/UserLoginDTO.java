@@ -1,4 +1,4 @@
-package DTO;
+package DTO.User;
 
 import java.io.Serializable;
 

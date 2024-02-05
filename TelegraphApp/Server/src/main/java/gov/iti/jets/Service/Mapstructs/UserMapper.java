@@ -1,12 +1,11 @@
 package gov.iti.jets.Service.Mapstructs;
-import DTO.UpdatedUserDTO;
-import DTO.UserDTO;
+import DTO.User.UpdatedUserDTO;
+import DTO.User.UserDTO;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.Gender;
 import gov.iti.jets.Domain.enums.UserStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 @Mapper

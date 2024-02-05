@@ -1,4 +1,6 @@
-package DTO;
+package DTO.Group;
+
+import DTO.ConversationDTO;
 
 import java.io.Serializable;
 import java.util.List;
