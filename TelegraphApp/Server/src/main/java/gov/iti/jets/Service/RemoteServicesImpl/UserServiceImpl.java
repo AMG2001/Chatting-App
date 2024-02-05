@@ -151,8 +151,53 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
 
     @Override
     public List<GroupDTO> getGroups(String userPhone) throws RemoteException {
-        //TODO moataz
-        return null;
+
+        // get group conversation from DB
+        ConversationDao conversationDao = new ConversationDaoImpl();
+        List<Conversation> groupConversationsDB= conversationDao.getGroupConversationsByPhone(userPhone);
+
+        List<GroupDTO> groupDTOS = new ArrayList<>();
+        for (Conversation groupConversationDB: groupConversationsDB){
+
+            GroupDTO groupDTO = ConversationMapper.INSTANCE.conversationToGroupDTO(groupConversationDB);
+
+            // // map groupConversationDB to conversation dto and set messages and attachments to empty lists
+            ConversationDTO conversationDTO = ConversationMapper.INSTANCE.conversationToConversationDTO(groupConversationDB);
+            conversationDTO.setMessages(new ArrayList<>());
+            conversationDTO.setAttachments(new ArrayList<>());
+
+            // add conversation dto to group dto
+            groupDTO.setConversation(conversationDTO);
+
+            // get group image
+            byte[] groupImage = FileSystemUtil.getBytesFromFile(groupConversationDB.getConversationImage());
+
+            // add group image to group dto
+            groupDTO.setGroupImage(groupImage);
+
+            // get group members from DB
+            List<User> groupMembersDB = conversationDao.getGroupMembersByConversationId(groupConversationDB.getConversationId());
+
+            List<GroupMemberDTO> groupMemberDTOS = new ArrayList<>();
+            for (User groupMemberDB : groupMembersDB){
+
+                GroupMemberDTO groupMemberDTO=UserMapper.INSTANCE.userToGroupMemberDTO(groupMemberDB);
+
+                byte[] groupMemberImage = FileSystemUtil.getBytesFromFile(groupMemberDB.getPicture());
+                groupMemberDTO.setProfilepic(groupMemberImage);
+
+                groupMemberDTOS.add(groupMemberDTO);
+            }
+
+            // add group members to group dto
+            groupDTO.setGroupMembers(groupMemberDTOS);
+
+            // add group dto to list of group dtos
+            groupDTOS.add(groupDTO);
+        }
+
+
+        return groupDTOS;
     }
 
     @Override

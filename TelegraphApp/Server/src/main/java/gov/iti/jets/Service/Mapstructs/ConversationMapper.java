@@ -11,4 +11,7 @@ public interface ConversationMapper {
     @Mapping(source = "conversationId",target="conversationId")
     @Mapping(source = "type",target="type")
     ConversationDTO conversationToConversationDTO(Conversation conversation);
+
+    @Mapping(source = "conversationName",target="groupName")
+    GroupDTO conversationToGroupDTO(Conversation conversation);
 }
