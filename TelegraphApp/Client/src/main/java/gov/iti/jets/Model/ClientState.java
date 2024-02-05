@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class ClientState {
     private static ClientState instance;
 
-    ObservableList<NotificationModel> notificationsList;
+    public ObservableList<NotificationModel> notificationsList;
     // is used to store logged client .
     ObservableValue<UserModel> loggedinUser;
     public ObservableList<MessageController> openedChatMessagesList;

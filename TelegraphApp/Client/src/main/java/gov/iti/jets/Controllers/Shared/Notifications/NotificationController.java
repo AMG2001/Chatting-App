@@ -18,12 +18,6 @@ public class NotificationController {
     private Text notification_content;
 
     @FXML
-    private Text notification_date;
-
-    @FXML
-    private ImageView notification_image;
-
-    @FXML
     private Text notification_time;
 
     @FXML
@@ -57,11 +51,7 @@ public class NotificationController {
     public void initialize() {
         notification_title.setText(title);
         notification_content.setText(content);
-        notification_date.setText("");
         notification_time.setText(time.toString());
-        notification_image.setFitWidth(100);
-        notification_image.setFitHeight(100);
-        notification_image.setImage(null);
     }
 }
 
