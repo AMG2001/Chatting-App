@@ -1,5 +1,7 @@
 package gov.iti.jets.Model;
 
+import DTO.RequestDTO;
+
 import java.time.LocalDateTime;
 
 public class RequestModel {
@@ -58,13 +60,13 @@ public class RequestModel {
         this.senderPhone = senderPhone;
     }
 
-    public RequestModel(int requestId, LocalDateTime sendDate, String receiverPhone, String requestStatus, LocalDateTime responseDate, String senderPhone) {
-        this.requestId = requestId;
-        this.sendDate = sendDate;
-        this.receiverPhone = receiverPhone;
-        this.requestStatus = requestStatus;
-        this.responseDate = responseDate;
-        this.senderPhone = senderPhone;
+    public RequestModel(RequestDTO requestDTO) {
+        this.requestId = requestDTO.getRequestId();
+        this.sendDate = requestDTO.getSendDate();
+        this.receiverPhone = requestDTO.getReceiverPhone();
+        this.requestStatus = requestDTO.getRequestStatus();
+        this.responseDate = requestDTO.getResponseDate();
+        this.senderPhone = requestDTO.getSenderPhone();
     }
 
     // Getters and Setters remain the same
