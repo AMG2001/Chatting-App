@@ -116,5 +116,7 @@ public class LeftSideBar {
          * Note that if the server respond with null , then it mean that the user is not exist .
          * use CustomDialog.show.. to show Error Message .
          */
+        AddContactPane addContactPane = new AddContactPane();
+        StagesLauncher.LaunchNewStage(addContactPane.getLayout(), "Add New Contact", 500, 500);
     }
 }
