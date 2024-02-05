@@ -35,6 +35,9 @@ public class HomePageController {
         changeListViewCell();
         setListViewItemsAction();
         changeRightPane(InitialLayoutController.getInstance().getLayout());
+        // TODO load all Requests .
+        // Todo load all Conversations .
+
     }
 
     public void changeRightPane(Pane newLayout) {

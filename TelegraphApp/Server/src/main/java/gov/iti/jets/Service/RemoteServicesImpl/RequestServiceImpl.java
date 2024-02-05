@@ -44,8 +44,11 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
-        ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
-
+//        ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
+        ContactRequest contactRequest = new ContactRequest();
+        contactRequest.setSendDate(request.getSendDate());
+        contactRequest.setReceiverPhone(request.getReceiverPhone());
+        contactRequest.setSenderPhone(request.getSenderPhone());
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
 
         RemoteCallbackInterface senderRemoteInt = OnlineUserManager.getOnlineUser(request.getSenderPhone());
@@ -63,7 +66,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        } else if (contactRequestDao.checkIfRequestExist(contactRequest)!=false) {
+        } else if (contactRequestDao.checkIfRequestExist(contactRequest) != false) {
 
             notification.setBody("Request has been sent before");
 
@@ -92,9 +95,9 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             LocalDateTime sendDate = request.getSendDate();
 
             RequestRecieveDTO recieverRequest = new RequestRecieveDTO
-                    (requestId,sendDate,recieverPhone,senderPhone,senderName);
+                    (requestId, sendDate, recieverPhone, senderPhone, senderName);
 
-            requestHandler.sendRequest(recieverRequest,receiverRemoteInt);
+            requestHandler.sendRequest(recieverRequest, receiverRemoteInt);
 
         }
     }
@@ -104,7 +107,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         //update DB
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
-        
+
         ContactRequest updatedRequest = new ContactRequest();
 
         updatedRequest.setRequestId(requestDTO.getRequestID());
@@ -120,11 +123,11 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         RemoteCallbackInterface senderCallBack = OnlineUserManager.getOnlineUser(requestDTO.getSenderPhone());
         RemoteCallbackInterface receiverCallBack = OnlineUserManager.getOnlineUser(requestDTO.getRecieverPhone());
 
-        if(requestDTO.getRequestStatus()=="ACCEPTED"){
+        if (requestDTO.getRequestStatus() == "ACCEPTED") {
 
             //get individual conversation between sender and receiver from DB
             ConversationDao conversationDao = new ConversationDaoImpl();
-            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(),requestDTO.getRecieverPhone());
+            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(), requestDTO.getRecieverPhone());
             Conversation conversationDomain = conversationDao.getById(conversationId);
 
             // map conversation domain to conversation dto and set messages and attachments to empty lists
@@ -159,7 +162,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         //update list of received requests of receiver(CALLBACK)
         RequestCallbackHandler requestHandler = new RequestCallbackHandler();
-        requestHandler.updateRequest(requestDTO,receiverCallBack);
+        requestHandler.updateRequest(requestDTO, receiverCallBack);
     }
 
     @Override
@@ -185,7 +188,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             requestId = request.getRequestId();
 
             RequestRecieveDTO requestSendDto = new RequestRecieveDTO
-                    (requestId,sendTime,reciverPhone,senderPhone,senderName);
+                    (requestId, sendTime, reciverPhone, senderPhone, senderName);
 
             recievedRequests.add(requestSendDto);
         }

@@ -1,10 +1,8 @@
 package gov.iti.jets.Controllers.Shared.LeftSideBar;
 
-import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
 import gov.iti.jets.Controllers.Shared.Requests.ReceivedRequestsController;
 import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.NotificationModel;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import javafx.beans.property.SimpleListProperty;
 import javafx.scene.control.ListCell;
@@ -33,7 +31,7 @@ public class ReceivedRequestsPaneViewer {
                 }
             }
         });
-        StagesLauncher.LaunchNewStage(listView, ClientState.getInstance().receivedRequestsList.size() == 0 ? "There is No Requests" : "All Requests", 400, 500);
+        StagesLauncher.LaunchNewStage(listView, ClientState.getInstance().receivedRequestsList.size() == 0 ? "There is No Requests" : "All Requests", 600, 500);
     }
 
 }

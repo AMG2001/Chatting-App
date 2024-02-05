@@ -54,11 +54,11 @@ public class ReceivedRequestsController {
 
     @FXML
     void onAccept(ActionEvent event) {
-
+        // TODO Implement Accept Request Functionality .
     }
 
     @FXML
     void onReject(ActionEvent event) {
-
+        // Todo implement Reject Functionality .
     }
 }

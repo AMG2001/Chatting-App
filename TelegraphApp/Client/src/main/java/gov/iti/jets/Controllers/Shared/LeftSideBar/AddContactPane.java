@@ -46,6 +46,7 @@ public class AddContactPane {
             try {
                 RequestSendDTO requestSendDTO = new RequestSendDTO(LocalDateTime.now(), phoneNumber, ClientState.getInstance().getLoggedinUserModel().getUserPhone());
                 RequestService.getInstance().getRemoteService().sendRequest(requestSendDTO);
+                CustomDialogs.showInformativeDialog("Request Sent Successfully for " + phoneNumber);
             } catch (RemoteException e) {
                 CustomDialogs.showErrorDialog("This Phone Number is not exist !!");
                 e.printStackTrace();

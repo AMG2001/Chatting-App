@@ -13,7 +13,6 @@ public class UserService {
         try {
             Registry registry = RemoteRegistry.getInstance().getRegistry();
             service = (RemoteUserService) registry.lookup("UserService");
-
         } catch (NotBoundException | RemoteException e) {
             System.out.println("Error getting User Service from remote registry: "+e.getMessage());
         }
