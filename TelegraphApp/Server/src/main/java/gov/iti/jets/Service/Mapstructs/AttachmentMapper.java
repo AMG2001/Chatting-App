@@ -13,4 +13,10 @@ public interface AttachmentMapper {
     @Mapping(source = "attachmentName", target = "attachmentName")
     @Mapping(source = "conversationId", target = "conversationId")
     Attachment attachmentDTOToAttachment(AttachmentDTO attachmentDTO);
+
+    @Mapping(source = "attachmentId", target = "attachmentId")
+    @Mapping(source = "attachmentName", target = "attachmentName")
+    @Mapping(source = "conversationId", target = "conversationId")
+    @Mapping(source = "attachmentType", target = "attachmentType")
+    AttachmentDTO attachmentToAttachmentDTO(Attachment attachment);
 }
