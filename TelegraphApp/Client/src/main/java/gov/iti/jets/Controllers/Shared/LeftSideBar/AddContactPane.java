@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 
 public class AddContactPane {
     FXMLLoader loader;
-    GridPane layout;
+    VBox layout;
     @FXML
     private Button btn_addContact;
 
@@ -54,7 +55,7 @@ public class AddContactPane {
         }
     }
 
-    public GridPane getLayout() {
+    public VBox getLayout() {
         return layout;
     }
 }
