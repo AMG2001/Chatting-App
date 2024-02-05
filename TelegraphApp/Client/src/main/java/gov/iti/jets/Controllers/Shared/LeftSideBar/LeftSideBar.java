@@ -8,6 +8,7 @@ import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.image.ImageView;
@@ -54,6 +55,8 @@ public class LeftSideBar {
     private Button btn_addContact;
 
     boolean isErrorOccured = false;
+
+    FXMLLoader loader;
 
     @FXML
     void showNotifications(MouseEvent event) {
@@ -113,5 +116,6 @@ public class LeftSideBar {
          * Note that if the server respond with null , then it mean that the user is not exist .
          * use CustomDialog.show.. to show Error Message .
          */
+
     }
 }
