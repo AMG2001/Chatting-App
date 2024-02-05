@@ -67,7 +67,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        } else if (contactRequestDao.checkIfRequestExist(contactRequest)!=false) {
+        } else if (contactRequestDao.checkIfRequestExist(contactRequest) != false) {
 
             notification.setBody("Request has been sent before");
 
@@ -124,7 +124,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         RemoteCallbackInterface senderCallBack = OnlineUserManager.getOnlineUser(requestDTO.getSenderPhone());
         RemoteCallbackInterface receiverCallBack = OnlineUserManager.getOnlineUser(requestDTO.getRecieverPhone());
 
-        if(requestDTO.getRequestStatus()=="ACCEPTED"){
+        if(requestDTO.getRequestStatus().equals("ACCEPTED")){
 
             //get individual conversation between sender and receiver from DB
             ConversationDao conversationDao = new ConversationDaoImpl();

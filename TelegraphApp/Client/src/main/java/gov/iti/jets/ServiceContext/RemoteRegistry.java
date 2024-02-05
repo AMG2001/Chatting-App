@@ -9,7 +9,6 @@ public class RemoteRegistry {
     private static final String host = "localhost";
     private static Registry registry;
     private static RemoteRegistry instance;
-
     private RemoteRegistry() {
         try {
             // Create or obtain a reference to the registry

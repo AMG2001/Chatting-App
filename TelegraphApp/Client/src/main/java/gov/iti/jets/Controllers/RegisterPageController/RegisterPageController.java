@@ -26,13 +26,10 @@ import java.io.File;
 public class RegisterPageController {
     @FXML
     private MFXButton btn_register;
-
     @FXML
     private ComboBox<String> countryBox;
-
     @FXML
     private DatePicker datePicker;
-
     @FXML
     private ToggleGroup gender;
     @FXML

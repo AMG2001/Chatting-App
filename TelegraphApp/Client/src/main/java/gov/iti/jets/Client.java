@@ -13,7 +13,14 @@ public class Client extends Application {
     public void start(Stage primaryStage) {
         AppViews.getInstance().initStage(primaryStage);
     }
+
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void stop() {
+        // TODO Notify all users that this user become offline .
+        System.exit(0);
     }
 }

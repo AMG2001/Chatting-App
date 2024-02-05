@@ -1,6 +1,7 @@
 package gov.iti.jets.Controllers.ProfilePageController;
 
 import gov.iti.jets.Controllers.services.Emails.EmailsService;
+import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.UserModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -62,20 +63,28 @@ public class ProfilePageController {
         tf_gender.setEditable(false);
         tf_gender.setDisable(true);
         datePicker.setEditable(false);
+        // Todo make phone number not editable .
+        // TODO Load all data first to compare if there is any thing changed .
     }
 
     @FXML
     void cancel(ActionEvent event) {
-
+        // TODO Implement Navigation to home page .
     }
 
     @FXML
     void saveChanges(ActionEvent event) {
-
+        // TODO
+        /**
+         * 1- Save Changes in ClientState.getUser .. , this object represent the user in the application .
+         * 2- Use the UserService to update the user in the database .
+         * 3. Show Custom Dialog to inform the user that the changes have been saved successfully .
+         */
     }
 
     @FXML
     void openFilesDialog(ActionEvent event) {
-
+        // TODO , implement ti to allow user to change the image .
+        // You can find the same code in RegisterPageController .
     }
 }

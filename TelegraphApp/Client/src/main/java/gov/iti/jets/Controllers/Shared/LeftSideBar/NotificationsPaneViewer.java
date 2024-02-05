@@ -30,6 +30,6 @@ public class NotificationsPaneViewer {
                 }
             }
         });
-        StagesLauncher.LaunchNewStage(listView, "All Notification", 470, 500);
+        StagesLauncher.LaunchNewStage(listView, ClientState.getInstance().notificationsList.size() == 0 ? "There is No Notifications" : "All Notification", 470, 500);
     }
 }
