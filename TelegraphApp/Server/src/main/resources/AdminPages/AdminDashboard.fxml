@@ -10,10 +10,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="961.0" style="-fx-background-color: milk;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="961.0" style="-fx-background-color: milk;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.AdminInterface.Controllers.DashboardController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="40.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.6000244140625" minWidth="10.0" prefWidth="124.60002632141112" />
@@ -35,7 +36,7 @@
       <RowConstraints minHeight="10.0" prefHeight="29.39996337890625" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ScrollPane fitToWidth="true" prefHeight="729.0" prefWidth="969.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
+      <ScrollPane fx:id="mainContent" fitToWidth="true" hbarPolicy="NEVER" prefHeight="729.0" prefWidth="969.0" vbarPolicy="NEVER" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
          <content>
             <GridPane prefHeight="675.0" prefWidth="965.0">
               <columnConstraints>
@@ -79,8 +80,14 @@
                     <yAxis>
                       <NumberAxis side="LEFT" />
                     </yAxis>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
                   </BarChart>
-                  <PieChart GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                  <PieChart fx:id="onlineUsersPie" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin></PieChart>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI Bold" size="21.0" />
@@ -91,12 +98,20 @@
                         <Font name="Segoe UI Bold" size="21.0" />
                      </font>
                   </Text>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2" />
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" vbarPolicy="NEVER" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin></ScrollPane>
                   <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.3" text="Dashboard" GridPane.columnIndex="1">
                      <font>
                         <Font name="Segoe UI Bold" size="25.0" />
                      </font>
                   </Text>
+                  <VBox fx:id="statisticsBox" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </VBox>
                </children>
             </GridPane>
          </content>
