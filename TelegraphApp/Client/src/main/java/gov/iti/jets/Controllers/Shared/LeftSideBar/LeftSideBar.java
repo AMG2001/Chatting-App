@@ -106,17 +106,13 @@ public class LeftSideBar {
 
     @FXML
     void showAllFriendRequests(ActionEvent event) {
-
+        ReceivedRequestsPaneViewer receivedRequestsPaneViewer = new ReceivedRequestsPaneViewer();
+        receivedRequestsPaneViewer.showRequestsPane();
     }
 
     @FXML
     void addNewContact(ActionEvent event) {
-        // TODO - Yousef , show Add Contact Pane with text , textArea and Button .
-        /**
-         * Note that if the server respond with null , then it mean that the user is not exist .
-         * use CustomDialog.show.. to show Error Message .
-         */
         AddContactPane addContactPane = new AddContactPane();
-        StagesLauncher.LaunchNewStage(addContactPane.getLayout(), "Add New Contact", 500, 500);
+        StagesLauncher.LaunchNewStage(addContactPane.getLayout(), "Add New Contact", 500, 300);
     }
 }

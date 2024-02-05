@@ -4,13 +4,13 @@ import DTO.*;
 import DTO.Group.GroupDTO;
 import DTO.Request.RequestRecieveDTO;
 import DTO.Request.RequestResponseDTO;
-import DTO.Request.RequestSendDTO;
 import DTO.User.ContactDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
-import gov.iti.jets.Model.ReceivedRequestsModel;
+import gov.iti.jets.Model.Requests.RequestReceiveModel;
+import javafx.application.Platform;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -23,7 +23,6 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     @Override
     public void recieveMessage(MessageDTO message) {
         //TODO Add the message to the CONVERSATION observable object
-
     }
 
     @Override
@@ -42,8 +41,8 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void recieveRequest(RequestRecieveDTO request) throws RemoteException {
-        ReceivedRequestsModel receivedRequestsModel = new ReceivedRequestsModel(request);
-        ClientState.getInstance().receivedRequestsList.add(receivedRequestsModel);
+        RequestReceiveModel receivedRequestsModel = new RequestReceiveModel(request);
+        Platform.runLater(() -> ClientState.getInstance().receivedRequestsList.add(receivedRequestsModel));
     }
 
     @Override

@@ -13,7 +13,6 @@ public class RequestService {
         try {
             Registry registry = RemoteRegistry.getInstance().getRegistry();
             service = (RemoteRequestService) registry.lookup("RequestService");
-
         } catch (NotBoundException | RemoteException e) {
             System.out.println("Error getting Request Service from remote registry: "+e.getMessage());
         }

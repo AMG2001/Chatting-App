@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="111.0" prefWidth="601.0" spacing="8.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="601.0" spacing="8.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="589.0" spacing="24.0">
+                     <children>
+                        <Text fx:id="senderName" strokeType="OUTSIDE" strokeWidth="0.0" text="Mohamad Amgad">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="sent you a friend request . " />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="12.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Text fx:id="senderNumber" fill="#919191" strokeType="OUTSIDE" strokeWidth="0.0" text="+201096482183">
+                     <VBox.margin>
+                        <Insets left="12.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox>
+               <VBox.margin>
+                  <Insets right="24.0" />
+               </VBox.margin>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="577.0" spacing="24.0">
+                     <children>
+                        <Text fx:id="sendingDate" fill="#919191" strokeType="OUTSIDE" strokeWidth="0.0" text="19/09/2024" />
+                        <MFXButton fx:id="btn_reject" onAction="#onReject" prefHeight="34.0" prefWidth="106.0" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;" text="Reject" />
+                        <MFXButton fx:id="btn_accept" onAction="#onAccept" prefHeight="34.0" prefWidth="110.0" style="-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;" text="Accept" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="12.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

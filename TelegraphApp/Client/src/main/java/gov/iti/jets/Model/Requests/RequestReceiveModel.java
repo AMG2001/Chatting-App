@@ -1,24 +1,23 @@
-package gov.iti.jets.Model;
+package gov.iti.jets.Model.Requests;
 
 import DTO.Request.RequestRecieveDTO;
 
 import java.time.LocalDateTime;
 
-public class ReceivedRequestsModel {
+
+public class RequestReceiveModel {
     private int requestId;
     private LocalDateTime sendDate;
     private String receiverPhone;
-    private String requestStatus;
-    private LocalDateTime responseDate;
     private String senderPhone;
+    private String senderName;
 
-    public ReceivedRequestsModel(RequestRecieveDTO dto) {
+    public RequestReceiveModel(RequestRecieveDTO dto) {
         this.requestId = dto.getRequestId();
         this.sendDate = dto.getSendDate();
         this.receiverPhone = dto.getReceiverPhone();
-        //this.requestStatus = dto.getRequestStatus();
-        //this.responseDate = dto.getResponseDate();
         this.senderPhone = dto.getSenderPhone();
+        this.senderName = dto.getSenderName();
     }
 
     public int getRequestId() {
@@ -45,22 +44,6 @@ public class ReceivedRequestsModel {
         this.receiverPhone = receiverPhone;
     }
 
-    public String getRequestStatus() {
-        return requestStatus;
-    }
-
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
-    }
-
-    public LocalDateTime getResponseDate() {
-        return responseDate;
-    }
-
-    public void setResponseDate(LocalDateTime responseDate) {
-        this.responseDate = responseDate;
-    }
-
     public String getSenderPhone() {
         return senderPhone;
     }
@@ -68,7 +51,14 @@ public class ReceivedRequestsModel {
     public void setSenderPhone(String senderPhone) {
         this.senderPhone = senderPhone;
     }
-// Getters and Setters for each field
-    // ...
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
 }
+
 

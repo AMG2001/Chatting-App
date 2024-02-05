@@ -3,6 +3,9 @@ package gov.iti.jets.Controllers.Shared.LeftSideBar;
 import DTO.Request.RequestSendDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
+import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.ServiceContext.RequestService;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 
 public class AddContactPane {
     FXMLLoader loader;
@@ -38,8 +43,13 @@ public class AddContactPane {
         if (phoneNumber.isEmpty()) {
             CustomDialogs.showErrorDialog("You can't leave Phone Number Field Empty !!");
         } else if (FieldsValidator.isValidPhoneNumber(phoneNumber)) {
-            //TODO send request to server
-//            SentRequestDTO sentRequestDTO = new SentRequestDTO();
+            try {
+                RequestSendDTO requestSendDTO = new RequestSendDTO(LocalDateTime.now(), phoneNumber, ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+                RequestService.getInstance().getRemoteService().sendRequest(requestSendDTO);
+            } catch (RemoteException e) {
+                CustomDialogs.showErrorDialog("This Phone Number is not exist !!");
+                e.printStackTrace();
+            }
         }
     }
 
