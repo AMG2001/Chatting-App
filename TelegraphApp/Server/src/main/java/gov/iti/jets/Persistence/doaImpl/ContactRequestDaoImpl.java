@@ -153,6 +153,50 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
     }
 
     @Override
+    public int addRequest(ContactRequest entity){
+        Connection con = null;
+        PreparedStatement pst = null;
+        int requestId = 0;
+
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql = "insert into contact_request (sender_phone,receiver_phone,send_date)\n" +
+                    "values (?,?,?);";
+            pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1,entity.getSenderPhone());
+            pst.setString(2,entity.getReceiverPhone());
+            java.sql.Timestamp timestamp = Timestamp.valueOf(entity.getSendDate());
+            pst.setTimestamp(3, timestamp);
+            pst.executeUpdate();
+
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    requestId = generatedKeys.getInt(1);
+                }
+            }
+
+            System.out.println("Insertion Complete");
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return requestId;
+    }
+
+    @Override
     public List<ContactRequest> getAll() {
         return null;
     }
