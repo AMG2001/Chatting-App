@@ -16,6 +16,7 @@ public class ClientState {
     private static ClientState instance;
 
     public ObservableList<NotificationModel> notificationsList;
+    public ObservableList<ReceivedRequestsModel> receivedRequestsList;
     // is used to store logged client .
     ObservableValue<UserModel> loggedinUser;
     public ObservableList<MessageController> openedChatMessagesList;
@@ -26,7 +27,7 @@ public class ClientState {
         loggedinUser = new SimpleObjectProperty<>();
         openedChatMessagesList = FXCollections.observableArrayList();
         notificationsList = FXCollections.observableArrayList();
-//        chatsMap = new HashMap<>();
+        receivedRequestsList = FXCollections.observableArrayList();
     }
 
     public static ClientState getInstance() {

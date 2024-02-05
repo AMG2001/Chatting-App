@@ -5,6 +5,7 @@ import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
+import gov.iti.jets.Model.ReceivedRequestsModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -36,7 +37,8 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void recieveRequest(RecievedRequestDTO request) throws RemoteException {
-
+        ReceivedRequestsModel receivedRequestsModel = new ReceivedRequestsModel(request);
+        ClientState.getInstance().receivedRequestsList.add(receivedRequestsModel);
     }
 
     @Override
