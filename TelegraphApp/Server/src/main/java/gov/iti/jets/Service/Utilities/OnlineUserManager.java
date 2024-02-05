@@ -45,7 +45,13 @@ public class OnlineUserManager {
     }
     public static RemoteCallbackInterface getOnlineUser(String phone)
     {
-        //TODO moataz
-        return null;
+        RemoteCallbackInterface remoteCallbackInterface=null;
+
+        //TODO handle if remoteCallbackInterface doesn't exist
+        if (onlineUsers.containsKey(phone)) {
+            remoteCallbackInterface = onlineUsers.get(phone);
+        }
+
+        return remoteCallbackInterface;
     }
 }

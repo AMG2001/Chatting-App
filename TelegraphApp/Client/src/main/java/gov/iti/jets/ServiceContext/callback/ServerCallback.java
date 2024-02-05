@@ -1,6 +1,11 @@
 package gov.iti.jets.ServiceContext.callback;
 
 import DTO.*;
+import DTO.Group.GroupDTO;
+import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
+import DTO.Request.RequestSendDTO;
+import DTO.User.ContactDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Model.ClientState;
@@ -36,13 +41,13 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
-    public void recieveRequest(RecievedRequestDTO request) throws RemoteException {
+    public void recieveRequest(RequestRecieveDTO request) throws RemoteException {
         ReceivedRequestsModel receivedRequestsModel = new ReceivedRequestsModel(request);
         ClientState.getInstance().receivedRequestsList.add(receivedRequestsModel);
     }
 
     @Override
-    public void updateRequest(SentRequestDTO request) throws RemoteException {
+    public void updateRequest(RequestResponseDTO request) throws RemoteException {
 
     }
 

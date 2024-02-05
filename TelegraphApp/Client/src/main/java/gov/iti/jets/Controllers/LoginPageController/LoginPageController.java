@@ -1,11 +1,9 @@
 package gov.iti.jets.Controllers.LoginPageController;
 
-import DTO.UserDTO;
-import DTO.UserLoginDTO;
-import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
+import DTO.User.UserDTO;
+import DTO.User.UserLoginDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
-import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
@@ -14,7 +12,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import gov.iti.jets.Controllers.config.AppPages;
 import gov.iti.jets.Controllers.services.Navigator;
 
 import java.rmi.RemoteException;

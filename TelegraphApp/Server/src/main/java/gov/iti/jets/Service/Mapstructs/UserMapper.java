@@ -1,6 +1,7 @@
 package gov.iti.jets.Service.Mapstructs;
-import DTO.UpdatedUserDTO;
-import DTO.UserDTO;
+import DTO.User.UpdatedUserDTO;
+import DTO.User.UserDTO;
+import DTO.Group.GroupMemberDTO;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.Gender;
 import gov.iti.jets.Domain.enums.UserStatus;
@@ -46,6 +47,11 @@ public interface UserMapper {
     @Mapping(source = "gender", target = "gender")
     @Mapping(source = "bio", target = "bio")
     User updatedUserDTOToUser(UpdatedUserDTO updatedUserDTO);
+
+    @Mapping(source = "phoneNumber", target = "phoneNumber")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "name", target = "name")
+    GroupMemberDTO userToGroupMemberDTO(User user);
 
 
     default String mapGender(Gender gender) {

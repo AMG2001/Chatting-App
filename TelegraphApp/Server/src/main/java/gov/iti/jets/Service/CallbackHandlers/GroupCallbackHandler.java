@@ -1,6 +1,6 @@
 package gov.iti.jets.Service.CallbackHandlers;
 
-import DTO.GroupDTO;
+import DTO.Group.GroupDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
 import java.rmi.RemoteException;
@@ -15,7 +15,7 @@ public class GroupCallbackHandler {
             }
         } catch (RemoteException e) {
             System.out.println("Error adding new Group : " + e.getMessage());
-            System.out.println("Group Name" + newGroup.getConversation().getConversationName() + " failed to be added as friend");
+            System.out.println("Group Name" + newGroup.getGroupName() + " failed to be added as friend");
         }
 
 

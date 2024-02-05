@@ -1,6 +1,6 @@
 package gov.iti.jets.Service.Mapstructs;
 
-import DTO.SentRequestDTO;
+import DTO.Request.RequestSendDTO;
 import gov.iti.jets.Domain.ContactRequest;
 import gov.iti.jets.Domain.enums.RequestStatus;
 import org.mapstruct.Mapping;
@@ -15,7 +15,7 @@ public interface RequestMapper {
     @Mapping(source = "requestStatus",target="requestStatus")
     @Mapping(source = "responseDate",target="responseDate")
     @Mapping(source = "senderPhone",target="senderPhone")
-    SentRequestDTO contactRequestToRequestDto(ContactRequest contactRequest);
+    RequestSendDTO contactRequestToRequestDto(ContactRequest contactRequest);
 
     @Mapping(source = "requestId",target="requestId")
     @Mapping(source = "sendDate",target="sendDate")
@@ -23,7 +23,7 @@ public interface RequestMapper {
     @Mapping(source = "requestStatus",target="requestStatus")
     @Mapping(source = "responseDate",target="responseDate")
     @Mapping(source = "senderPhone",target="senderPhone")
-    ContactRequest requestDtoToContactRequest(SentRequestDTO sentRequestDto);
+    ContactRequest requestDtoToContactRequest(RequestSendDTO requestSendDto);
 
     // Add custom mapping for converting RequestStatus to String and vice versa
     default String mapRequestStatus(RequestStatus requestStatus) {

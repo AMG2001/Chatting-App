@@ -1,7 +1,6 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
-import DTO.UserDTO;
-import gov.iti.jets.Controllers.config.AppPages;
+import DTO.User.UserDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;

@@ -1,26 +1,26 @@
-package DTO;
+package DTO.Group;
 
 import java.io.Serializable;
 
 public class GroupMemberDTO implements Serializable {
-    private String phonenumber;
+    private String phoneNumber;
     private String status;
     private String name;
     private byte[] profilepic;
 
-    public GroupMemberDTO(String phonenumber, String status, String name, byte[] profilepic) {
-        this.phonenumber = phonenumber;
+    public GroupMemberDTO(String phoneNumber, String status, String name, byte[] profilepic) {
+        this.phoneNumber = phoneNumber;
         this.status = status;
         this.name = name;
         this.profilepic = profilepic;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getStatus() {

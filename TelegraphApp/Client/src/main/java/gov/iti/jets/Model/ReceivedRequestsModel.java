@@ -1,6 +1,6 @@
 package gov.iti.jets.Model;
 
-import DTO.RecievedRequestDTO;
+import DTO.Request.RequestRecieveDTO;
 
 import java.time.LocalDateTime;
 
@@ -12,12 +12,12 @@ public class ReceivedRequestsModel {
     private LocalDateTime responseDate;
     private String senderPhone;
 
-    public ReceivedRequestsModel(RecievedRequestDTO dto) {
+    public ReceivedRequestsModel(RequestRecieveDTO dto) {
         this.requestId = dto.getRequestId();
         this.sendDate = dto.getSendDate();
         this.receiverPhone = dto.getReceiverPhone();
-        this.requestStatus = dto.getRequestStatus();
-        this.responseDate = dto.getResponseDate();
+        //this.requestStatus = dto.getRequestStatus();
+        //this.responseDate = dto.getResponseDate();
         this.senderPhone = dto.getSenderPhone();
     }
 

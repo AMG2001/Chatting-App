@@ -1,6 +1,6 @@
 package gov.iti.jets.Controllers.Shared.LeftSideBar;
 
-import DTO.SentRequestDTO;
+import DTO.Request.RequestSendDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import javafx.event.ActionEvent;
@@ -17,6 +17,7 @@ public class AddContactPane {
     GridPane layout;
     @FXML
     private Button btn_addContact;
+
     @FXML
     private TextField receiverPhoneNumber;
 

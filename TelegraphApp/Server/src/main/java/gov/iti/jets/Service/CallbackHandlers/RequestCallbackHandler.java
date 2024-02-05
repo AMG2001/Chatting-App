@@ -1,22 +1,22 @@
 package gov.iti.jets.Service.CallbackHandlers;
 
-import DTO.RecievedRequestDTO;
-import DTO.SentRequestDTO;
+import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
+import DTO.Request.RequestSendDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
 import java.rmi.RemoteException;
 
 public class RequestCallbackHandler {
-    public void updateRequest(SentRequestDTO request, RemoteCallbackInterface reciever) {
+    public void updateRequest(RequestResponseDTO request, RemoteCallbackInterface reciever) {
         try {
             reciever.updateRequest(request);
         } catch (RemoteException ex) {
-            System.out.println("Request Failed to update between "
-                    +request.getSenderPhone()+" "+request.getReceiverPhone());
+            System.out.println("Request Failed to update: "+request.getRequestID());
             System.out.println("Error message : "+ex.getMessage());
         }
     }
-    public void sendRequest(RecievedRequestDTO request, RemoteCallbackInterface reciever){
+    public void sendRequest(RequestRecieveDTO request, RemoteCallbackInterface reciever){
         try{
             reciever.recieveRequest(request);
         } catch (RemoteException e) {

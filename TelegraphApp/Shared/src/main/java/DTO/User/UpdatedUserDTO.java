@@ -1,12 +1,9 @@
-package DTO;
-
-//import javafx.scene.image.Image;
+package DTO.User;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
-public class UserDTO implements Serializable {
+public class UpdatedUserDTO implements Serializable {
     private String phoneNumber;
     private String name;
     private String email;
@@ -15,32 +12,20 @@ public class UserDTO implements Serializable {
     private String country;
     private String gender;
     private String bio;
-    private String status;
     private byte[] serializedImage;
+    private Boolean isPicChanged;
 
-//    public UserDTO(String phoneNumber, String name, String email, String password, String dataOfBirth, String country, String gender, String bio, String status, Image image) {
-//        this.phoneNumber = phoneNumber;
-//        this.name = name;
-//        this.email = email;
-//        this.password = password;
-//        this.dateOfBirth = dataOfBirth;
-//        this.country = country;
-//        this.gender = gender;
-//        this.bio = bio;
-//        this.status = status;
-//        this.serializedImage = serializeImage(image);
-//    }
-    public UserDTO(String phoneNumber, String name, String email, String password, LocalDate dataOfBirth, String country, String gender, String bio, String status, byte[] image) {
+    public UpdatedUserDTO(String phoneNumber, String name, String email, String password, LocalDate dateOfBirth, String country, String gender, String bio, byte[] serializedImage, Boolean isPicChanged) {
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.dateOfBirth = dataOfBirth;
+        this.dateOfBirth = dateOfBirth;
         this.country = country;
         this.gender = gender;
         this.bio = bio;
-        this.status = status;
-        this.serializedImage = image;
+        this.serializedImage = serializedImage;
+        this.isPicChanged = isPicChanged;
     }
 
     public String getPhoneNumber() {
@@ -107,19 +92,19 @@ public class UserDTO implements Serializable {
         this.bio = bio;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public byte[] getSerializedImageURL() {
+    public byte[] getSerializedImage() {
         return serializedImage;
     }
-    
+
     public void setSerializedImage(byte[] serializedImage) {
         this.serializedImage = serializedImage;
+    }
+
+    public Boolean getPicChanged() {
+        return isPicChanged;
+    }
+
+    public void setPicChanged(Boolean picChanged) {
+        isPicChanged = picChanged;
     }
 }
