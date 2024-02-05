@@ -14,7 +14,7 @@ public class CustomPopupMenus {
         MenuItem menuItem = new MenuItem();
         // Create a BorderPane to hold the ListView
         BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(notificationsListView.getNotifications_listView());
+        borderPane.setCenter(notificationsListView.notifications_listView);
         // Set the BorderPane as the graphic for the MenuItem
         menuItem.setGraphic(borderPane);
         contextMenu.getItems().add(menuItem);

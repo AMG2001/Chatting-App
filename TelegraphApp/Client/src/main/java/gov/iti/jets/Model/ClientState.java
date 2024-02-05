@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 public class ClientState {
     private static ClientState instance;
+
+    public ObservableList<NotificationModel> notificationsList;
     // is used to store logged client .
     ObservableValue<UserModel> loggedinUser;
     public ObservableList<MessageController> openedChatMessagesList;
@@ -23,6 +25,7 @@ public class ClientState {
     private ClientState() {
         loggedinUser = new SimpleObjectProperty<>();
         openedChatMessagesList = FXCollections.observableArrayList();
+        notificationsList = FXCollections.observableArrayList();
 //        chatsMap = new HashMap<>();
     }
 
@@ -31,6 +34,10 @@ public class ClientState {
             instance = new ClientState();
         }
         return instance;
+    }
+
+    public void addNotification(NotificationModel notificationModel) {
+        notificationsList.add(notificationModel);
     }
 
     public UserModel getLoggedinUserModel() {

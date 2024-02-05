@@ -2,18 +2,18 @@ package gov.iti.jets.Controllers.LoginPageController;
 
 import DTO.UserDTO;
 import DTO.UserLoginDTO;
+import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
+import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import gov.iti.jets.ServiceContext.callback.ServerCallback;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import gov.iti.jets.Controllers.config.AppPages;
 import gov.iti.jets.Controllers.services.Navigator;
 
@@ -58,7 +58,7 @@ public class LoginPageController {
             } finally {
                 if (userDTO != null) {
                     tf_password.clear();
-                    Navigator.navigateToHomePage();
+                    Platform.runLater(() -> Navigator.navigateToHomePage());
                 }
             }
         }
@@ -66,7 +66,8 @@ public class LoginPageController {
 
     @FXML
     void navigateToSignUp(ActionEvent event) {
-        Navigator.navigateToRegister();
+//        Navigator.navigateToRegister();
     }
+
 
 }
