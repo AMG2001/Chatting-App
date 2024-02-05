@@ -1,12 +1,13 @@
 package gov.iti.jets.Service.CallbackHandlers;
 
-import DTO.RequestDTO;
+import DTO.RecievedRequestDTO;
+import DTO.SentRequestDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 
 import java.rmi.RemoteException;
 
 public class RequestCallbackHandler {
-    public void updateRequest(RequestDTO request, RemoteCallbackInterface reciever) {
+    public void updateRequest(SentRequestDTO request, RemoteCallbackInterface reciever) {
         try {
             reciever.updateRequest(request);
         } catch (RemoteException ex) {
@@ -15,7 +16,7 @@ public class RequestCallbackHandler {
             System.out.println("Error message : "+ex.getMessage());
         }
     }
-    public void sendRequest(RequestDTO request, RemoteCallbackInterface reciever){
+    public void sendRequest(RecievedRequestDTO request, RemoteCallbackInterface reciever){
         try{
             reciever.recieveRequest(request);
         } catch (RemoteException e) {

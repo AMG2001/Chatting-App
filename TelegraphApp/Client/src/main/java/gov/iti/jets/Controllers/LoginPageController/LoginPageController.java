@@ -10,6 +10,7 @@ import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import gov.iti.jets.ServiceContext.callback.ServerCallback;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -57,7 +58,7 @@ public class LoginPageController {
             } finally {
                 if (userDTO != null) {
                     tf_password.clear();
-                    Navigator.navigateToHomePage();
+                    Platform.runLater(() -> Navigator.navigateToHomePage());
                 }
             }
         }

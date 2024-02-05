@@ -3,7 +3,9 @@ package gov.iti.jets.ServiceContext.callback;
 import DTO.*;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
+import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
+import gov.iti.jets.Model.ReceivedRequestsModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -25,17 +27,22 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     }
 
     @Override
-    public void recieveNotification(NotificationDTO notification) throws RemoteException {
-        CustomNotifications.showCustomNotification(new NotificationModel(notification));
+    public void recieveNotification(NotificationDTO notification) throws RemoteException { // Done ✅
+        NotificationModel notificationModel = new NotificationModel(notification);
+        // Show Notification on System .
+        CustomNotifications.showCustomNotification(notificationModel);
+        // Store Notification in Notifications List.
+        ClientState.getInstance().addNotification(notificationModel);
     }
 
     @Override
-    public void recieveRequest(RequestDTO request) throws RemoteException {
-
+    public void recieveRequest(RecievedRequestDTO request) throws RemoteException {
+        ReceivedRequestsModel receivedRequestsModel = new ReceivedRequestsModel(request);
+        ClientState.getInstance().receivedRequestsList.add(receivedRequestsModel);
     }
 
     @Override
-    public void updateRequest(RequestDTO request) throws RemoteException {
+    public void updateRequest(SentRequestDTO request) throws RemoteException {
 
     }
 

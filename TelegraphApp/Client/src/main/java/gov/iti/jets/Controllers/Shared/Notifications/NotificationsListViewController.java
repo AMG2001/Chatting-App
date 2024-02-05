@@ -1,6 +1,8 @@
 package gov.iti.jets.Controllers.Shared.Notifications;
 
 import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
+import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.Model.NotificationModel;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,35 +22,32 @@ import java.util.Date;
 
 public class NotificationsListViewController {
     @FXML
-    public ListView<NotificationController> notifications_listView;
-    private ObservableList<NotificationController> notificationsList = FXCollections.observableArrayList();
-
+    public ListView<NotificationModel> notifications_listView;
     private FXMLLoader loader;
 
     @FXML
     public void initialize() {
-        System.out.println("✅✅✅✅✅✅ Notifications List view initialized");
-        // Bind listview on Observable ArrayList .
-        notifications_listView.itemsProperty().bind(new SimpleListProperty<>(notificationsList));
-        // Set the cell factory
-        notifications_listView.setCellFactory(param -> new ListCell<NotificationController>() {
+
+    }
+
+    private void bindListViewOnNotificationsList() {
+        notifications_listView.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().notificationsList));
+    }
+
+    private void changeNotificationCellFactory() {
+        notifications_listView.setCellFactory(param -> new ListCell<NotificationModel>() {
             @Override
-            protected void updateItem(NotificationController notificationController, boolean empty) {
-                super.updateItem(notificationController, empty);
-                if (empty || notificationController == null) {
+            protected void updateItem(NotificationModel notificationModel, boolean empty) {
+                super.updateItem(notificationModel, empty);
+                if (empty || notificationModel == null) {
                     setGraphic(null);
                 } else {
+                    NotificationController notificationController = new NotificationController(notificationModel);
                     // Use the layout of the notificationController as the graphic
                     setGraphic(notificationController.getLayout());
                 }
             }
         });
-
-        // TODO - fetch contacts from server .
-        for (int i = 0; i < 10; i++) {
-            NotificationController contactCardObjOnline = new NotificationController("Notification " + i, "This is the notification body content .", "" + LocalDate.now(), getCurrentTimeFormatted(), new Image(getClass().getResource("/assets/images/telegraph.png").toExternalForm()));
-            notificationsList.add(contactCardObjOnline);
-        }
     }
 
     private String getCurrentTimeFormatted() {
@@ -58,20 +57,25 @@ public class NotificationsListViewController {
         return formattedTime;
     }
 
-    public ListView<NotificationController> getNotifications_listView() {
-        return notifications_listView;
-    }
-
     public NotificationsListViewController() {
-        loader = new FXMLLoader(getClass().getResource("/Notifications/NotificationsListView.fxml"));
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException e) {
-            System.out.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading NotificationsListViewController : " + e.getMessage());
-            e.printStackTrace();
+        if (loader == null) {
+            try {
+                loader = new FXMLLoader(getClass().getResource("/Notifications/NotificationsListView.fxml"));
+                loader.setController(this);
+                loader.load();
+            } catch (IOException e) {
+                System.out.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading NotificationsListViewController : " + e.getMessage());
+                e.printStackTrace();
+            }
+            System.out.println("✅✅✅✅✅✅ Notifications List view initialized");
+            // Bind listview on Observable ArrayList .
+            bindListViewOnNotificationsList();
+            // Set the cell factory
+            changeNotificationCellFactory();
         }
     }
 
-
+    public ListView<NotificationModel> getListView() {
+        return notifications_listView;
+    }
 }

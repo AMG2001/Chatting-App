@@ -5,6 +5,7 @@ import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.RequestService;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,14 @@ public class HomePageController {
         loadOnlineContacts();
         changeListViewCell();
         setListViewItemsAction();
-        right_pane.getChildren().add(InitialLayoutController.getInstance().getLayout());
+        changeRightPane(InitialLayoutController.getInstance().getLayout());
+    }
+
+    public void changeRightPane(Pane newLayout) {
+        Platform.runLater(() -> {
+            right_pane.getChildren().clear();
+            right_pane.getChildren().add(newLayout);
+        });
     }
 
     private void changeListViewCell() {
