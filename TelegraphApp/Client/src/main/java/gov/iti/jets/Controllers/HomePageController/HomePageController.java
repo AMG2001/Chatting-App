@@ -2,8 +2,10 @@ package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
 import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.RequestService;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,8 +34,16 @@ public class HomePageController {
         loadOnlineContacts();
         changeListViewCell();
         setListViewItemsAction();
-        right_pane.getChildren().add(InitialLayoutController.getInstance().getLayout());
+        changeRightPane(InitialLayoutController.getInstance().getLayout());
     }
+
+    public void changeRightPane(Pane newLayout) {
+        Platform.runLater(() -> {
+            right_pane.getChildren().clear();
+            right_pane.getChildren().add(newLayout);
+        });
+    }
+
     private void changeListViewCell() {
         lv_onlineContacts.setCellFactory(param -> new ListCell<ContactCardDataModel>() {
             @Override
@@ -47,13 +57,14 @@ public class HomePageController {
             }
         });
     }
+
     private void initListViewsBindings() {
         lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(contactsList));
     }
 
     private void loadOnlineContacts() {
         for (int i = 0; i < 10; i++) {
-            ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", new Image("/Dashboard/Images/employees_9552503.png"));
+            ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", "0109648218" + i, new Image("/Dashboard/Images/employees_9552503.png"));
             contactsList.add(contactCardObjOnline);
         }
     }
@@ -61,14 +72,11 @@ public class HomePageController {
     private void setListViewItemsAction() {
         lv_onlineContacts.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                ContactCardDataModel contactCardObj = newVal.getController();
                 right_pane.getChildren().clear();
-                System.out.println("Right Pane Cleared");
                 ChatPaneController chatPaneController = new ChatPaneController();
-                // TODO Add Contact Card Model Obj to Chat Pane setController method 👇🏻👇🏻 .
-                chatPaneController.setControllerValues(contactCardObj);
+                chatPaneController.setControllerValues(newVal);
                 right_pane.getChildren().add(chatPaneController.getLayout());
-                System.out.println("Right Pane Added");
+//                ClientState.getInstance().openChat(newVal.getPhoneNumber());
             }
         });
     }

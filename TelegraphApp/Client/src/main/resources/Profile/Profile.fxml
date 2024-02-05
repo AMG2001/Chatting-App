@@ -19,7 +19,7 @@
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.Controllers.ProfilePageController.ProfilePageController">
     <left>
-        <fx:include source="../Shared/leftSideBar.fxml" />
+        <fx:include source="../Shared/LeftSideBar/leftSideBar.fxml" />
     </left>
     <center>
         <GridPane alignment="CENTER" BorderPane.alignment="CENTER">

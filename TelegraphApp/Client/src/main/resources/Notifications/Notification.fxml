@@ -2,25 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="160.0" maxWidth="450.0" prefHeight="160.0" prefWidth="450.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER_LEFT" maxHeight="160.0" maxWidth="450.0" prefHeight="110.0" prefWidth="450.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fx:id="notification_image" fitHeight="128.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../../../../../../../414711303_4439883049569513_2610268508643775373_n.jpg" />
-            </image>
-            <HBox.margin>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-            </HBox.margin>
-        </ImageView>
-        <VBox prefHeight="159.0" prefWidth="318.0">
+        <VBox prefHeight="158.0" prefWidth="505.0">
             <children>
                 <Label fx:id="notification_title" text="Mohamad Amgad">
                     <font>
@@ -30,7 +20,7 @@
                         <Insets bottom="8.0" />
                     </VBox.margin>
                 </Label>
-                <TextFlow prefHeight="76.0" prefWidth="288.0">
+                <TextFlow prefHeight="76.0" prefWidth="297.0">
                     <children>
                         <Text fx:id="notification_content" strokeType="OUTSIDE" strokeWidth="0.0" text="Mohamad amgad has sent a Frient request for you , open your requests Panel and stay Connected" />
                     </children>
@@ -38,16 +28,18 @@
                         <Insets bottom="8.0" />
                     </VBox.margin>
                 </TextFlow>
-                <HBox alignment="CENTER" prefWidth="200.0" spacing="200.0">
-                    <children>
-                        <Text fx:id="notification_date" fill="#919191" strokeType="OUTSIDE" strokeWidth="0.0" text="01/02/2024" />
-                        <Text fx:id="notification_time" fill="#919191" strokeType="OUTSIDE" strokeWidth="0.0" text=" 03:17 PM" />
-                    </children>
-                </HBox>
             </children>
             <padding>
                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
         </VBox>
+          <HBox alignment="BOTTOM_RIGHT" prefWidth="200.0" spacing="200.0">
+              <children>
+                  <Text fx:id="notification_time" fill="#919191" strokeType="OUTSIDE" strokeWidth="0.0" text=" 03:17 PM" />
+              </children>
+         <HBox.margin>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+         </HBox.margin>
+          </HBox>
     </children>
 </HBox>

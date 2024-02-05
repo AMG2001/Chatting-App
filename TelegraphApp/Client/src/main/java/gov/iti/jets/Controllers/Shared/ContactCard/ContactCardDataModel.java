@@ -20,34 +20,32 @@ public class ContactCardDataModel {
     @FXML
     private Text text_contactName;
 
-    private Parent layout;
-
+    private HBox layout;
+    FXMLLoader loader;
     private ContactCardDataModel controller;
+    private String phoneNumber;
 
     public ContactCardDataModel() {
 
     }
 
-    public ContactCardDataModel(String name, String bio, Image image) {
+    public ContactCardDataModel(String name, String bio, String phoneNumber, Image image) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Shared/ContactCard.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/Shared/ContactCard.fxml"));
+            loader.setController(this);
             layout = loader.load();
-            controller = loader.getController();
-            controller.text_contactName.setText(name);
-            controller.text_contactBio.setText(bio);
-            controller.img_contact.setImage(image);
+            text_contactName.setText(name);
+            text_contactBio.setText(bio);
+            img_contact.setImage(image);
+            this.phoneNumber = phoneNumber;
         } catch (IOException e) {
             System.err.println("###### Error while loading Parameterized Constructor on ContactCardDataModel");
             e.printStackTrace();
         }
     }
 
-    public Parent getLayout() {
+    public HBox getLayout() {
         return layout;
-    }
-
-    public ContactCardDataModel getController() {
-        return controller;
     }
 
     public Image getContactImage() {
@@ -60,5 +58,9 @@ public class ContactCardDataModel {
 
     public String getContactName() {
         return text_contactName.getText();
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

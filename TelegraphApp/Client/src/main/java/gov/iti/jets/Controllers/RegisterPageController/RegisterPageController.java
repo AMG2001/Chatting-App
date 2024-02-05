@@ -36,40 +36,30 @@ public class RegisterPageController {
 
     @FXML
     private ToggleGroup gender;
-
     @FXML
     private ImageView img_user;
-
     @FXML
     private Hyperlink link_gotoLogin;
-
     @FXML
     private RadioButton rb_female;
-
     @FXML
     private RadioButton rb_male;
-
     @FXML
     private TextArea ta_bio;
-
     @FXML
     private TextField tf_confimPassword;
-
     @FXML
     private TextField tf_email;
-
     @FXML
     private TextField tf_name;
-
     @FXML
     private PasswordField tf_password;
-
     @FXML
     private TextField tf_phone;
     private boolean isImagePicked = false;
     boolean isNotRegistered = false;
-
     ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
+    private String name, email, password, confirmPassword, phoneNumber, country, bio, genderValue = "";
 
     @FXML
     public void initialize() {
@@ -101,26 +91,20 @@ public class RegisterPageController {
 
     @FXML
     void signupUser(ActionEvent event) {
-         /*
+
+        getAllValuesFromFields();
+        if (rb_male.isSelected()) {
+            genderValue = "MALE";
+        } else if (rb_female.isSelected()) {
+            genderValue = "FEMALE";
+        }
+        /*
         validate all input fields .
          */
-        String name = tf_name.getText();
-        String email = tf_email.getText();
-        String password = tf_password.getText();
-        String confirmPassword = tf_confimPassword.getText();
-        String phoneNumber = tf_phone.getText();
-        String country = countriesArray.get(countryBox.getSelectionModel().getSelectedIndex());
-        String bio = ta_bio.getText();
-        String gender = "";
-        if (rb_male.isSelected()) {
-            gender = "MALE";
-        } else if (rb_female.isSelected()) {
-            gender = "FEMALE";
-        }
-        if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && FieldsValidator.isValidPasswordConfirmation(password, confirmPassword) && isImagePicked == true && gender != "" && datePicker.getValue() != null) {
+        if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && FieldsValidator.isValidPasswordConfirmation(password, confirmPassword) && isImagePicked == true && genderValue != "" && datePicker.getValue() != null) {
             byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
             try {
-                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, gender, bio, "ONLINE", imageBytes);
+                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, genderValue, bio, "ONLINE", imageBytes);
                 isNotRegistered = UserService.getInstance().getRemoteService().registerUser(userDTO);
                 UserModel userModel = new UserModel(userDTO);
                 ClientState.getInstance().setLoggedinUserProperty(userModel);
@@ -131,7 +115,7 @@ public class RegisterPageController {
             } finally {
                 if (isNotRegistered) Navigator.navigateToHomePage();
             }
-        } else if (gender.isEmpty()) {
+        } else if (genderValue.isEmpty()) {
             CustomDialogs.showErrorDialog("Please Select Your Gender");
         } else if (isImagePicked == false) {
             CustomDialogs.showErrorDialog("Please Select Your Profile Image");
@@ -145,5 +129,15 @@ public class RegisterPageController {
         Navigator.navigateToLogin();
     }
 
+    private void getAllValuesFromFields() {
+        name = tf_name.getText();
+        email = tf_email.getText();
+        password = tf_password.getText();
+        confirmPassword = tf_confimPassword.getText();
+        phoneNumber = tf_phone.getText();
+        country = countriesArray.get(countryBox.getSelectionModel().getSelectedIndex());
+        bio = ta_bio.getText();
+        genderValue = "";
+    }
 
 }

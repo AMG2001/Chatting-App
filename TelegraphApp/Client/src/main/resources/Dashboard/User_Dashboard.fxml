@@ -29,7 +29,7 @@
             <children>
                 <HBox prefHeight="735.0" prefWidth="403.0" style="-fx-background-color: #2272E5;">
                     <children>
-                        <fx:include source="../Shared/leftSideBar.fxml"/>
+                        <fx:include source="../Shared/LeftSideBar/leftSideBar.fxml"/>
                         <VBox alignment="TOP_CENTER" prefHeight="735.0" prefWidth="203.0"
                               style="-fx-border-color: black;">
                             <children>

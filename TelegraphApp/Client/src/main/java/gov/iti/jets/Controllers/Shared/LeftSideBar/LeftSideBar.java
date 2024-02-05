@@ -1,15 +1,24 @@
 package gov.iti.jets.Controllers.Shared.LeftSideBar;
 
 import DTO.LogoutDTO;
+import gov.iti.jets.Controllers.HomePageController.HomePageController;
+import gov.iti.jets.Controllers.HomePageController.RightPaneManager;
+import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
+import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.CustomPopupMenus;
 import gov.iti.jets.Controllers.services.Navigator;
+import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.Model.NotificationModel;
 import gov.iti.jets.ServiceContext.UserService;
+import javafx.beans.property.SimpleListProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -18,6 +27,9 @@ import javafx.scene.text.Text;
 import java.rmi.RemoteException;
 
 public class LeftSideBar {
+    @FXML
+    private Button btn_addContact;
+
     @FXML
     private Button btn_addGroup;
 
@@ -37,9 +49,6 @@ public class LeftSideBar {
     private Button btn_showRequests;
 
     @FXML
-    private VBox leftSideBar;
-
-    @FXML
     private Text userEmail;
 
     @FXML
@@ -47,24 +56,18 @@ public class LeftSideBar {
 
     @FXML
     private Text userName;
-
-    private ContextMenu notificationsMenu;
-
     boolean isErrorOccured = false;
-
-    @FXML
-    void showNotifications(MouseEvent event) {
-        notificationsMenu.show(btn_notifications, event.getScreenX(), event.getScreenY());
-    }
-
+    NotificationsListViewController notificationsListViewController;
 
     @FXML
     public void initialize() {
-        notificationsMenu = CustomPopupMenus.getNotificationsMenu();
-        btn_notifications.setOnMouseClicked(this::showNotifications);
         userName.setText(ClientState.getInstance().getLoggedinUserModel().getUserName());
         userEmail.setText(ClientState.getInstance().getLoggedinUserModel().getEmail());
         userImage.setImage(ClientState.getInstance().getLoggedinUserModel().getProfilePic());
+        notificationsListViewController = new NotificationsListViewController();
+        btn_notifications.setOnAction(event -> {
+            new NotificationsPaneViewer().showNotifications();
+        });
     }
 
     @FXML
@@ -84,7 +87,10 @@ public class LeftSideBar {
             CustomDialogs.showErrorDialog("Error while Logging out !!");
             e.printStackTrace();
         } finally {
-            if (!isErrorOccured) Navigator.navigateToRegister();
+            if (!isErrorOccured) {
+                // TODO Clear Client State Observable List and Model .
+                Navigator.navigateToRegister();
+            }
         }
     }
 
@@ -92,12 +98,23 @@ public class LeftSideBar {
     void moveToHomePage(ActionEvent event) {
         Navigator.navigateToHomePage();
     }
+
     @FXML
     void moveToProfile(ActionEvent event) {
         Navigator.navigateToUpdateInfo();
     }
+
     @FXML
     void showAllFriendRequests(ActionEvent event) {
 
+    }
+
+    @FXML
+    void addNewContact(ActionEvent event) {
+        // TODO - Yousef , show Add Contact Pane with text , textArea and Button .
+        /**
+         * Note that if the server respond with null , then it mean that the user is not exist .
+         * use CustomDialog.show.. to show Error Message .
+         */
     }
 }
