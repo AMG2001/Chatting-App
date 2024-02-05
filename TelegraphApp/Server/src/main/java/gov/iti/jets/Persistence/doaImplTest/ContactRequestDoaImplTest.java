@@ -34,11 +34,21 @@ public class ContactRequestDoaImplTest {
         request.setSenderPhone("123456789");
         contactRequestDao.add(request);
     }
+
+    private void addRequest(){
+        ContactRequest request = new ContactRequest();
+        request.setReceiverPhone("555555555");
+        request.setSenderPhone("123456789");
+        request.setSendDate(LocalDateTime.now());
+        System.out.println(contactRequestDao.addRequest(request));
+    }
+
     public static void main(String[] args) {
         ContactRequestDoaImplTest contactRequestDoaImplTest = new ContactRequestDoaImplTest();
         //contactRequestDoaImplTest.checkIfRequestExistTest();
         //contactRequestDoaImplTest.updateTest();
         //contactRequestDoaImplTest.getRequestsByReceiverTest();
-        contactRequestDoaImplTest.addTest();
+        //contactRequestDoaImplTest.addTest();
+        contactRequestDoaImplTest.addRequest();
     }
 }

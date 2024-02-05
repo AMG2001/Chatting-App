@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class ContactDTO implements Serializable {
-    private String phonenumber;
+    private String phoneNumber;
     private String status;
     private String name;
     ConversationDTO conversation;
@@ -19,20 +19,20 @@ public class ContactDTO implements Serializable {
     public void setConversation(ConversationDTO conversation) {
         this.conversation = conversation;
     }
-    public ContactDTO(String phonenumber, String status, String name, ConversationDTO conversation, byte[] profilepic) {
-        this.phonenumber = phonenumber;
+    public ContactDTO(String phoneNumber, String status, String name, ConversationDTO conversation, byte[] profilepic) {
+        this.phoneNumber = phoneNumber;
         this.status = status;
         this.name = name;
         this.conversation = conversation;
         this.profilepic = profilepic;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getStatus() {
@@ -62,7 +62,7 @@ public class ContactDTO implements Serializable {
     @Override
     public String toString() {
         return "ContactDTO{" +
-                "phonenumber='" + phonenumber + '\'' +
+                "phonenumber='" + phoneNumber + '\'' +
                 ", status='" + status + '\'' +
                 ", name='" + name + '\'' +
                 ", profilepic=" + Arrays.toString(profilepic) +
