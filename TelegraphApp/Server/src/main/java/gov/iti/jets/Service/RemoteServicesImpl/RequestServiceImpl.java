@@ -49,6 +49,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         contactRequest.setSendDate(request.getSendDate());
         contactRequest.setReceiverPhone(request.getReceiverPhone());
         contactRequest.setSenderPhone(request.getSenderPhone());
+
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
 
         RemoteCallbackInterface senderRemoteInt = OnlineUserManager.getOnlineUser(request.getSenderPhone());
@@ -88,7 +89,6 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             //Set up a received Request with the name of the sender
             User sender = user.getById(request.getSenderPhone());
-
             String senderName = sender.getName();
             String recieverPhone = request.getReceiverPhone();
             String senderPhone = request.getSenderPhone();
