@@ -12,6 +12,10 @@ public class ContactDTO implements Serializable {
     ConversationDTO conversation;
     private byte[] profilepic;
 
+    public ContactDTO(){
+
+    }
+
     public ConversationDTO getConversation() {
         return conversation;
     }

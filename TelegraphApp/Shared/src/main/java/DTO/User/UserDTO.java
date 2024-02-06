@@ -18,6 +18,10 @@ public class UserDTO implements Serializable {
     private String status;
     private byte[] serializedImage;
 
+    public UserDTO(){
+
+    }
+
 //    public UserDTO(String phoneNumber, String name, String email, String password, String dataOfBirth, String country, String gender, String bio, String status, Image image) {
 //        this.phoneNumber = phoneNumber;
 //        this.name = name;

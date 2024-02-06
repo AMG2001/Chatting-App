@@ -13,6 +13,8 @@ public class GroupDTO implements Serializable {
     private ConversationDTO conversation;
     private byte[] groupImage;
 
+
+
     public GroupDTO() {
         groupMembers=new ArrayList<>();
     }

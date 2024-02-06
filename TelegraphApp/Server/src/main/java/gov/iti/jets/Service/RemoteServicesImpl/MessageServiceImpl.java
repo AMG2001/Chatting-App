@@ -13,7 +13,7 @@ import gov.iti.jets.Persistence.doaImpl.MessageDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.MessageCallbackHandler;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
-import gov.iti.jets.Service.Mapstructs.MessageMapper;
+import gov.iti.jets.Service.Mappers.MessageMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -31,7 +31,7 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
         MessageDao messageImpl = new MessageDoaImpl();
         ConversationDao conversationImpl = new ConversationDaoImpl();
 
-        Message domainMessage = MessageMapper.INSTANCE.messageDTOToMessage(message);
+        Message domainMessage = MessageMapper.messageDTOToMessage(message);
         //Add message to the conversation in Database
         messageImpl.add(domainMessage);
 
@@ -71,7 +71,7 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
 
         for(Message message : messages)
         {
-            messageDTOS.add( MessageMapper.INSTANCE.messageToMessageDTO(message) );
+            messageDTOS.add( MessageMapper.messageToMessageDTO(message) );
         }
 
         System.out.println("messages successfully received");
