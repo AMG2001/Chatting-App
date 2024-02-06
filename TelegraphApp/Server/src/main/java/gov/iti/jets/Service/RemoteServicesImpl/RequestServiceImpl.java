@@ -13,9 +13,11 @@ import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.RequestStatus;
+import gov.iti.jets.Persistence.dao.ContactDao;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
 import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.dao.UserDao;
+import gov.iti.jets.Persistence.doaImpl.ContactDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.ContactRequestDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
@@ -50,6 +52,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         contactRequest.setReceiverPhone(request.getReceiverPhone());
         contactRequest.setSenderPhone(request.getSenderPhone());
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
+        ContactDao contactDao = new ContactDaoImpl();
 
         RemoteCallbackInterface senderRemoteInt = OnlineUserManager.getOnlineUser(request.getSenderPhone());
 
@@ -72,6 +75,10 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
+        } else if (contactDao.checkIfAlreadyContacts(request.getReceiverPhone(), request.getSenderPhone()) == true) {
+            notification.setBody(request.getReceiverPhone() + " is already in your contact list");
+
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
         } else {
 
             int requestId = contactRequestDao.addRequest(contactRequest);
