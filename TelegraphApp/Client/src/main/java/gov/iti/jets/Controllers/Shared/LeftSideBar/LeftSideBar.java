@@ -3,6 +3,7 @@ package gov.iti.jets.Controllers.Shared.LeftSideBar;
 import DTO.LogoutDTO;
 import gov.iti.jets.Controllers.HomePageController.HomePageController;
 import gov.iti.jets.Controllers.HomePageController.RightPaneManager;
+import gov.iti.jets.Controllers.Shared.LeftSideBar.group.CreateGroupPaneController;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
@@ -71,11 +72,6 @@ public class LeftSideBar {
     }
 
     @FXML
-    void addGroup(ActionEvent event) {
-
-    }
-
-    @FXML
     void logout(ActionEvent event) {
         try {
             System.out.println("Stored User in Application : " + ClientState.getInstance().getLoggedinUserModel().getUserName() + " and Phone number : " + ClientState.getInstance().getLoggedinUserModel().getUserPhone());
@@ -108,6 +104,11 @@ public class LeftSideBar {
     void showAllFriendRequests(ActionEvent event) {
         ReceivedRequestsPaneViewer receivedRequestsPaneViewer = new ReceivedRequestsPaneViewer();
         receivedRequestsPaneViewer.showRequestsPane();
+    }
+
+    @FXML
+    void addGroup(ActionEvent event) {
+        StagesLauncher.LaunchNewStage(new CreateGroupPaneController().layout, "Create New Group", 400, 500);
     }
 
     @FXML

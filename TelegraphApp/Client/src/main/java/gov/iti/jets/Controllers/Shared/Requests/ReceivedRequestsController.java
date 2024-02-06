@@ -1,7 +1,13 @@
 package gov.iti.jets.Controllers.Shared.Requests;
 
+import DTO.Request.RequestResponseDTO;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
+import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
+import gov.iti.jets.ServiceContext.RequestService;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class ReceivedRequestsController {
 
@@ -54,11 +61,27 @@ public class ReceivedRequestsController {
 
     @FXML
     void onAccept(ActionEvent event) {
-        // TODO Implement Accept Request Functionality .
+        try {
+            RequestResponseDTO requestResponseDTO = new RequestResponseDTO(requestReceiveModel.getRequestId(), CustomEnums.RequestStatus_ACCEPTED, requestReceiveModel.getSenderPhone(), requestReceiveModel.getReceiverPhone());
+            RequestService.getInstance().getRemoteService().updateRequest(requestResponseDTO);
+            Platform.runLater(() -> ClientState.getInstance().receivedRequestsList.removeIf(requestReceiveModel1 -> requestReceiveModel1.getRequestId() == requestReceiveModel.getRequestId())
+            );
+            // TODO Add the contact in contacts List .
+        } catch (RemoteException e) {
+            CustomDialogs.showErrorDialog("Error while Accepting Request" + e.getMessage());
+        }
+
     }
 
     @FXML
     void onReject(ActionEvent event) {
-        // Todo implement Reject Functionality .
+        try {
+            RequestResponseDTO requestResponseDTO = new RequestResponseDTO(requestReceiveModel.getRequestId(), CustomEnums.RequestStatus_DENIED, requestReceiveModel.getSenderPhone(), requestReceiveModel.getReceiverPhone());
+            RequestService.getInstance().getRemoteService().updateRequest(requestResponseDTO);
+            Platform.runLater(() -> ClientState.getInstance().receivedRequestsList.removeIf(requestReceiveModel1 -> requestReceiveModel1.getRequestId() == requestReceiveModel.getRequestId())
+            );
+        } catch (RemoteException e) {
+            CustomDialogs.showErrorDialog("Error while Rejecting Request" + e.getMessage());
+        }
     }
 }

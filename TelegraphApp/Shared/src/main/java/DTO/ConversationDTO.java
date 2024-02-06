@@ -10,7 +10,6 @@ public class ConversationDTO implements Serializable {
     private ArrayList<MessageDTO> messages;
     private ArrayList<AttachmentDTO> attachments;
 
-
     public ConversationDTO(int conversationId, String type, ArrayList<MessageDTO> messages, ArrayList<AttachmentDTO> attachments) {
         this.conversationId = conversationId;
         this.type = type;

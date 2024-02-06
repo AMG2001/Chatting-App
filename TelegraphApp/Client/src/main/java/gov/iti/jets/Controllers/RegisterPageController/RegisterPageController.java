@@ -6,7 +6,7 @@ import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.UserModel;
+import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;

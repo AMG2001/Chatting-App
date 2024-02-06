@@ -30,8 +30,7 @@ public class ConversationDaoImplTest {
 
     private void createGroupConversationTest() {
         Conversation group = new Conversation();
-        group.setConversationImage("image555");
-        group.setConversationName("testGroup55");
+        group.setConversationName("testGroupjhkjhkjhkjhkjhhjhkhjhk");
         System.out.println(conversationDaoImpl.createGroupConversation("123456789", group));
     }
 
@@ -50,7 +49,7 @@ public class ConversationDaoImplTest {
         //conversationDaoImplTest.getAllConversationsByPhoneTest();
 
         //conversationDaoImplTest.getGroupMembersByConversationIdTest();
-        //conversationDaoImplTest.getConversationParticipantsTest();
+        conversationDaoImplTest.createGroupConversationTest();
 
     }
 }
