@@ -6,10 +6,13 @@ import DTO.Request.RequestRecieveDTO;
 import DTO.Request.RequestResponseDTO;
 import DTO.User.ContactDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
+import gov.iti.jets.Model.Requests.RequestResponseModel;
+import gov.iti.jets.Model.User.ContactModel;
 import javafx.application.Platform;
 
 import java.rmi.RemoteException;
@@ -47,12 +50,18 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void updateRequest(RequestResponseDTO request) throws RemoteException {
-
+        // if the Requests Accepted .them remove the request and add the user in
+        RequestResponseModel requestResponseModel = new RequestResponseModel(request);
+        if (requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_ACCEPTED || requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_DENIED) {
+            Platform.runLater(() -> {
+                ClientState.getInstance().sentRequestsList.removeIf(requestSendModel -> requestSendModel.getSenderPhone() == requestResponseModel.getSenderPhone());
+            });
+        }
     }
 
     @Override
     public void addContact(ContactDTO newContact) throws RemoteException {
-
+        Platform.runLater(() -> ClientState.getInstance().contactsList.add(new ContactModel(newContact)));
     }
 
     @Override

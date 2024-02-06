@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="messageAligner" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="450.0"
+      prefWidth="450.0" style="-fx-background-color: transparent;" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/21">
+    <Label fx:id="messageContent" alignment="CENTER" styleClass="incoming-bubble"
+           stylesheets="@../Styles/messagesStyling.css" text="Label">
+        <font>
+            <Font size="16.0"/>
+        </font>
+    </Label>
+</HBox>

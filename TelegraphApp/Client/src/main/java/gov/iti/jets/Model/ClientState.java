@@ -1,6 +1,7 @@
 package gov.iti.jets.Model;
 
-import gov.iti.jets.Controllers.Shared.MessageController;
+import gov.iti.jets.Controllers.Shared.Messages.MessageController;
+import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatMessageController;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestSendModel;
 import gov.iti.jets.Model.User.ContactModel;
@@ -30,9 +31,13 @@ public class ClientState {
      *************************************** Conversations Observables ********************************
      */
 
+    /*
+     *************************************** Messages Observables ********************************
+     */
+    public ObservableList<ChatBotChatMessageController> chatBotChatMessages;
 
     /*
-     *************************************** Contacts Observables ********************************
+     *************************************** Contacts - Groups  Observables ********************************
      */
     public ObservableList<ContactModel> contactsList;
     /*
@@ -57,6 +62,7 @@ public class ClientState {
         // Requests Initialization .
         receivedRequestsList = FXCollections.observableArrayList();
         contactsList = FXCollections.observableArrayList();
+        chatBotChatMessages = FXCollections.observableArrayList();
         Platform.runLater(() -> loadAllRequests());
     }
 
