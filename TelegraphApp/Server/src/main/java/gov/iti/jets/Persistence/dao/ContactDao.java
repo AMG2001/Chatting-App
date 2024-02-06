@@ -4,5 +4,5 @@ import gov.iti.jets.Domain.Contact;
 
 public interface ContactDao extends GenericDatabaseDao<Contact> {
 //    int getNumberOfContactsByPhone(String id);
-    public boolean checkIfAlreadyContacts (String userPhone , String contactPhone);
+    boolean checkIfAlreadyContacts (String userPhone , String contactPhone);
 }
