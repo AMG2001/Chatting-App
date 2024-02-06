@@ -62,9 +62,9 @@ public class GroupServiceImpl extends UnicastRemoteObject implements RemoteGroup
         RemoteCallbackInterface groupFounderCallBack = OnlineUserManager.getOnlineUser(newGroup.getGroupFounder());
 
         // create appropriate notification for group founder and members
-        NotificationDTO notificationToGroupFounder = new NotificationDTO("1", NotificationType.FRIEND.toString()
+        NotificationDTO notificationToGroupFounder = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), "You've created the group successfully");
-        NotificationDTO notificationToGroupMembers = new NotificationDTO("1", NotificationType.FRIEND.toString()
+        NotificationDTO notificationToGroupMembers = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), newGroup.getGroupFounder()+"added you to '"+newGroup.getGroupName()+"' group");
 
         //send notifications to group founder and members (CALLBACK)

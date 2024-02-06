@@ -281,6 +281,41 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         byte[] image = FileSystemUtil.getBytesFromFile(updatedUserModel.getPicture());
         returnedUserDTO.setSerializedImage(image);
 
+
+        RemoteCallbackInterface userCallback = OnlineUserManager.getOnlineUser(updatedUserDTO.getPhoneNumber());
+        NotificationDTO notificationToUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                , LocalDateTime.now(), "you've updated your information successfully");
+
+        NotificationCallbackHandler notificationHandler=new NotificationCallbackHandler();
+        notificationHandler.sendNotificationtoClient(notificationToUser,userCallback);
+
         return returnedUserDTO;
+    }
+
+    @Override
+    public void updateStatus(String userPhone, String usersStatus) {
+        // update the status in DB
+        UserDao userDao = new UserDoaImpl();
+        userDao.updateStatus(userPhone,UserStatus.valueOf(usersStatus));
+
+        NotificationCallbackHandler notificationHandler=new NotificationCallbackHandler();
+        ContactCallbackHandler contactHandler = new ContactCallbackHandler();
+
+        // get online contacts phones
+        List<User> OnlineContacts = userDao.getContactsByPhoneAndStatus(userPhone, UserStatus.ONLINE);
+        List<String> OnlineContactsPhones = OnlineContacts.stream()
+                .map(User::getPhoneNumber)
+                .toList();
+
+        // get callbacks of online contacts and user
+        List<RemoteCallbackInterface> OnlineContactsCallBacks = OnlineUserManager.getFriendsFromOnlineList(OnlineContactsPhones);
+        RemoteCallbackInterface userCallback = OnlineUserManager.getOnlineUser(userPhone);
+
+        NotificationDTO notificationToUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                , LocalDateTime.now(), "you've updated the status successfully");
+
+
+        notificationHandler.sendNotificationtoClient(notificationToUser,userCallback);
+        contactHandler.updateContactStatus(userPhone,usersStatus,OnlineContactsCallBacks);
     }
 }
