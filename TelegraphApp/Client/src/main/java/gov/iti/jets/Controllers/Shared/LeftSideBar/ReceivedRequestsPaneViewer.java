@@ -10,7 +10,6 @@ import javafx.scene.control.ListView;
 
 public class ReceivedRequestsPaneViewer {
     ListView<ReceivedRequestsController> listView;
-
     public ReceivedRequestsPaneViewer() {
         listView = new ListView<>();
     }

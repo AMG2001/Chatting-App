@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public enum DBConnectionPool {
     DATASOURCE;
-
     private final HikariDataSource dataSource;
 
     DBConnectionPool() {

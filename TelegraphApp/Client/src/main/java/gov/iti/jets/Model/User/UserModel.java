@@ -1,4 +1,4 @@
-package gov.iti.jets.Model;
+package gov.iti.jets.Model.User;
 
 import DTO.User.UserDTO;
 import gov.iti.jets.Controllers.services.FileConverter;
@@ -20,9 +20,67 @@ public class UserModel {
     public StringProperty bio = new SimpleStringProperty();
     public ObjectProperty<LocalDate> dob = new SimpleObjectProperty<LocalDate>();
     public ObjectProperty<Image> profilePic = new SimpleObjectProperty<Image>();
+    private StringProperty password = new SimpleStringProperty();
+
+    public String getPassword() {
+        return password.get();
+    }
+
+    public StringProperty passwordProperty() {
+        return password;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone.set(userPhone);
+    }
+
+    public void setUserName(String userName) {
+        this.userName.set(userName);
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    public void setCountry(String country) {
+        this.country.set(country);
+    }
+
+    public void setStatus(String status) {
+        this.status.set(status);
+    }
+
+    public void setGender(String gender) {
+        this.gender.set(gender);
+    }
+
+    public void setBio(String bio) {
+        this.bio.set(bio);
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob.set(dob);
+    }
+
+    public void setProfilePic(Image profilePic) {
+        this.profilePic.set(profilePic);
+    }
 
     public UserModel() {
 
+    }
+
+    public UserModel(String userPhone, String userName, String email, String country, String status, String gender, String bio, LocalDate dob,String password, Image profilePic) {
+        this.userPhone.set(userPhone);
+        this.userName.set(userName);
+        this.email.set(email);
+        this.country.set(country);
+        this.status.set(status);
+        this.gender.set(gender);
+        this.bio.set(bio);
+        this.dob.set(dob);
+        this.password.set(password);
+        this.profilePic.set(profilePic);
     }
 
     public UserModel(UserDTO userDTO) {
@@ -34,6 +92,7 @@ public class UserModel {
         this.gender.set(userDTO.getGender());
         this.bio.set(userDTO.getBio());
         this.dob.set(userDTO.getDateOfBirth());
+        this.password.set(userDTO.getPassword());
         this.profilePic.set(FileConverter.convert_bytesToImage(userDTO.getSerializedImageURL()));
     }
 

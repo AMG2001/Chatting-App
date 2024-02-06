@@ -21,6 +21,7 @@ import gov.iti.jets.Service.Utilities.OnlineUserManager;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AttachmentServiceImpl extends UnicastRemoteObject implements RemoteAttachmentService {
@@ -38,7 +39,7 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
 
         Attachment attachmentDomain = AttachmentMapper.INSTANCE.attachmentDTOToAttachment(attachmentDTO);
         attachmentDomain.setAttachmentLocation(attachmentPath);
-        attachmentDao.add(attachmentDomain); //TODO yousef
+        attachmentDao.add(attachmentDomain);
 
         List<String> conversationParticipants =
                 conversationDao.getConversationParticipants(attachmentDTO.getConversationId());
@@ -60,16 +61,23 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
 
     @Override
     public List<AttachmentDTO> getAllAttachmentsForConversation(int conversationId) throws RemoteException {
-        //TODO Moataz
-        //This will not fetch the attachment data from the filesystem.
-        return null;
+        AttachmentDao attachmentDao = new AttachmentDoaImpl();
+        List<Attachment> attachmentsDB = attachmentDao.getAllAttachmentsByConversationId(conversationId);
+
+        List<AttachmentDTO> attachmentDTOS = new ArrayList<>();
+        for(Attachment attachmentDB : attachmentsDB){
+
+            AttachmentDTO attachmentDTO = AttachmentMapper.INSTANCE.attachmentToAttachmentDTO(attachmentDB);
+            attachmentDTOS.add(attachmentDTO);
+        }
+
+        return attachmentDTOS;
     }
 
     @Override
-    public byte[] getAttachmentData(String attachmentId) throws RemoteException {
-        //TODO moataz
-        // THis returns the bytes from the file system or the attachment.
-        // The file path is retrieved from the DB
-        return new byte[0];
+    public byte[] getAttachmentData(int conversationId, int attachmentId) throws RemoteException {
+        AttachmentDao attachmentDao = new AttachmentDoaImpl();
+        Attachment attachment = attachmentDao.getAttachmentByConversationIdAndAttachmentId(conversationId,attachmentId);
+        return FileSystemUtil.getBytesFromFile(attachment.getAttachmentLocation());
     }
 }

@@ -6,7 +6,7 @@ import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.UserModel;
+import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
@@ -54,7 +54,16 @@ public class RegisterPageController {
     private TextField tf_phone;
     private boolean isImagePicked = false;
     boolean isNotRegistered = false;
-    ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
+
+//    ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
+ObservableList<String> countriesArray = FXCollections.observableArrayList(
+        "Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan",
+        "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Japan", "China",
+        "India", "Australia", "Brazil", "Argentina", "Mexico", "South Africa", "Nigeria", "Russia",
+        "Saudi Arabia", "Egypt", "South Korea", "Indonesia", "Malaysia", "Thailand", "Vietnam",
+        "Philippines", "Singapore", "New Zealand", "Greece", "Netherlands", "Spain", "Portugal",
+        "Sweden", "Norway", "Finland", "Denmark", "Switzerland", "Austria", "Belgium", "Ireland"
+);
     private String name, email, password, confirmPassword, phoneNumber, country, bio, genderValue = "";
 
     @FXML
