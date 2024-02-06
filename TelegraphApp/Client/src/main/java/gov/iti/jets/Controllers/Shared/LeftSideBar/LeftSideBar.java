@@ -6,6 +6,7 @@ import gov.iti.jets.Controllers.HomePageController.RightPaneManager;
 import gov.iti.jets.Controllers.Shared.LeftSideBar.group.CreateGroupPaneController;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
+import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatPaneViewer;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.CustomPopupMenus;
 import gov.iti.jets.Controllers.services.Navigator;
@@ -57,6 +58,8 @@ public class LeftSideBar {
 
     @FXML
     private Text userName;
+    @FXML
+    private Button btn_chatWithAI;
     boolean isErrorOccured = false;
     NotificationsListViewController notificationsListViewController;
 
@@ -115,5 +118,10 @@ public class LeftSideBar {
     void addNewContact(ActionEvent event) {
         AddContactPane addContactPane = new AddContactPane();
         StagesLauncher.LaunchNewStage(addContactPane.getLayout(), "Add New Contact", 500, 300);
+    }
+
+    @FXML
+    void openChatWithAIPane(ActionEvent event) {
+        StagesLauncher.LaunchNewStage(new ChatBotChatPaneViewer().getLayout(), "Chat With AI", 500, 600);
     }
 }
