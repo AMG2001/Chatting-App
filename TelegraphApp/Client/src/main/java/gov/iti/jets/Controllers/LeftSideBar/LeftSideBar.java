@@ -2,6 +2,7 @@ package gov.iti.jets.Controllers.LeftSideBar;
 
 import DTO.LogoutDTO;
 import gov.iti.jets.Controllers.LeftSideBar.group.CreateGroupPaneController;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
 import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatPaneViewer;
 import gov.iti.jets.Controllers.services.CustomDialogs;
@@ -84,7 +85,12 @@ public class LeftSideBar {
 
     @FXML
     void moveToHomePage(ActionEvent event) {
-        Navigator.navigateToHomePage();
+        try {
+            UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), CustomEnums.UserStatus_OFFLINE);
+            Navigator.navigateToHomePage();
+        } catch (RemoteException e) {
+            CustomDialogs.showErrorDialog("Error while updating status to offline while logging out !!");
+        }
     }
 
     @FXML

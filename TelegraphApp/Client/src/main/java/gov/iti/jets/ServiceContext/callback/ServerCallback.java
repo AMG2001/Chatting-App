@@ -93,5 +93,10 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void updateContactStatus(String phone, String status) throws RemoteException {
+        ClientState.getInstance().contactsList.stream()
+                .filter(contactModel -> contactModel.getPhoneNumber().equals(phone))
+                .findFirst()
+                .ifPresent(contactModel -> contactModel.setStatus(status));
     }
+
 }
