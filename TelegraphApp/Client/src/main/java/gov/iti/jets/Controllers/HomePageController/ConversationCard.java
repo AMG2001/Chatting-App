@@ -1,6 +1,7 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.CustomEnums;
+import gov.iti.jets.Controllers.services.ConversationsServicesClass;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
@@ -39,47 +41,30 @@ public class ConversationCard {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ContactCard.fxml"));
             loader.setController(this);
             layout = loader.load();
-            initClassFields();
-            text_contactName.setText(name);
-            img_contact.setImage(image);
-            showStatus(this.status.get());
+            initClassFields(name, image, status);
+            text_contactName.setText(this.name.get());
+            img_contact.setImage(this.conversationImage.get());
+            status_text.setText(this.status.get());
+            status_circle.setFill(this.circle.get().getFill());
         } catch (IOException e) {
             System.err.println("###### Error while loading Parameterized Constructor on ContactCardDataModel");
             e.printStackTrace();
         }
     }
 
-    private void initClassFields() {
+    private void initClassFields(String name, Image image, String status) {
         this.conversationID = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.status = new SimpleStringProperty();
         this.circle = new SimpleObjectProperty<>();
         this.conversationImage = new SimpleObjectProperty<>();
-
-    }
-
-    private void showStatus(String status) {
-        if (status == CustomEnums.UserStatus_ONLINE) {
-            this.status.set(CustomEnums.UserStatus_ONLINE);
-            Circle circle = new Circle();
-            circle.setFill(Color.GREEN);
-            this.circle.set(circle);
-        } else if (status == CustomEnums.UserStatus_OFFLINE) {
-            this.status.set(CustomEnums.UserStatus_OFFLINE);
-            Circle circle = new Circle();
-            circle.setFill(Color.GRAY);
-            this.circle.set(circle);
-        } else if (status == CustomEnums.UserStatus_AWAY) {
-            this.status.set(CustomEnums.UserStatus_AWAY);
-            Circle circle = new Circle();
-            circle.setFill(Color.ORANGE);
-            this.circle.set(circle);
-        } else if (status == CustomEnums.UserStatus_BUSY) {
-            this.status.set(CustomEnums.UserStatus_BUSY);
-            Circle circle = new Circle();
-            circle.setFill(Color.RED);
-            this.circle.set(circle);
-        }
+        this.name.set(name);
+        this.conversationImage.set(image);
+        this.status.set(status);
+        Color color = ConversationsServicesClass.setConversationsCircleColor(status);
+        Circle circle = new Circle();
+        circle.setFill(color);
+        this.circle.set(circle);
     }
 
     public IntegerProperty conversationIDProperty() {

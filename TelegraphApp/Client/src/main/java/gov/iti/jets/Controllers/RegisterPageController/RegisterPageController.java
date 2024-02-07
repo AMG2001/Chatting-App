@@ -1,6 +1,7 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
 import DTO.User.UserDTO;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;
@@ -109,7 +110,7 @@ ObservableList<String> countriesArray = FXCollections.observableArrayList(
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && FieldsValidator.isValidPasswordConfirmation(password, confirmPassword) && isImagePicked == true && genderValue != "" && datePicker.getValue() != null) {
             byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
             try {
-                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, genderValue, bio, "ONLINE", imageBytes);
+                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, genderValue, bio, CustomEnums.UserStatus_ONLINE, imageBytes);
                 isNotRegistered = UserService.getInstance().getRemoteService().registerUser(userDTO);
                 UserModel userModel = new UserModel(userDTO);
                 ClientState.getInstance().setLoggedinUserProperty(userModel);

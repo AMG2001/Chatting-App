@@ -62,7 +62,7 @@ public class ProfilePageController {
 
     @FXML
     public void initialize() {
-        userModel =  ClientState.getInstance().getLoggedinUserModel();
+        userModel = ClientState.getInstance().getLoggedinUserModel();
         tf_email.setText(userModel.getEmail());
         tf_phoneNumber.setText(userModel.getUserPhone());
         tf_userName.setText(userModel.getUserName());
@@ -86,35 +86,27 @@ public class ProfilePageController {
 
     @FXML
     void saveChanges(ActionEvent event) {
-        // TODO
-        /**
-         * // TODO Load all data first to compare if there is any thing changed .
-         * 1- Save Changes in ClientState.getUser .. , this object represent the user in the application .
-         * 2- Use the UserService to update the user in the database .
-         * 3. Show Custom Dialog to inform the user that the changes have been saved successfully .
-         */
-        //TODO amgad
-        //na2s lama ydef anna n8air el password nrg3 hna nzbt ano ya5d el password mn tf_password msh mn user model
-
         boolean isPicChanged = true;
-        if(img_userImage.getImage()==userModel.getProfilePic())
-            {isPicChanged=false;}
+        if (img_userImage.getImage() == userModel.getProfilePic()) {
+            isPicChanged = false;
+        }
 
-        if(tf_email.getText()!=userModel.getEmail() || tf_userName.getText()!=userModel.getUserName() ||
-           tf_country.getText()!=userModel.getCountry() || ta_bio.getText()!= userModel.getBio() ||
-           img_userImage.getImage()!=userModel.getProfilePic() ||datePicker.getValue()!=userModel.getDob()
+        if (tf_email.getText() != userModel.getEmail() || tf_userName.getText() != userModel.getUserName() ||
+                tf_country.getText() != userModel.getCountry() || ta_bio.getText() != userModel.getBio() ||
+                img_userImage.getImage() != userModel.getProfilePic() || datePicker.getValue() != userModel.getDob()
         )//TODO amgad ... password will be added here
         {
-            userModel = new UserModel(
-                    ClientState.getInstance().getLoggedinUserModel().getUserPhone(),
-                    tf_userName.getText(),tf_email.getText(),tf_country.getText(),
-                    ClientState.getInstance().getLoggedinUserModel().getStatus(),
-                    ClientState.getInstance().getLoggedinUserModel().getGender(),
-                    ta_bio.getText(),datePicker.getValue(),userModel.getPassword()
-                    ,img_userImage.getImage()
-            );
-
-            ClientState.getInstance().setLoggedinUserProperty(userModel);
+//            userModel = new UserModel(
+//                    ClientState.getInstance().getLoggedinUserModel().getUserPhone(),
+//                    userModel.getPassword(),
+//                    tf_userName.getText(), tf_email.getText(), tf_country.getText(),
+//                    ClientState.getInstance().getLoggedinUserModel().getStatus(),
+//                    ClientState.getInstance().getLoggedinUserModel().getGender(),
+//                    ta_bio.getText(), datePicker.getValue(),
+//                    , img_userImage.getImage()
+//            );
+//
+//            ClientState.getInstance().setLoggedinUserProperty(userModel);
 
 //            userModel =  ClientState.getInstance().getLoggedinUserModel();
             tf_email.setText(userModel.getEmail());
@@ -126,9 +118,9 @@ public class ProfilePageController {
             //TODO amgad ... password will be added here
 
 
-            UpdatedUserDTO updatedUserDTO = new UpdatedUserDTO(tf_phoneNumber.getText(),tf_userName.getText(),
-                    tf_email.getText(),userModel.getPassword(),datePicker.getValue(),tf_country.getText(),
-                    tf_gender.getText(),ta_bio.getText(), FileConverter.convert_imageToBytes(img_userImage.getImage()),
+            UpdatedUserDTO updatedUserDTO = new UpdatedUserDTO(tf_phoneNumber.getText(), tf_userName.getText(),
+                    tf_email.getText(), userModel.getPassword(), datePicker.getValue(), tf_country.getText(),
+                    tf_gender.getText(), ta_bio.getText(), FileConverter.convert_imageToBytes(img_userImage.getImage()),
                     isPicChanged);
             //check if you will change  userModel.getPassword() with tf_password.getText()
             try {

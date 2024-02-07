@@ -1,12 +1,16 @@
 package gov.iti.jets.Model;
 
+import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatMessageController;
+import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestSendModel;
 import gov.iti.jets.Model.User.ContactModel;
 import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.RequestService;
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -30,6 +34,7 @@ public class ClientState {
     /*
      *************************************** Conversations Observables ********************************
      */
+    public ObservableList<ConversationCard> conversationsList = FXCollections.observableArrayList();
 
     /*
      *************************************** Messages Observables ********************************
@@ -64,6 +69,7 @@ public class ClientState {
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
         Platform.runLater(() -> loadAllRequests());
+        Platform.runLater(() -> loadAllContacts());
     }
 
     public static ClientState getInstance() {
@@ -121,5 +127,37 @@ public class ClientState {
         return openedChatMessagesList;
     }
 
+    /*
+        ----------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
+                                          Conversations Observable Methods
+        ----------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
+         */
+    private void loadAllContacts() {
+        try {
+            UserService.getInstance().getRemoteService().getContacts(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
+                ContactModel contactModel = new ContactModel(contactDTO);
+                contactsList.add(contactModel);
+                System.out.println(contactModel.toString());
+                conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus()));
+            });
+        } catch (RemoteException e) {
+            CustomDialogs.showErrorDialog("Error while loading all contacts : " + e.getMessage());
+        }
+    }
+
+    // TODO Implement Load Groups .
+//    private void loadAllGroups() {
+//        try {
+//            UserService.getInstance().getRemoteService().getGroups(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
+//                Grou contactModel = new ContactModel(contactDTO);
+//                contactsList.add(contactModel);
+//                conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus()));
+//            });
+//        } catch (RemoteException e) {
+//            CustomDialogs.showErrorDialog("Error while loading all contacts : " + e.getMessage());
+//        }
+//    }
 }
 

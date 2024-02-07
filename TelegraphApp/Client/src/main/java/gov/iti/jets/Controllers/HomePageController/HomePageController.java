@@ -1,7 +1,11 @@
 package gov.iti.jets.Controllers.HomePageController;
 
+import DTO.User.ContactDTO;
+import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.Model.User.ContactModel;
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -11,17 +15,20 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HomePageController {
     @FXML
     private ListView<ConversationCard> lv_onlineContacts;
     @FXML
     private Pane right_pane;
-    private ObservableList<ConversationCard> conversationsList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         initListViewsBindings();
-        loadAllConversations();
         changeListViewCell();
         setListViewItemsAction();
         changeRightPane(InitialLayoutController.getInstance().getLayout());
@@ -52,15 +59,7 @@ public class HomePageController {
     }
 
     private void initListViewsBindings() {
-        lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(conversationsList));
-    }
-
-    private void loadAllConversations() {
-        // Load all contacts first ;
-        ClientState.getInstance().contactsList.stream().forEach(contactModel -> {
-            ConversationCard contactCardDataModel = new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus());
-            conversationsList.add(contactCardDataModel);
-        });
+        lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().conversationsList));
     }
 
     private void setListViewItemsAction() {

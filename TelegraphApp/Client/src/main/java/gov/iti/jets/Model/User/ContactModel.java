@@ -14,7 +14,7 @@ public class ContactModel {
         this.phoneNumber = dto.getPhoneNumber();
         this.status = dto.getStatus();
         this.name = dto.getName();
-//        this.conversation = new ConversationModel(); // Assuming ConversationDTO has a constructor
+        this.conversation = new ConversationModel(dto.getConversation()); // Assuming ConversationDTO has a constructor
         this.profilepic = dto.getProfilepic();
     }
 
@@ -56,5 +56,16 @@ public class ContactModel {
 
     public void setProfilepic(byte[] profilepic) {
         this.profilepic = profilepic;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactModel{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", status='" + status + '\'' +
+                ", name='" + name + '\'' +
+                ", conversation id =" + getConversation().getConversationId() +
+                ", conversation name =" + getConversation().getType() +
+                '}';
     }
 }
