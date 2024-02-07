@@ -84,17 +84,18 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
+        } else if (contactDao.checkIfAlreadyContacts(request.getReceiverPhone(), request.getSenderPhone()) == true) {
+
+            notification.setBody(request.getReceiverPhone() + " is already in your contact list");
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
+
         } else if (contactRequestDao.checkIfRequestExist(contactRequest) != false) {
 
             notification.setBody("Request has been sent before");
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        } else if (contactDao.checkIfAlreadyContacts(request.getReceiverPhone(), request.getSenderPhone()) == true) {
-            notification.setBody(request.getReceiverPhone() + " is already in your contact list");
-
-            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
-        } else {
+        }else {
 
             int requestId = contactRequestDao.addRequest(contactRequest);
 
