@@ -93,6 +93,5 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void updateContactStatus(String phone, String status) throws RemoteException {
-
     }
 }

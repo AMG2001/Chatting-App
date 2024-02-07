@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+//TODO create effective logging
 public class OnlineUserManager {
     private static ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers = new ConcurrentHashMap<>();
 
