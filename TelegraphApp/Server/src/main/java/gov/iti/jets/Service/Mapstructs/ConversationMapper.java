@@ -1,7 +1,7 @@
 package gov.iti.jets.Service.Mapstructs;
 
 import DTO.*;
-import DTO.Group.*;
+import DTO.Group.GroupDTO;
 import gov.iti.jets.Domain.Conversation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

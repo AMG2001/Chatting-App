@@ -17,7 +17,7 @@ public class AdminPanel extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminDashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminPages/AdminDashboard.fxml"));
             Parent root = loader.load();
             DashboardController controller = new DashboardController();
             primaryStage.setTitle("Admin Dashboard");

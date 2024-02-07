@@ -1,7 +1,8 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.*;
-import DTO.Group.*;
+import DTO.Group.GroupDTO;
+import DTO.Group.GroupMemberDTO;
 import DTO.User.ContactDTO;
 import DTO.User.UpdatedUserDTO;
 import DTO.User.UserDTO;
