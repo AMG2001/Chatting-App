@@ -1,24 +1,39 @@
-package DTO;
+package gov.iti.jets.Model;
 
-import java.io.Serializable;
+import DTO.AttachmentDTO;
 
-public class AttachmentDTO implements Serializable {
+public class AttachmentModel {
+
     private int attachmentId;
     private String attachmentType;
     private int conversationId;
     private String attachmentName;
     private byte[] attachment;
 
-    public AttachmentDTO(){
-
+    // Constructor taking AttachmentDTO as a parameter
+    public AttachmentModel(AttachmentDTO dto) {
+        this.attachmentId = dto.getAttachmentId();
+        this.attachmentType = dto.getAttachmentType();
+        this.conversationId = dto.getConversationId();
+        this.attachmentName = dto.getAttachmentName();
+        this.attachment = dto.getAttachment();
     }
 
-    public AttachmentDTO(int attachmentId, String attachmentType, int conversationId, String attachmentName, byte[] attachment) {
+    // Getters and Setters remain unchanged
+    public int getAttachmentId() {
+        return attachmentId;
+    }
+
+    public void setAttachmentId(int attachmentId) {
         this.attachmentId = attachmentId;
+    }
+
+    public String getAttachmentType() {
+        return attachmentType;
+    }
+
+    public void setAttachmentType(String attachmentType) {
         this.attachmentType = attachmentType;
-        this.conversationId = conversationId;
-        this.attachmentName = attachmentName;
-        this.attachment = attachment;
     }
 
     public int getConversationId() {
@@ -35,22 +50,6 @@ public class AttachmentDTO implements Serializable {
 
     public void setAttachmentName(String attachmentName) {
         this.attachmentName = attachmentName;
-    }
-
-    public int getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(int attachmentId) {
-        this.attachmentId = attachmentId;
-    }
-
-    public String getAttachmentType() {
-        return attachmentType;
-    }
-
-    public void setAttachmentType(String attachmentType) {
-        this.attachmentType = attachmentType;
     }
 
     public byte[] getAttachment() {

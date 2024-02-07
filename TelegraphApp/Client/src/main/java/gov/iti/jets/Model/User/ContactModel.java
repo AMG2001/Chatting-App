@@ -14,7 +14,7 @@ public class ContactModel {
         this.phoneNumber = dto.getPhoneNumber();
         this.status = dto.getStatus();
         this.name = dto.getName();
-        this.conversation = new ConversationModel(); // Assuming ConversationDTO has a constructor
+//        this.conversation = new ConversationModel(); // Assuming ConversationDTO has a constructor
         this.profilepic = dto.getProfilepic();
     }
 

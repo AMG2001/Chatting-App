@@ -16,7 +16,7 @@ import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserConversationDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.GroupCallbackHandler;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
-import gov.iti.jets.Service.Mapstructs.UserMapper;
+import gov.iti.jets.Service.Mappers.UserMapper;
 import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
@@ -62,9 +62,9 @@ public class GroupServiceImpl extends UnicastRemoteObject implements RemoteGroup
         RemoteCallbackInterface groupFounderCallBack = OnlineUserManager.getOnlineUser(newGroup.getGroupFounder());
 
         // create appropriate notification for group founder and members
-        NotificationDTO notificationToGroupFounder = new NotificationDTO("1", NotificationType.FRIEND.toString()
+        NotificationDTO notificationToGroupFounder = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), "You've created the group successfully");
-        NotificationDTO notificationToGroupMembers = new NotificationDTO("1", NotificationType.FRIEND.toString()
+        NotificationDTO notificationToGroupMembers = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), newGroup.getGroupFounder()+"added you to '"+newGroup.getGroupName()+"' group");
 
         //send notifications to group founder and members (CALLBACK)
@@ -83,7 +83,7 @@ public class GroupServiceImpl extends UnicastRemoteObject implements RemoteGroup
         List<GroupMemberDTO> groupMemberDTOS = new ArrayList<>();
         for (User groupMemberDB : groupMembersDB){
 
-            GroupMemberDTO groupMemberDTO= UserMapper.INSTANCE.userToGroupMemberDTO(groupMemberDB);
+            GroupMemberDTO groupMemberDTO= UserMapper.userToGroupMemberDTO(groupMemberDB);
 
             byte[] groupMemberImage = FileSystemUtil.getBytesFromFile(groupMemberDB.getPicture());
             groupMemberDTO.setProfilepic(groupMemberImage);

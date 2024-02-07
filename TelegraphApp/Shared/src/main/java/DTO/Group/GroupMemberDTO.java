@@ -8,12 +8,16 @@ public class GroupMemberDTO implements Serializable {
     private String name;
     private byte[] profilepic;
 
+    public GroupMemberDTO(){
+
+    }
     public GroupMemberDTO(String phoneNumber, String status, String name, byte[] profilepic) {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.name = name;
         this.profilepic = profilepic;
     }
+
 
     public String getPhoneNumber() {
         return phoneNumber;

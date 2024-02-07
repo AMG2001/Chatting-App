@@ -18,13 +18,13 @@ import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
-import gov.iti.jets.Service.Mapstructs.ContactMapper;
-import gov.iti.jets.Service.Mapstructs.ConversationMapper;
+import gov.iti.jets.Service.Mappers.ContactMapper;
+import gov.iti.jets.Service.Mappers.ConversationMapper;
 import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
 import gov.iti.jets.Service.Utilities.FileSystemUtil;
-import gov.iti.jets.Service.Mapstructs.UserMapper;
+import gov.iti.jets.Service.Mappers.UserMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         //Check if already exists in DB
         if (userDao.getById(newUser.getPhoneNumber()) == null) {
             //Map DTO to Domain & add to DB
-            User user = UserMapper.INSTANCE.userDTOToUser(newUser);
+            User user = UserMapper.userDTOToUser(newUser);
             //Store Image in file system and store the path
             String profileImagePath = FileSystemUtil.storeByteArrayAsFile
                     (newUser.getSerializedImageURL(), newUser.getPhoneNumber(), FileType.PROFILE_PIC);
@@ -105,7 +105,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                         user.getPhoneNumber(),UserStatus.ONLINE.toString(),remoteContacts);
 
                 //Map user domain object to DTO
-                UserDTO returnedUser = UserMapper.INSTANCE.userToUserDTO(user);
+                UserDTO returnedUser = UserMapper.userToUserDTO(user);
                 //TODO Handle Null Image return
                 //Fetch user Profile pic from FileSystem
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
@@ -129,14 +129,14 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         List<ContactDTO> contactDTOS = new ArrayList<>();
 
         for(User contactDB :contactsDB){
-            ContactDTO contactDTO=ContactMapper.INSTANCE.userToContactDTO(contactDB);
+            ContactDTO contactDTO=ContactMapper.userToContactDTO(contactDB);
 
             //get individual conversation between User and his contact from DB
             int conversationId = conversationDao.getIndividualConversationId(userPhone,contactDTO.getPhoneNumber());
             Conversation conversationDomain = conversationDao.getById(conversationId);
 
             // map conversation domain to conversation dto and set messages and attachments to empty lists
-            ConversationDTO conversationDTO = ConversationMapper.INSTANCE.conversationToConversationDTO(conversationDomain);
+            ConversationDTO conversationDTO = ConversationMapper.conversationToConversationDTO(conversationDomain);
             conversationDTO.setMessages(new ArrayList<>());
             conversationDTO.setAttachments(new ArrayList<>());
 
@@ -164,10 +164,10 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         List<GroupDTO> groupDTOS = new ArrayList<>();
         for (Conversation groupConversationDB: groupConversationsDB){
 
-            GroupDTO groupDTO = ConversationMapper.INSTANCE.conversationToGroupDTO(groupConversationDB);
+            GroupDTO groupDTO = ConversationMapper.conversationToGroupDTO(groupConversationDB);
 
             // // map groupConversationDB to conversation dto and set messages and attachments to empty lists
-            ConversationDTO conversationDTO = ConversationMapper.INSTANCE.conversationToConversationDTO(groupConversationDB);
+            ConversationDTO conversationDTO = ConversationMapper.conversationToConversationDTO(groupConversationDB);
             conversationDTO.setMessages(new ArrayList<>());
             conversationDTO.setAttachments(new ArrayList<>());
 
@@ -186,7 +186,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
             List<GroupMemberDTO> groupMemberDTOS = new ArrayList<>();
             for (User groupMemberDB : groupMembersDB){
 
-                GroupMemberDTO groupMemberDTO=UserMapper.INSTANCE.userToGroupMemberDTO(groupMemberDB);
+                GroupMemberDTO groupMemberDTO=UserMapper.userToGroupMemberDTO(groupMemberDB);
 
                 byte[] groupMemberImage = FileSystemUtil.getBytesFromFile(groupMemberDB.getPicture());
                 groupMemberDTO.setProfilepic(groupMemberImage);
@@ -242,7 +242,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
 
         User oldUserModel = userDao.getById(updatedUserDTO.getPhoneNumber());
 
-        User newUserModel = UserMapper.INSTANCE.updatedUserDTOToUser(updatedUserDTO);
+        User newUserModel = UserMapper.updatedUserDTOToUser(updatedUserDTO);
         userDao.update(newUserModel);
 
         List<User> OnlineContacts;
@@ -250,7 +250,7 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         List<RemoteCallbackInterface> OnlineContactsCallBacks=new ArrayList<>();
         ContactCallbackHandler contactHandler=new ContactCallbackHandler();
 
-        if(updatedUserDTO.getPicChanged() || oldUserModel.getName()!=updatedUserDTO.getName()){
+        if(updatedUserDTO.getPicChanged() || !oldUserModel.getName().equals(updatedUserDTO.getName())){
 
              OnlineContacts = userDao.getContactsByPhoneAndStatus(updatedUserDTO.getPhoneNumber(), UserStatus.ONLINE);
              OnlineContactsPhones = OnlineContacts.stream()
@@ -270,18 +270,53 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
             contactHandler.updateContactPic(updatedUserDTO.getPhoneNumber(),updatedUserDTO.getSerializedImage(),OnlineContactsCallBacks);
         }
 
-        if(oldUserModel.getName()!=updatedUserDTO.getName()) {
+        if(!oldUserModel.getName().equals(updatedUserDTO.getName())) {
             contactHandler.updateContactName(updatedUserDTO.getPhoneNumber(), updatedUserDTO.getName(), OnlineContactsCallBacks);
         }
 
         User updatedUserModel = userDao.getById(updatedUserDTO.getPhoneNumber());
 
-        UserDTO returnedUserDTO = UserMapper.INSTANCE.userToUserDTO(updatedUserModel);
+        UserDTO returnedUserDTO = UserMapper.userToUserDTO(updatedUserModel);
 
         //TODO Handle Null Image return
         byte[] image = FileSystemUtil.getBytesFromFile(updatedUserModel.getPicture());
         returnedUserDTO.setSerializedImage(image);
 
+
+        RemoteCallbackInterface userCallback = OnlineUserManager.getOnlineUser(updatedUserDTO.getPhoneNumber());
+        NotificationDTO notificationToUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                , LocalDateTime.now(), "you've updated your information successfully");
+
+        NotificationCallbackHandler notificationHandler=new NotificationCallbackHandler();
+        notificationHandler.sendNotificationtoClient(notificationToUser,userCallback);
+
         return returnedUserDTO;
+    }
+
+    @Override
+    public void updateStatus(String userPhone, String usersStatus) {
+        // update the status in DB
+        UserDao userDao = new UserDoaImpl();
+        userDao.updateStatus(userPhone,UserStatus.valueOf(usersStatus));
+
+        NotificationCallbackHandler notificationHandler=new NotificationCallbackHandler();
+        ContactCallbackHandler contactHandler = new ContactCallbackHandler();
+
+        // get online contacts phones
+        List<User> OnlineContacts = userDao.getContactsByPhoneAndStatus(userPhone, UserStatus.ONLINE);
+        List<String> OnlineContactsPhones = OnlineContacts.stream()
+                .map(User::getPhoneNumber)
+                .toList();
+
+        // get callbacks of online contacts and user
+        List<RemoteCallbackInterface> OnlineContactsCallBacks = OnlineUserManager.getFriendsFromOnlineList(OnlineContactsPhones);
+        RemoteCallbackInterface userCallback = OnlineUserManager.getOnlineUser(userPhone);
+
+        NotificationDTO notificationToUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                , LocalDateTime.now(), "you've updated the status successfully");
+
+
+        notificationHandler.sendNotificationtoClient(notificationToUser,userCallback);
+        contactHandler.updateContactStatus(userPhone,usersStatus,OnlineContactsCallBacks);
     }
 }

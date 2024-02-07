@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.web.WebView?>
+
+<HBox fx:id="messageLayout" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: #0D9276; -fx-border-radius: 0 15 15 0; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <WebView fx:id="messageView" minHeight="134.0" minWidth="400.0" prefHeight="-1.0" prefWidth="-1.0" />
+    </children>
+</HBox>

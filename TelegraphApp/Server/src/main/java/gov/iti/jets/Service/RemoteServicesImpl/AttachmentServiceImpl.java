@@ -11,9 +11,8 @@ import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.doaImpl.AttachmentDoaImpl;
 import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Service.CallbackHandlers.AttachmentCallbackHandler;
-import gov.iti.jets.Service.CallbackHandlers.MessageCallbackHandler;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
-import gov.iti.jets.Service.Mapstructs.AttachmentMapper;
+import gov.iti.jets.Service.Mappers.AttachmentMapper;
 import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
@@ -37,7 +36,7 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
         String attachmentPath = FileSystemUtil.storeByteArrayAsFile
                 (attachmentDTO.getAttachment(), String.valueOf(attachmentDTO.getAttachmentId()), FileType.ATTACHMENT);
 
-        Attachment attachmentDomain = AttachmentMapper.INSTANCE.attachmentDTOToAttachment(attachmentDTO);
+        Attachment attachmentDomain = AttachmentMapper.attachmentDTOToAttachment(attachmentDTO);
         attachmentDomain.setAttachmentLocation(attachmentPath);
         attachmentDao.add(attachmentDomain);
 
@@ -67,7 +66,7 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
         List<AttachmentDTO> attachmentDTOS = new ArrayList<>();
         for(Attachment attachmentDB : attachmentsDB){
 
-            AttachmentDTO attachmentDTO = AttachmentMapper.INSTANCE.attachmentToAttachmentDTO(attachmentDB);
+            AttachmentDTO attachmentDTO = AttachmentMapper.attachmentToAttachmentDTO(attachmentDB);
             attachmentDTOS.add(attachmentDTO);
         }
 

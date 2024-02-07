@@ -1,0 +1,15 @@
+.incoming-bubble {
+    -fx-background-color: #FC6736;
+    -fx-background-radius: 12px;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px; /* Adjust padding as needed */
+    -fx-wrap-text: true; /* Enable text wrapping */
+}
+
+.incoming-bubble {
+    -fx-background-color: #2272E5;
+    -fx-background-radius: 12px;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px; /* Adjust padding as needed */
+    -fx-wrap-text: true; /* Enable text wrapping */
+}

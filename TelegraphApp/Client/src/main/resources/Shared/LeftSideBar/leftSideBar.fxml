@@ -68,6 +68,11 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BELL" size="28" styleClass="option" />
                     </graphic>
                 </Button>
+            <Button fx:id="btn_chatWithAI" layoutX="20.0" layoutY="375.0" mnemonicParsing="false" onAction="#openChatWithAIPane" styleClass="option" text="Chat with AI">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="28" styleClass="option" />
+               </graphic>
+            </Button>
             </children>
         </VBox>
         <VBox alignment="BOTTOM_CENTER" prefHeight="181.0" prefWidth="198.0" spacing="15.0" style="-fx-background-color: #2272E5;">

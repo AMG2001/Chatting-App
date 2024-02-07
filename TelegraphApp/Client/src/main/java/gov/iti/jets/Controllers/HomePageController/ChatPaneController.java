@@ -1,7 +1,8 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
-import gov.iti.jets.Controllers.Shared.MessageController;
+import gov.iti.jets.Controllers.Shared.Messages.MessageController;
+import gov.iti.jets.Controllers.Shared.Messages.SentMessageController;
 import gov.iti.jets.Model.ClientState;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
@@ -12,7 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -102,8 +102,8 @@ public class ChatPaneController {
 
     private void sendMessage() {
         if (messageArea.getHtmlText().length() != 0) {
-            MessageController messageController = new MessageController();
-            messageController.setMessageDetails(clientPhoneNumber, clientImage, messageArea.getHtmlText());
+            MessageController messageController = new MessageController(ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+            messageController.setMessageContent(messageArea.getHtmlText());
             ClientState.getInstance().openedChatMessagesList.add(messageController);
             messageArea.setHtmlText("");
         }

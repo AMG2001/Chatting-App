@@ -23,11 +23,13 @@ import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.CallbackHandlers.RequestCallbackHandler;
-import gov.iti.jets.Service.Mapstructs.ContactMapper;
-import gov.iti.jets.Service.Mapstructs.ConversationMapper;
-import gov.iti.jets.Service.Mapstructs.RequestMapper;
+import gov.iti.jets.Service.Mappers.ContactMapper;
+import gov.iti.jets.Service.Mappers.ConversationMapper;
 import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
+import gov.iti.jets.Service.Mappers.RequestMapper;
+
+
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -46,11 +48,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
-        //ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
-        ContactRequest contactRequest=new ContactRequest();
-        contactRequest.setSendDate(request.getSendDate());
-        contactRequest.setReceiverPhone(request.getReceiverPhone());
-        contactRequest.setSenderPhone(request.getSenderPhone());
+        ContactRequest contactRequest = RequestMapper.requestSendDtoToContactRequest(request);
 
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
         ContactDao contactDao = new ContactDaoImpl();
@@ -138,7 +136,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             Conversation conversationDomain = conversationDao.getById(conversationId);
 
             // map conversation domain to conversation dto and set messages and attachments to empty lists
-            ConversationDTO conversationDTO = ConversationMapper.INSTANCE.conversationToConversationDTO(conversationDomain);
+            ConversationDTO conversationDTO = ConversationMapper.conversationToConversationDTO(conversationDomain);
             conversationDTO.setMessages(new ArrayList<>());
             conversationDTO.setAttachments(new ArrayList<>());
 
@@ -148,8 +146,8 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             User receiverDomain = userDao.getById(requestDTO.getRecieverPhone());
 
             // map sender and receiver domain to contact dto
-            ContactDTO senderDTO = ContactMapper.INSTANCE.userToContactDTO(senderDomain);
-            ContactDTO receiverDTO = ContactMapper.INSTANCE.userToContactDTO(receiverDomain);
+            ContactDTO senderDTO = ContactMapper.userToContactDTO(senderDomain);
+            ContactDTO receiverDTO = ContactMapper.userToContactDTO(receiverDomain);
 
             // set individual conversation dto to both sender and receiver dto
             senderDTO.setConversation(conversationDTO);
