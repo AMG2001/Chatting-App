@@ -1,25 +1,15 @@
 package gov.iti.jets.Controllers.Shared.Notifications;
 
-import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
 import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-
 import java.io.IOException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 public class NotificationsListViewController {
     @FXML
     public ListView<NotificationModel> notifications_listView;

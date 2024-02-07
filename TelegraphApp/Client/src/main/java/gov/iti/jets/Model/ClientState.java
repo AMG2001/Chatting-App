@@ -20,11 +20,11 @@ public class ClientState {
     /*
      *************************************** Current Client Observables ********************************
      */
-    public ObservableValue<UserModel> loggedinUser;
+    public ObservableValue<UserModel> loggedinUser; // ✅ Initialized .
     /*
      ************************************** Requests Observables **************************************
      */
-    public ObservableList<RequestReceiveModel> receivedRequestsList;
+    public ObservableList<RequestReceiveModel> receivedRequestsList; // ✅ Initialized .
     public ObservableList<RequestSendModel> sentRequestsList;
 
     /*
@@ -34,16 +34,16 @@ public class ClientState {
     /*
      *************************************** Messages Observables ********************************
      */
-    public ObservableList<ChatBotChatMessageController> chatBotChatMessages;
+    public ObservableList<ChatBotChatMessageController> chatBotChatMessages;// ✅ Initialized .
 
     /*
      *************************************** Contacts - Groups  Observables ********************************
      */
-    public ObservableList<ContactModel> contactsList;
+    public ObservableList<ContactModel> contactsList; // ✅ Initialized .
     /*
      *************************************** Notifications Observables ********************************
      */
-    public ObservableList<NotificationModel> notificationsList;
+    public ObservableList<NotificationModel> notificationsList;// ✅ Initialized .
 
     public ObservableList<MessageController> openedChatMessagesList;
     String previousChatPhoneNumber;

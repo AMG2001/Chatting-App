@@ -1,8 +1,6 @@
 package gov.iti.jets.Controllers.HomePageController;
 
-import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
-import gov.iti.jets.Controllers.Shared.Messages.SentMessageController;
 import gov.iti.jets.Model.ClientState;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
@@ -46,7 +44,7 @@ public class ChatPaneController {
     private Button btn_sendMessage;
     VBox layout;
     FXMLLoader loader;
-    ContactCardDataModel contactCardData;
+    ConversationCard contactCardData;
     String clientName, clientPhoneNumber;
     Image clientImage;
 
@@ -109,10 +107,10 @@ public class ChatPaneController {
         }
     }
 
-    public void setControllerValues(ContactCardDataModel contactCardData) {
-        this.contactCardData = contactCardData;
-        chatImage.setImage(contactCardData.getContactImage());
-        chatName.setText(contactCardData.getContactName());
+    public void setControllerValues(ConversationCard coversationCard) {
+        this.contactCardData = coversationCard;
+        chatImage.setImage(coversationCard.conversationImageProperty().get());
+        chatName.setText(coversationCard.getName().get());
         receiverStatus.setText("online");
         receiverStatusCircle.setFill(Color.GREEN);
     }
