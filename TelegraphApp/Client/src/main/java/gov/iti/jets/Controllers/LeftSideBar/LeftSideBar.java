@@ -111,8 +111,7 @@ public class LeftSideBar {
 
     @FXML
     void addNewContact(ActionEvent event) {
-        AddContactPane addContactPane = new AddContactPane();
-        StagesLauncher.LaunchNewStage(addContactPane.getLayout(), "Add New Contact", 500, 300);
+        StagesLauncher.launchAddContactPage("Add New Contact", 500, 300);
     }
 
     @FXML

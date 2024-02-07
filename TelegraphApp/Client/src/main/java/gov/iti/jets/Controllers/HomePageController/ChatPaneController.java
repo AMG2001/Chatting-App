@@ -111,7 +111,7 @@ public class ChatPaneController {
         this.contactCardData = coversationCard;
         chatImage.setImage(coversationCard.conversationImageProperty().get());
         chatName.setText(coversationCard.getName().get());
-        receiverStatus.setText("online");
-        receiverStatusCircle.setFill(Color.GREEN);
+        receiverStatus.setText(coversationCard.getStatus());
+        receiverStatusCircle.setFill(coversationCard.getCircle().getFill());
     }
 }

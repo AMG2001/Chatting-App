@@ -44,7 +44,7 @@ public class RegisterPageController {
     @FXML
     private TextArea ta_bio;
     @FXML
-    private TextField tf_confimPassword;
+    private PasswordField tf_confimPassword;
     @FXML
     private TextField tf_email;
     @FXML
@@ -56,15 +56,15 @@ public class RegisterPageController {
     private boolean isImagePicked = false;
     boolean isNotRegistered = false;
 
-//    ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
-ObservableList<String> countriesArray = FXCollections.observableArrayList(
-        "Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan",
-        "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Japan", "China",
-        "India", "Australia", "Brazil", "Argentina", "Mexico", "South Africa", "Nigeria", "Russia",
-        "Saudi Arabia", "Egypt", "South Korea", "Indonesia", "Malaysia", "Thailand", "Vietnam",
-        "Philippines", "Singapore", "New Zealand", "Greece", "Netherlands", "Spain", "Portugal",
-        "Sweden", "Norway", "Finland", "Denmark", "Switzerland", "Austria", "Belgium", "Ireland"
-);
+    //    ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
+    ObservableList<String> countriesArray = FXCollections.observableArrayList(
+            "Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan",
+            "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Japan", "China",
+            "India", "Australia", "Brazil", "Argentina", "Mexico", "South Africa", "Nigeria", "Russia",
+            "Saudi Arabia", "Egypt", "South Korea", "Indonesia", "Malaysia", "Thailand", "Vietnam",
+            "Philippines", "Singapore", "New Zealand", "Greece", "Netherlands", "Spain", "Portugal",
+            "Sweden", "Norway", "Finland", "Denmark", "Switzerland", "Austria", "Belgium", "Ireland"
+    );
     private String name, email, password, confirmPassword, phoneNumber, country, bio, genderValue = "";
 
     @FXML

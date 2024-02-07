@@ -1,24 +1,12 @@
 package gov.iti.jets.Controllers.HomePageController;
 
-import DTO.User.ContactDTO;
-import gov.iti.jets.Controllers.services.CustomDialogs;
-import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.User.ContactModel;
-import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
-
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class HomePageController {
     @FXML
@@ -32,9 +20,6 @@ public class HomePageController {
         changeListViewCell();
         setListViewItemsAction();
         changeRightPane(InitialLayoutController.getInstance().getLayout());
-        // TODO load all Requests .
-        // Todo load all Conversations .
-
     }
 
     public void changeRightPane(Pane newLayout) {

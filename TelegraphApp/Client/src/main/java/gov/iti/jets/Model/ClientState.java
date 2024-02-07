@@ -66,10 +66,12 @@ public class ClientState {
         notificationsList = FXCollections.observableArrayList();
         // Requests Initialization .
         receivedRequestsList = FXCollections.observableArrayList();
+        // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
         Platform.runLater(() -> loadAllRequests());
         Platform.runLater(() -> loadAllContacts());
+        // TODO load all Groups .
     }
 
     public static ClientState getInstance() {
