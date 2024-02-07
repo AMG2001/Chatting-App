@@ -11,27 +11,29 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="575.0" prefWidth="940.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.AdminPanel.Controllers.DashboardController">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="462.0" prefWidth="847.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.AdminPanel.Controllers.DashboardController">
    <content>
-      <GridPane prefHeight="1602.0" prefWidth="938.0" styleClass="root" stylesheets="@style.css">
+      <GridPane prefHeight="1015.0" prefWidth="938.0" styleClass="root" stylesheets="@style.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="51.20001220703125" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.13333740234373" minWidth="180.0" prefWidth="203.399951171875" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.6666778564453" minWidth="74.66666259765628" prefWidth="144.20004882812503" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="30.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.7999877929687" minWidth="150.0" prefWidth="252.7999877929687" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="69.60007324218748" prefWidth="80.80002441406248" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.60004882812495" minWidth="150.0" prefWidth="286.39997558593745" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="46.79995117187502" prefWidth="58.00002441406252" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.4000244140625" />
         </columnConstraints>
         <rowConstraints>
@@ -47,21 +49,29 @@
             <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="276.79999999999995" minHeight="32.0" prefHeight="72.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="277.199951171875" minHeight="59.2000732421875" prefHeight="215.6000732421876" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="346.5999511718751" minHeight="59.2000732421875" prefHeight="147.1999267578126" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="346.5999511718751" minHeight="59.2000732421875" prefHeight="89.19990234374995" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="341.5999511718751" minHeight="10.0" prefHeight="38.800097656250045" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="38.800097656250045" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Average Age" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin>
-            </Text>
+            <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true">
+                     <image>
+                        <Image url="@barchart.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Average Age">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
             <BarChart fx:id="ageDistributionGraph" prefHeight="54.0" prefWidth="200.0" title="Age Distribution of Users" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
@@ -78,25 +88,46 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </PieChart>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="15.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Log" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="15.0" />
-               </GridPane.margin>
-            </Text>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="32.0" preserveRatio="true">
+                     <image>
+                        <Image url="@statisticsIcon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <children>
+                  <ImageView fitHeight="33.0" fitWidth="37.0" preserveRatio="true">
+                     <image>
+                        <Image url="@log.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Log">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
             <ListView fx:id="serverLog" editable="true" prefHeight="240.0" prefWidth="232.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <GridPane.margin>
-                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </ListView>
             <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.3" text="Dashboard" GridPane.columnIndex="1">
@@ -109,93 +140,85 @@
                   <Font name="Calibri Bold" size="18.0" />
                </font>
             </ToggleButton>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Controls" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin>
-            </Text>
-            <ImageView fitHeight="33.0" fitWidth="37.0" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="5">
-               <image>
-                  <Image url="@log.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@statisticsIcon.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-               <image>
-                  <Image url="@barchart.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User Statistics" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin>
-            </Text>
-            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@piechart.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="44.0" fitWidth="36.0" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
-               <image>
-                  <Image url="@control.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Text fill="WHITE" layoutX="104.0" layoutY="773.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements" wrappingWidth="165.84289646148682" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-            </Text>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="36.0" preserveRatio="true">
+                     <image>
+                        <Image url="@control.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Controls">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@piechart.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User Statistics">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="5" GridPane.rowIndex="8">
+               <children>
+                  <ImageView fitHeight="43.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@announcement.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements" wrappingWidth="165.84289646148682">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
             <ListView fx:id="announcementLog" editable="true" prefHeight="240.0" prefWidth="232.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
                <GridPane.margin>
-                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </ListView>
             <Button mnemonicParsing="false" onAction="#sendAnnouncement" text="Send" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Users" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
-               <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="50.0" />
-               </GridPane.margin>
-            </Text>
-            <ImageView fitHeight="42.0" fitWidth="39.0" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="12">
-               <image>
-                  <Image url="@users.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="43.0" fitWidth="40.0" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="8">
-               <image>
-                  <Image url="@announcement.png" />
-               </image>
-            </ImageView>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <children>
+                  <ImageView fitHeight="42.0" fitWidth="39.0" preserveRatio="true">
+                     <image>
+                        <Image url="@users.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Users">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
             <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
-            <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="13" GridPane.rowSpan="2">
+            <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="12" GridPane.rowSpan="2">
               <columns>
                 <TableColumn fx:id="phoneNumberTc" editable="false" prefWidth="104.80001294612885" text="Phone Number" />
                 <TableColumn fx:id="usernameTc" onEditCommit="#editUserName" prefWidth="53.600013732910156" text="Username" />
@@ -208,20 +231,23 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+               <GridPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </GridPane.margin>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#addNewUser" text="Add User" GridPane.columnIndex="1" GridPane.rowIndex="15">
+            <Button mnemonicParsing="false" onAction="#addNewUser" text="Add User" GridPane.columnIndex="1" GridPane.rowIndex="14">
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteSelectedUser" text="Delete User" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+            <Button mnemonicParsing="false" onAction="#deleteSelectedUser" text="Delete User" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#editSelectedUser" text="Edit User" GridPane.columnIndex="2" GridPane.rowIndex="15">
+            <Button mnemonicParsing="false" onAction="#editSelectedUser" text="Edit User" GridPane.columnIndex="2" GridPane.rowIndex="14">
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </Button>
             <BarChart fx:id="statisticsGraph" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
@@ -231,7 +257,15 @@
               <yAxis>
                 <NumberAxis side="LEFT" />
               </yAxis>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
             </BarChart>
+            <TextField promptText="Input new Announcement" GridPane.columnIndex="5" GridPane.rowIndex="11">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
       </GridPane>
    </content>
