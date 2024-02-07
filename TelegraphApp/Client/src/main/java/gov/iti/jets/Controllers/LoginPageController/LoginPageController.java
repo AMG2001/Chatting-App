@@ -41,6 +41,7 @@ public class LoginPageController {
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidPassword(password)) {
             try {
                 ServerCallback serverCallBack = new ServerCallback();
+                System.out.println("Phone Number : " + phoneNumber + " Password : " + password);
                 userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
                 if (userDTO != null) {
                     UserModel userModel = new UserModel(userDTO);

@@ -1,10 +1,7 @@
 package gov.iti.jets.Controllers.HomePageController;
 
-import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
-import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.ServiceContext.MessageService;
-import gov.iti.jets.ServiceContext.RequestService;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -12,26 +9,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-
-import javax.mail.Message;
 
 public class HomePageController {
     @FXML
-    private ListView<ContactCardDataModel> lv_onlineContacts;
+    private ListView<ConversationCard> lv_onlineContacts;
     @FXML
     private Pane right_pane;
-    private ObservableList<ContactCardDataModel> contactsList = FXCollections.observableArrayList();
+    private ObservableList<ConversationCard> conversationsList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         initListViewsBindings();
-        loadOnlineContacts();
+        loadAllConversations();
         changeListViewCell();
         setListViewItemsAction();
         changeRightPane(InitialLayoutController.getInstance().getLayout());
@@ -48,9 +38,9 @@ public class HomePageController {
     }
 
     private void changeListViewCell() {
-        lv_onlineContacts.setCellFactory(param -> new ListCell<ContactCardDataModel>() {
+        lv_onlineContacts.setCellFactory(param -> new ListCell<ConversationCard>() {
             @Override
-            protected void updateItem(ContactCardDataModel contactCardDataModel, boolean empty) {
+            protected void updateItem(ConversationCard contactCardDataModel, boolean empty) {
                 super.updateItem(contactCardDataModel, empty);
                 if (empty || contactCardDataModel == null) {
                     setGraphic(null);
@@ -62,14 +52,15 @@ public class HomePageController {
     }
 
     private void initListViewsBindings() {
-        lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(contactsList));
+        lv_onlineContacts.itemsProperty().bind(new SimpleListProperty<>(conversationsList));
     }
 
-    private void loadOnlineContacts() {
-        for (int i = 0; i < 10; i++) {
-            ContactCardDataModel contactCardObjOnline = new ContactCardDataModel("Amgad" + i, "Bio", "0109648218" + i, new Image("/Dashboard/Images/employees_9552503.png"));
-            contactsList.add(contactCardObjOnline);
-        }
+    private void loadAllConversations() {
+        // Load all contacts first ;
+        ClientState.getInstance().contactsList.stream().forEach(contactModel -> {
+            ConversationCard contactCardDataModel = new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus());
+            conversationsList.add(contactCardDataModel);
+        });
     }
 
     private void setListViewItemsAction() {
