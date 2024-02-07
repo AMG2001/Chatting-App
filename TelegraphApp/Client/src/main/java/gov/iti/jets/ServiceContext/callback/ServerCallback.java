@@ -9,6 +9,7 @@ import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
+import gov.iti.jets.Controllers.services.ConversationsServicesClass;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
@@ -16,6 +17,7 @@ import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestResponseModel;
 import gov.iti.jets.Model.User.ContactModel;
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -66,7 +68,13 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
         ContactModel contactModel = new ContactModel(newContact);
         Platform.runLater(() -> ClientState.getInstance().contactsList.add(contactModel));
         Platform.runLater(() -> {
-            ClientState.getInstance().conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus()));
+            ClientState.getInstance().conversationsList.add(
+                    new ConversationCard(
+                            contactModel.getConversation().getConversationId(),
+                            contactModel.getPhoneNumber(),
+                            contactModel.getName(),
+                            FileConverter.convert_bytesToImage(contactModel.getProfilepic()),
+                            contactModel.getStatus(), contactModel.getStatusCircleColor()));
         });
     }
 
@@ -88,9 +96,24 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void updateContactStatus(String phone, String status) throws RemoteException {
-        System.out.println("The new Status : " + status);
-        ClientState.getInstance().contactsList.stream().filter(contactModel -> contactModel.getPhoneNumber().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.setStatus(status));
-        ClientState.getInstance().conversationsList.stream().filter(coversationCard -> coversationCard.status_text.getText().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.status_text.setText(status));
+        Platform.runLater(() -> {
+            ClientState.getInstance().contactsList.stream()
+                    .filter(contactModel -> contactModel.getPhoneNumber().equals(phone))
+                    .findFirst()
+                    .ifPresent(contactModel -> {
+                        contactModel.setStatus(status);
+                        Color newColor = ConversationsServicesClass.setConversationsCircleColor(status);
+                        contactModel.statusCircleColorProperty().set(newColor);
+                    });
+            ClientState.getInstance().conversationsList.stream()
+                    .filter(conversationCard -> conversationCard.getPhoneNumber().equals(phone))
+                    .findFirst()
+                    .ifPresent(conversationCard -> {
+                        conversationCard.status_text.setText(status);
+                        conversationCard.status_circle.setFill(ConversationsServicesClass.setConversationsCircleColor(status));
+                    });
+        });
     }
+
 
 }

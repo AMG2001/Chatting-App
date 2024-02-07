@@ -28,17 +28,27 @@ public class ConversationCard {
 
     @FXML
     public Text text_contactName;
-    int conversationID;
+    private int conversationID;
+    private String phoneNumber;
     private HBox layout;
     FXMLLoader loader;
 
-    public ConversationCard(int conversationID, String name, Image image, String status) {
+    public int getConversationID() {
+        return conversationID;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public ConversationCard(int conversationID, String phoneNumber, String name, Image image, String status, Color color) {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ContactCard.fxml"));
             loader.setController(this);
             layout = loader.load();
             this.conversationID = conversationID;
-            setStatusCircleColor(status);
+            this.phoneNumber = phoneNumber;
+            this.status_circle.setFill(color);
             text_contactName.setText(name);
             img_contact.setImage(image);
             status_text.setText(status);
@@ -46,11 +56,6 @@ public class ConversationCard {
             System.err.println("###### Error while loading Parameterized Constructor on ContactCardDataModel");
             e.printStackTrace();
         }
-    }
-
-    private void setStatusCircleColor(String status) {
-        Color color = ConversationsServicesClass.setConversationsCircleColor(status);
-        this.status_circle.setFill(color);
     }
 
     public HBox getLayout() {

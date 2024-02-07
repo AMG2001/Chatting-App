@@ -88,12 +88,10 @@ public class ProfilePageController {
         statusMenuButton.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), newValue);
-                System.out.println("✅✅✅✅✅✅ State Changed Successfully .");
             } catch (RemoteException e) {
                 CustomDialogs.showErrorDialog("Error while Changing Status !! / " + e.getMessage());
                 e.printStackTrace();
             }
-
         });
     }
 

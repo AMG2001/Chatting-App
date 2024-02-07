@@ -7,7 +7,6 @@ import DTO.MessageDTO;
 import DTO.AttachmentDTO;
 
 public class ConversationModel {
-
     private int conversationId;
     private String type;
     private ArrayList<MessageModel> messages;
