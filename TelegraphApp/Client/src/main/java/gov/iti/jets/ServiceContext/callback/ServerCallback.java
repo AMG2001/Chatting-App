@@ -66,12 +66,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
         ContactModel contactModel = new ContactModel(newContact);
         Platform.runLater(() -> ClientState.getInstance().contactsList.add(contactModel));
         Platform.runLater(() -> {
-            ClientState.getInstance().conversationsList.add(
-                    new ConversationCard(
-                            contactModel.getConversation().getConversationId(),
-                            contactModel.getName(),
-                            FileConverter.convert_bytesToImage(contactModel.getProfilepic()),
-                            contactModel.getStatus()));
+            ClientState.getInstance().conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus()));
         });
     }
 
@@ -93,10 +88,9 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void updateContactStatus(String phone, String status) throws RemoteException {
-        ClientState.getInstance().contactsList.stream()
-                .filter(contactModel -> contactModel.getPhoneNumber().equals(phone))
-                .findFirst()
-                .ifPresent(contactModel -> contactModel.setStatus(status));
+        System.out.println("The new Status : " + status);
+        ClientState.getInstance().contactsList.stream().filter(contactModel -> contactModel.getPhoneNumber().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.setStatus(status));
+        ClientState.getInstance().conversationsList.stream().filter(coversationCard -> coversationCard.status_text.getText().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.status_text.setText(status));
     }
 
 }

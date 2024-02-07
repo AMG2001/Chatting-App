@@ -51,8 +51,7 @@ public class HomePageController {
         lv_onlineContacts.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 right_pane.getChildren().clear();
-                ChatPaneController chatPaneController = new ChatPaneController();
-                chatPaneController.setControllerValues(newVal);
+                ChatPaneController chatPaneController = new ChatPaneController(newVal);
                 right_pane.getChildren().add(chatPaneController.getLayout());
 //                ClientState.getInstance().openChat(newVal.getPhoneNumber());
             }

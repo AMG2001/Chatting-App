@@ -82,12 +82,17 @@ public class ChatPaneController {
         });
     }
 
-    public ChatPaneController() {
+    public ChatPaneController(ConversationCard conversationCard) {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/chatPane.fxml"));
             loader.setController(this);
             layout = loader.load();
             System.out.println("Chat Pane Loaded ✅✅");
+            this.contactCardData = conversationCard;
+            chatImage.setImage(conversationCard.img_contact.getImage());
+            chatName.setText(conversationCard.text_contactName.getText());
+            receiverStatus.setText(conversationCard.status_text.getText());
+            receiverStatusCircle.setFill(conversationCard.status_circle.getFill());
         } catch (Exception e) {
             System.err.println("Error while loading HomePageView : " + e.getMessage());
         }
@@ -105,13 +110,5 @@ public class ChatPaneController {
             ClientState.getInstance().openedChatMessagesList.add(messageController);
             messageArea.setHtmlText("");
         }
-    }
-
-    public void setControllerValues(ConversationCard coversationCard) {
-        this.contactCardData = coversationCard;
-        chatImage.setImage(coversationCard.conversationImageProperty().get());
-        chatName.setText(coversationCard.getName().get());
-        receiverStatus.setText(coversationCard.getStatus());
-        receiverStatusCircle.setFill(coversationCard.getCircle().getFill());
     }
 }

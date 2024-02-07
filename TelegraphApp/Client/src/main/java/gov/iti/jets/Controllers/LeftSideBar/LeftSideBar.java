@@ -85,12 +85,7 @@ public class LeftSideBar {
 
     @FXML
     void moveToHomePage(ActionEvent event) {
-        try {
-            UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), CustomEnums.UserStatus_OFFLINE);
-            Navigator.navigateToHomePage();
-        } catch (RemoteException e) {
-            CustomDialogs.showErrorDialog("Error while updating status to offline while logging out !!");
-        }
+        Navigator.navigateToHomePage();
     }
 
     @FXML
