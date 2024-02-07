@@ -34,6 +34,7 @@ public class ContactCallbackHandler {
 
     public void updateContactStatus(String phone, String newStatus, List<RemoteCallbackInterface> contacts) {
         try {
+            System.out.println(phone+"  "+newStatus);
             for (RemoteCallbackInterface contact : contacts) {
                 contact.updateContactStatus(phone, newStatus);
             }

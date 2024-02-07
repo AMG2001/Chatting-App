@@ -58,7 +58,7 @@ public class LoginPageController {
                 if (userDTO != null) {
                     tf_password.clear();
                     try {
-                        UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), CustomEnums.UserStatus_OFFLINE);
+                        UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), CustomEnums.UserStatus_ONLINE);
                         Platform.runLater(() -> Navigator.navigateToHomePage());
                     } catch (RemoteException e) {
                         CustomDialogs.showErrorDialog("Error while updating status to offline while logging out !!");
