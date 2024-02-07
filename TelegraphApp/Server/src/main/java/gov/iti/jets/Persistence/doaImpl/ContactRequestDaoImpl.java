@@ -1,10 +1,14 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.Domain.Contact;
 import gov.iti.jets.Domain.ContactRequest;
 
+import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.Gender;
 import gov.iti.jets.Domain.enums.RequestStatus;
 
 
+import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
@@ -194,6 +198,43 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
         }
 
         return requestId;
+    }
+
+    @Override
+    public String getRequestStatusBySenderAndReceiverPhones(String senderPhone, String ReceiverPhone) {
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String requestStatus= null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from Contact_Request \n" +
+                    "where sender_phone =? and receiver_phone =?;";
+            pst = con.prepareStatement(sql);
+            pst.setString(1,senderPhone);
+            pst.setString(2,ReceiverPhone);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                requestStatus=rs.getString("status");
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return requestStatus;
     }
 
     @Override
