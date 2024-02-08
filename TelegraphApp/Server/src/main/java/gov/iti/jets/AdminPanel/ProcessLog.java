@@ -7,13 +7,13 @@ public class ProcessLog {
 
     private static DashboardController controller;
 
-    public static void setController(DashboardController yourController) {
+    protected static void setController(DashboardController yourController) {
         controller = yourController;
     }
 
     public static void appendToProcessLog(String process) {
         Platform.runLater(() -> {
-            if (controller != null) {
+            if (controller != null)
                 controller.appendToProcessLog(process);
             }
         });
