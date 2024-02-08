@@ -8,6 +8,10 @@ public class RequestResponseDTO implements Serializable {
     private String senderPhone;
     private String recieverPhone;
 
+    public RequestResponseDTO(){
+
+    }
+
     public RequestResponseDTO(int requestID, String requestStatus, String senderPhone, String recieverPhone) {
         this.requestID = requestID;
         this.requestStatus = requestStatus;

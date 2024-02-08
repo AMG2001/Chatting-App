@@ -18,89 +18,44 @@ import java.io.IOException;
 
 public class ConversationCard {
     @FXML
-    private ImageView img_contact;
+    public ImageView img_contact;
 
     @FXML
-    private Circle status_circle;
+    public Circle status_circle;
 
     @FXML
-    private Label status_text;
+    public Label status_text;
 
     @FXML
-    private Text text_contactName;
-
+    public Text text_contactName;
+    private int conversationID;
+    private String phoneNumber;
     private HBox layout;
     FXMLLoader loader;
-    private IntegerProperty conversationID;
-    private StringProperty name, status;
-    private ObjectProperty<Circle> circle;
-    private ObjectProperty<Image> conversationImage;
 
-    public ConversationCard(int conversationID, String name, Image image, String status) {
+    public int getConversationID() {
+        return conversationID;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public ConversationCard(int conversationID, String phoneNumber, String name, Image image, String status, Color color) {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ContactCard.fxml"));
             loader.setController(this);
             layout = loader.load();
-            initClassFields(name, image, status);
-            text_contactName.setText(this.name.get());
-            img_contact.setImage(this.conversationImage.get());
-            status_text.setText(this.status.get());
-            status_circle.setFill(this.circle.get().getFill());
+            this.conversationID = conversationID;
+            this.phoneNumber = phoneNumber;
+            this.status_circle.setFill(color);
+            text_contactName.setText(name);
+            img_contact.setImage(image);
+            status_text.setText(status);
         } catch (IOException e) {
             System.err.println("###### Error while loading Parameterized Constructor on ContactCardDataModel");
             e.printStackTrace();
         }
-    }
-
-    private void initClassFields(String name, Image image, String status) {
-        this.conversationID = new SimpleIntegerProperty();
-        this.name = new SimpleStringProperty();
-        this.status = new SimpleStringProperty();
-        this.circle = new SimpleObjectProperty<>();
-        this.conversationImage = new SimpleObjectProperty<>();
-        this.name.set(name);
-        this.conversationImage.set(image);
-        this.status.set(status);
-        Color color = ConversationsServicesClass.setConversationsCircleColor(status);
-        Circle circle = new Circle();
-        circle.setFill(color);
-        this.circle.set(circle);
-    }
-
-    public IntegerProperty conversationIDProperty() {
-        return conversationID;
-    }
-
-    public StringProperty getName() {
-        return name;
-    }
-
-    public String getStatus() {
-        return status.get();
-    }
-
-    public StringProperty statusProperty() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status.set(status);
-    }
-
-    public Circle getCircle() {
-        return circle.get();
-    }
-
-    public ObjectProperty<Circle> circleProperty() {
-        return circle;
-    }
-
-    public void setCircle(Circle circle) {
-        this.circle.set(circle);
-    }
-
-    public ObjectProperty<Image> conversationImageProperty() {
-        return conversationImage;
     }
 
     public HBox getLayout() {

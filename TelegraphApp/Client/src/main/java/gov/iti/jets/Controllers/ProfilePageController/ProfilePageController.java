@@ -3,6 +3,8 @@ package gov.iti.jets.Controllers.ProfilePageController;
 import DTO.User.UpdatedUserDTO;
 import DTO.User.UserDTO;
 import gov.iti.jets.Controllers.RegisterPageController.RegisterPageController;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
+import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.Emails.EmailsService;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.Navigator;
@@ -13,10 +15,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -58,6 +57,8 @@ public class ProfilePageController {
 
     @FXML
     private TextField tf_userName;
+    @FXML
+    private ComboBox<String> statusMenuButton;
     private UserModel userModel;
 
     @FXML
@@ -76,7 +77,22 @@ public class ProfilePageController {
         datePicker.setEditable(false);
         tf_phoneNumber.setEditable(false);
         tf_phoneNumber.setDisable(true);
+        initStatusMenuButton();
+    }
 
+    private void initStatusMenuButton() {
+        String[] allUserStatus = {CustomEnums.UserStatus_ONLINE, CustomEnums.UserStatus_AWAY, CustomEnums.UserStatus_OFFLINE, CustomEnums.UserStatus_BUSY};
+        statusMenuButton.setStyle("-fx-text-fill: white;"); // Change the color to red
+        statusMenuButton.setValue(allUserStatus[0]);
+        statusMenuButton.getItems().addAll(allUserStatus);
+        statusMenuButton.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), newValue);
+            } catch (RemoteException e) {
+                CustomDialogs.showErrorDialog("Error while Changing Status !! / " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
