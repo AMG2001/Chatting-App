@@ -29,7 +29,7 @@
 
 
 .custom-toggle-button:selected {
-    -fx-background-color: #4caf50; /* Green when toggled on */
+    -fx-background-color: #4caf50;
     -fx-text-fill: white;
 }
 
@@ -47,4 +47,29 @@
 }
 .chart-pie-label {
     -fx-text-fill: white;
+}
+
+
+.online-label {
+    -fx-background-color: linear-gradient(to bottom, #52c652, #3b943b); /* Softer green gradient */
+    -fx-border-color: #3b943b; /* Border color */
+    -fx-text-fill: white; /* Text color */
+}
+
+.offline-label {
+    -fx-background-color: linear-gradient(to bottom, #ff6666, #cc0000); /* Softer red gradient */
+    -fx-border-color: #cc0000; /* Border color */
+    -fx-text-fill: white; /* Text color */
+}
+
+.online-button {
+    -fx-background-color: linear-gradient(to bottom, #52c652, #3b943b); /* Softer green gradient */
+    -fx-border-color: #3b943b; /* Border color */
+    -fx-text-fill: white; /* Text color */
+}
+
+.offline-button {
+    -fx-background-color: linear-gradient(to bottom, #ff6666, #cc0000); /* Softer red gradient */
+    -fx-border-color: #cc0000; /* Border color */
+    -fx-text-fill: white; /* Text color */
 }

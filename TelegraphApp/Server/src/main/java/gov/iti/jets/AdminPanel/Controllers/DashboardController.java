@@ -23,12 +23,12 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -48,8 +48,6 @@ public class DashboardController implements Initializable {
 
     @FXML
     private BarChart<String, Number> ageDistributionGraph;
-    @FXML
-    private ToggleButton serverToggle;
     @FXML
     private ListView<String> announcementLog;
     @FXML
@@ -79,7 +77,6 @@ public class DashboardController implements Initializable {
     private final ObservableList<String> processLogList = FXCollections.observableArrayList();
     private ObservableList<UserModel> userList;
     private ObservableList<UserModel> userTableList = FXCollections.observableArrayList();
-    ;
     @FXML
     private PieChart onlineUsersPie;
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -91,10 +88,13 @@ public class DashboardController implements Initializable {
     private XYChart.Series<String, Number> ageGroup3Series = new XYChart.Series<>("50+", ageGroup3Data);
     @FXML
     private CategoryAxis AgeGraphXAxis;
-
     @FXML
     private NumberAxis AgeYAxis;
-
+    @FXML
+    private Label statusLabel;
+    @FXML
+    private Button toggleButton;
+    private boolean serverOnline = true;
     UserDao userDao = new UserDoaImpl();
 
     @Override
@@ -193,7 +193,8 @@ public class DashboardController implements Initializable {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data(UserStatus.ONLINE.name() + " (" + onlineCount + ")", onlineCount), new PieChart.Data(UserStatus.OFFLINE.name() + " (" + offlineCount + ")", offlineCount), new PieChart.Data(UserStatus.BUSY.name() + " (" + busyCount + ")", busyCount), new PieChart.Data(UserStatus.AWAY.name() + " (" + awayCount + ")", awayCount));
         return pieChartData;
     }
-//----------------------------------------USERTABLEVIEW---------------------------------------
+
+    //----------------------------------------USERTABLEVIEW---------------------------------------
     private void initializeTableView() {
         phoneNumberTc.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
         usernameTc.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -212,9 +213,6 @@ public class DashboardController implements Initializable {
 
         countryTc.setCellFactory(TextFieldTableCell.forTableColumn());
         countryTc.setOnEditCommit(this::onCountryEditCommit);
-
-        dobTc.setCellFactory(TextFieldTableCell.forTableColumn());
-        dobTc.setOnEditCommit(this::onDobEditCommit);
 
         genderTc.setCellFactory(TextFieldTableCell.forTableColumn());
         genderTc.setOnEditCommit(this::onGenderEditCommit);
@@ -264,14 +262,6 @@ public class DashboardController implements Initializable {
         //employeeService.updateEmployee(editedEmployee);
     }
 
-    private void onDobEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
-        UserModel editedEmployee = event.getRowValue();
-        editedEmployee.setEmail(event.getNewValue());
-        //Call updateUsername here
-        //employeeService.updateEmployee(editedEmployee);
-    }
-
-
     //Get Announcements from database
     private void initializeAnnouncementLog() {
         announcementLog.setItems(announcementList);
@@ -292,8 +282,23 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    void changeServerStatus(ActionEvent event) {
+    private void toggleServer(ActionEvent event) {
+        serverOnline = !serverOnline;
+        updateStatus();
+    }
 
+    private void updateStatus() {
+        if (serverOnline) {
+            statusLabel.setText("Server is online");
+            statusLabel.getStyleClass().setAll("online-label");
+            toggleButton.setText("Turn Server Off");
+            toggleButton.getStyleClass().setAll("offline-button");
+        } else {
+            statusLabel.setText("Server is offline");
+            statusLabel.getStyleClass().setAll("offline-label");
+            toggleButton.setText("Turn Server On");
+            toggleButton.getStyleClass().setAll("online-button");
+        }
     }
 
     @FXML
@@ -345,18 +350,15 @@ public class DashboardController implements Initializable {
         }
 
     }
-
     @FXML
     void getAllUsers(ActionEvent event) {
         userTableList.setAll(userList);
     }
-
     @FXML
     void addNewUser(ActionEvent event) {
         // Create a Dialog
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Enter User Details");
-
         // Set the header text
         dialog.setHeaderText(null);
 
