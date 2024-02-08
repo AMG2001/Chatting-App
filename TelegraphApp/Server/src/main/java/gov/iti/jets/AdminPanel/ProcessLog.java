@@ -13,7 +13,7 @@ public class ProcessLog {
 
     public static void appendToProcessLog(String process) {
         Platform.runLater(() -> {
-            if (controller != null)
+            if (controller != null) {
                 controller.appendToProcessLog(process);
             }
         });
