@@ -4,6 +4,7 @@ import gov.iti.jets.Domain.enums.UserStatus;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class UserModel {
     private final StringProperty phoneNumber = new SimpleStringProperty();
@@ -130,6 +131,17 @@ public class UserModel {
 
     public LocalDate getDob() {
         return dob.get();
+    }
+    private int calculateAge(LocalDate dob) {
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(dob, currentDate).getYears();
+    }
+    public final IntegerProperty ageProperty() {
+        return new SimpleIntegerProperty(calculateAge(getDob()));
+    }
+    // Getter for age
+    public final int getAge() {
+        return ageProperty().get();
     }
 
     public ObjectProperty<LocalDate> dobProperty() {

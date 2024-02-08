@@ -45,3 +45,6 @@
 .custom-toggle-button:hover {
     -fx-background-color: #e57373; /* A different color for untoggled and hovered state */
 }
+.chart-pie-label {
+    -fx-text-fill: white;
+}

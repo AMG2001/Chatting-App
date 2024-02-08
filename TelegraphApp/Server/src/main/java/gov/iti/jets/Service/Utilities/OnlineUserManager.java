@@ -1,11 +1,14 @@
 package gov.iti.jets.Service.Utilities;
 
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.AdminPanel.ProcessLog;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+//TODO create effective logging
 public class OnlineUserManager {
     private static ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers = new ConcurrentHashMap<>();
 
@@ -13,8 +16,8 @@ public class OnlineUserManager {
         onlineUsers = new ConcurrentHashMap<>();
     }
 
-    public static ConcurrentHashMap<String, RemoteCallbackInterface> getOnlineUsers() {
-        return onlineUsers;
+    public static List<RemoteCallbackInterface> getOnlineUsers() {
+        return  onlineUsers.values().stream().toList();
     }
 
     public static void setOnlineUsers(ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers) {
@@ -24,11 +27,13 @@ public class OnlineUserManager {
     public static void addOnlineUser(String phone, RemoteCallbackInterface user){
         //TODO Handle user already existing
         onlineUsers.put(phone,user);
+        ProcessLog.appendToProcessLog("User Added to Callback Interface");
 
     }
     public static void removeOnlineUser(String phone){
         //TODO handle user not exiting in the hashset
         onlineUsers.remove(phone);
+        ProcessLog.appendToProcessLog("User removed from Callback Interface");
     }
 
     public static List<RemoteCallbackInterface> getFriendsFromOnlineList(List<String> phones) {
