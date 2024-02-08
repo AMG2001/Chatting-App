@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
 
 public class ClientState {
     /*
@@ -40,6 +41,7 @@ public class ClientState {
      *************************************** Messages Observables ********************************
      */
     public ObservableList<ChatBotChatMessageController> chatBotChatMessages;// ✅ Initialized .
+    public HashMap<Integer, ObservableList<MessageController>> conversationsMessagesList = new HashMap<>();
 
     /*
      *************************************** Contacts - Groups  Observables ********************************
