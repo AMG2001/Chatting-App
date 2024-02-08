@@ -218,7 +218,7 @@
     <Tab closable="false" text="Users">
         <GridPane prefHeight="523.0" prefWidth="1018.0">
             <!-- User Table -->
-            <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
+            <TableView fx:id="userTable" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
                 <columns>
                     <TableColumn fx:id="phoneNumberTc" editable="false" prefWidth="104.80001294612885" text="Phone Number" />
                     <TableColumn fx:id="usernameTc" prefWidth="53.600013732910156" text="Username" />
@@ -242,16 +242,6 @@
                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                 </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteSelectedUser" text="Delete User" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
-                <GridPane.margin>
-                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                </GridPane.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#editSelectedUser" text="Edit User" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-                <GridPane.margin>
-                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                </GridPane.margin>
-            </Button>
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                 <children>
                     <ImageView fitHeight="43.0" fitWidth="41.0" preserveRatio="true">
@@ -269,6 +259,21 @@
                     </Text>
                 </children>
             </HBox>
+         <TextField fx:id="phoneInput" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
+            <GridPane.margin>
+               <Insets right="135.0" />
+            </GridPane.margin>
+         </TextField>
+         <Button mnemonicParsing="false" onAction="#searchByPhone" text="Search by Phone" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <GridPane.margin>
+               <Insets right="15.0" />
+            </GridPane.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#getAllUsers" text="Get All" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <GridPane.margin>
+               <Insets right="15.0" />
+            </GridPane.margin>
+         </Button>
             <columnConstraints>
                 <ColumnConstraints maxWidth="40.0" minWidth="20.0" prefWidth="40.0" />
                 <ColumnConstraints maxWidth="250.0" minWidth="200.0" prefWidth="200.0" />

@@ -9,6 +9,8 @@ import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
+import gov.iti.jets.Service.Utilities.FileSystemUtil;
+import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -18,11 +20,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,13 +49,14 @@ public class DashboardController implements Initializable {
     @FXML
     private BarChart<String, Number> ageDistributionGraph;
     @FXML
-    private BarChart<String, Number> statisticsGraph;
-    @FXML
     private ToggleButton serverToggle;
     @FXML
     private ListView<String> announcementLog;
     @FXML
     private TextField announcementTextfield;
+    @FXML
+    private TextField phoneInput;
+
     @FXML
     private ListView<String> serverLog;
     @FXML
@@ -52,20 +64,22 @@ public class DashboardController implements Initializable {
     @FXML
     private TableColumn<UserModel, String> countryTc;
     @FXML
-    private TableColumn<UserModel, LocalDate> dobTc;
+    private TableColumn<UserModel, String> dobTc;
     @FXML
     private TableColumn<UserModel, String> emailTc;
     @FXML
-    private TableColumn<UserModel, Gender> genderTc;
+    private TableColumn<UserModel, String> genderTc;
     @FXML
     private TableColumn<UserModel, String> phoneNumberTc;
     @FXML
     private TableColumn<UserModel, String> usernameTc;
     @FXML
-    private TableColumn<UserModel, UserStatus> statusTc;
+    private TableColumn<UserModel, String> statusTc;
     private final ObservableList<String> announcementList = FXCollections.observableArrayList();
     private final ObservableList<String> processLogList = FXCollections.observableArrayList();
     private ObservableList<UserModel> userList;
+    private ObservableList<UserModel> userTableList = FXCollections.observableArrayList();
+    ;
     @FXML
     private PieChart onlineUsersPie;
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -81,6 +95,8 @@ public class DashboardController implements Initializable {
     @FXML
     private NumberAxis AgeYAxis;
 
+    UserDao userDao = new UserDoaImpl();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userList = getUsersFromDatabase();
@@ -88,12 +104,12 @@ public class DashboardController implements Initializable {
         onlineUsersPie.setData(getPieChartData(userList));
         initializeBarChart();
         initializeAnnouncementLog();
+        initializeProcessLog();
         //updateBarChartData();
-        // Bind the ListView to the observable list
-        serverLog.setItems(processLogList);
 
         executorService.scheduleAtFixedRate(this::updatePieChart, 0, 10, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(this::fetchUsersFromDatabase, 0, 10, TimeUnit.SECONDS);
+        initializeTableView();
     }
 //------------------------------------DATABASE ACCESS -----------------------------------
 
@@ -106,7 +122,6 @@ public class DashboardController implements Initializable {
     }
 
     private ObservableList<UserModel> getUsersFromDatabase() {
-        UserDao userDao = new UserDoaImpl();
         List<User> allUsers = userDao.getAll();
         List<UserModel> allUserModels = UserMapper.mapToUserModels(allUsers);
         return FXCollections.observableArrayList(allUserModels);
@@ -123,17 +138,11 @@ public class DashboardController implements Initializable {
         ageGroup2Series.setData(ageGroup2Data);
         ageGroup3Series.setData(ageGroup3Data);
 
-        ageGroup1Series.getData().forEach(data -> data.YValueProperty().bind(
-                Bindings.createIntegerBinding(() ->
-                        (int) userList.stream().filter(user -> user.getAge() < 18).count(), userList)));
+        ageGroup1Series.getData().forEach(data -> data.YValueProperty().bind(Bindings.createIntegerBinding(() -> (int) userList.stream().filter(user -> user.getAge() < 18).count(), userList)));
 
-        ageGroup2Series.getData().forEach(data -> data.YValueProperty().bind(
-                Bindings.createIntegerBinding(() ->
-                        (int) userList.stream().filter(user -> user.getAge() >= 19 && user.getAge() < 50).count(), userList)));
+        ageGroup2Series.getData().forEach(data -> data.YValueProperty().bind(Bindings.createIntegerBinding(() -> (int) userList.stream().filter(user -> user.getAge() >= 19 && user.getAge() < 50).count(), userList)));
 
-        ageGroup3Series.getData().forEach(data -> data.YValueProperty().bind(
-                Bindings.createIntegerBinding(() ->
-                        (int) userList.stream().filter(user -> user.getAge() >= 50).count(), userList)));
+        ageGroup3Series.getData().forEach(data -> data.YValueProperty().bind(Bindings.createIntegerBinding(() -> (int) userList.stream().filter(user -> user.getAge() >= 50).count(), userList)));
 
         // Initialize the BarChart
         AgeGraphXAxis.setCategories(FXCollections.observableArrayList("18 & Lower", "19-50", "50+"));
@@ -181,32 +190,85 @@ public class DashboardController implements Initializable {
         long busyCount = userModels.stream().filter(user -> UserStatus.BUSY.equals(user.getStatus())).count();
         long awayCount = userModels.stream().filter(user -> UserStatus.AWAY.equals(user.getStatus())).count();
 
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data(UserStatus.ONLINE.name() + " (" + onlineCount + ")", onlineCount),
-                new PieChart.Data(UserStatus.OFFLINE.name() + " (" + offlineCount + ")", offlineCount),
-                new PieChart.Data(UserStatus.BUSY.name() + " (" + busyCount + ")", busyCount),
-                new PieChart.Data(UserStatus.AWAY.name() + " (" + awayCount + ")", awayCount)
-        );
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data(UserStatus.ONLINE.name() + " (" + onlineCount + ")", onlineCount), new PieChart.Data(UserStatus.OFFLINE.name() + " (" + offlineCount + ")", offlineCount), new PieChart.Data(UserStatus.BUSY.name() + " (" + busyCount + ")", busyCount), new PieChart.Data(UserStatus.AWAY.name() + " (" + awayCount + ")", awayCount));
         return pieChartData;
     }
-
-    @FXML
-    void addNewUser(ActionEvent event) {
-
-    }
-
+//----------------------------------------USERTABLEVIEW---------------------------------------
     private void initializeTableView() {
-        phoneNumberTc.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        usernameTc.setCellValueFactory(new PropertyValueFactory<>("name"));
-        emailTc.setCellValueFactory(new PropertyValueFactory<>("email"));
-        genderTc.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        countryTc.setCellValueFactory(new PropertyValueFactory<>("country"));
-        statusTc.setCellValueFactory(new PropertyValueFactory<>("status"));
-        dobTc.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        phoneNumberTc.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
+        usernameTc.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        emailTc.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        genderTc.setCellValueFactory(cellData -> cellData.getValue().genderProperty().asString());
+        countryTc.setCellValueFactory(cellData -> cellData.getValue().countryProperty());
+        statusTc.setCellValueFactory(cellData -> cellData.getValue().statusProperty().asString());
+        dobTc.setCellValueFactory(cellData -> cellData.getValue().dobProperty().asString());
+
         // Add listener for TableView row editing
-        userTable.setEditable(true);
+        usernameTc.setCellFactory(TextFieldTableCell.forTableColumn());
+        usernameTc.setOnEditCommit(this::onNameEditCommit);
+
+        emailTc.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailTc.setOnEditCommit(this::onEmailEditCommit);
+
+        countryTc.setCellFactory(TextFieldTableCell.forTableColumn());
+        countryTc.setOnEditCommit(this::onCountryEditCommit);
+
+        dobTc.setCellFactory(TextFieldTableCell.forTableColumn());
+        dobTc.setOnEditCommit(this::onDobEditCommit);
+
+        genderTc.setCellFactory(TextFieldTableCell.forTableColumn());
+        genderTc.setOnEditCommit(this::onGenderEditCommit);
+
         userTable.getSelectionModel().setCellSelectionEnabled(true);
         // Add your listener for the onEdit event of each row here
+
+        //Bind the user List to the Table
+        userTable.setItems(userTableList);
+    }
+
+    private void onNameEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+        UserModel editedEmployee = event.getRowValue();
+        editedEmployee.setName(event.getNewValue());
+        //Call updateUsername here
+        //employeeService.updateEmployee(editedEmployee);
+    }
+
+    private void onGenderEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+        UserModel editedEmployee = event.getRowValue();
+        try {
+            editedEmployee.setGender(Gender.valueOf(event.getNewValue().toUpperCase()));
+            //Call updateUsername here
+            //employeeService.updateEmployee(editedEmployee);
+        } catch (IllegalArgumentException e) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Illegal Argument");
+            alert.setHeaderText(null); // No header text
+            alert.setContentText("Please enter a correct Gender");
+            // Show the alert box
+            alert.showAndWait();
+        }
+    }
+
+    private void onEmailEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+        UserModel editedEmployee = event.getRowValue();
+        editedEmployee.setEmail(event.getNewValue());
+        //Call updateUsername here
+        //employeeService.updateEmployee(editedEmployee);
+    }
+
+    private void onCountryEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+        UserModel editedEmployee = event.getRowValue();
+        editedEmployee.setCountry(event.getNewValue());
+        //Call updateUsername here
+        //employeeService.updateEmployee(editedEmployee);
+    }
+
+    private void onDobEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+        UserModel editedEmployee = event.getRowValue();
+        editedEmployee.setEmail(event.getNewValue());
+        //Call updateUsername here
+        //employeeService.updateEmployee(editedEmployee);
     }
 
 
@@ -231,18 +293,14 @@ public class DashboardController implements Initializable {
 
     @FXML
     void changeServerStatus(ActionEvent event) {
-    }
 
-    @FXML
-    void deleteSelectedUser(ActionEvent event) {
     }
 
     @FXML
     void sendAnnouncement(ActionEvent event) {
         String notificationBody = announcementTextfield.getText();
         String type = NotificationType.SYSTEM.toString();
-        NotificationDTO announcement =
-                new NotificationDTO("1", type, LocalDateTime.now(), notificationBody);
+        NotificationDTO announcement = new NotificationDTO("1", type, LocalDateTime.now(), notificationBody);
         if (!OnlineUserManager.getOnlineUsers().isEmpty()) {
 
             OnlineUserManager.getOnlineUsers().stream().forEach((e) -> {
@@ -254,10 +312,173 @@ public class DashboardController implements Initializable {
             });
             Platform.runLater(() -> appendToServerLog(notificationBody));
         }
+    }
+
+    @FXML
+    void searchByPhone(ActionEvent event) {
+        if (!phoneInput.getText().isEmpty()) {
+            String phoneNo = phoneInput.getText();
+            User userDomain = userDao.getById(phoneNo);
+            if (userDomain != null) {
+                UserModel user = UserMapper.mapToUserModel(userDomain);
+                // Replace all table data with the selected employee
+                userTableList.setAll(user);
+            } else {
+                // Employee not found, show a modal alert
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Employee Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("The employee with the specified details was not found.");
+
+                // Customize the alert dialog pane
+                alert.getDialogPane().setPrefWidth(300);
+                Label label = new Label("Employee Not Found");
+                label.setStyle("-fx-font-weight: bold;");
+                alert.getDialogPane().setHeader(label);
+
+                // Add OK button
+                alert.getButtonTypes().setAll(ButtonType.OK);
+
+                // Show the alert and wait for the user to acknowledge
+                alert.showAndWait();
+            }
+        }
 
     }
 
     @FXML
-    void editSelectedUser(ActionEvent event) {
+    void getAllUsers(ActionEvent event) {
+        userTableList.setAll(userList);
+    }
+
+    @FXML
+    void addNewUser(ActionEvent event) {
+        // Create a Dialog
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Enter User Details");
+
+        // Set the header text
+        dialog.setHeaderText(null);
+
+        // Create Labels and TextFields for the new items
+        Label usernameLabel = new Label("Username:");
+        TextField usernameTextField = new TextField();
+
+        Label phoneNumberLabel = new Label("Phone Number:");
+        TextField phoneNumberTextField = new TextField();
+
+        Label passwordLabel = new Label("Password:");
+        PasswordField passwordField = new PasswordField();
+
+        Label emailLabel = new Label("Email:");
+        TextField emailTextField = new TextField();
+
+        Label genderLabel = new Label("Gender:");
+        ChoiceBox<String> genderChoiceBox = new ChoiceBox<>();
+        genderChoiceBox.getItems().addAll("MALE", "FEMALE");
+
+        Label countryLabel = new Label("Country:");
+        TextField countryTextField = new TextField();
+
+        Label userProfileLabel = new Label("User Profile Picture:");
+
+        // File selection
+        FileChooser fileChooser = new FileChooser();
+        Button selectFileButton = new Button("Select File");
+        ImageView previewImageView = new ImageView();
+        previewImageView.setPreserveRatio(true);
+        previewImageView.setFitWidth(150);
+
+        final byte[][] fileBytes = new byte[1][1];
+
+        selectFileButton.setOnAction(e -> {
+            File file = fileChooser.showOpenDialog(dialog.getOwner());
+            if (file != null) {
+                try {
+                    fileBytes[0] = Files.readAllBytes(file.toPath());
+                } catch (IOException ex) {
+                    System.out.println("Error reading image as bytes ");
+                }
+                Image image = new Image(file.toURI().toString());
+                previewImageView.setImage(image);
+            }
+        });
+
+        Label dateOfBirthLabel = new Label("Date of Birth:");
+        DatePicker datePicker = new DatePicker();
+
+        // Create a GridPane for the input fields
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        // Add the components to the GridPane
+        gridPane.add(usernameLabel, 0, 0);
+        gridPane.add(usernameTextField, 1, 0);
+
+        gridPane.add(phoneNumberLabel, 0, 1);
+        gridPane.add(phoneNumberTextField, 1, 1);
+
+        gridPane.add(passwordLabel, 0, 2);
+        gridPane.add(passwordField, 1, 2);
+
+        gridPane.add(emailLabel, 0, 3);
+        gridPane.add(emailTextField, 1, 3);
+
+        gridPane.add(genderLabel, 0, 4);
+        gridPane.add(genderChoiceBox, 1, 4);
+
+        gridPane.add(countryLabel, 0, 5);
+        gridPane.add(countryTextField, 1, 5);
+
+        gridPane.add(userProfileLabel, 0, 6);
+        gridPane.add(selectFileButton, 1, 6);
+
+        // Set column span for the image preview
+        GridPane.setColumnSpan(previewImageView, 1);
+        GridPane.setRowSpan(previewImageView, 1); // Adjust the row span as needed
+        GridPane.setHalignment(previewImageView, HPos.LEFT); // Align to the left
+
+        gridPane.add(previewImageView, 2, 6);
+
+        gridPane.add(dateOfBirthLabel, 0, 7);
+        gridPane.add(datePicker, 1, 7);
+
+        // Set the GridPane as the content of the Dialog
+        dialog.getDialogPane().setContent(gridPane);
+        dialog.getDialogPane().setPrefSize(600, 600);
+
+        // Add buttons to the dialog
+        ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(okButton, ButtonType.CANCEL);
+
+        // Show the dialog and wait for the user's response
+        dialog.showAndWait().ifPresent(result -> {
+            if (result.equals(okButton)) {
+                // User clicked OK, handle the entered values
+                // Must add verification here
+                String username = usernameTextField.getText();
+                String phoneNumber = phoneNumberTextField.getText();
+                String password = passwordField.getText();
+                String email = emailTextField.getText();
+                String gender = genderChoiceBox.getValue();
+                String country = countryTextField.getText();
+                LocalDate dateOfBirth = datePicker.getValue();
+
+                //Save Image on file system
+                String imagePath = FileSystemUtil.storeByteArrayAsFile(fileBytes[0], phoneNumber, FileType.PROFILE_PIC);
+
+                // Handle the values as needed
+                User user = new User(phoneNumber, username, email, password, country, UserStatus.OFFLINE, Gender.valueOf(gender), "Hello", imagePath, dateOfBirth);
+
+
+                //Add the new user to the DB
+                userDao.add(user);
+                fetchUsersFromDatabase();
+
+                System.out.println("Employee details Successfully sent to ServiceLayer");
+            }
+        });
+
     }
 }
