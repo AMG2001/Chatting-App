@@ -7,6 +7,5 @@ public class Server {
     public static void main(String[] args) {
         DBConnectionPool datasource = DBConnectionPool.DATASOURCE;
         ServerRegistryInitializer registry = new ServerRegistryInitializer();
-
     }
 }
