@@ -25,11 +25,9 @@ public class ServerRegistryInitializer {
             // Create or obtain a reference to the registry
             System.out.println("Initializing Registry...");
             registry = LocateRegistry.createRegistry(port);
-            ProcessLog.appendToProcessLog("Remote registry initialized.");
             System.out.println("Remote registry initialized.");
             System.out.println("Binding Remote Interfaces...");
             bindInterfaces(registry);
-            ProcessLog.appendToProcessLog("Remote Interfaces Successfully binded to Registry.");
             System.out.println("Remote Interfaces Successfully binded to Registry.");
             System.out.println("Registry Initialized.");
 
