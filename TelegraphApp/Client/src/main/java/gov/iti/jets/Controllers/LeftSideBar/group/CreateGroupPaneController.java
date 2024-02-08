@@ -1,4 +1,4 @@
-package gov.iti.jets.Controllers.Shared.LeftSideBar.group;
+package gov.iti.jets.Controllers.LeftSideBar.group;
 
 import DTO.User.ContactDTO;
 import gov.iti.jets.Model.ClientState;

@@ -1,4 +1,4 @@
-package gov.iti.jets.Controllers.Shared.LeftSideBar;
+package gov.iti.jets.Controllers.LeftSideBar;
 
 import gov.iti.jets.Controllers.Shared.Requests.ReceivedRequestsController;
 import gov.iti.jets.Controllers.services.StagesLauncher;

@@ -1,5 +1,6 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.AdminPanel.ProcessLog;
 import gov.iti.jets.Domain.Attachment;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.Gender;
@@ -95,6 +96,7 @@ public class UserDoaImpl implements UserDao {
                 user.setPicture(picture);
 
                 users.add(user);
+
             }
         }
         catch (SQLException e){
@@ -111,6 +113,7 @@ public class UserDoaImpl implements UserDao {
                 System.out.println(e.getMessage());
             }
         }
+        ProcessLog.appendToProcessLog("All Users Fetched from DB");
         return users;
     }
 

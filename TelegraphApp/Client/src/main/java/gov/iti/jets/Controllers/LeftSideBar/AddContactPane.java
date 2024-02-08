@@ -1,4 +1,4 @@
-package gov.iti.jets.Controllers.Shared.LeftSideBar;
+package gov.iti.jets.Controllers.LeftSideBar;
 
 import DTO.Request.RequestSendDTO;
 import gov.iti.jets.Controllers.services.CustomDialogs;
@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -27,11 +28,14 @@ public class AddContactPane {
     @FXML
     private TextField receiverPhoneNumber;
 
-    public AddContactPane() {
+    private Stage stage;
+
+    public AddContactPane(Stage stage) {
         try {
             loader = new FXMLLoader(getClass().getResource("/SendRequest/SendRequest.fxml"));
             loader.setController(this);
             layout = loader.load();
+            this.stage = stage;
         } catch (IOException e) {
             System.out.println("can not load sendRequestPane" + e.getMessage());
         }
@@ -47,7 +51,7 @@ public class AddContactPane {
             try {
                 RequestSendDTO requestSendDTO = new RequestSendDTO(LocalDateTime.now(), phoneNumber, ClientState.getInstance().getLoggedinUserModel().getUserPhone());
                 RequestService.getInstance().getRemoteService().sendRequest(requestSendDTO);
-                CustomDialogs.showInformativeDialog("Request Sent Successfully for " + phoneNumber);
+                stage.close();
             } catch (RemoteException e) {
                 CustomDialogs.showErrorDialog("This Phone Number is not exist !!");
                 e.printStackTrace();

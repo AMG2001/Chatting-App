@@ -1,6 +1,7 @@
 package gov.iti.jets.Controllers.RegisterPageController;
 
 import DTO.User.UserDTO;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FieldsValidator;
@@ -43,7 +44,7 @@ public class RegisterPageController {
     @FXML
     private TextArea ta_bio;
     @FXML
-    private TextField tf_confimPassword;
+    private PasswordField tf_confimPassword;
     @FXML
     private TextField tf_email;
     @FXML
@@ -55,15 +56,15 @@ public class RegisterPageController {
     private boolean isImagePicked = false;
     boolean isNotRegistered = false;
 
-//    ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
-ObservableList<String> countriesArray = FXCollections.observableArrayList(
-        "Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan",
-        "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Japan", "China",
-        "India", "Australia", "Brazil", "Argentina", "Mexico", "South Africa", "Nigeria", "Russia",
-        "Saudi Arabia", "Egypt", "South Korea", "Indonesia", "Malaysia", "Thailand", "Vietnam",
-        "Philippines", "Singapore", "New Zealand", "Greece", "Netherlands", "Spain", "Portugal",
-        "Sweden", "Norway", "Finland", "Denmark", "Switzerland", "Austria", "Belgium", "Ireland"
-);
+    //    ObservableList<String> countriesArray = FXCollections.observableArrayList("Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan");
+    ObservableList<String> countriesArray = FXCollections.observableArrayList(
+            "Egypt", "Palestine", "Iraq", "Iran", "Syria", "Morocco", "Turkey", "Libya", "Lebanon", "Jordan",
+            "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Japan", "China",
+            "India", "Australia", "Brazil", "Argentina", "Mexico", "South Africa", "Nigeria", "Russia",
+            "Saudi Arabia", "Egypt", "South Korea", "Indonesia", "Malaysia", "Thailand", "Vietnam",
+            "Philippines", "Singapore", "New Zealand", "Greece", "Netherlands", "Spain", "Portugal",
+            "Sweden", "Norway", "Finland", "Denmark", "Switzerland", "Austria", "Belgium", "Ireland"
+    );
     private String name, email, password, confirmPassword, phoneNumber, country, bio, genderValue = "";
 
     @FXML
@@ -109,7 +110,7 @@ ObservableList<String> countriesArray = FXCollections.observableArrayList(
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidEmail(email) && FieldsValidator.isValidPassword(password) && FieldsValidator.isValidName(name) && FieldsValidator.isValidCountry(country) && FieldsValidator.isValidPasswordConfirmation(password, confirmPassword) && isImagePicked == true && genderValue != "" && datePicker.getValue() != null) {
             byte[] imageBytes = FileConverter.convert_imageToBytes(img_user.getImage());
             try {
-                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, genderValue, bio, "ONLINE", imageBytes);
+                UserDTO userDTO = new UserDTO(phoneNumber, name, email, password, datePicker.getValue(), country, genderValue, bio, CustomEnums.UserStatus_ONLINE, imageBytes);
                 isNotRegistered = UserService.getInstance().getRemoteService().registerUser(userDTO);
                 UserModel userModel = new UserModel(userDTO);
                 ClientState.getInstance().setLoggedinUserProperty(userModel);

@@ -1,8 +1,6 @@
 package gov.iti.jets.Controllers.HomePageController;
 
-import gov.iti.jets.Controllers.Shared.ContactCard.ContactCardDataModel;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
-import gov.iti.jets.Controllers.Shared.Messages.SentMessageController;
 import gov.iti.jets.Model.ClientState;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
@@ -46,7 +44,7 @@ public class ChatPaneController {
     private Button btn_sendMessage;
     VBox layout;
     FXMLLoader loader;
-    ContactCardDataModel contactCardData;
+    ConversationCard contactCardData;
     String clientName, clientPhoneNumber;
     Image clientImage;
 
@@ -84,12 +82,17 @@ public class ChatPaneController {
         });
     }
 
-    public ChatPaneController() {
+    public ChatPaneController(ConversationCard conversationCard) {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/chatPane.fxml"));
             loader.setController(this);
             layout = loader.load();
             System.out.println("Chat Pane Loaded ✅✅");
+            this.contactCardData = conversationCard;
+            chatImage.setImage(conversationCard.img_contact.getImage());
+            chatName.setText(conversationCard.text_contactName.getText());
+            receiverStatus.setText(conversationCard.status_text.getText());
+            receiverStatusCircle.setFill(conversationCard.status_circle.getFill());
         } catch (Exception e) {
             System.err.println("Error while loading HomePageView : " + e.getMessage());
         }
@@ -107,13 +110,5 @@ public class ChatPaneController {
             ClientState.getInstance().openedChatMessagesList.add(messageController);
             messageArea.setHtmlText("");
         }
-    }
-
-    public void setControllerValues(ContactCardDataModel contactCardData) {
-        this.contactCardData = contactCardData;
-        chatImage.setImage(contactCardData.getContactImage());
-        chatName.setText(contactCardData.getContactName());
-        receiverStatus.setText("online");
-        receiverStatusCircle.setFill(Color.GREEN);
     }
 }

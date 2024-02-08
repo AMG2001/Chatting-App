@@ -1,29 +1,19 @@
-package gov.iti.jets.Controllers.Shared.LeftSideBar;
+package gov.iti.jets.Controllers.LeftSideBar;
 
 import DTO.LogoutDTO;
-import gov.iti.jets.Controllers.HomePageController.HomePageController;
-import gov.iti.jets.Controllers.HomePageController.RightPaneManager;
-import gov.iti.jets.Controllers.Shared.LeftSideBar.group.CreateGroupPaneController;
-import gov.iti.jets.Controllers.Shared.Notifications.NotificationController;
+import gov.iti.jets.Controllers.LeftSideBar.group.CreateGroupPaneController;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Notifications.NotificationsListViewController;
 import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatPaneViewer;
 import gov.iti.jets.Controllers.services.CustomDialogs;
-import gov.iti.jets.Controllers.services.CustomPopupMenus;
 import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.NotificationModel;
 import gov.iti.jets.ServiceContext.UserService;
-import javafx.beans.property.SimpleListProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.rmi.RemoteException;
@@ -116,8 +106,7 @@ public class LeftSideBar {
 
     @FXML
     void addNewContact(ActionEvent event) {
-        AddContactPane addContactPane = new AddContactPane();
-        StagesLauncher.LaunchNewStage(addContactPane.getLayout(), "Add New Contact", 500, 300);
+        StagesLauncher.launchAddContactPage("Add New Contact", 500, 300);
     }
 
     @FXML

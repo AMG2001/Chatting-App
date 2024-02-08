@@ -1,5 +1,6 @@
 package gov.iti.jets.Service.Utilities;
 
+import gov.iti.jets.AdminPanel.ProcessLog;
 import gov.iti.jets.Service.RemoteServicesImpl.*;
 
 import java.rmi.Remote;

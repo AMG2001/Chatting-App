@@ -1,12 +1,16 @@
 package gov.iti.jets.Model;
 
+import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatMessageController;
+import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestSendModel;
 import gov.iti.jets.Model.User.ContactModel;
 import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.RequestService;
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -20,30 +24,31 @@ public class ClientState {
     /*
      *************************************** Current Client Observables ********************************
      */
-    public ObservableValue<UserModel> loggedinUser;
+    public ObservableValue<UserModel> loggedinUser; // ✅ Initialized .
     /*
      ************************************** Requests Observables **************************************
      */
-    public ObservableList<RequestReceiveModel> receivedRequestsList;
+    public ObservableList<RequestReceiveModel> receivedRequestsList; // ✅ Initialized .
     public ObservableList<RequestSendModel> sentRequestsList;
 
     /*
      *************************************** Conversations Observables ********************************
      */
+    public ObservableList<ConversationCard> conversationsList = FXCollections.observableArrayList();
 
     /*
      *************************************** Messages Observables ********************************
      */
-    public ObservableList<ChatBotChatMessageController> chatBotChatMessages;
+    public ObservableList<ChatBotChatMessageController> chatBotChatMessages;// ✅ Initialized .
 
     /*
      *************************************** Contacts - Groups  Observables ********************************
      */
-    public ObservableList<ContactModel> contactsList;
+    public ObservableList<ContactModel> contactsList; // ✅ Initialized .
     /*
      *************************************** Notifications Observables ********************************
      */
-    public ObservableList<NotificationModel> notificationsList;
+    public ObservableList<NotificationModel> notificationsList;// ✅ Initialized .
 
     public ObservableList<MessageController> openedChatMessagesList;
     String previousChatPhoneNumber;
@@ -61,9 +66,12 @@ public class ClientState {
         notificationsList = FXCollections.observableArrayList();
         // Requests Initialization .
         receivedRequestsList = FXCollections.observableArrayList();
+        // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
         Platform.runLater(() -> loadAllRequests());
+        Platform.runLater(() -> loadAllContacts());
+        // TODO load all Groups .
     }
 
     public static ClientState getInstance() {
@@ -121,5 +129,36 @@ public class ClientState {
         return openedChatMessagesList;
     }
 
+    /*
+        ----------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
+                                          Conversations Observable Methods
+        ----------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------
+         */
+    private void loadAllContacts() {
+        try {
+            UserService.getInstance().getRemoteService().getContacts(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
+                ContactModel contactModel = new ContactModel(contactDTO);
+                contactsList.add(contactModel);
+                conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getPhoneNumber(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus(), contactModel.getStatusCircleColor()));
+            });
+        } catch (RemoteException e) {
+            CustomDialogs.showErrorDialog("Error while loading all contacts : " + e.getMessage());
+        }
+    }
+
+    // TODO Implement Load Groups .
+//    private void loadAllGroups() {
+//        try {
+//            UserService.getInstance().getRemoteService().getGroups(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
+//                Grou contactModel = new ContactModel(contactDTO);
+//                contactsList.add(contactModel);
+//                conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus()));
+//            });
+//        } catch (RemoteException e) {
+//            CustomDialogs.showErrorDialog("Error while loading all contacts : " + e.getMessage());
+//        }
+//    }
 }
 

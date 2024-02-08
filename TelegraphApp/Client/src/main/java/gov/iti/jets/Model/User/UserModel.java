@@ -70,8 +70,9 @@ public class UserModel {
 
     }
 
-    public UserModel(String userPhone, String userName, String email, String country, String status, String gender, String bio, LocalDate dob,String password, Image profilePic) {
+    public UserModel(String userPhone, String password, String userName, String email, String country, String status, String gender, String bio, LocalDate dob, Image profilePic) {
         this.userPhone.set(userPhone);
+        this.password.set(password);
         this.userName.set(userName);
         this.email.set(email);
         this.country.set(country);
@@ -79,12 +80,12 @@ public class UserModel {
         this.gender.set(gender);
         this.bio.set(bio);
         this.dob.set(dob);
-        this.password.set(password);
         this.profilePic.set(profilePic);
     }
 
     public UserModel(UserDTO userDTO) {
         this.userName.set(userDTO.getName());
+        this.password.set(userDTO.getPassword());
         this.userPhone.set(userDTO.getPhoneNumber());
         this.email.set(userDTO.getEmail());
         this.country.set(userDTO.getCountry());
@@ -92,7 +93,6 @@ public class UserModel {
         this.gender.set(userDTO.getGender());
         this.bio.set(userDTO.getBio());
         this.dob.set(userDTO.getDateOfBirth());
-        this.password.set(userDTO.getPassword());
         this.profilePic.set(FileConverter.convert_bytesToImage(userDTO.getSerializedImageURL()));
     }
 

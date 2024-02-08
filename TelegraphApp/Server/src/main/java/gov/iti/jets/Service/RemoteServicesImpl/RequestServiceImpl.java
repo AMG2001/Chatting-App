@@ -54,18 +54,39 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         ContactDao contactDao = new ContactDaoImpl();
 
         RemoteCallbackInterface senderRemoteInt = OnlineUserManager.getOnlineUser(request.getSenderPhone());
-
         RemoteCallbackInterface receiverRemoteInt = OnlineUserManager.getOnlineUser(request.getReceiverPhone());
 
         NotificationCallbackHandler notificationHandler = new NotificationCallbackHandler();
-
         RequestCallbackHandler requestHandler = new RequestCallbackHandler();
 
         NotificationDTO notification = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), "User Phone not found");
 
-        if (user.getById(request.getReceiverPhone()) == null) {
+        if(request.getReceiverPhone().equals(request.getSenderPhone())){
 
+            notification.setBody("You cannot send friend request to yourself ");
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
+
+        }
+        else if(checkIfRequestIsSendFromReceiver(request)) {
+
+            notification.setBody("You've already received friend request from " + request.getReceiverPhone());
+            notificationHandler.sendNotificationtoClient(notification, receiverRemoteInt);
+
+            RequestResponseDTO requestResponseDTO = new RequestResponseDTO();
+            requestResponseDTO.setSenderPhone(request.getReceiverPhone());
+            requestResponseDTO.setRecieverPhone(request.getSenderPhone());
+            requestResponseDTO.setRequestStatus("ACCEPTED");
+
+            updateRequest(requestResponseDTO);
+
+        } else if (user.getById(request.getReceiverPhone()) == null) {
+
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
+
+        } else if (contactDao.checkIfAlreadyContacts(request.getReceiverPhone(), request.getSenderPhone()) == true) {
+
+            notification.setBody(request.getReceiverPhone() + " is already in your contact list");
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
         } else if (contactRequestDao.checkIfRequestExist(contactRequest) != false) {
@@ -74,11 +95,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        } else if (contactDao.checkIfAlreadyContacts(request.getReceiverPhone(), request.getSenderPhone()) == true) {
-            notification.setBody(request.getReceiverPhone() + " is already in your contact list");
-
-            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
-        } else {
+        }else {
 
             int requestId = contactRequestDao.addRequest(contactRequest);
 
@@ -94,7 +111,6 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             //Set up a received Request with the name of the sender
             User sender = user.getById(request.getSenderPhone());
-
             String senderName = sender.getName();
             String recieverPhone = request.getReceiverPhone();
             String senderPhone = request.getSenderPhone();
@@ -108,12 +124,28 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         }
     }
 
+    private boolean checkIfRequestIsSendFromReceiver(RequestSendDTO requestSendDTO)  throws RemoteException {
+        ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
+
+        ContactRequest contactRequest = new ContactRequest();
+        contactRequest.setSendDate(requestSendDTO.getSendDate());
+        contactRequest.setSenderPhone(requestSendDTO.getReceiverPhone());
+        contactRequest.setReceiverPhone(requestSendDTO.getSenderPhone());
+
+        return contactRequestDao.checkIfRequestExist(contactRequest) &&
+                (contactRequestDao.getRequestStatusBySenderAndReceiverPhones(contactRequest.getSenderPhone(),
+                contactRequest.getReceiverPhone()).equals("PENDING"));
+
+
+    }
+
+
     @Override
     public void updateRequest(RequestResponseDTO requestDTO) throws RemoteException {
 
         //update DB
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
-        
+
         ContactRequest updatedRequest = new ContactRequest();
 
         updatedRequest.setRequestId(requestDTO.getRequestID());

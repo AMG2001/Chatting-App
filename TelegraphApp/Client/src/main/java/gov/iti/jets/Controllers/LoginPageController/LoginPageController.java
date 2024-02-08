@@ -2,6 +2,7 @@ package gov.iti.jets.Controllers.LoginPageController;
 
 import DTO.User.UserDTO;
 import DTO.User.UserLoginDTO;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Model.ClientState;
@@ -41,6 +42,7 @@ public class LoginPageController {
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidPassword(password)) {
             try {
                 ServerCallback serverCallBack = new ServerCallback();
+                System.out.println("Phone Number : " + phoneNumber + " Password : " + password);
                 userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
                 if (userDTO != null) {
                     UserModel userModel = new UserModel(userDTO);
@@ -55,7 +57,12 @@ public class LoginPageController {
             } finally {
                 if (userDTO != null) {
                     tf_password.clear();
-                    Platform.runLater(() -> Navigator.navigateToHomePage());
+                    try {
+                        UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), CustomEnums.UserStatus_ONLINE);
+                        Platform.runLater(() -> Navigator.navigateToHomePage());
+                    } catch (RemoteException e) {
+                        CustomDialogs.showErrorDialog("Error while updating status to offline while logging out !!");
+                    }
                 }
             }
         }

@@ -10,6 +10,7 @@ public interface ContactRequestDao extends GenericDatabaseDao<ContactRequest> {
     List<ContactRequest> getRequestsByReceiver(String phoneNumber);
     Boolean checkIfRequestExist(ContactRequest request);
     int addRequest(ContactRequest entity);
+    String getRequestStatusBySenderAndReceiverPhones(String senderPhone,String ReceiverPhone);
 
 }
 

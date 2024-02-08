@@ -1,13 +1,15 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
 import DTO.*;
-import DTO.Group.*;
+import DTO.Group.GroupDTO;
+import DTO.Group.GroupMemberDTO;
 import DTO.User.ContactDTO;
 import DTO.User.UpdatedUserDTO;
 import DTO.User.UserDTO;
 import DTO.User.UserLoginDTO;
 import RemoteInterfaces.RemoteUserService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.AdminPanel.ProcessLog;
 import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.NotificationType;
@@ -110,6 +112,8 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
                 returnedUser.setSerializedImage(image);
 
+                //PROCESS LOG
+                ProcessLog.appendToProcessLog("User "+returnedUser.getName() +" has Logged in");
                 return returnedUser;
             }
         }
@@ -231,6 +235,9 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         contactHandler.updateContactStatus(loggedOutUser.getUserPhone(),UserStatus.OFFLINE.name(),OnlineContactsCallBacks);
 
         userDao.updateStatus(loggedOutUser.getUserPhone(), UserStatus.OFFLINE);
+
+        //PROCESS LOG
+        ProcessLog.appendToProcessLog("User "+loggedOutUser.getName() +" has Logged Out");
         //TODO handle exception from DB
     }
 
@@ -281,6 +288,41 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         byte[] image = FileSystemUtil.getBytesFromFile(updatedUserModel.getPicture());
         returnedUserDTO.setSerializedImage(image);
 
+
+        RemoteCallbackInterface userCallback = OnlineUserManager.getOnlineUser(updatedUserDTO.getPhoneNumber());
+        NotificationDTO notificationToUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                , LocalDateTime.now(), "you've updated your information successfully");
+
+        NotificationCallbackHandler notificationHandler=new NotificationCallbackHandler();
+        notificationHandler.sendNotificationtoClient(notificationToUser,userCallback);
+
         return returnedUserDTO;
+    }
+
+    @Override
+    public void updateStatus(String userPhone, String usersStatus) {
+        // update the status in DB
+        UserDao userDao = new UserDoaImpl();
+        userDao.updateStatus(userPhone,UserStatus.valueOf(usersStatus));
+
+        NotificationCallbackHandler notificationHandler=new NotificationCallbackHandler();
+        ContactCallbackHandler contactHandler = new ContactCallbackHandler();
+
+        // get online contacts phones
+        List<User> OnlineContacts = userDao.getContactsByPhoneAndStatus(userPhone, UserStatus.ONLINE);
+        List<String> OnlineContactsPhones = OnlineContacts.stream()
+                .map(User::getPhoneNumber)
+                .toList();
+
+        // get callbacks of online contacts and user
+        List<RemoteCallbackInterface> OnlineContactsCallBacks = OnlineUserManager.getFriendsFromOnlineList(OnlineContactsPhones);
+        RemoteCallbackInterface userCallback = OnlineUserManager.getOnlineUser(userPhone);
+
+        NotificationDTO notificationToUser = new NotificationDTO("1", NotificationType.SYSTEM.toString()
+                , LocalDateTime.now(), "you've updated the status successfully");
+
+
+        notificationHandler.sendNotificationtoClient(notificationToUser,userCallback);
+        contactHandler.updateContactStatus(userPhone,usersStatus,OnlineContactsCallBacks);
     }
 }
