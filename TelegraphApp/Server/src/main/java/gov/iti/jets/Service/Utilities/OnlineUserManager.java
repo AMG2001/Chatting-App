@@ -4,6 +4,7 @@ import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.AdminPanel.ProcessLog;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,8 +16,8 @@ public class OnlineUserManager {
         onlineUsers = new ConcurrentHashMap<>();
     }
 
-    public static ConcurrentHashMap<String, RemoteCallbackInterface> getOnlineUsers() {
-        return onlineUsers;
+    public static List<RemoteCallbackInterface> getOnlineUsers() {
+        return  onlineUsers.values().stream().toList();
     }
 
     public static void setOnlineUsers(ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers) {

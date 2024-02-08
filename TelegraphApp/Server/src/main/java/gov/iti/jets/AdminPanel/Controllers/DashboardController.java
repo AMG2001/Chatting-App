@@ -1,13 +1,15 @@
 package gov.iti.jets.AdminPanel.Controllers;
 
-import gov.iti.jets.AdminPanel.Models.OnlineUsersPieChartModel;
+import DTO.NotificationDTO;
 import gov.iti.jets.AdminPanel.Models.UserMapper;
 import gov.iti.jets.AdminPanel.Models.UserModel;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.Gender;
+import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
+import gov.iti.jets.Service.Utilities.OnlineUserManager;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -17,14 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -41,6 +43,8 @@ public class DashboardController implements Initializable {
     private ToggleButton serverToggle;
     @FXML
     private ListView<String> announcementLog;
+    @FXML
+    private TextField announcementTextfield;
     @FXML
     private ListView<String> serverLog;
     @FXML
@@ -83,6 +87,7 @@ public class DashboardController implements Initializable {
 
         onlineUsersPie.setData(getPieChartData(userList));
         initializeBarChart();
+        initializeAnnouncementLog();
         //updateBarChartData();
         // Bind the ListView to the observable list
         serverLog.setItems(processLogList);
@@ -112,8 +117,7 @@ public class DashboardController implements Initializable {
     //Binds the Series with the Userlist Age
     //Adds a listener to Userlist to call UpdateBarchart whenever the userlist is changed
 
-    private void initializeBarChart()
-    {
+    private void initializeBarChart() {
         // Bind the observable lists to the series
         ageGroup1Series.setData(ageGroup1Data);
         ageGroup2Series.setData(ageGroup2Data);
@@ -223,22 +227,37 @@ public class DashboardController implements Initializable {
     // Method to append a message to the process log and perform processing
     public void appendToProcessLog(String message) {
         processLogList.add(message);
-
-        // Perform processing here
     }
+
     @FXML
     void changeServerStatus(ActionEvent event) {
     }
+
     @FXML
     void deleteSelectedUser(ActionEvent event) {
     }
 
     @FXML
     void sendAnnouncement(ActionEvent event) {
+        String notificationBody = announcementTextfield.getText();
+        String type = NotificationType.SYSTEM.toString();
+        NotificationDTO announcement =
+                new NotificationDTO("1", type, LocalDateTime.now(), notificationBody);
+        if (!OnlineUserManager.getOnlineUsers().isEmpty()) {
+
+            OnlineUserManager.getOnlineUsers().stream().forEach((e) -> {
+                try {
+                    e.recieveNotification(announcement);
+                } catch (RemoteException ex) {
+                    System.out.println("Failed to send server announcement " + announcement.getBody());
+                }
+            });
+            Platform.runLater(() -> appendToServerLog(notificationBody));
+        }
+
     }
 
     @FXML
     void editSelectedUser(ActionEvent event) {
-
     }
 }
