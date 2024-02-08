@@ -1,7 +1,10 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
+import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.ServiceContext.MessageService;
+import gov.iti.jets.ServiceContext.UserService;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +19,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
+
+import java.rmi.RemoteException;
 
 public class ChatPaneController {
     @FXML
@@ -93,7 +98,15 @@ public class ChatPaneController {
             chatName.setText(conversationCard.text_contactName.getText());
             receiverStatus.setText(conversationCard.status_text.getText());
             receiverStatusCircle.setFill(conversationCard.status_circle.getFill());
+            if (ClientState.getInstance().conversationsMessagesList.containsKey(conversationCard.getConversationID())) {
+                // This mean that the Messages is loaded before from server .
+                loadConversationMessagesFromLocal(conversationCard);
+            } else {
+                // this mean it's first time the chat is opened , then load messages from Server .
+                loadChatMessagesFromServer(conversationCard);
+            }
         } catch (Exception e) {
+            CustomDialogs.showErrorDialog("Error while loading HomePageView : " + e.getMessage());
             System.err.println("Error while loading HomePageView : " + e.getMessage());
         }
     }
@@ -103,12 +116,28 @@ public class ChatPaneController {
         return layout;
     }
 
+    private void loadConversationMessagesFromLocal(ConversationCard conversationCard) {
+        lv_chatMessages.setItems(ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()));
+    }
+
+    private void loadChatMessagesFromServer(ConversationCard conversationCard) {
+        try {
+            MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
+                MessageController messageController = new MessageController(messageDTO);
+                ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
+            });
+        } catch (RemoteException e) {
+            CustomDialogs.showErrorDialog("Error while loading chat messages from server : " + e.getMessage());
+        }
+    }
+
     private void sendMessage() {
         if (messageArea.getHtmlText().length() != 0) {
-            MessageController messageController = new MessageController(ClientState.getInstance().getLoggedinUserModel().getUserPhone());
-            messageController.setMessageContent(messageArea.getHtmlText());
-            ClientState.getInstance().openedChatMessagesList.add(messageController);
-            messageArea.setHtmlText("");
+            // TODO implement adding message to list and chat .
+//            MessageController messageController = new MessageController(ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+//            messageController.setMessageContent(messageArea.getHtmlText());
+//            ClientState.getInstance().openedChatMessagesList.add(messageController);
+//            messageArea.setHtmlText("");
         }
     }
 }

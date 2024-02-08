@@ -1,5 +1,6 @@
 package gov.iti.jets.Controllers.Shared.Messages;
 
+import DTO.MessageDTO;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.MessageModel;
 import javafx.fxml.FXML;
@@ -20,8 +21,8 @@ public class MessageController {
     FXMLLoader loader;
     HBox layout;
 
-    public MessageController(String sender) {
-        if (sender == ClientState.getInstance().getLoggedinUserModel().getUserPhone()) {
+    public MessageController(MessageDTO messageDTO) {
+        if (messageDTO.getSenderPhone() == ClientState.getInstance().getLoggedinUserModel().getUserPhone()) {
             try {
                 loader = new FXMLLoader(getClass().getResource("/Messages/sentMessage.fxml"));
                 loader.setController(this);
