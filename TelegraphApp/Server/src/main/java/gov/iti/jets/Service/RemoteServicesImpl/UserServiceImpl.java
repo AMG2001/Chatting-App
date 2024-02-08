@@ -9,6 +9,7 @@ import DTO.User.UserDTO;
 import DTO.User.UserLoginDTO;
 import RemoteInterfaces.RemoteUserService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.AdminPanel.ProcessLog;
 import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.NotificationType;
@@ -111,6 +112,8 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
                 byte[] image = FileSystemUtil.getBytesFromFile(user.getPicture());
                 returnedUser.setSerializedImage(image);
 
+                //PROCESS LOG
+                ProcessLog.appendToProcessLog("User "+returnedUser.getName() +" has Logged in");
                 return returnedUser;
             }
         }
@@ -232,6 +235,9 @@ public class UserServiceImpl extends UnicastRemoteObject implements RemoteUserSe
         contactHandler.updateContactStatus(loggedOutUser.getUserPhone(),UserStatus.OFFLINE.name(),OnlineContactsCallBacks);
 
         userDao.updateStatus(loggedOutUser.getUserPhone(), UserStatus.OFFLINE);
+
+        //PROCESS LOG
+        ProcessLog.appendToProcessLog("User "+loggedOutUser.getName() +" has Logged Out");
         //TODO handle exception from DB
     }
 

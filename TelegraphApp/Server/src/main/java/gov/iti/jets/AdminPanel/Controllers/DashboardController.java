@@ -25,7 +25,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -62,7 +61,6 @@ public class DashboardController implements Initializable {
     private TableColumn<UserModel, UserStatus> statusTc;
     private final ObservableList<String> announcementList = FXCollections.observableArrayList();
     private final ObservableList<String> processLogList = FXCollections.observableArrayList();
-    private final OnlineUsersPieChartModel pieChartModel = new OnlineUsersPieChartModel();
     private ObservableList<UserModel> userList;
     @FXML
     private PieChart onlineUsersPie;
@@ -73,7 +71,6 @@ public class DashboardController implements Initializable {
     private XYChart.Series<String, Number> ageGroup1Series = new XYChart.Series<>("18 & Lower", ageGroup1Data);
     private XYChart.Series<String, Number> ageGroup2Series = new XYChart.Series<>("19 to 50 ", ageGroup2Data);
     private XYChart.Series<String, Number> ageGroup3Series = new XYChart.Series<>("50+", ageGroup3Data);
-
     @FXML
     private CategoryAxis AgeGraphXAxis;
 
@@ -84,18 +81,37 @@ public class DashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         userList = getUsersFromDatabase();
 
-        onlineUsersPie.setData(getChartData(userList));
+        onlineUsersPie.setData(getPieChartData(userList));
         initializeBarChart();
         //updateBarChartData();
+        // Bind the ListView to the observable list
+        serverLog.setItems(processLogList);
+
         executorService.scheduleAtFixedRate(this::updatePieChart, 0, 10, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(this::fetchUsersFromDatabase, 0, 10, TimeUnit.SECONDS);
     }
+//------------------------------------DATABASE ACCESS -----------------------------------
+
+    //Updates the Observable user list from the database
     private void fetchUsersFromDatabase() {
         // Simulate fetching users from a database
         List<UserModel> newUsers = getUsersFromDatabase();
         // Update the userList on the JavaFX Application Thread
         Platform.runLater(() -> userList.setAll(newUsers));
     }
+
+    private ObservableList<UserModel> getUsersFromDatabase() {
+        UserDao userDao = new UserDoaImpl();
+        List<User> allUsers = userDao.getAll();
+        List<UserModel> allUserModels = UserMapper.mapToUserModels(allUsers);
+        return FXCollections.observableArrayList(allUserModels);
+    }
+
+    //-----------------------------------------AGEBARCHART------------------------------------
+    //Initializes the Barchart Data and series
+    //Binds the Series with the Userlist Age
+    //Adds a listener to Userlist to call UpdateBarchart whenever the userlist is changed
+
     private void initializeBarChart()
     {
         // Bind the observable lists to the series
@@ -122,37 +138,31 @@ public class DashboardController implements Initializable {
         userList.addListener((ListChangeListener<UserModel>) change -> updateBarChartData());
     }
 
+    //Clears Old barChart data and creates new data from the usermodel
     private void updateBarChartData() {
         ageGroup1Data.clear();
         ageGroup2Data.clear();
         ageGroup3Data.clear();
 
         for (UserModel user : userList) {
-            int age = calculateAge(user.getDob());
+            int age = user.getAge();
 
             if (age < 30) {
                 ageGroup1Data.add(new XYChart.Data<>("18 & Lower", ageGroup1Data.size() + 1));
             } else if (age < 50) {
-                ageGroup2Data.add(new XYChart.Data<>("31-50", ageGroup2Data.size() + 1));
+                ageGroup2Data.add(new XYChart.Data<>("19-50", ageGroup2Data.size() + 1));
             } else {
                 ageGroup3Data.add(new XYChart.Data<>("50+", ageGroup3Data.size() + 1));
             }
         }
     }
 
-    private int calculateAge(LocalDate dob) {
-        LocalDate currentDate = LocalDate.now();
-        return Period.between(dob, currentDate).getYears();
-    }
-    @FXML
-    void addNewUser(ActionEvent event) {
-
-    }
+    //-------------------------------------ONLINEUSERPIECHART----------------------------------------------
     private void updatePieChart() {
         executorService.submit(() -> {
             try {
                 Platform.runLater(() -> {
-                    ObservableList<PieChart.Data> newData = getChartData(userList);
+                    ObservableList<PieChart.Data> newData = getPieChartData(userList);
                     onlineUsersPie.setData(newData);
                 });
             } catch (Exception e) {
@@ -161,14 +171,7 @@ public class DashboardController implements Initializable {
         });
     }
 
-    private ObservableList<UserModel> getUsersFromDatabase() {
-        UserDao userDao = new UserDoaImpl();
-        List<User> allUsers = userDao.getAll();
-        List<UserModel> allUserModels = UserMapper.mapToUserModels(allUsers);
-        return FXCollections.observableArrayList(allUserModels);
-    }
-
-    private ObservableList<PieChart.Data> getChartData(ObservableList<UserModel> userModels) {
+    private ObservableList<PieChart.Data> getPieChartData(ObservableList<UserModel> userModels) {
         long onlineCount = userModels.stream().filter(user -> UserStatus.ONLINE.equals(user.getStatus())).count();
         long offlineCount = userModels.stream().filter(user -> UserStatus.OFFLINE.equals(user.getStatus())).count();
         long busyCount = userModels.stream().filter(user -> UserStatus.BUSY.equals(user.getStatus())).count();
@@ -181,6 +184,11 @@ public class DashboardController implements Initializable {
                 new PieChart.Data(UserStatus.AWAY.name() + " (" + awayCount + ")", awayCount)
         );
         return pieChartData;
+    }
+
+    @FXML
+    void addNewUser(ActionEvent event) {
+
     }
 
     private void initializeTableView() {

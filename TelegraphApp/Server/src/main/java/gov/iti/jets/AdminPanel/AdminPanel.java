@@ -19,7 +19,7 @@ public class AdminPanel extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminPages/AdminDashboard.fxml"));
             Parent root = loader.load();
-            DashboardController controller = new DashboardController();
+            ProcessLog.setController(loader.getController());
             primaryStage.setTitle("Admin Dashboard");
             Scene mainscene = new Scene(root);
             primaryStage.setScene(mainscene);

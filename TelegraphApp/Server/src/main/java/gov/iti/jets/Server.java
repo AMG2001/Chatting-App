@@ -12,5 +12,6 @@ public class Server {
         AdminPanel panel = new AdminPanel();
         Application.launch(AdminPanel.class);
 
+
     }
 }
