@@ -141,19 +141,19 @@ public class ChatPaneController {
                     lv_chatMessages.getItems().clear();
                     bindListViewOnObservableList(ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()));
                 } else {
+                    System.out.println("Loading Messages From Server .");
                     // create new conversations messages observable.
-                    ObservableList<MessageController> newList = FXCollections.observableArrayList();
-                    bindListViewOnObservableList(newList);
-                    ClientState.getInstance().conversationsMessagesList.put(conversationCard.getConversationID(), newList);
+                    ObservableList<MessageController> newMessagesList = FXCollections.observableArrayList();
+                    bindListViewOnObservableList(newMessagesList);
+                    ClientState.getInstance().conversationsMessagesList.put(conversationCard.getConversationID(), newMessagesList);
+                    System.out.println("Messages list created and add to ConversationsMap");
                     // Load all messages from server then show them on UI .
                     MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
                         MessageController messageController = new MessageController(messageDTO);
+                        System.out.println("Message Body : " + messageDTO.getMessageBody() + " From : " + messageDTO.getSenderPhone());
                         // To Store all messages related to it's Conversation in ConversationsMessages Map .
-                        ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
+                        newMessagesList.add(messageController);
                     });
-                    // get all conversation messages from client storage .
-                    lv_chatMessages.getItems().clear();
-                    bindListViewOnObservableList(ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()));
                 }
             }
         } catch (RemoteException e) {
@@ -166,7 +166,6 @@ public class ChatPaneController {
             CustomDialogs.showErrorDialog("You can't leave message area empty !!");
         } else {
             MessageController messageController = new MessageController(clientPhoneNumber, messageArea.getText(), LocalDateTime.now(), clientImage);
-            lv_chatMessages.getItems().add(messageController);
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessageBody(messageArea.getText());
             messageDTO.setSenderPhone(clientPhoneNumber);
