@@ -30,7 +30,6 @@ import gov.iti.jets.Service.Utilities.OnlineUserManager;
 import gov.iti.jets.Service.Mappers.RequestMapper;
 
 
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
@@ -62,13 +61,12 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         NotificationDTO notification = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), "User Phone not found");
 
-        if(request.getReceiverPhone().equals(request.getSenderPhone())){
+        if (request.getReceiverPhone().equals(request.getSenderPhone())) {
 
             notification.setBody("You cannot send friend request to yourself ");
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        }
-        else if(checkIfRequestIsSendFromReceiver(request)) {
+        } else if (checkIfRequestIsSendFromReceiver(request)) {
 
             notification.setBody("You've already received friend request from " + request.getReceiverPhone());
             notificationHandler.sendNotificationtoClient(notification, receiverRemoteInt);
@@ -95,7 +93,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        }else {
+        } else {
 
             int requestId = contactRequestDao.addRequest(contactRequest);
 
@@ -117,14 +115,14 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             LocalDateTime sendDate = request.getSendDate();
 
             RequestRecieveDTO recieverRequest = new RequestRecieveDTO
-                    (requestId,sendDate,recieverPhone,senderPhone,senderName);
+                    (requestId, sendDate, recieverPhone, senderPhone, senderName);
 
-            requestHandler.sendRequest(recieverRequest,receiverRemoteInt);
+            requestHandler.sendRequest(recieverRequest, receiverRemoteInt);
 
         }
     }
 
-    private boolean checkIfRequestIsSendFromReceiver(RequestSendDTO requestSendDTO)  throws RemoteException {
+    private boolean checkIfRequestIsSendFromReceiver(RequestSendDTO requestSendDTO) throws RemoteException {
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
 
         ContactRequest contactRequest = new ContactRequest();
@@ -134,7 +132,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         return contactRequestDao.checkIfRequestExist(contactRequest) &&
                 (contactRequestDao.getRequestStatusBySenderAndReceiverPhones(contactRequest.getSenderPhone(),
-                contactRequest.getReceiverPhone()).equals("PENDING"));
+                        contactRequest.getReceiverPhone()).equals("PENDING"));
 
 
     }
@@ -145,7 +143,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         //update DB
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
-
+        System.out.println(requestDTO);
         ContactRequest updatedRequest = new ContactRequest();
 
         updatedRequest.setRequestId(requestDTO.getRequestID());
@@ -161,11 +159,11 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
         RemoteCallbackInterface senderCallBack = OnlineUserManager.getOnlineUser(requestDTO.getSenderPhone());
         RemoteCallbackInterface receiverCallBack = OnlineUserManager.getOnlineUser(requestDTO.getRecieverPhone());
 
-        if(requestDTO.getRequestStatus().equals("ACCEPTED")){
+        if (requestDTO.getRequestStatus().equals("ACCEPTED")) {
 
             //get individual conversation between sender and receiver from DB
             ConversationDao conversationDao = new ConversationDaoImpl();
-            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(),requestDTO.getRecieverPhone());
+            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(), requestDTO.getRecieverPhone());
             Conversation conversationDomain = conversationDao.getById(conversationId);
 
             // map conversation domain to conversation dto and set messages and attachments to empty lists
@@ -200,7 +198,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         //update list of received requests of receiver(CALLBACK)
         RequestCallbackHandler requestHandler = new RequestCallbackHandler();
-        requestHandler.updateRequest(requestDTO,receiverCallBack);
+        requestHandler.updateRequest(requestDTO, receiverCallBack);
     }
 
     @Override
@@ -226,7 +224,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
             requestId = request.getRequestId();
 
             RequestRecieveDTO requestSendDto = new RequestRecieveDTO
-                    (requestId,sendTime,reciverPhone,senderPhone,senderName);
+                    (requestId, sendTime, reciverPhone, senderPhone, senderName);
 
             recievedRequests.add(requestSendDto);
         }

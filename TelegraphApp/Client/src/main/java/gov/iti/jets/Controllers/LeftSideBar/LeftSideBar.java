@@ -9,6 +9,7 @@ import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,7 +78,7 @@ public class LeftSideBar {
             e.printStackTrace();
         } finally {
             if (!isErrorOccured) {
-                // TODO Clear Client State Observable List and Model .
+                ClientState.getInstance().logoutUser();
                 Navigator.navigateToRegister();
             }
         }

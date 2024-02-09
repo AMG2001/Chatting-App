@@ -48,14 +48,16 @@ public class AddContactPane {
         if (phoneNumber.isEmpty()) {
             CustomDialogs.showErrorDialog("You can't leave Phone Number Field Empty !!");
         } else if (FieldsValidator.isValidPhoneNumber(phoneNumber)) {
-            try {
-                RequestSendDTO requestSendDTO = new RequestSendDTO(LocalDateTime.now(), phoneNumber, ClientState.getInstance().getLoggedinUserModel().getUserPhone());
-                RequestService.getInstance().getRemoteService().sendRequest(requestSendDTO);
-                stage.close();
-            } catch (RemoteException e) {
-                CustomDialogs.showErrorDialog("This Phone Number is not exist !!");
-                e.printStackTrace();
-            }
+            RequestSendDTO requestSendDTO = new RequestSendDTO(LocalDateTime.now(), phoneNumber, ClientState.getInstance().getLoggedinUserModel().getUserPhone());
+            Platform.runLater(() -> {
+                try {
+                    RequestService.getInstance().getRemoteService().sendRequest(requestSendDTO);
+                } catch (RemoteException e) {
+                    CustomDialogs.showErrorDialog("This Phone Number is not exist !!");
+                    e.printStackTrace();
+                }
+            });
+            stage.close();
         }
     }
 

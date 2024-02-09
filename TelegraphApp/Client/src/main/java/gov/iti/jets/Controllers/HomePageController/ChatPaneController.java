@@ -1,8 +1,11 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import DTO.MessageDTO;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentPaneViewer;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.UserService;
@@ -129,24 +132,28 @@ public class ChatPaneController {
         try {
             // Just for Debugging .
             System.out.println("Conversation ID : " + conversationCard.getConversationID());
-            //
             if (MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()) == null) {
                 System.out.println("Messages of Conversation : " + conversationCard.getConversationID() + " Are Null !!");
             } else {
+                // Check if the conversation messages are loaded in Client Side .
                 if (ClientState.getInstance().conversationsMessagesList.containsKey(conversationCard.getConversationID())) {
-                    ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).clear();
+                    // get all conversation messages from client storage .
+                    lv_chatMessages.getItems().clear();
+                    bindListViewOnObservableList(ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()));
                 } else {
+                    System.out.println("Loading Messages From Server .");
                     // create new conversations messages observable.
-                    ObservableList<MessageController> newList = FXCollections.observableArrayList();
-                    bindListViewOnObservableList(newList);
-                    ClientState.getInstance().conversationsMessagesList.put(conversationCard.getConversationID(), newList);
+                    ObservableList<MessageController> newMessagesList = FXCollections.observableArrayList();
+                    bindListViewOnObservableList(newMessagesList);
+                    ClientState.getInstance().conversationsMessagesList.put(conversationCard.getConversationID(), newMessagesList);
+                    System.out.println("Messages list created and add to ConversationsMap");
                     // Load all messages from server then show them on UI .
                     MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
                         MessageController messageController = new MessageController(messageDTO);
+                        System.out.println("Message Body : " + messageDTO.getMessageBody() + " From : " + messageDTO.getSenderPhone());
                         // To Store all messages related to it's Conversation in ConversationsMessages Map .
-                        ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
+                        newMessagesList.add(messageController);
                     });
-
                 }
             }
         } catch (RemoteException e) {
@@ -159,7 +166,6 @@ public class ChatPaneController {
             CustomDialogs.showErrorDialog("You can't leave message area empty !!");
         } else {
             MessageController messageController = new MessageController(clientPhoneNumber, messageArea.getText(), LocalDateTime.now(), clientImage);
-            lv_chatMessages.getItems().add(messageController);
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessageBody(messageArea.getText());
             messageDTO.setSenderPhone(clientPhoneNumber);
@@ -178,6 +184,6 @@ public class ChatPaneController {
 
     @FXML
     void showAttachmentsPane(ActionEvent event) {
-
+        StagesLauncher.LaunchNewStage(new AttachmentPaneViewer(contactCardData.getConversationID()).getLayout(), "Attachment Pane", 400, 500);
     }
 }

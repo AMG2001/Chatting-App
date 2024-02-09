@@ -53,7 +53,6 @@ public class HomePageController {
                 right_pane.getChildren().clear();
                 ChatPaneController chatPaneController = new ChatPaneController(newVal);
                 right_pane.getChildren().add(chatPaneController.getLayout());
-//                ClientState.getInstance().openChat(newVal.getPhoneNumber());
             }
         });
     }
