@@ -55,10 +55,7 @@ public class ClientState {
     /*
      *************************************** Attachments Observables ********************************
      */
-    public ObservableList<AttachmentsController> attachmentsList;// ✅ Initialized .
     public HashMap<Integer, ObservableList<AttachmentsController>> attachmentsMap;// ✅ Initialized .
-    String previousChatPhoneNumber;
-
     /*
      *************************************** Singleton Pattern ***************************************
      */
@@ -74,7 +71,6 @@ public class ClientState {
         // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
-        attachmentsList = FXCollections.observableArrayList();
         attachmentsMap = new HashMap<>();
         Platform.runLater(() -> loadAllRequests());
         Platform.runLater(() -> loadAllContacts());
@@ -90,8 +86,9 @@ public class ClientState {
         receivedRequestsList = FXCollections.observableArrayList();
         // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
+        // Chatbot
         chatBotChatMessages = FXCollections.observableArrayList();
-        attachmentsList = FXCollections.observableArrayList();
+        // Attachments .
         attachmentsMap = new HashMap<>();
 
     }
