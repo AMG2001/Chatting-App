@@ -5,10 +5,21 @@ import java.io.Serializable;
 public class RequestResponseDTO implements Serializable {
     private int requestID;
     private String requestStatus;
+
+    @Override
+    public String toString() {
+        return "RequestResponseDTO{" +
+                "requestID=" + requestID +
+                ", requestStatus='" + requestStatus + '\'' +
+                ", senderPhone='" + senderPhone + '\'' +
+                ", recieverPhone='" + recieverPhone + '\'' +
+                '}';
+    }
+
     private String senderPhone;
     private String recieverPhone;
 
-    public RequestResponseDTO(){
+    public RequestResponseDTO() {
 
     }
 

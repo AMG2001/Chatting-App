@@ -61,16 +61,14 @@ public class ReceivedRequestsController {
 
     @FXML
     void onAccept(ActionEvent event) {
+        RequestResponseDTO requestResponseDTO = new RequestResponseDTO(requestReceiveModel.getRequestId(), CustomEnums.RequestStatus_ACCEPTED, requestReceiveModel.getSenderPhone(), requestReceiveModel.getReceiverPhone());
         try {
-            RequestResponseDTO requestResponseDTO = new RequestResponseDTO(requestReceiveModel.getRequestId(), CustomEnums.RequestStatus_ACCEPTED, requestReceiveModel.getSenderPhone(), requestReceiveModel.getReceiverPhone());
             RequestService.getInstance().getRemoteService().updateRequest(requestResponseDTO);
-            Platform.runLater(() -> ClientState.getInstance().receivedRequestsList.removeIf(requestReceiveModel1 -> requestReceiveModel1.getRequestId() == requestReceiveModel.getRequestId())
-            );
-            // TODO Add the contact in contacts List .
         } catch (RemoteException e) {
             CustomDialogs.showErrorDialog("Error while Accepting Request" + e.getMessage());
         }
-
+        Platform.runLater(() -> ClientState.getInstance().receivedRequestsList.removeIf(requestReceiveModel1 -> requestReceiveModel1.getRequestId() == requestReceiveModel.getRequestId())
+        );
     }
 
     @FXML

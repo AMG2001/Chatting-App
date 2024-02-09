@@ -32,6 +32,7 @@ public class AppViews {
         }
         return instance;
     }
+
     public void showHomePage() {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getHomePageView());

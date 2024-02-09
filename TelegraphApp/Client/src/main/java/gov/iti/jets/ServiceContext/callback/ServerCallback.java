@@ -8,6 +8,7 @@ import DTO.User.ContactDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.CustomEnums;
+import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Controllers.services.ConversationsServicesClass;
 import gov.iti.jets.Controllers.services.FileConverter;
@@ -17,6 +18,8 @@ import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestResponseModel;
 import gov.iti.jets.Model.User.ContactModel;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
 import java.rmi.RemoteException;
@@ -29,7 +32,23 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void recieveMessage(MessageDTO message) {
-        //TODO Add the message to the CONVERSATION observable object
+        MessageController messageController = new MessageController(message);
+        Platform.runLater(() -> {
+            int commingMessageConversationID = message.getConversationId();
+            if (ClientState.getInstance().conversationsMessagesList.containsKey(commingMessageConversationID)) {
+                // this mean that the Conversation is already in the list .
+                // add the message to the list .
+                ClientState.getInstance().conversationsMessagesList.get(commingMessageConversationID).add(messageController);
+            } else {
+                // this mean that the Conversation is not in the list .
+                // create new Observable Conversation Messages List .
+                ObservableList<MessageController> conversationMessagesList = FXCollections.observableArrayList();
+                // add new conversation to the list .
+                ClientState.getInstance().conversationsMessagesList.put(commingMessageConversationID, conversationMessagesList);
+                // add message into conversation .
+                ClientState.getInstance().conversationsMessagesList.get(commingMessageConversationID).add(messageController);
+            }
+        });
     }
 
     @Override
@@ -41,7 +60,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     public void recieveNotification(NotificationDTO notification) throws RemoteException { // Done ✅
         NotificationModel notificationModel = new NotificationModel(notification);
         // Show Notification on System .
-        CustomNotifications.showCustomNotification(notificationModel);
+        Platform.runLater(() -> CustomNotifications.showCustomNotification(notificationModel));
         // Store Notification in Notifications List.
         ClientState.getInstance().addNotification(notificationModel);
     }
@@ -58,7 +77,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
         RequestResponseModel requestResponseModel = new RequestResponseModel(request);
         if (requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_ACCEPTED || requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_DENIED) {
             Platform.runLater(() -> {
-                ClientState.getInstance().sentRequestsList.removeIf(requestSendModel -> requestSendModel.getSenderPhone() == requestResponseModel.getSenderPhone());
+                ClientState.getInstance().sentRequestsList.removeIf(requestSendModel -> requestSendModel.getSenderPhone().equals(requestResponseModel.getSenderPhone()));
             });
         }
     }

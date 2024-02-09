@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 
 public class ReceivedRequestsPaneViewer {
     ListView<ReceivedRequestsController> listView;
+
     public ReceivedRequestsPaneViewer() {
         listView = new ListView<>();
     }
@@ -30,7 +31,7 @@ public class ReceivedRequestsPaneViewer {
                 }
             }
         });
-        StagesLauncher.LaunchNewStage(listView, ClientState.getInstance().receivedRequestsList.size() == 0 ? "There is No Requests" : "All Requests", 600, 500);
+        StagesLauncher.LaunchNewStage(listView, ClientState.getInstance().receivedRequestsList.size() == 0 ? "There is No Requests" : "All Requests", 450, 500);
     }
 
 }

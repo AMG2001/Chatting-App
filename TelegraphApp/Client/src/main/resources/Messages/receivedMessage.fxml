@@ -15,7 +15,7 @@
         </Circle>
         <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="402.0" spacing="8.0">
             <children>
-                <Label fx:id="userMessage" alignment="CENTER_RIGHT" contentDisplay="TOP" style="-fx-background-color: #FC6736; -fx-text-fill: white;" styleClass="user-message" stylesheets="styles.css" text="user message">
+                <Label fx:id="userMessage" alignment="CENTER_RIGHT" contentDisplay="TOP" style="-fx-background-color: #FC6736; -fx-text-fill: white;" text="user message">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>

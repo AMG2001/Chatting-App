@@ -1,8 +1,11 @@
 package gov.iti.jets.Controllers.HomePageController;
 
 import DTO.MessageDTO;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentPaneViewer;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.UserService;
@@ -129,12 +132,14 @@ public class ChatPaneController {
         try {
             // Just for Debugging .
             System.out.println("Conversation ID : " + conversationCard.getConversationID());
-            //
             if (MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()) == null) {
                 System.out.println("Messages of Conversation : " + conversationCard.getConversationID() + " Are Null !!");
             } else {
+                // Check if the conversation messages are loaded in Client Side .
                 if (ClientState.getInstance().conversationsMessagesList.containsKey(conversationCard.getConversationID())) {
-                    ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).clear();
+                    // get all conversation messages from client storage .
+                    lv_chatMessages.getItems().clear();
+                    bindListViewOnObservableList(ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()));
                 } else {
                     // create new conversations messages observable.
                     ObservableList<MessageController> newList = FXCollections.observableArrayList();
@@ -146,7 +151,9 @@ public class ChatPaneController {
                         // To Store all messages related to it's Conversation in ConversationsMessages Map .
                         ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
                     });
-
+                    // get all conversation messages from client storage .
+                    lv_chatMessages.getItems().clear();
+                    bindListViewOnObservableList(ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()));
                 }
             }
         } catch (RemoteException e) {
@@ -178,6 +185,6 @@ public class ChatPaneController {
 
     @FXML
     void showAttachmentsPane(ActionEvent event) {
-
+        StagesLauncher.LaunchNewStage(new AttachmentPaneViewer(contactCardData.getConversationID()).getLayout(), "Attachment Pane", 400, 500);
     }
 }

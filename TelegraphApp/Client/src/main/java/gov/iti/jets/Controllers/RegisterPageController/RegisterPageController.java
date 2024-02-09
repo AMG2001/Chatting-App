@@ -97,7 +97,6 @@ public class RegisterPageController {
 
     @FXML
     void signupUser(ActionEvent event) {
-
         getAllValuesFromFields();
         if (rb_male.isSelected()) {
             genderValue = "MALE";
@@ -119,7 +118,7 @@ public class RegisterPageController {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌ Error while Registering user ." + e.getMessage());
                 e.printStackTrace();
             } finally {
-                if (isNotRegistered) Navigator.navigateToHomePage();
+                if (isNotRegistered) Navigator.navigateToLogin();
             }
         } else if (genderValue.isEmpty()) {
             CustomDialogs.showErrorDialog("Please Select Your Gender");

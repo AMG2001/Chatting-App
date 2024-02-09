@@ -41,7 +41,6 @@ public class MessageController {
                 this.messageTime.setText(getTimeFormatted(localDateTime));
                 this.userMessage.setWrapText(true);
                 this.userImage.setFill(new ImagePattern(senderImage));
-                // TODO use MessageService to send Message to server .
             } catch (IOException e) {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading Messages Controller - Sent : " + e.getMessage());
                 e.printStackTrace();
@@ -55,7 +54,6 @@ public class MessageController {
                 this.messageTime.setText(getTimeFormatted(localDateTime));
                 this.userMessage.setWrapText(true);
                 this.userImage.setFill(new ImagePattern(senderImage));
-                // TODO use MessageService to send Message to server .
             } catch (IOException e) {
                 System.out.println("❌❌❌❌❌❌❌❌❌❌❌ Error while loading Messages Controller - Received : " + e.getMessage());
                 e.printStackTrace();

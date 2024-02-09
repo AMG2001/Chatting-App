@@ -1,5 +1,6 @@
 package gov.iti.jets.Model;
 
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
 import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.ChatBot.ChatBotChatMessageController;
@@ -51,8 +52,11 @@ public class ClientState {
      *************************************** Notifications Observables ********************************
      */
     public ObservableList<NotificationModel> notificationsList;// ✅ Initialized .
-
-    public ObservableList<MessageController> openedChatMessagesList;
+    /*
+     *************************************** Attachments Observables ********************************
+     */
+    public ObservableList<AttachmentsController> attachmentsList;// ✅ Initialized .
+    public HashMap<Integer, ObservableList<AttachmentsController>> attachmentsMap;// ✅ Initialized .
     String previousChatPhoneNumber;
 
     /*
@@ -63,7 +67,6 @@ public class ClientState {
     private ClientState() {
         // User Functions Initialization .
         loggedinUser = new SimpleObjectProperty<>();
-        openedChatMessagesList = FXCollections.observableArrayList();
         // Notifications
         notificationsList = FXCollections.observableArrayList();
         // Requests Initialization .
@@ -71,9 +74,26 @@ public class ClientState {
         // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
+        attachmentsList = FXCollections.observableArrayList();
+        attachmentsMap = new HashMap<>();
         Platform.runLater(() -> loadAllRequests());
         Platform.runLater(() -> loadAllContacts());
         // TODO load all Groups .
+    }
+
+    public void logoutUser() {
+        // User Functions Initialization .
+        loggedinUser = new SimpleObjectProperty<>();
+        // Notifications
+        notificationsList = FXCollections.observableArrayList();
+        // Requests Initialization .
+        receivedRequestsList = FXCollections.observableArrayList();
+        // Contacts initialization .
+        contactsList = FXCollections.observableArrayList();
+        chatBotChatMessages = FXCollections.observableArrayList();
+        attachmentsList = FXCollections.observableArrayList();
+        attachmentsMap = new HashMap<>();
+
     }
 
     public static ClientState getInstance() {
@@ -125,10 +145,6 @@ public class ClientState {
      */
     public void addNotification(NotificationModel notificationModel) {
         notificationsList.add(notificationModel);
-    }
-
-    public ObservableList<MessageController> getOpenedChatMessages() {
-        return openedChatMessagesList;
     }
 
     /*

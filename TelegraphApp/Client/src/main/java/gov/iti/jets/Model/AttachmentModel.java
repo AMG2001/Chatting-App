@@ -3,7 +3,6 @@ package gov.iti.jets.Model;
 import DTO.AttachmentDTO;
 
 public class AttachmentModel {
-
     private int attachmentId;
     private String attachmentType;
     private int conversationId;
