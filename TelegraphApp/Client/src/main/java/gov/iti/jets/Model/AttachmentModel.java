@@ -1,11 +1,25 @@
 package gov.iti.jets.Model;
 
 import DTO.AttachmentDTO;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
+
+import java.util.Arrays;
 
 public class AttachmentModel {
     private int attachmentId;
     private String attachmentType;
     private int conversationId;
+
+    @Override
+    public String toString() {
+        return "AttachmentModel{" +
+                "attachmentId=" + attachmentId +
+                ", attachmentType='" + attachmentType + '\'' +
+                ", conversationId=" + conversationId +
+                ", attachmentName='" + attachmentName + '\'' +
+                '}';
+    }
+
     private String attachmentName;
     private byte[] attachment;
 

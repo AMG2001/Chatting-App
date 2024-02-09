@@ -13,37 +13,33 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="pane_chatPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="pane_chatPane" maxHeight="780.0" maxWidth="680.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox fx:id="chatArea" alignment="CENTER">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="697.0" spacing="12.0"
-                      style="-fx-background-color: #2272E5;">
+                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="697.0" spacing="12.0" style="-fx-background-color: #2272E5;">
                     <children>
                         <ImageView fx:id="chatImage" fitHeight="48.0" fitWidth="44.0" preserveRatio="true">
                             <image>
-                                <Image url="@../Images/personImage1.jpg"/>
+                                <Image url="@../Images/personImage1.jpg" />
                             </image>
                             <HBox.margin>
-                                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                             </HBox.margin>
                         </ImageView>
                         <VBox alignment="CENTER" prefHeight="5.0" prefWidth="157.0" spacing="4.0">
                             <children>
-                                <Text fx:id="chatName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="Mohamad Amgad" wrappingWidth="156.6708984375">
+                                <Text fx:id="chatName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mohamad Amgad" wrappingWidth="156.6708984375">
                                     <font>
-                                        <Font name="Segoe UI Semibold" size="16.0"/>
+                                        <Font name="Segoe UI Semibold" size="16.0" />
                                     </font>
                                 </Text>
                                 <HBox alignment="CENTER_LEFT" spacing="5.0">
                                     <children>
-                                        <Circle fx:id="receiverStatusCircle" fill="#07ff45" radius="6.0" stroke="BLACK"
-                                                strokeType="INSIDE" strokeWidth="0.0"/>
-                                        <Text fx:id="receiverStatus" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
-                                              text="Online" wrappingWidth="54.0">
+                                        <Circle fx:id="receiverStatusCircle" fill="#07ff45" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                        <Text fx:id="receiverStatus" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Online" wrappingWidth="54.0">
                                             <font>
-                                                <Font name="Segoe UI" size="12.0"/>
+                                                <Font name="Segoe UI" size="12.0" />
                                             </font>
                                         </Text>
                                     </children>
@@ -52,37 +48,38 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="462.0">
                             <children>
-                                <Button fx:id="btn_shawAttachments" mnemonicParsing="false"
-                                        onAction="#showAttachmentsPane" prefHeight="30.0" prefWidth="19.0"
-                                        style="-fx-background-color: transparent;">
+                        <Button fx:id="btn_sendAttachment" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" lineSpacing="12.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="146.0" style="-fx-background-color: #2272E5;" text="Send Attachment" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" wrappingWidth="16.228559494018555" />
+                           </graphic>
+                        </Button>
+                                <Button fx:id="btn_shawAttachments" mnemonicParsing="false" onAction="#showAttachmentsPane" prefHeight="30.0" prefWidth="19.0" style="-fx-background-color: transparent;">
                                     <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="ELLIPSIS_V" size="22"/>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="ELLIPSIS_V" size="22" />
                                     </graphic>
                                     <HBox.margin>
-                                        <Insets right="8.0"/>
+                                        <Insets right="8.0" />
                                     </HBox.margin>
                                 </Button>
                             </children>
                         </HBox>
                     </children>
                     <VBox.margin>
-                        <Insets/>
+                        <Insets />
                     </VBox.margin>
                     <padding>
-                        <Insets top="5.0"/>
+                        <Insets top="5.0" />
                     </padding>
                 </HBox>
-                <ListView fx:id="lv_chatMessages" prefHeight="601.0" prefWidth="698.0"
-                          style="-fx-border-color: black;"/>
+                <ListView fx:id="lv_chatMessages" prefHeight="650.0" prefWidth="680.0" style="-fx-border-color: black;" />
             </children>
         </VBox>
         <HBox fx:id="message_send_area" alignment="CENTER" prefHeight="0.0" prefWidth="698.0">
             <children>
-                <TextArea fx:id="messageArea" prefHeight="49.0" prefWidth="620.0" promptText="Enter Your message here"/>
-                <Button fx:id="btn_sendMessage" mnemonicParsing="false" prefHeight="250.0" prefWidth="78.0"
-                        style="-fx-background-color: #2272E5;">
+                <TextArea fx:id="messageArea" prefHeight="38.0" prefWidth="629.0" promptText="Enter Your message here" />
+                <Button fx:id="btn_sendMessage" mnemonicParsing="false" prefHeight="250.0" prefWidth="78.0" style="-fx-background-color: #2272E5;">
                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="24"/>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="24" />
                     </graphic>
                 </Button>
             </children>

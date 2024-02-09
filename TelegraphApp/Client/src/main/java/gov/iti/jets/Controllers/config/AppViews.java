@@ -23,6 +23,7 @@ public class AppViews {
         stage.setHeight(620);
         stage.setMaxWidth(800);
         stage.setMaxHeight(620);
+        stage.setTitle("Telegraph - Login");
         stage.show();
     }
 
@@ -37,10 +38,10 @@ public class AppViews {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getHomePageView());
         stage.setTitle("Telegraph - Home Page");
-        stage.setMinHeight(770);
+        stage.setMinHeight(780);
         stage.setMinWidth(1100);
         stage.setWidth(1100);
-        stage.setHeight(770);
+        stage.setHeight(780);
         stage.setMaxWidth(1100);
         stage.setMaxHeight(770);
     }

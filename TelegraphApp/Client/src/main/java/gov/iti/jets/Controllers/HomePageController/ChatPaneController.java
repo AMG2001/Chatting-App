@@ -1,5 +1,6 @@
 package gov.iti.jets.Controllers.HomePageController;
 
+import DTO.AttachmentDTO;
 import DTO.MessageDTO;
 import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentPaneViewer;
 import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
@@ -7,6 +8,7 @@ import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.StagesLauncher;
 import gov.iti.jets.Model.ClientState;
+import gov.iti.jets.ServiceContext.AttachmentService;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.beans.property.SimpleListProperty;
@@ -21,18 +23,28 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ChatPaneController {
+
+    @FXML
+    private Button btn_sendAttachment;
+
     @FXML
     private VBox chatArea;
 
@@ -106,6 +118,7 @@ public class ChatPaneController {
             chatName.setText(conversationCard.text_contactName.getText());
             receiverStatus.setText(conversationCard.status_text.getText());
             receiverStatusCircle.setFill(conversationCard.status_circle.getFill());
+            btn_sendAttachment.setOnAction(event -> pickAttachmentAndSentIt(conversationCard.getConversationID()));
             if (ClientState.getInstance().conversationsMessagesList.containsKey(conversationCard.getConversationID())) {
                 // This mean that the Messages is loaded before from server .
                 loadConversationMessagesFromLocal(conversationCard);
@@ -185,5 +198,45 @@ public class ChatPaneController {
     @FXML
     void showAttachmentsPane(ActionEvent event) {
         StagesLauncher.LaunchNewStage(new AttachmentPaneViewer(contactCardData.getConversationID()).getLayout(), "Attachment Pane", 400, 500);
+    }
+
+    private void pickAttachmentAndSentIt(int conversationID) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose an attachment");
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                try {
+                    AttachmentDTO attachmentDTO = new AttachmentDTO();
+                    attachmentDTO.setConversationId(conversationID);
+                    attachmentDTO.setAttachmentName(getFileNameWithoutExtension(file));
+                    attachmentDTO.setAttachmentType(getFileExtension(file));
+                    attachmentDTO.setAttachment(Files.readAllBytes(file.toPath()));
+                    AttachmentService.getInstance().getRemoteService().sendAttachment(attachmentDTO);
+                } catch (RuntimeException re) {
+                    CustomDialogs.showErrorDialog("Error while Choosing an Attachment : " + re.getMessage());
+                }
+            } else {
+                CustomDialogs.showErrorDialog("You Must choose an attachment !!");
+            }
+        } catch (Exception e) {
+            System.out.println("Image Not Taken !!");
+        }
+    }
+
+    private String getFileNameWithoutExtension(File file) {
+        String filenameWithoutExtension = Paths.get(file.getName()).getFileName().toString().replaceFirst("[.][^.]+$", "");
+        return filenameWithoutExtension;
+    }
+
+
+    private String getFileExtension(File file) {
+        String extension = "";
+        String fileName = file.getName();
+        int i = fileName.lastIndexOf('.');
+        if (i > 0) {
+            extension = fileName.substring(i);
+        }
+        return extension;
     }
 }
