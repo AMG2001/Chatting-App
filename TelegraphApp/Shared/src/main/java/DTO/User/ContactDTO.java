@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class ContactDTO implements Serializable {
+    private static final long serialVersionUID = 9876543210L;
     private String phoneNumber;
     private String status;
     private String name;

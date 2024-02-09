@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class RequestRecieveDTO implements Serializable {
+    private static final long serialVersionUID = -987654321L;
     private int requestId;
     private LocalDateTime sendDate;
     private String receiverPhone;

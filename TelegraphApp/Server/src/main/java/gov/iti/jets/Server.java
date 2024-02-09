@@ -11,7 +11,5 @@ public class Server {
         ServerRegistryInitializer registry = new ServerRegistryInitializer();
         AdminPanel panel = new AdminPanel();
         Application.launch(AdminPanel.class);
-
-
     }
 }

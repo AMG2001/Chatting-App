@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ConversationDTO implements Serializable {
-
+    private static final long serialVersionUID = 0L;
     private int conversationId;
     private String type;
     private ArrayList<MessageDTO> messages;

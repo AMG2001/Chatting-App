@@ -26,8 +26,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
 
     }
 
-    //TODO youssef
-    //I changed the localDateTime to date
+
     @Override
     public List<ContactRequest> getRequestsByReceiver(String phoneNumber) {
         List<ContactRequest> requests= new ArrayList<>();
