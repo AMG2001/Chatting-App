@@ -27,6 +27,8 @@ public class AttachmentsController {
             loader.setController(this);
             layout = loader.load();
             attachment_icon.setImage(getAttachmentIcon(this.attachmentModel.getAttachmentType()));
+            attachment_icon.setFitWidth(60);
+            attachment_icon.setFitHeight(60);
             attachment_name.setText(this.attachmentModel.getAttachmentName());
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,4 +63,7 @@ public class AttachmentsController {
         }
     }
 
+    public HBox getLayout() {
+        return layout;
+    }
 }

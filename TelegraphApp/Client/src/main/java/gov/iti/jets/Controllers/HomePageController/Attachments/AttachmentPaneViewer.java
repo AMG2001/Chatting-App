@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
@@ -61,6 +62,8 @@ public class AttachmentPaneViewer {
                         AttachmentModel attachmentModel = new AttachmentModel(attachmentDTO);
                         attachmentsControllersList.add(new AttachmentsController(attachmentModel));
                     }
+                    // this mean that attachments are loaded from server before , Just get them .
+                    bindListOnListViewAndChangeSetCell(attachmentsControllersList);
                 }
             }
 
@@ -69,8 +72,25 @@ public class AttachmentPaneViewer {
         }
     }
 
+    private void bindListOnListViewAndChangeSetCell(ObservableList<AttachmentsController> list) {
+        lv_attachments.itemsProperty().bind(new SimpleListProperty<>(list));
+        lv_attachments.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(AttachmentsController attachmentsController, boolean empty) {
+                super.updateItem(attachmentsController, empty);
+                if (empty || attachmentsController == null) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(attachmentsController.getLayout());
+                }
+            }
+        });
+    }
+
     public ListView<AttachmentsController> getLayout() {
         return layout;
     }
+
+
 }
 
