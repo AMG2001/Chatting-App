@@ -1,8 +1,10 @@
 package DTO;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class AttachmentDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = Long.MIN_VALUE;
     private int attachmentId;
     private String attachmentType;

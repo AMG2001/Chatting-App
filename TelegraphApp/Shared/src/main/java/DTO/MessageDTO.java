@@ -1,9 +1,11 @@
 package DTO;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class MessageDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8008135L;
     private int messageId;
     private String senderPhone;

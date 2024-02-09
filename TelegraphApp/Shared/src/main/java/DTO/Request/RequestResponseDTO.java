@@ -1,8 +1,10 @@
 package DTO.Request;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class RequestResponseDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8675309L;
     private int requestID;
     private String requestStatus;

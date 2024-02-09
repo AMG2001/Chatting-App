@@ -2,10 +2,12 @@ package DTO.User;
 
 import DTO.ConversationDTO;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
 public class ContactDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 9876543210L;
     private String phoneNumber;
     private String status;

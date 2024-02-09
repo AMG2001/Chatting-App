@@ -1,9 +1,11 @@
 package DTO.User;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class UpdatedUserDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 987654321000L;
     private String phoneNumber;
     private String name;

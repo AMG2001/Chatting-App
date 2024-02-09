@@ -2,11 +2,13 @@ package DTO.User;
 
 //import javafx.scene.image.Image;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 
 public class UserDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 9876543210000L;
     private String phoneNumber;
     private String name;

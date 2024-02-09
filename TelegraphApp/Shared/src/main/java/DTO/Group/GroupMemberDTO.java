@@ -1,8 +1,10 @@
 package DTO.Group;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class GroupMemberDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 123456789L;
     private String phoneNumber;
     private String status;

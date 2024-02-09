@@ -1,9 +1,11 @@
 package DTO.Group;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
 public class GroupCreationDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private String groupName;
     private List<String> groupMembers; //list of phone numbers

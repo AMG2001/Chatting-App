@@ -1,8 +1,10 @@
 package DTO.User;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class UserLoginDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = Long.MAX_VALUE;
     private String phoneNumber;
     private String password;

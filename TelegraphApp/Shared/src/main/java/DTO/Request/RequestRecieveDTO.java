@@ -1,9 +1,11 @@
 package DTO.Request;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class RequestRecieveDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = -987654321L;
     private int requestId;
     private LocalDateTime sendDate;

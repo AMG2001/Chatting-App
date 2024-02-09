@@ -2,12 +2,14 @@ package DTO.Group;
 
 import DTO.ConversationDTO;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupDTO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 42L;
     private String groupName;
     private List<GroupMemberDTO> groupMembers;
