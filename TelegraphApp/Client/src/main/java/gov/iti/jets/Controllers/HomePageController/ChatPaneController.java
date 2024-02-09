@@ -7,6 +7,8 @@ import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ import javafx.scene.web.HTMLEditor;
 
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ChatPaneController {
     @FXML
@@ -59,7 +62,6 @@ public class ChatPaneController {
 
     @FXML
     public void initialize() {
-        bindListViewOnObservableList();
         changeListViewCellFactory();
         setSendButtonAction();
         clientName = ClientState.getInstance().getLoggedinUserModel().getUserName();
@@ -73,8 +75,8 @@ public class ChatPaneController {
         });
     }
 
-    private void bindListViewOnObservableList() {
-        lv_chatMessages.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().getOpenedChatMessages()));
+    private void bindListViewOnObservableList(ObservableList<MessageController> observableList) {
+        lv_chatMessages.itemsProperty().bind(new SimpleListProperty<>(observableList));
     }
 
     private void changeListViewCellFactory() {
@@ -131,12 +133,21 @@ public class ChatPaneController {
             if (MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()) == null) {
                 System.out.println("Messages of Conversation : " + conversationCard.getConversationID() + " Are Null !!");
             } else {
-                // Load all messages from server then show them on UI .
-                MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
-                    MessageController messageController = new MessageController(messageDTO);
-                    // To Store all messages related to it's Conversation in ConversationsMessages Map .
-                    ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
-                });
+                if (ClientState.getInstance().conversationsMessagesList.containsKey(conversationCard.getConversationID())) {
+                    ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).clear();
+                } else {
+                    // create new conversations messages observable.
+                    ObservableList<MessageController> newList = FXCollections.observableArrayList();
+                    bindListViewOnObservableList(newList);
+                    ClientState.getInstance().conversationsMessagesList.put(conversationCard.getConversationID(), newList);
+                    // Load all messages from server then show them on UI .
+                    MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
+                        MessageController messageController = new MessageController(messageDTO);
+                        // To Store all messages related to it's Conversation in ConversationsMessages Map .
+                        ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
+                    });
+
+                }
             }
         } catch (RemoteException e) {
             CustomDialogs.showErrorDialog("Error while loading chat messages from server : " + e.getMessage());

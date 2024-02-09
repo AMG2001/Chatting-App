@@ -26,15 +26,16 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
     }
 
     @Override
-    public void sendMessage(MessageDTO message) throws RemoteException{
+    public void sendMessage(MessageDTO message) throws RemoteException {
 
         MessageDao messageImpl = new MessageDoaImpl();
         ConversationDao conversationImpl = new ConversationDaoImpl();
 
         Message domainMessage = MessageMapper.messageDTOToMessage(message);
         //Add message to the conversation in Database
-        messageImpl.add(domainMessage);
-
+        System.out.println(message.toString());
+//        messageImpl.add(domainMessage);
+        messageImpl.createMessage(domainMessage);
         //Use callbacks to send message to online users
         List<String> conversationParticipants;
 
@@ -49,11 +50,11 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
         //Create new notification
         NotificationDTO notification = new NotificationDTO(
                 "1", NotificationType.MESSAGE.toString()
-                , LocalDateTime.now(),"You received a new Message");
+                , LocalDateTime.now(), "You received a new Message");
 
         //Send message & Notification
-        handler.sendMessages(message,friends);
-        notificationHandler.sendNotification(notification,friends);
+        handler.sendMessages(message, friends);
+        notificationHandler.sendNotification(notification, friends);
 
 
     }
@@ -64,14 +65,14 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
         MessageDao messageDao = new MessageDoaImpl();
 
         List<Message> messages = messageDao.getMessagesByConversationId(conversationId);
-        if(messages.isEmpty())
+        if (messages.isEmpty()) {
             return null;
-
+        }
+        System.out.println(messages);
         List<MessageDTO> messageDTOS = new ArrayList<>();
 
-        for(Message message : messages)
-        {
-            messageDTOS.add( MessageMapper.messageToMessageDTO(message) );
+        for (Message message : messages) {
+            messageDTOS.add(MessageMapper.messageToMessageDTO(message));
         }
 
         System.out.println("messages successfully received");
