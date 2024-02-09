@@ -33,8 +33,6 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
 
         Message domainMessage = MessageMapper.messageDTOToMessage(message);
         //Add message to the conversation in Database
-        System.out.println(message.toString());
-//        messageImpl.add(domainMessage);
         //TODO handle null
         //Set message ID
         int messageId = messageImpl.createMessage(domainMessage);

@@ -212,7 +212,7 @@
                <Font name="Calibri Bold" size="35.0" />
             </font>
          </Label>
-         <Button fx:id="toggleButton" mnemonicParsing="false" onAction="#toggleServer" prefHeight="56.0" prefWidth="186.0" styleClass="offline-button" text="Turn Server Off" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <Button fx:id="toggleButton" mnemonicParsing="false" onAction="#toggleServer" prefHeight="56.0" prefWidth="186.0" styleClass="offline-button" text="Turn Server Off" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                <Insets left="15.0" />
             </GridPane.margin>

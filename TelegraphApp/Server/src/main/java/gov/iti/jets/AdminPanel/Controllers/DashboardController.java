@@ -27,6 +27,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 
 
@@ -37,7 +38,6 @@ import java.nio.file.Files;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -262,63 +262,6 @@ public class DashboardController implements Initializable {
         //employeeService.updateEmployee(editedEmployee);
     }
 
-    //Get Announcements from database
-    private void initializeAnnouncementLog() {
-        announcementLog.setItems(announcementList);
-    }
-
-    private void initializeProcessLog() {
-        serverLog.setItems(processLogList);
-    }
-
-    // Method to append a message to the server log
-    public void appendToServerLog(String message) {
-        announcementList.add(message);
-    }
-
-    // Method to append a message to the process log and perform processing
-    public void appendToProcessLog(String message) {
-        processLogList.add(message);
-    }
-
-    @FXML
-    private void toggleServer(ActionEvent event) {
-        serverOnline = !serverOnline;
-        updateStatus();
-    }
-
-    private void updateStatus() {
-        if (serverOnline) {
-            statusLabel.setText("Server is online");
-            statusLabel.getStyleClass().setAll("online-label");
-            toggleButton.setText("Turn Server Off");
-            toggleButton.getStyleClass().setAll("offline-button");
-        } else {
-            statusLabel.setText("Server is offline");
-            statusLabel.getStyleClass().setAll("offline-label");
-            toggleButton.setText("Turn Server On");
-            toggleButton.getStyleClass().setAll("online-button");
-        }
-    }
-
-    @FXML
-    void sendAnnouncement(ActionEvent event) {
-        String notificationBody = announcementTextfield.getText();
-        String type = NotificationType.SYSTEM.toString();
-        NotificationDTO announcement = new NotificationDTO("1", type, LocalDateTime.now(), notificationBody);
-        if (!OnlineUserManager.getOnlineUsers().isEmpty()) {
-
-            OnlineUserManager.getOnlineUsers().stream().forEach((e) -> {
-                try {
-                    e.recieveNotification(announcement);
-                } catch (RemoteException ex) {
-                    System.out.println("Failed to send server announcement " + announcement.getBody());
-                }
-            });
-            Platform.runLater(() -> appendToServerLog(notificationBody));
-        }
-    }
-
     @FXML
     void searchByPhone(ActionEvent event) {
         if (!phoneInput.getText().isEmpty()) {
@@ -349,10 +292,6 @@ public class DashboardController implements Initializable {
             }
         }
 
-    }
-    @FXML
-    void getAllUsers(ActionEvent event) {
-        userTableList.setAll(userList);
     }
     @FXML
     void addNewUser(ActionEvent event) {
@@ -482,5 +421,68 @@ public class DashboardController implements Initializable {
             }
         });
 
+    }
+
+    @FXML
+    void getAllUsers(ActionEvent event) {
+        userTableList.setAll(userList);
+    }
+
+    //-------------------------------ANNOUNCEMENTLOG--------------------------------------
+
+    //Get Announcements from database
+    private void initializeAnnouncementLog() {
+        announcementLog.setItems(announcementList);
+    }
+
+    public void appendToAnnouncementLog(String message) {
+        announcementList.add(message);
+    }
+    @FXML
+    void sendAnnouncement(ActionEvent event) {
+        String notificationBody = announcementTextfield.getText();
+        String type = NotificationType.SYSTEM.toString();
+        NotificationDTO announcement = new NotificationDTO("1", type, LocalDateTime.now(), notificationBody);
+        if (!OnlineUserManager.getOnlineUsers().isEmpty()) {
+
+            OnlineUserManager.getOnlineUsers().stream().forEach((e) -> {
+                try {
+                    e.recieveNotification(announcement);
+                } catch (RemoteException ex) {
+                    System.out.println("Failed to send server announcement " + announcement.getBody());
+                }
+            });
+            Platform.runLater(() -> appendToAnnouncementLog(notificationBody));
+        }
+    }
+    //--------------------------------PROCESSLOG--------------------------------------------------
+    private void initializeProcessLog() {
+        serverLog.setItems(processLogList);
+    }
+
+    public void appendToProcessLog(String message) {
+        processLogList.add(message);
+    }
+    //---------------------------------SERVERSTATUS-------------------------------------------------
+    @FXML
+    private void toggleServer(ActionEvent event) {
+        serverOnline = !serverOnline;
+
+        updateStatus();
+    }
+    private void updateStatus() {
+        if (serverOnline) {
+            statusLabel.setText("Server is online");
+            statusLabel.getStyleClass().setAll("online-label");
+            toggleButton.setText("Turn Server Off");
+            toggleButton.setStyle("    -fx-background-color: #cc0000;\n" +
+                    "    -fx-text-fill: white;");
+        } else {
+            statusLabel.setText("Server is offline");
+            statusLabel.getStyleClass().setAll("offline-label");
+            toggleButton.setText("Turn Server On");
+            toggleButton.setStyle("    -fx-background-color: #3b943b;\n" +
+                    "    -fx-text-fill: white;");
+        }
     }
 }
