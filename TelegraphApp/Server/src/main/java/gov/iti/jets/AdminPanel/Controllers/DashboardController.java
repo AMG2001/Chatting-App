@@ -232,7 +232,7 @@ public class DashboardController implements Initializable {
         ContactCallbackHandler handler  = new ContactCallbackHandler();
         //OnlineUserManager.getFriendsFromOnlineList();
        // handler.updateContactName(editedEmployee.getPhoneNumber(),
-                //editedEmployee.getName(),);
+        // editedEmployee.getName(),);
 
     }
 
