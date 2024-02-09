@@ -21,8 +21,8 @@ public class AttachmentMapper {
 
         attachmentDTO.setAttachmentId(attachment.getAttachmentId());
         attachmentDTO.setAttachmentName(attachment.getAttachmentName());
-        attachmentDTO.setConversationId(attachmentDTO.getConversationId());
-        attachmentDTO.setAttachmentType(attachmentDTO.getAttachmentType());
+        attachmentDTO.setConversationId(attachment.getConversationId());
+        attachmentDTO.setAttachmentType(attachment.getAttachmentType());
 
         return attachmentDTO;
     }

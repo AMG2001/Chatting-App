@@ -9,6 +9,7 @@ import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
+import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
 import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
@@ -227,16 +228,19 @@ public class DashboardController implements Initializable {
     private void onNameEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
         UserModel editedEmployee = event.getRowValue();
         editedEmployee.setName(event.getNewValue());
-        //Call updateUsername here
-        //employeeService.updateEmployee(editedEmployee);
+        userDao.updateUserName(editedEmployee.getName(),editedEmployee.getPhoneNumber());
+        ContactCallbackHandler handler  = new ContactCallbackHandler();
+        //OnlineUserManager.getFriendsFromOnlineList();
+       // handler.updateContactName(editedEmployee.getPhoneNumber(),
+                //editedEmployee.getName(),);
+
     }
 
     private void onGenderEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
         UserModel editedEmployee = event.getRowValue();
         try {
             editedEmployee.setGender(Gender.valueOf(event.getNewValue().toUpperCase()));
-            //Call updateUsername here
-            //employeeService.updateEmployee(editedEmployee);
+            userDao.updateUserGender(editedEmployee.getGender(),editedEmployee.getPhoneNumber());
         } catch (IllegalArgumentException e) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -251,15 +255,13 @@ public class DashboardController implements Initializable {
     private void onEmailEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
         UserModel editedEmployee = event.getRowValue();
         editedEmployee.setEmail(event.getNewValue());
-        //Call updateUsername here
-        //employeeService.updateEmployee(editedEmployee);
+        userDao.updateUserEmail(editedEmployee.getEmail(),editedEmployee.getPhoneNumber());
     }
 
     private void onCountryEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
         UserModel editedEmployee = event.getRowValue();
         editedEmployee.setCountry(event.getNewValue());
-        //Call updateUsername here
-        //employeeService.updateEmployee(editedEmployee);
+        userDao.updateUserCountry(editedEmployee.getCountry(),editedEmployee.getPhoneNumber());
     }
 
     @FXML
