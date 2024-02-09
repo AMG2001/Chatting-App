@@ -69,6 +69,26 @@ public class UserDoaImplTest {
     {
         System.out.println(userDoaImpl.getNumberOfUsers());
     }
+    private void updateUserNameTest(){
+        String phone= "555555555";
+        String name = "Hossam";
+        userDoaImpl.updateUserName(name,phone);
+    }
+    private void updateUserEmailTest(){
+        String phone= "555555555";
+        String email = "Hossam@yahoo.com";
+        userDoaImpl.updateUserEmail(email,phone);
+    }
+    private void updateUserCountryTest(){
+        String phone= "555555555";
+        String country = "Brazil";
+        userDoaImpl.updateUserCountry(country,phone);
+    }
+    private void updateUserGenderTest(){
+        String phone= "555555555";
+        Gender gender = Gender.MALE;
+        userDoaImpl.updateUserGender(gender,phone);
+    }
 
     public static void main(String[] args) {
         UserDoaImplTest userDoaImplTest= new UserDoaImplTest();
@@ -81,6 +101,10 @@ public class UserDoaImplTest {
         //userDoaImplTest.updateStatusTest();
         //userDoaImplTest.getAllContactsByPhoneTest();
         //userDoaImplTest.getAllTest();
-        userDoaImplTest.getNumberOfUsersTest();
+        //userDoaImplTest.getNumberOfUsersTest();
+        //userDoaImplTest.updateUserNameTest();
+        //userDoaImplTest.updateUserEmailTest();
+        //userDoaImplTest.updateUserCountryTest();
+        userDoaImplTest.updateUserGenderTest();
     }
 }
