@@ -3,6 +3,7 @@ package DTO.Group;
 import java.io.Serializable;
 
 public class GroupMemberDTO implements Serializable {
+    private static final long serialVersionUID = 123456789L;
     private String phoneNumber;
     private String status;
     private String name;

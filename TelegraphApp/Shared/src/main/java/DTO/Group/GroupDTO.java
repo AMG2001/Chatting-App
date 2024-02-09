@@ -8,6 +8,7 @@ import java.util.List;
 
 public class GroupDTO implements Serializable {
 
+    private static final long serialVersionUID = 42L;
     private String groupName;
     private List<GroupMemberDTO> groupMembers;
     private ConversationDTO conversation;

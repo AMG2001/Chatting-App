@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 
 public class UserDTO implements Serializable {
+    private static final long serialVersionUID = 9876543210000L;
     private String phoneNumber;
     private String name;
     private String email;

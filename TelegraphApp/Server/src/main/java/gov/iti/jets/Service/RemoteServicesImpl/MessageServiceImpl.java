@@ -35,7 +35,10 @@ public class MessageServiceImpl extends UnicastRemoteObject implements RemoteMes
         //Add message to the conversation in Database
         System.out.println(message.toString());
 //        messageImpl.add(domainMessage);
-        messageImpl.createMessage(domainMessage);
+        //TODO handle null
+        //Set message ID
+        int messageId = messageImpl.createMessage(domainMessage);
+        message.setMessageId(messageId);
         //Use callbacks to send message to online users
         List<String> conversationParticipants;
 

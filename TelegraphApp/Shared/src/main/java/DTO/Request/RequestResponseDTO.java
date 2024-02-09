@@ -3,6 +3,7 @@ package DTO.Request;
 import java.io.Serializable;
 
 public class RequestResponseDTO implements Serializable {
+    private static final long serialVersionUID = 8675309L;
     private int requestID;
     private String requestStatus;
     private String senderPhone;
