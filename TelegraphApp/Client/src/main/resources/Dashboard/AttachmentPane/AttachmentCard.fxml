@@ -6,13 +6,14 @@
 <?import javafx.scene.text.Font?>
 
 
-<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" spacing="12.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fx:id="attachment_icon" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="attachment_name" text="Label">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-   </children>
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefWidth="600.0" spacing="12.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="attachment_icon" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"/>
+        <Label fx:id="attachment_name" text="Label">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+    </children>
 </HBox>
