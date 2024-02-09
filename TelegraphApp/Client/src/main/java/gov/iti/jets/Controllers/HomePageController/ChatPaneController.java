@@ -1,16 +1,19 @@
 package gov.iti.jets.Controllers.HomePageController;
 
+import DTO.MessageDTO;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.beans.property.SimpleListProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -21,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 
 public class ChatPaneController {
     @FXML
@@ -44,7 +48,7 @@ public class ChatPaneController {
     @FXML
     private Circle receiverStatusCircle;
     @FXML
-    private HTMLEditor messageArea;
+    private TextArea messageArea;
     @FXML
     private Button btn_sendMessage;
     VBox layout;
@@ -92,7 +96,6 @@ public class ChatPaneController {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/chatPane.fxml"));
             loader.setController(this);
             layout = loader.load();
-            System.out.println("Chat Pane Loaded ✅✅");
             this.contactCardData = conversationCard;
             chatImage.setImage(conversationCard.img_contact.getImage());
             chatName.setText(conversationCard.text_contactName.getText());
@@ -122,22 +125,48 @@ public class ChatPaneController {
 
     private void loadChatMessagesFromServer(ConversationCard conversationCard) {
         try {
-            MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
-                MessageController messageController = new MessageController(messageDTO);
-                ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
-            });
+            // Just for Debugging .
+            System.out.println("Conversation ID : " + conversationCard.getConversationID());
+            //
+            if (MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()) == null) {
+                System.out.println("Messages of Conversation : " + conversationCard.getConversationID() + " Are Null !!");
+            } else {
+                // Load all messages from server then show them on UI .
+                MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
+                    MessageController messageController = new MessageController(messageDTO);
+                    // To Store all messages related to it's Conversation in ConversationsMessages Map .
+                    ClientState.getInstance().conversationsMessagesList.get(conversationCard.getConversationID()).add(messageController);
+                });
+            }
         } catch (RemoteException e) {
             CustomDialogs.showErrorDialog("Error while loading chat messages from server : " + e.getMessage());
         }
     }
 
     private void sendMessage() {
-        if (messageArea.getHtmlText().length() != 0) {
-            // TODO implement adding message to list and chat .
-//            MessageController messageController = new MessageController(ClientState.getInstance().getLoggedinUserModel().getUserPhone());
-//            messageController.setMessageContent(messageArea.getHtmlText());
-//            ClientState.getInstance().openedChatMessagesList.add(messageController);
-//            messageArea.setHtmlText("");
+        if (messageArea.getText().isEmpty()) {
+            CustomDialogs.showErrorDialog("You can't leave message area empty !!");
+        } else {
+            MessageController messageController = new MessageController(clientPhoneNumber, messageArea.getText(), LocalDateTime.now(), clientImage);
+            lv_chatMessages.getItems().add(messageController);
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setMessageBody(messageArea.getText());
+            messageDTO.setSenderPhone(clientPhoneNumber);
+            messageDTO.setConversationId(contactCardData.getConversationID());
+            messageDTO.setTimeStamp(LocalDateTime.now());
+            messageArea.clear();
+            try {
+                MessageService.getInstance().getRemoteService().sendMessage(messageDTO);
+                System.out.println("Message Sent Successfully ");
+            } catch (RemoteException e) {
+                CustomDialogs.showErrorDialog("Error while sending message : " + e.getMessage());
+            }
         }
+
+    }
+
+    @FXML
+    void showAttachmentsPane(ActionEvent event) {
+
     }
 }

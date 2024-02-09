@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -11,7 +12,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.web.HTMLEditor?>
 
 <VBox fx:id="pane_chatPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -50,6 +50,20 @@
                                 </HBox>
                             </children>
                         </VBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="462.0">
+                            <children>
+                                <Button fx:id="btn_shawAttachments" mnemonicParsing="false"
+                                        onAction="#showAttachmentsPane" prefHeight="30.0" prefWidth="19.0"
+                                        style="-fx-background-color: transparent;">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="ELLIPSIS_V" size="22"/>
+                                    </graphic>
+                                    <HBox.margin>
+                                        <Insets right="8.0"/>
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
                     </children>
                     <VBox.margin>
                         <Insets/>
@@ -58,18 +72,17 @@
                         <Insets top="5.0"/>
                     </padding>
                 </HBox>
-                <ListView fx:id="lv_chatMessages" prefHeight="500.0" prefWidth="697.0"
+                <ListView fx:id="lv_chatMessages" prefHeight="601.0" prefWidth="698.0"
                           style="-fx-border-color: black;"/>
             </children>
         </VBox>
-        <HBox fx:id="message_send_area" alignment="CENTER">
+        <HBox fx:id="message_send_area" alignment="CENTER" prefHeight="0.0" prefWidth="698.0">
             <children>
-                <HTMLEditor fx:id="messageArea"
-                            htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
-                            prefHeight="250.0" prefWidth="600"/>
-                <Button fx:id="btn_sendMessage" mnemonicParsing="false" prefHeight="250.0" prefWidth="78.0">
+                <TextArea fx:id="messageArea" prefHeight="49.0" prefWidth="620.0" promptText="Enter Your message here"/>
+                <Button fx:id="btn_sendMessage" mnemonicParsing="false" prefHeight="250.0" prefWidth="78.0"
+                        style="-fx-background-color: #2272E5;">
                     <graphic>
-                        <FontAwesomeIconView glyphName="SEND" size="24"/>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEND" size="24"/>
                     </graphic>
                 </Button>
             </children>
