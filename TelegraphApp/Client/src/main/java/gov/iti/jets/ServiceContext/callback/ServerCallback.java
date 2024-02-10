@@ -34,7 +34,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     }
 
-    //    @Override
+    @Override
     public boolean isAlive() throws RemoteException {
         return true;
     }
@@ -42,15 +42,12 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     /**
      * @throws RemoteException
      */
-//    @Override
+    @Override
     public void serverShutdown() throws RemoteException {
 
     }
 
-    /**
-     * @throws RemoteException
-     */
-//    @Override
+    @Override
     public void serverStart() throws RemoteException {
 
     }

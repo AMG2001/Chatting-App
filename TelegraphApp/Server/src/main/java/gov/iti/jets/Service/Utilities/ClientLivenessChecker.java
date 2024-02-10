@@ -12,16 +12,19 @@ public class ClientLivenessChecker {
 
     private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private volatile boolean livenessCheckingActive = false;
-    public void startLivenessChecking(){
-            scheduler.scheduleAtFixedRate(this::checkLiveness,
-                    0, 5, TimeUnit.SECONDS); // Adjust the interval as needed
+
+    public void startLivenessChecking() {
+        scheduler.scheduleAtFixedRate(this::checkLiveness,
+                0, 12, TimeUnit.SECONDS); // Adjust the interval as needed
         livenessCheckingActive = true;
 
     }
+
     public void stopLivenessChecking() {
         scheduler.shutdown();
         livenessCheckingActive = false;
     }
+
     public boolean isLivenessCheckingActive() {
         return livenessCheckingActive;
     }

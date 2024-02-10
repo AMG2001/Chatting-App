@@ -10,6 +10,7 @@ public class Server {
     public static void main(String[] args) {
         DBConnectionPool datasource = DBConnectionPool.DATASOURCE;
         ServerRegistryInitializer registry = new ServerRegistryInitializer();
+        System.setProperty("java.rmi.server.hostname", "192.168.206.1");
         ServerBroadcaster broadcaster = new ServerBroadcaster();
         broadcaster.startBroadcasting();
         AdminPanel panel = new AdminPanel();

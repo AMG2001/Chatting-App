@@ -13,21 +13,18 @@ public class RemoteRegistry {
     private static RemoteRegistry instance;
 
     private RemoteRegistry() {
-        // Example usage:
-        ClientListener clientListener = new ClientListener();
-        clientListener.startListening();
-
-        // Keep the main thread alive until the desired IP is found
-        while (clientListener.isListening()) {
-            try {
-                Thread.sleep(1000); // Sleep for 1 second (adjust as needed)
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        ClientListener listener = new ClientListener();
+        listener.startListening();
+        // Wait for 5 seconds to receive the IP address
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        // Retrieve the received IP address
-        host = clientListener.getReceivedIpAddress();
-        System.out.println(host);
+        // Print the received IP address
+        System.out.println("Received IP address: " + listener.receivedIpAddress);
+        // Stop listening
+        listener.stopListening();
         // Create or obtain a reference to the registry
         try {
             registry = LocateRegistry.getRegistry(host, port);
