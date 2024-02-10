@@ -27,7 +27,7 @@ public class RemoteRegistry {
         }
         // Retrieve the received IP address
         host = clientListener.getReceivedIpAddress();
-        System.out.println(host);
+        System.out.println(host+"Ahmed");
         // Create or obtain a reference to the registry
         try {
             registry = LocateRegistry.getRegistry(host, port);
