@@ -39,10 +39,10 @@ public class AppViews {
         currentScene.setRoot(AppPages.getHomePageView());
         stage.setTitle("Telegraph - Home Page");
         stage.setMinHeight(780);
-        stage.setMinWidth(1100);
-        stage.setWidth(1100);
+        stage.setMinWidth(1200);
+        stage.setWidth(1200);
         stage.setHeight(780);
-        stage.setMaxWidth(1100);
+        stage.setMaxWidth(1200);
         stage.setMaxHeight(770);
     }
 
