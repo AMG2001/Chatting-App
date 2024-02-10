@@ -122,13 +122,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
         ContactModel contactModel = new ContactModel(newContact);
         Platform.runLater(() -> ClientState.getInstance().contactsList.add(contactModel));
         Platform.runLater(() -> {
-            ClientState.getInstance().conversationsList.add(
-                    new ConversationCard(
-                            contactModel.getConversation().getConversationId(),
-                            contactModel.getPhoneNumber(),
-                            contactModel.getName(),
-                            FileConverter.convert_bytesToImage(contactModel.getProfilepic()),
-                            contactModel.getStatus(), contactModel.getStatusCircleColor()));
+            ClientState.getInstance().conversationsList.add(new ConversationCard(contactModel));
         });
     }
 

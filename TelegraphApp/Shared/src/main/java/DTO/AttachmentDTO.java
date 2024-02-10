@@ -72,6 +72,17 @@ public class AttachmentDTO implements Serializable {
         return attachment;
     }
 
+    @Override
+    public String toString() {
+        return "AttachmentDTO{" +
+                "attachmentId=" + attachmentId +
+                ", senderPhone='" + senderPhone + '\'' +
+                ", attachmentType='" + attachmentType + '\'' +
+                ", conversationId=" + conversationId +
+                ", attachmentName='" + attachmentName + '\'' +
+                '}';
+    }
+
     public void setAttachment(byte[] attachment) {
         this.attachment = attachment;
     }
