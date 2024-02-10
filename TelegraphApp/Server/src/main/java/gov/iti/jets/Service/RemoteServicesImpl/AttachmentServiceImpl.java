@@ -42,7 +42,8 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
 
         List<String> conversationParticipants =
                 conversationDao.getConversationParticipants(attachmentDTO.getConversationId());
-        final List<RemoteCallbackInterface> friendsCallBacks =
+
+        List<RemoteCallbackInterface> friendsCallBacks =
                 OnlineUserManager.getFriendsFromOnlineList(conversationParticipants);
 
         AttachmentCallbackHandler attachmentCallbackHandler = new AttachmentCallbackHandler();
@@ -52,8 +53,15 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
                 "1", NotificationType.MESSAGE.toString()
                 , LocalDateTime.now(),"You received an attachment");
 
-       //(CALLBACK)
-        attachmentCallbackHandler.sendMessages(attachmentDTO,friendsCallBacks);
+
+        //Send the attachment
+        attachmentCallbackHandler.sendAttachmentToContacts(attachmentDTO,friendsCallBacks);
+
+        //Remove the sender before notification
+        conversationParticipants.removeIf(s-> s.contains(attachmentDTO.getSenderPhone()));
+        friendsCallBacks = OnlineUserManager.getFriendsFromOnlineList(conversationParticipants);
+
+        //Send the notification
         notificationHandler.sendNotification(notification,friendsCallBacks);
 
     }

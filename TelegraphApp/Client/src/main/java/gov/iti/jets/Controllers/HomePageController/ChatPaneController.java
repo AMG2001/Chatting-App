@@ -164,7 +164,7 @@ public class ChatPaneController {
                     MessageService.getInstance().getRemoteService().getAllMessagesForConversation(conversationCard.getConversationID()).stream().forEach(messageDTO -> {
                         MessageController messageController = new MessageController(messageDTO);
                         System.out.println("Message Body : " + messageDTO.getMessageBody() + " From : " + messageDTO.getSenderPhone());
-                        // To Store all messages related to it's Conversation in ConversationsMessages Map .
+                        // To Store all messages related to its Conversation in ConversationsMessages Map .
                         newMessagesList.add(messageController);
                     });
                 }
@@ -210,6 +210,7 @@ public class ChatPaneController {
                     AttachmentDTO attachmentDTO = new AttachmentDTO();
                     attachmentDTO.setConversationId(conversationID);
                     attachmentDTO.setAttachmentName(getFileNameWithoutExtension(file));
+                    attachmentDTO.setSenderPhone(clientPhoneNumber);
                     attachmentDTO.setAttachmentType(getFileExtension(file));
                     attachmentDTO.setAttachment(Files.readAllBytes(file.toPath()));
                     AttachmentService.getInstance().getRemoteService().sendAttachment(attachmentDTO);
