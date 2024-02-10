@@ -34,7 +34,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     }
 
-    @Override
+    //    @Override
     public boolean isAlive() throws RemoteException {
         return true;
     }
@@ -42,7 +42,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     /**
      * @throws RemoteException
      */
-    @Override
+//    @Override
     public void serverShutdown() throws RemoteException {
 
     }
@@ -50,7 +50,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     /**
      * @throws RemoteException
      */
-    @Override
+//    @Override
     public void serverStart() throws RemoteException {
 
     }
@@ -136,12 +136,14 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void updateContactName(String phone, String name) throws RemoteException {
-
+        ClientState.getInstance().contactsList.stream().filter(contactModel -> contactModel.getPhoneNumber().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.setName(name));
+        ClientState.getInstance().conversationsList.stream().filter(conversationCard -> conversationCard.getPhoneNumber().equals(phone)).findFirst().ifPresent(conversationCard -> conversationCard.text_contactName.setText(name));
     }
 
     @Override
     public void updateContactPic(String phone, byte[] picture) throws RemoteException {
-
+        ClientState.getInstance().contactsList.stream().filter(contactModel -> contactModel.getPhoneNumber().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.setProfilepic(picture));
+        ClientState.getInstance().conversationsList.stream().filter(conversationCard -> conversationCard.getPhoneNumber().equals(phone)).findFirst().ifPresent(conversationCard -> conversationCard.img_contact.setImage(FileConverter.convert_bytesToImage(picture)));
     }
 
     @Override
@@ -164,6 +166,4 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
                     });
         });
     }
-
-
 }
