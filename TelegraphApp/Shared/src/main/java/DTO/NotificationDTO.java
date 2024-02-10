@@ -1,9 +1,12 @@
 package DTO;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class NotificationDTO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 0xDEADBEEFL;
     private String notificationId;
     private String type;
     private LocalDateTime timeStamp;

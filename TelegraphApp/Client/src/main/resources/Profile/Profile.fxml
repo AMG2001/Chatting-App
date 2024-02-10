@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -19,7 +20,7 @@
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gov.iti.jets.Controllers.ProfilePageController.ProfilePageController">
     <left>
-        <fx:include source="../Shared/leftSideBar.fxml" />
+        <fx:include source="../Shared/LeftSideBar/leftSideBar.fxml" />
     </left>
     <center>
         <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
@@ -32,77 +33,83 @@
             <children>
                 <VBox spacing="24.0" stylesheets="@Style.css">
                     <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0">
-                     <children>
-                        <VBox spacing="36.0">
-                           <children>
-                                    <Label text="Account info" underline="true">
-                                        <font>
-                                            <Font name="System Bold" size="18.0" />
-                                        </font>
-                                 <VBox.margin>
-                                    <Insets top="24.0" />
-                                 </VBox.margin>
-                                    </Label>
-                              <Label contentDisplay="RIGHT" graphicTextGap="26.0" text="User Name :">
-                                 <graphic>
-                                    <TextField fx:id="tf_userName" />
-                                 </graphic>
-                              </Label>
-                              <Label contentDisplay="RIGHT" graphicTextGap="48.0" text="Gender :">
-                                 <graphic>
-                                    <TextField fx:id="tf_gender" />
-                                 </graphic>
-                              </Label>
-                              <Label contentDisplay="RIGHT" graphicTextGap="42.0" text="Country : ">
-                                 <graphic>
-                                    <TextField fx:id="tf_country" />
-                                 </graphic>
-                              </Label>
-                              <Label contentDisplay="RIGHT" text="Phone Number : ">
-                                 <graphic>
-                                    <TextField fx:id="tf_phoneNumber" />
-                                 </graphic>
-                              </Label>
-                              <Label contentDisplay="RIGHT" graphicTextGap="56.0" text="Email : ">
-                                 <graphic>
-                                    <TextField fx:id="tf_email" />
-                                 </graphic>
-                              </Label>
-                                    <Label contentDisplay="RIGHT" text="Date of Birth : ">
-                                 <graphic>
-                                          <DatePicker fx:id="datePicker" />
-                                 </graphic>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="24.0">
-                           <children>
-                              <Label text="Profile image" underline="true">
-                                 <VBox.margin>
-                                    <Insets top="24.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="305.0">
-                                 <children>
-                                    <ImageView fx:id="img_userImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../RegisterPage/images/l1.jpeg" />
-                                       </image>
-                                    </ImageView>
-                                    <Hyperlink fx:id="btn_changeUserImage" onAction="#openFilesDialog" text="Change profile image" />
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets left="24.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0">
+                            <children>
+                                <VBox spacing="36.0">
+                                    <children>
+                                        <Label text="Account info" underline="true">
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="24.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label contentDisplay="RIGHT" graphicTextGap="26.0" text="User Name :">
+                                            <graphic>
+                                                <TextField fx:id="tf_userName" />
+                                            </graphic>
+                                        </Label>
+                                        <Label contentDisplay="RIGHT" graphicTextGap="48.0" text="Gender :">
+                                            <graphic>
+                                                <TextField fx:id="tf_gender" />
+                                            </graphic>
+                                        </Label>
+                                        <Label contentDisplay="RIGHT" graphicTextGap="42.0" text="Country : ">
+                                            <graphic>
+                                                <TextField fx:id="tf_country" />
+                                            </graphic>
+                                        </Label>
+                                        <Label contentDisplay="RIGHT" text="Phone Number : ">
+                                            <graphic>
+                                                <TextField fx:id="tf_phoneNumber" />
+                                            </graphic>
+                                        </Label>
+                                        <Label contentDisplay="RIGHT" graphicTextGap="56.0" text="Email : ">
+                                            <graphic>
+                                                <TextField fx:id="tf_email" />
+                                            </graphic>
+                                        </Label>
+                                        <Label contentDisplay="RIGHT" text="Date of Birth : ">
+                                            <graphic>
+                                                <DatePicker fx:id="datePicker" />
+                                            </graphic>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="421.0" prefWidth="298.0" spacing="24.0">
+                                    <children>
+                                        <Label text="Profile image" underline="true">
+                                            <VBox.margin>
+                                                <Insets top="24.0" />
+                                            </VBox.margin>
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="305.0">
+                                            <children>
+                                                <ImageView fx:id="img_userImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../RegisterPage/images/l1.jpeg" />
+                                                    </image>
+                                                </ImageView>
+                                                <Hyperlink fx:id="btn_changeUserImage" onAction="#openFilesDialog" text="Change profile image" />
+                                            </children>
+                                        </VBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="248.0" spacing="8.0">
+                                            <children>
+                                                <Label text="Current Status : " />
+                                    <ComboBox fx:id="statusMenuButton" prefWidth="150.0" style="-fx-background-color: #2272E5;" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                    <padding>
+                                        <Insets left="24.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </HBox>
                         <Label text="Bio" underline="true">
                             <font>
                                 <Font name="System Bold" size="18.0" />

@@ -1,22 +1,34 @@
 package DTO;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class MessageDTO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 8008135L;
     private int messageId;
     private String senderPhone;
     private int conversationId;
     private String messageBody;
+
+    @Override
+    public String toString() {
+        return "MessageDTO{" +
+                "messageId=" + messageId +
+                ", senderPhone='" + senderPhone + '\'' +
+                ", conversationId=" + conversationId +
+                ", messageBody='" + messageBody + '\'' +
+                ", timeStamp=" + timeStamp +
+                '}';
+    }
+
     private LocalDateTime timeStamp;
 
-    public MessageDTO(int messageId, String senderPhone, int conversationId, String messageBody, LocalDateTime timeStamp) {
-        this.messageId = messageId;
-        this.senderPhone = senderPhone;
-        this.conversationId = conversationId;
-        this.messageBody = messageBody;
-        this.timeStamp = timeStamp;
+    public MessageDTO() {
+
     }
+
 
     public int getMessageId() {
         return messageId;

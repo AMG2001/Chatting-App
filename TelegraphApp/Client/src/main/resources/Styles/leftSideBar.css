@@ -1,9 +1,9 @@
-.leftSideBar{
+.leftSideBar {
     -fx-background-color: white;
 }
 
-.leftSideBar .option{
-    -fx-alignment: left;
+.leftSideBar .option {
+    -fx-alignment: center-left;
     -fx-text-fill: white;
     -fx-fill: white;
     -fx-padding: 10;
@@ -13,8 +13,8 @@
     -fx-min-width: 180px;
 }
 
-.leftSideBar .option:hover{
-    -fx-alignment: left;
+.leftSideBar .option:hover {
+    -fx-alignment: center-left;
     -fx-text-fill: black;
     -fx-fill: black;
     -fx-padding: 10;

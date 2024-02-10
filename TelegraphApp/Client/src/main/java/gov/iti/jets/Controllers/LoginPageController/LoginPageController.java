@@ -1,20 +1,18 @@
 package gov.iti.jets.Controllers.LoginPageController;
 
-import DTO.UserDTO;
-import DTO.UserLoginDTO;
+import DTO.User.UserDTO;
+import DTO.User.UserLoginDTO;
+import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FieldsValidator;
 import gov.iti.jets.Model.ClientState;
-import gov.iti.jets.Model.UserModel;
+import gov.iti.jets.Model.User.UserModel;
 import gov.iti.jets.ServiceContext.UserService;
 import gov.iti.jets.ServiceContext.callback.ServerCallback;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import gov.iti.jets.Controllers.config.AppPages;
+import javafx.scene.control.*;
 import gov.iti.jets.Controllers.services.Navigator;
 
 import java.rmi.RemoteException;
@@ -44,6 +42,7 @@ public class LoginPageController {
         if (FieldsValidator.isValidPhoneNumber(phoneNumber) && FieldsValidator.isValidPassword(password)) {
             try {
                 ServerCallback serverCallBack = new ServerCallback();
+                System.out.println("Phone Number : " + phoneNumber + " Password : " + password);
                 userDTO = UserService.getInstance().getRemoteService().login(new UserLoginDTO(phoneNumber, password), serverCallBack);
                 if (userDTO != null) {
                     UserModel userModel = new UserModel(userDTO);
@@ -57,7 +56,13 @@ public class LoginPageController {
                 e.printStackTrace();
             } finally {
                 if (userDTO != null) {
-                    Navigator.navigateToHomePage();
+                    tf_password.clear();
+                    try {
+                        UserService.getInstance().getRemoteService().updateStatus(ClientState.getInstance().getLoggedinUserModel().getUserPhone(), CustomEnums.UserStatus_ONLINE);
+                        Platform.runLater(() -> Navigator.navigateToHomePage());
+                    } catch (RemoteException e) {
+                        CustomDialogs.showErrorDialog("Error while updating status to offline while logging out !!");
+                    }
                 }
             }
         }
@@ -67,5 +72,6 @@ public class LoginPageController {
     void navigateToSignUp(ActionEvent event) {
         Navigator.navigateToRegister();
     }
+
 
 }

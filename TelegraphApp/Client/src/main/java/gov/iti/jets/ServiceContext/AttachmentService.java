@@ -1,7 +1,6 @@
 package gov.iti.jets.ServiceContext;
 
 import RemoteInterfaces.RemoteAttachmentService;
-import RemoteInterfaces.RemoteConversationService;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

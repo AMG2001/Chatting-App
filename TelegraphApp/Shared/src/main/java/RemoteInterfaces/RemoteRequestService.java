@@ -1,14 +1,16 @@
 package RemoteInterfaces;
 
-import DTO.RequestDTO;
+import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
+import DTO.Request.RequestSendDTO;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface RemoteRequestService extends Remote {
-    void sendRequest(RequestDTO request)throws RemoteException;
-    void updateRequest(RequestDTO request)throws RemoteException;
-    ArrayList<RequestDTO> getAllRequest(String Phone)throws RemoteException;
+    void sendRequest(RequestSendDTO request)throws RemoteException;
+    void updateRequest(RequestResponseDTO request)throws RemoteException;
+    ArrayList<RequestRecieveDTO> getAllRequest(String Phone)throws RemoteException;
 
 }

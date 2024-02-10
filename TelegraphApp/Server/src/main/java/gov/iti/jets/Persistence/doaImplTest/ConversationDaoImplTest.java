@@ -30,22 +30,26 @@ public class ConversationDaoImplTest {
 
     private void createGroupConversationTest() {
         Conversation group = new Conversation();
-        group.setConversationImage("image555");
-        group.setConversationName("testGroup55");
+        group.setConversationName("testGroupjhkjhkjhkjhkjhhjhkhjhk");
         System.out.println(conversationDaoImpl.createGroupConversation("123456789", group));
     }
 
     private void getConversationParticipantsTest(){
         System.out.println(conversationDaoImpl.getConversationParticipants(2));
     }
+
+    private void getGroupMembersByConversationIdTest(){
+        System.out.println(conversationDaoImpl.getGroupMembersByConversationId(1));
+    }
     public static void main(String[] args) {
         ConversationDaoImplTest conversationDaoImplTest = new ConversationDaoImplTest();
         //conversationDaoImplTest.get_group_conversations_by_phone_test();
         //conversationDaoImplTest.getIndividualConversationIdTest();
 
-        conversationDaoImplTest.getAllConversationsByPhoneTest();
+        //conversationDaoImplTest.getAllConversationsByPhoneTest();
 
-        //conversationDaoImplTest.getConversationParticipantsTest();
+        //conversationDaoImplTest.getGroupMembersByConversationIdTest();
+        conversationDaoImplTest.createGroupConversationTest();
 
     }
 }

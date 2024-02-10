@@ -1,10 +1,14 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.Domain.Contact;
 import gov.iti.jets.Domain.ContactRequest;
 
+import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.Gender;
 import gov.iti.jets.Domain.enums.RequestStatus;
 
 
+import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
@@ -22,8 +26,7 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
 
     }
 
-    //TODO youssef
-    //I changed the localDateTime to date
+
     @Override
     public List<ContactRequest> getRequestsByReceiver(String phoneNumber) {
         List<ContactRequest> requests= new ArrayList<>();
@@ -150,6 +153,87 @@ public class ContactRequestDaoImpl implements ContactRequestDao {
             }
         }
 
+    }
+
+    @Override
+    public int addRequest(ContactRequest entity){
+        Connection con = null;
+        PreparedStatement pst = null;
+        int requestId = 0;
+
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql = "insert into contact_request (sender_phone,receiver_phone,send_date)\n" +
+                    "values (?,?,?);";
+            pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1,entity.getSenderPhone());
+            pst.setString(2,entity.getReceiverPhone());
+            java.sql.Timestamp timestamp = Timestamp.valueOf(entity.getSendDate());
+            pst.setTimestamp(3, timestamp);
+            pst.executeUpdate();
+
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    requestId = generatedKeys.getInt(1);
+                }
+            }
+
+            System.out.println("Insertion Complete");
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return requestId;
+    }
+
+    @Override
+    public String getRequestStatusBySenderAndReceiverPhones(String senderPhone, String ReceiverPhone) {
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String requestStatus= null;
+        try{
+            con = DBConnectionPool.DATASOURCE.getConnection();
+            String sql = "select * from Contact_Request \n" +
+                    "where sender_phone =? and receiver_phone =?;";
+            pst = con.prepareStatement(sql);
+            pst.setString(1,senderPhone);
+            pst.setString(2,ReceiverPhone);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                requestStatus=rs.getString("status");
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return requestStatus;
     }
 
     @Override

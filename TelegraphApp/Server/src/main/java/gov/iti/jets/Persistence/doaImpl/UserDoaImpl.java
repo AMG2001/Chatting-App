@@ -1,5 +1,6 @@
 package gov.iti.jets.Persistence.doaImpl;
 
+import gov.iti.jets.AdminPanel.ProcessLog;
 import gov.iti.jets.Domain.Attachment;
 import gov.iti.jets.Domain.User;
 import gov.iti.jets.Domain.enums.Gender;
@@ -8,6 +9,7 @@ import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +97,7 @@ public class UserDoaImpl implements UserDao {
                 user.setPicture(picture);
 
                 users.add(user);
+
             }
         }
         catch (SQLException e){
@@ -111,6 +114,7 @@ public class UserDoaImpl implements UserDao {
                 System.out.println(e.getMessage());
             }
         }
+        ProcessLog.appendToProcessLog("All Users Fetched from DB");
         return users;
     }
 
@@ -399,10 +403,6 @@ public class UserDoaImpl implements UserDao {
         }
     }
 
-    //TODO yousef
-    // I give him in user phone number , name , picture and status only ... I want to know if he needs anything else
-    //TODO marwan
-    //TODO moataz
     @Override
     public List<User> getAllContactsByPhone(String phone) {
         List<User> users = new ArrayList<>();
@@ -414,10 +414,10 @@ public class UserDoaImpl implements UserDao {
         try{
             con=DBConnectionPool.DATASOURCE.getConnection();
 
-            String sql ="select c.contact_phone As contact_phone, u.name As contact_name, u.status As contact_status, u.picture As contact_picture " +
-                    "from Contact c,User u " +
-                    "where u.phone_number = c.contact_phone " +
-                    "and c.user_phone=? ";
+            String sql ="select c.contact_phone As contact_phone, u.name As contact_name, u.status As contact_status, u.picture As contact_picture ,u.email as contact_email , u.dob as contact_dob,u.password as contact_password , u.country as contact_country ,u.gender as contact_gender , u.bio as contact_bio \n" +
+                    "from Contact c,User u \n" +
+                    "where u.phone_number = c.contact_phone \n" +
+                    "and c.user_phone=?;";
 
             pst=con.prepareStatement(sql);
 
@@ -431,12 +431,24 @@ public class UserDoaImpl implements UserDao {
                 String contactName = rs.getString("contact_name");
                 String contactStatus = rs.getString("contact_status");
                 String contactPic= rs.getString("contact_picture");
+                String contactEmail = rs.getString("contact_email");
+                LocalDate contactDob = rs.getDate("contact_dob").toLocalDate();
+                String contactPassword = rs.getString("contact_password");
+                String contactCountry = rs.getString("contact_country");
+                String contactGender = rs.getString("contact_gender");
+                String contactBio = rs.getString("contact_bio");
 
                 User user= new User();
                 user.setPhoneNumber(contactPhone);
                 user.setName(contactName);
                 user.setStatus(UserStatus.valueOf(contactStatus));
                 user.setPicture(contactPic);
+                user.setEmail(contactEmail);
+                user.setDob(contactDob);
+                user.setPassword(contactPassword);
+                user.setCountry(contactCountry);
+                user.setGender(Gender.valueOf(contactGender));
+                user.setBio(contactBio);
 
                 users.add(user);
             }
@@ -457,6 +469,139 @@ public class UserDoaImpl implements UserDao {
         }
         return users;
     }
+    public void updateUserName(String name,String phone){
+        Connection con=null;
+        PreparedStatement pst= null;
+
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update user\n" +
+                    "set name = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, name);
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("UserName for "+phone+" updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public void updateUserEmail(String email,String phone){
+        Connection con=null;
+        PreparedStatement pst= null;
+
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update user\n" +
+                    "set email = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, email);
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("User email for "+phone+" updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public void updateUserCountry(String country,String phone){
+        Connection con=null;
+        PreparedStatement pst= null;
+
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update user\n" +
+                    "set country = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, country);
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("User country for "+phone+" updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public void updateUserGender(Gender gender,String phone){
+        Connection con=null;
+        PreparedStatement pst= null;
+
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+            con.setAutoCommit(true);
+            String sql ="update user\n" +
+                    "set gender = ?\n" +
+                    "where phone_number = ?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, String.valueOf(gender));
+            pst.setString(2, phone);
+
+
+            pst.executeUpdate();
+            System.out.println("User gender for "+phone+" updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 
 
 }

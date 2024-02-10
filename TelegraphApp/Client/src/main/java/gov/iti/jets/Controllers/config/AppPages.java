@@ -6,15 +6,24 @@ import javafx.scene.layout.Pane;
 public class AppPages {
     private static Pane homePageView, updateInfoView, registerPage, loginPage;
 
+    public static Pane rebuildHomePageView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Dashboard/User_Dashboard.fxml"));
+            homePageView = loader.load();
+            System.out.println("✅✅✅✅✅✅✅✅✅✅✅✅ Home Page View initialized successfully ✅✅✅✅✅✅✅✅✅✅✅✅");
+        } catch (Exception e) {
+            System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Home Page View : " + e.getMessage());
+        }
+        return homePageView;
+    }
+
     public static Pane getHomePageView() {
-        if (homePageView == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Dashboard/User_Dashboard.fxml"));
-                homePageView = loader.load();
-                System.out.println("✅✅✅✅✅✅✅✅✅✅✅✅ Home Page View initialized successfully ✅✅✅✅✅✅✅✅✅✅✅✅");
-            } catch (Exception e) {
-                System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Home Page View : " + e.getMessage());
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Dashboard/User_Dashboard.fxml"));
+            homePageView = loader.load();
+            System.out.println("✅✅✅✅✅✅✅✅✅✅✅✅ Home Page View initialized successfully ✅✅✅✅✅✅✅✅✅✅✅✅");
+        } catch (Exception e) {
+            System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Home Page View : " + e.getMessage());
         }
         return homePageView;
     }

@@ -2,6 +2,8 @@ package gov.iti.jets.Persistence.doaImpl;
 
 import gov.iti.jets.Domain.Attachment;
 import gov.iti.jets.Domain.Conversation;
+import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.mysql.DBConnectionPool;
 
@@ -311,6 +313,60 @@ public class ConversationDaoImpl implements ConversationDao {
     }
 
     @Override
+    public List<User> getGroupMembersByConversationId(int conversation_id) {
+        List<User> groupMembers = new ArrayList<>();
+
+        Connection con=null;
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+
+        try{
+            con=DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql ="select u.phone_number As user_phone, u.name As user_name, u.status As user_status, u.picture As user_picture\n" +
+                         "from User_Conversation uc, User u\n" +
+                        "where uc.phone_number = u.phone_number\n" +
+                        "and uc.conversation_id =?;";
+
+            pst=con.prepareStatement(sql);
+
+            pst.setInt(1,conversation_id);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                String user_phone = rs.getString("user_phone");
+                String user_name = rs.getString("user_name");
+                String user_status = rs.getString("user_status");
+                String user_picture= rs.getString("user_picture");
+
+                User groupMember= new User();
+                groupMember.setPhoneNumber(user_phone);
+                groupMember.setName(user_name);
+                groupMember.setStatus(UserStatus.valueOf(user_status));
+                groupMember.setPicture(user_picture);
+
+                groupMembers.add(groupMember);
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if(rs != null) rs.close();
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return groupMembers;
+    }
+
+    @Override
     public int createGroupConversation(String userPhone,Conversation group) {
 
         int groupId = 0;
@@ -356,12 +412,11 @@ public class ConversationDaoImpl implements ConversationDao {
     private int createGroup(Connection con, Conversation group) throws SQLException{
         int groupId = 0;
 
-        String sql = "insert into Conversation (conversation_img, conversation_name,type)\n" +
-                    "values (?, ?, ?);";
+        String sql = "insert into Conversation (conversation_name,type)\n" +
+                    "values (?, ?);";
         try (PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pst.setString(1, group.getConversationImage());
-            pst.setString(2, group.getConversationName());
-            pst.setString(3,"GROUP");
+            pst.setString(1, group.getConversationName());
+            pst.setString(2,"GROUP");
             pst.executeUpdate();
 
             try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
@@ -384,6 +439,41 @@ public class ConversationDaoImpl implements ConversationDao {
            pst.setTimestamp(3, currentTimestamp);
 
             pst.executeUpdate();
+        }
+    }
+
+    @Override
+    public void updateGroupImage(int groupId,String groupImage){
+        Connection con=null;
+        PreparedStatement pst= null;
+
+        try {
+            con=DBConnectionPool.DATASOURCE.getConnection();
+
+            String sql ="update Conversation\n" +
+                        "set conversation_img =?\n" +
+                        "where conversation_id=?;";
+            pst=con.prepareStatement(sql);
+
+            pst.setString(1, groupImage);
+            pst.setInt(2, groupId);
+
+
+            pst.executeUpdate();
+            System.out.println("group update for "+groupId+" updated successfully");
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                if(pst != null) pst.close();
+                if (con != null) con.close();
+                //DBConnectionPool.DATASOURCE.close();
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

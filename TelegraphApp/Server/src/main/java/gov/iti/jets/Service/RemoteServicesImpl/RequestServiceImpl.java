@@ -1,19 +1,34 @@
 package gov.iti.jets.Service.RemoteServicesImpl;
 
+import DTO.User.ContactDTO;
+import DTO.ConversationDTO;
 import DTO.NotificationDTO;
-import DTO.RequestDTO;
+import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
+import DTO.Request.RequestSendDTO;
 import RemoteInterfaces.RemoteRequestService;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.Domain.ContactRequest;
+import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.Conversation;
 import gov.iti.jets.Domain.enums.NotificationType;
+import gov.iti.jets.Domain.enums.RequestStatus;
+import gov.iti.jets.Persistence.dao.ContactDao;
 import gov.iti.jets.Persistence.dao.ContactRequestDao;
+import gov.iti.jets.Persistence.dao.ConversationDao;
 import gov.iti.jets.Persistence.dao.UserDao;
+import gov.iti.jets.Persistence.doaImpl.ContactDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.ContactRequestDaoImpl;
+import gov.iti.jets.Persistence.doaImpl.ConversationDaoImpl;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
 import gov.iti.jets.Service.CallbackHandlers.NotificationCallbackHandler;
 import gov.iti.jets.Service.CallbackHandlers.RequestCallbackHandler;
-import gov.iti.jets.Service.Mapstructs.RequestMapper;
+import gov.iti.jets.Service.Mappers.ContactMapper;
+import gov.iti.jets.Service.Mappers.ConversationMapper;
+import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
+import gov.iti.jets.Service.Mappers.RequestMapper;
+
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -28,30 +43,51 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
     }
 
     @Override
-    public void sendRequest(RequestDTO request) throws RemoteException {
+    public void sendRequest(RequestSendDTO request) throws RemoteException {
         //TODO yousef HANDLE NULLS & Exceptionss
         UserDao user = new UserDoaImpl();
 
-        ContactRequest contactRequest = RequestMapper.INSTANCE.requestDtoToContactRequest(request);
+        ContactRequest contactRequest = RequestMapper.requestSendDtoToContactRequest(request);
 
         ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
+        ContactDao contactDao = new ContactDaoImpl();
 
         RemoteCallbackInterface senderRemoteInt = OnlineUserManager.getOnlineUser(request.getSenderPhone());
-
         RemoteCallbackInterface receiverRemoteInt = OnlineUserManager.getOnlineUser(request.getReceiverPhone());
 
         NotificationCallbackHandler notificationHandler = new NotificationCallbackHandler();
-
         RequestCallbackHandler requestHandler = new RequestCallbackHandler();
 
         NotificationDTO notification = new NotificationDTO("1", NotificationType.SYSTEM.toString()
                 , LocalDateTime.now(), "User Phone not found");
 
-        if (user.getById(request.getReceiverPhone()) == null) {
+        if (request.getReceiverPhone().equals(request.getSenderPhone())) {
+
+            notification.setBody("You cannot send friend request to yourself ");
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
+
+        } else if (checkIfRequestIsSendFromReceiver(request)) {
+
+            notification.setBody("You've already received friend request from " + request.getReceiverPhone());
+            notificationHandler.sendNotificationtoClient(notification, receiverRemoteInt);
+
+            RequestResponseDTO requestResponseDTO = new RequestResponseDTO();
+            requestResponseDTO.setSenderPhone(request.getReceiverPhone());
+            requestResponseDTO.setRecieverPhone(request.getSenderPhone());
+            requestResponseDTO.setRequestStatus("ACCEPTED");
+
+            updateRequest(requestResponseDTO);
+
+        } else if (user.getById(request.getReceiverPhone()) == null) {
 
             notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
 
-        } else if (contactRequestDao.checkIfRequestExist(contactRequest)!=false) {
+        } else if (contactDao.checkIfAlreadyContacts(request.getReceiverPhone(), request.getSenderPhone()) == true) {
+
+            notification.setBody(request.getReceiverPhone() + " is already in your contact list");
+            notificationHandler.sendNotificationtoClient(notification, senderRemoteInt);
+
+        } else if (contactRequestDao.checkIfRequestExist(contactRequest) != false) {
 
             notification.setBody("Request has been sent before");
 
@@ -59,7 +95,7 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
         } else {
 
-            contactRequestDao.add(contactRequest);
+            int requestId = contactRequestDao.addRequest(contactRequest);
 
             System.out.println("Request has been added to database");
 
@@ -71,33 +107,129 @@ public class RequestServiceImpl extends UnicastRemoteObject implements RemoteReq
 
             notificationHandler.sendNotificationtoClient(notification, receiverRemoteInt);
 
-            requestHandler.sendRequest(request,receiverRemoteInt);
+            //Set up a received Request with the name of the sender
+            User sender = user.getById(request.getSenderPhone());
+            String senderName = sender.getName();
+            String recieverPhone = request.getReceiverPhone();
+            String senderPhone = request.getSenderPhone();
+            LocalDateTime sendDate = request.getSendDate();
+
+            RequestRecieveDTO recieverRequest = new RequestRecieveDTO
+                    (requestId, sendDate, recieverPhone, senderPhone, senderName);
+
+            requestHandler.sendRequest(recieverRequest, receiverRemoteInt);
 
         }
     }
 
-    @Override
-    public void updateRequest(RequestDTO request) throws RemoteException {
-        //TODO moataz
-        /* Update the request to be accepted or rejected. IF accepted then use DAO to
-            Create a conversation- Add relationship between user (Alter User table)
-            If Rejected update Request Table
-            Sent Notifications to sender that request was accepted or rejected.
-        */
+    private boolean checkIfRequestIsSendFromReceiver(RequestSendDTO requestSendDTO) throws RemoteException {
+        ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
+
+        ContactRequest contactRequest = new ContactRequest();
+        contactRequest.setSendDate(requestSendDTO.getSendDate());
+        contactRequest.setSenderPhone(requestSendDTO.getReceiverPhone());
+        contactRequest.setReceiverPhone(requestSendDTO.getSenderPhone());
+
+        return contactRequestDao.checkIfRequestExist(contactRequest) &&
+                (contactRequestDao.getRequestStatusBySenderAndReceiverPhones(contactRequest.getSenderPhone(),
+                        contactRequest.getReceiverPhone()).equals("PENDING"));
+
 
     }
 
-    @Override
-    public ArrayList<RequestDTO> getAllRequest(String phone) throws RemoteException {
 
+    @Override
+    public void updateRequest(RequestResponseDTO requestDTO) throws RemoteException {
+
+        //update DB
+        ContactRequestDao contactRequestDao = new ContactRequestDaoImpl();
+        System.out.println(requestDTO);
+        ContactRequest updatedRequest = new ContactRequest();
+
+        updatedRequest.setRequestId(requestDTO.getRequestID());
+        updatedRequest.setRequestStatus(RequestStatus.valueOf(requestDTO.getRequestStatus()));
+        updatedRequest.setResponseDate(LocalDateTime.now());
+        updatedRequest.setReceiverPhone(requestDTO.getRecieverPhone());
+        updatedRequest.setSenderPhone(requestDTO.getSenderPhone());
+
+
+        contactRequestDao.update(updatedRequest);
+
+        //get sender and receiver callbacks
+        RemoteCallbackInterface senderCallBack = OnlineUserManager.getOnlineUser(requestDTO.getSenderPhone());
+        RemoteCallbackInterface receiverCallBack = OnlineUserManager.getOnlineUser(requestDTO.getRecieverPhone());
+
+        if (requestDTO.getRequestStatus().equals("ACCEPTED")) {
+
+            //get individual conversation between sender and receiver from DB
+            ConversationDao conversationDao = new ConversationDaoImpl();
+            int conversationId = conversationDao.getIndividualConversationId(requestDTO.getSenderPhone(), requestDTO.getRecieverPhone());
+            Conversation conversationDomain = conversationDao.getById(conversationId);
+
+            // map conversation domain to conversation dto and set messages and attachments to empty lists
+            ConversationDTO conversationDTO = ConversationMapper.conversationToConversationDTO(conversationDomain);
+            conversationDTO.setMessages(new ArrayList<>());
+            conversationDTO.setAttachments(new ArrayList<>());
+
+            // get sender and receiver domain
+            UserDao userDao = new UserDoaImpl();
+            User senderDomain = userDao.getById(requestDTO.getSenderPhone());
+            User receiverDomain = userDao.getById(requestDTO.getRecieverPhone());
+
+            // map sender and receiver domain to contact dto
+            ContactDTO senderDTO = ContactMapper.userToContactDTO(senderDomain);
+            ContactDTO receiverDTO = ContactMapper.userToContactDTO(receiverDomain);
+
+            // set individual conversation dto to both sender and receiver dto
+            senderDTO.setConversation(conversationDTO);
+            receiverDTO.setConversation(conversationDTO);
+
+            // set images for sender and receiver dto
+            byte[] senderImage = FileSystemUtil.getBytesFromFile(senderDomain.getPicture());
+            senderDTO.setProfilepic(senderImage);
+            byte[] receiverImage = FileSystemUtil.getBytesFromFile(receiverDomain.getPicture());
+            receiverDTO.setProfilepic(receiverImage);
+
+            // add both of them as contact to each other(CALLBACK)
+            senderCallBack.addContact(receiverDTO);
+            receiverCallBack.addContact(senderDTO);
+
+        }
+
+        //update list of received requests of receiver(CALLBACK)
+        RequestCallbackHandler requestHandler = new RequestCallbackHandler();
+        requestHandler.updateRequest(requestDTO, receiverCallBack);
+    }
+
+    @Override
+    public ArrayList<RequestRecieveDTO> getAllRequest(String phone) throws RemoteException {
+
+        //Fetch All requests
         ContactRequestDao requestDao = new ContactRequestDaoImpl();
         List<ContactRequest> requests = requestDao.getRequestsByReceiver(phone);
-        List<RequestDTO> requestDTOs = new ArrayList<>();
+        List<RequestRecieveDTO> recievedRequests = new ArrayList<>();
+        //Fetch all sender Names
+        UserDao userDao = new UserDoaImpl();
+        String senderPhone;
+        String reciverPhone;
+        String senderName;
+        LocalDateTime sendTime;
+        int requestId;
+        //Create SentRequest Object and pass to array
         for (ContactRequest request : requests) {
-            RequestDTO requestDto = RequestMapper.INSTANCE.contactRequestToRequestDto(request);
-            requestDTOs.add(requestDto);
+            senderPhone = request.getSenderPhone();
+            reciverPhone = request.getReceiverPhone();
+            senderName = userDao.getById(senderPhone).getName();
+            sendTime = request.getSendDate();
+            requestId = request.getRequestId();
+
+            RequestRecieveDTO requestSendDto = new RequestRecieveDTO
+                    (requestId, sendTime, reciverPhone, senderPhone, senderName);
+
+            recievedRequests.add(requestSendDto);
         }
-        return (ArrayList<RequestDTO>) requestDTOs;
+
+        return (ArrayList<RequestRecieveDTO>) recievedRequests;
 
     }
 }

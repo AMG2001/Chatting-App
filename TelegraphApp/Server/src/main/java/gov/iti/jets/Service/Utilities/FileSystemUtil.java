@@ -1,11 +1,14 @@
 package gov.iti.jets.Service.Utilities;
 
+import gov.iti.jets.AdminPanel.ProcessLog;
+
 import java.io.IOException;
 import java.nio.file.*;
 public class FileSystemUtil {
 
     private static final String PROFILEPIC_DIRECTORY = System.getProperty("user.home") + "/telegraph/profilepic";
     private static final String ATTACHMENT_DIRECTORY = System.getProperty("user.home") + "/telegraph/attachment";
+    private static final String GROUP_DIRECTORY = System.getProperty("user.home") + "/telegraph/group";
 
     /**
      * Store a byte array as a file in the specified directory.
@@ -26,6 +29,8 @@ public class FileSystemUtil {
             case ATTACHMENT:
                 baseDirectory = ATTACHMENT_DIRECTORY;
                 break;
+            case GROUP_PIC:
+                baseDirectory=GROUP_DIRECTORY;
             default:
                 throw new IllegalArgumentException("Unsupported file type");
         }

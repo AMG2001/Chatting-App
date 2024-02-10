@@ -1,0 +1,82 @@
+* {
+    -fx-main: #252B48;
+    -fx-paige: #F4DFC8;
+    -fx-light-paige: #F4EAE0;
+    -fx-white: #FAF6F0;
+}
+
+.main-window {
+    -fx-background-color: -fx-main;
+}
+
+.main-label {
+    -fx-text-fill: -fx-paige;
+    -fx-font-size: 30px;
+    -fx-font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-alignment: center;
+}
+
+
+.text-field {
+    -fx-border-radius: 4px;
+    -fx-text-fill: -fx-main;
+    -fx-font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+
+    -fx-border-color: -fx-paige;
+    -fx-background-color: -fx-light-paige;
+}
+
+.text-field:focused {
+    -fx-border-color: -fx-light-paige;
+    -fx-background-color: -fx-paige;
+}
+
+.main-button {
+    -fx-background-color: -fx-light-paige;
+    -fx-border-width: 1px;
+    -fx-padding: 5px 10px;
+    -fx-text-fill: -fx-main;
+    -fx-font-size: 15px;
+    -fx-font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-margin-bottom: 10px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-transition-duration: 0.3s;
+}
+
+.main-button:hover {
+    -fx-border-color: -fx-light-paige;
+    -fx-background-color: -fx-paige;
+}
+
+.main-button:pressed {
+    -fx-translate-y: 4px;
+}
+
+.chat-window {
+    -fx-background-color: -fx-main;
+    -fx-border-color: -fx-paige;
+    -fx-border-radius: 5px;
+}
+
+.contact-message {
+    -fx-background-color: -fx-light-paige;
+    -fx-text-fill: -fx-main;
+    -fx-font-size: 15px;
+    -fx-font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -border-color: transparent;
+}
+
+.user-message {
+    -fx-background-color: -fx-paige;
+    -fx-text-fill: -fx-main;
+    -fx-font-size: 15px;
+    -fx-font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -border-color: transparent;
+}

@@ -1,6 +1,11 @@
 package RemoteInterfaces.callback;
 
 import DTO.*;
+import DTO.Group.GroupDTO;
+import DTO.Request.RequestRecieveDTO;
+import DTO.Request.RequestResponseDTO;
+import DTO.Request.RequestSendDTO;
+import DTO.User.ContactDTO;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -11,9 +16,9 @@ public interface RemoteCallbackInterface extends Remote {
 
     void recieveNotification(NotificationDTO notification) throws RemoteException;
 
-    void recieveRequest(RequestDTO request) throws RemoteException;
+    void recieveRequest(RequestRecieveDTO request) throws RemoteException;
 
-    void updateRequest(RequestDTO request) throws RemoteException;
+    void updateRequest(RequestResponseDTO request) throws RemoteException;
 
     void addContact(ContactDTO newContact) throws RemoteException;
     void addGroup(GroupDTO newGroup) throws RemoteException;

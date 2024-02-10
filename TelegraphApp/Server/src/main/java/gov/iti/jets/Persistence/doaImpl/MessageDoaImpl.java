@@ -59,7 +59,7 @@ public class MessageDoaImpl implements MessageDao {
                 int message_id = rs.getInt("message_id");
                 int conversation_id=rs.getInt("conversation_id");
                 String sender_phone =rs.getString("sender_phone");
-                int attachment_id=rs.getInt("attachment_id");
+//                int attachment_id=rs.getInt("attachment_id");
                 String message_body=rs.getString("message_body");
                 java.sql.Timestamp timestamp = rs.getTimestamp("timestamp");
 
