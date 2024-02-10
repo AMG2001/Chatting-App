@@ -33,6 +33,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     public ServerCallback() throws RemoteException {
 
     }
+
     @Override
     public boolean isAlive() throws RemoteException {
         return true;
@@ -110,7 +111,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     public void updateRequest(RequestResponseDTO request) throws RemoteException {
         // if the Requests Accepted .them remove the request and add the user in
         RequestResponseModel requestResponseModel = new RequestResponseModel(request);
-        if (requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_ACCEPTED || requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_DENIED) {
+        if (requestResponseModel.getRequestStatus().equals(CustomEnums.RequestStatus_ACCEPTED) || requestResponseModel.getRequestStatus().equals(CustomEnums.RequestStatus_DENIED)) {
             Platform.runLater(() -> {
                 ClientState.getInstance().sentRequestsList.removeIf(requestSendModel -> requestSendModel.getSenderPhone().equals(requestResponseModel.getSenderPhone()));
             });
@@ -128,7 +129,8 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void addGroup(GroupDTO newGroup) throws RemoteException {
-
+        ConversationCard conversationCard = new ConversationCard(newGroup);
+        Platform.runLater(() -> ClientState.getInstance().conversationsList.add(conversationCard));
     }
 
 

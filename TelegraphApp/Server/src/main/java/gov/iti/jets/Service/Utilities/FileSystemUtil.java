@@ -4,6 +4,7 @@ import gov.iti.jets.AdminPanel.ProcessLog;
 
 import java.io.IOException;
 import java.nio.file.*;
+
 public class FileSystemUtil {
 
     private static final String PROFILEPIC_DIRECTORY = System.getProperty("user.home") + "/telegraph/profilepic";
@@ -18,7 +19,7 @@ public class FileSystemUtil {
      * @return The absolute path of the saved file.
      * @throws IOException If an I/O error occurs.
      */
-    public static String storeByteArrayAsFile(byte[] bytes, String fileName,FileType fileType) {
+    public static String storeByteArrayAsFile(byte[] bytes, String fileName, FileType fileType) {
 
         // Determine the base directory based on the file type
         String baseDirectory;
@@ -30,7 +31,8 @@ public class FileSystemUtil {
                 baseDirectory = ATTACHMENT_DIRECTORY;
                 break;
             case GROUP_PIC:
-                baseDirectory=GROUP_DIRECTORY;
+                baseDirectory = GROUP_DIRECTORY;
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported file type");
         }
@@ -41,7 +43,7 @@ public class FileSystemUtil {
             try {
                 Files.createDirectories(directoryPath);
             } catch (IOException e) {
-                System.out.println("Error Creating Directory: "+e.getMessage());
+                System.out.println("Error Creating Directory: " + e.getMessage());
             }
         }
         // Create the file path
@@ -50,11 +52,12 @@ public class FileSystemUtil {
         try {
             Files.write(filePath, bytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            System.out.println("Error writing bytes onto file: "+e.getMessage());
+            System.out.println("Error writing bytes onto file: " + e.getMessage());
         }
         // Return the absolute path of the saved file
         return filePath.toAbsolutePath().toString();
     }
+
     /**
      * Retrieve the byte array from the specified file path.
      *
@@ -68,7 +71,7 @@ public class FileSystemUtil {
         try {
             return Files.readAllBytes(path);
         } catch (IOException e) {
-            System.out.println("Error getting bytes from file"+e.getMessage());
+            System.out.println("Error getting bytes from file" + e.getMessage());
             return null;
         }
     }

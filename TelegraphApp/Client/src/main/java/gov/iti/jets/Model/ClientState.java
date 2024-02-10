@@ -1,5 +1,6 @@
 package gov.iti.jets.Model;
 
+import gov.iti.jets.Client;
 import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
 import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
@@ -10,6 +11,7 @@ import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestSendModel;
 import gov.iti.jets.Model.User.ContactModel;
 import gov.iti.jets.Model.User.UserModel;
+import gov.iti.jets.ServiceContext.GroupService;
 import gov.iti.jets.ServiceContext.RequestService;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Platform;
@@ -72,9 +74,25 @@ public class ClientState {
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
         attachmentsMap = new HashMap<>();
+    }
+
+    public void loadAllUserData() {
         Platform.runLater(() -> loadAllRequests());
         Platform.runLater(() -> loadAllContacts());
-        // TODO load all Groups .
+//        loadAllGroups();
+    }
+
+    private void loadAllGroups() {
+        Platform.runLater(() -> {
+            try {
+                UserService.getInstance().getRemoteService().getGroups(getLoggedinUserModel().getUserPhone()).stream().forEach(groupDTO -> {
+                    ConversationCard conversationCard = new ConversationCard(groupDTO);
+                    conversationsList.add(conversationCard);
+                });
+            } catch (RemoteException e) {
+                CustomDialogs.showErrorDialog("Error while Loading Client Groups" + e.getMessage());
+            }
+        });
     }
 
     public void logoutUser() {
@@ -163,7 +181,7 @@ public class ClientState {
         }
     }
 
-    // TODO Implement Load Groups .
+// TODO Implement Load Groups .
 //    private void loadAllGroups() {
 //        try {
 //            UserService.getInstance().getRemoteService().getGroups(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
