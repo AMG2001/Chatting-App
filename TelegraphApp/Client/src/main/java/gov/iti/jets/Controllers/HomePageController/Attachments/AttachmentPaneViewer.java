@@ -4,6 +4,7 @@ import DTO.AttachmentDTO;
 import gov.iti.jets.Client;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
+import gov.iti.jets.Controllers.services.FileSystemUtil;
 import gov.iti.jets.Model.AttachmentModel;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.AttachmentService;
@@ -13,6 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
@@ -82,6 +85,25 @@ public class AttachmentPaneViewer {
                     setGraphic(null);
                 } else {
                     setGraphic(attachmentsController.getLayout());
+                }
+            }
+        });
+        // Override the action of the ListView .
+        lv_attachments.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Double-click detected
+                AttachmentsController selectedController = lv_attachments.getSelectionModel().getSelectedItem();
+                if (selectedController != null) {
+                    try {
+                        byte[] fileBytes = AttachmentService.getInstance().getRemoteService().getAttachmentData(selectedController.getAttachmentModel().getConversationId(), selectedController.getAttachmentModel().getAttachmentId());
+                        CustomDialogs.showInformativeDialogWithActions("Do you want to Download file with name : " + selectedController.getAttachmentModel().getAttachmentName(), () -> {
+                            FileSystemUtil.storeByteArrayAsFile(fileBytes, selectedController.getAttachmentModel().getAttachmentName());
+                            CustomDialogs.showInformativeDialog("File : \" " + selectedController.getAttachmentModel().getAttachmentName() + " \" Downloaded Successfully .");
+                        }, () -> {
+
+                        });
+                    } catch (RemoteException e) {
+                        CustomDialogs.showErrorDialog("Error while downloading attachment : " + e.getMessage());
+                    }
                 }
             }
         });

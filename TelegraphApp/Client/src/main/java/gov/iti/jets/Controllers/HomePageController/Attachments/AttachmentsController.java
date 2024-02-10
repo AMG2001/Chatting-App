@@ -18,7 +18,13 @@ public class AttachmentsController {
     private Label attachment_name;
     FXMLLoader loader;
     HBox layout;
+
+    public AttachmentModel getAttachmentModel() {
+        return attachmentModel;
+    }
+
     private AttachmentModel attachmentModel;
+    int attachmentId, conversationId;
 
     public AttachmentsController(AttachmentModel attachmentModel) {
         this.attachmentModel = attachmentModel;
@@ -26,6 +32,8 @@ public class AttachmentsController {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/AttachmentPane/AttachmentCard.fxml"));
             loader.setController(this);
             layout = loader.load();
+            attachmentId = attachmentModel.getAttachmentId();
+            conversationId = attachmentModel.getConversationId();
             attachment_icon.setImage(getAttachmentIcon(this.attachmentModel.getAttachmentType()));
             attachment_icon.setFitWidth(60);
             attachment_icon.setFitHeight(60);
@@ -33,6 +41,14 @@ public class AttachmentsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getAttachmentId() {
+        return attachmentId;
+    }
+
+    public int getConversationId() {
+        return conversationId;
     }
 
     private Image getAttachmentIcon(String type) {
@@ -47,9 +63,7 @@ public class AttachmentsController {
         } else {
             return new Image("/Dashboard/AttachmentPane/Icons/Unkown.png");
         }
-
     }
-
 
     public String getFileExtension(String fileName) {
         if (fileName == null || fileName.isEmpty()) {
