@@ -131,4 +131,20 @@ public class UserModel {
     public Image getProfilePic() {
         return profilePic.get();
     }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "userPhone=" + userPhone +
+                ", userName=" + userName +
+                ", email=" + email +
+                ", country=" + country +
+                ", status=" + status +
+                ", gender=" + gender +
+                ", bio=" + bio +
+                ", dob=" + dob +
+                ", profilePic=" + profilePic +
+                ", password=" + password +
+                '}';
+    }
 }

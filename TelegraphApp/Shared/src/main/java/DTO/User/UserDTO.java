@@ -5,6 +5,7 @@ package DTO.User;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 
 public class UserDTO implements Serializable {
@@ -128,5 +129,20 @@ public class UserDTO implements Serializable {
     
     public void setSerializedImage(byte[] serializedImage) {
         this.serializedImage = serializedImage;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", country='" + country + '\'' +
+                ", gender='" + gender + '\'' +
+                ", bio='" + bio + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
