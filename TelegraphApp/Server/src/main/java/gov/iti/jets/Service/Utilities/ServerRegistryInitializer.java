@@ -18,10 +18,13 @@ public class ServerRegistryInitializer {
     private static final String USER_SERVICE = "UserService";
     private static final int port = 1099;
     private static Registry registry;
+    private static String hostname;
     private static ServerRegistryInitializer instance;
 
     public ServerRegistryInitializer() {
         try {
+
+
             // Create or obtain a reference to the registry
             System.out.println("Initializing Registry...");
             registry = LocateRegistry.createRegistry(port);
