@@ -1,6 +1,7 @@
 package gov.iti.jets.AdminPanel.Controllers;
 
 import DTO.NotificationDTO;
+import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.AdminPanel.Models.UserMapper;
 import gov.iti.jets.AdminPanel.Models.UserModel;
 import gov.iti.jets.Domain.User;
@@ -37,8 +38,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.rmi.RemoteException;
+import java.rmi.server.RemoteCall;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -205,64 +209,72 @@ public class DashboardController implements Initializable {
         statusTc.setCellValueFactory(cellData -> cellData.getValue().statusProperty().asString());
         dobTc.setCellValueFactory(cellData -> cellData.getValue().dobProperty().asString());
 
-        // Add listener for TableView row editing
-        usernameTc.setCellFactory(TextFieldTableCell.forTableColumn());
-        usernameTc.setOnEditCommit(this::onNameEditCommit);
-
-        emailTc.setCellFactory(TextFieldTableCell.forTableColumn());
-        emailTc.setOnEditCommit(this::onEmailEditCommit);
-
-        countryTc.setCellFactory(TextFieldTableCell.forTableColumn());
-        countryTc.setOnEditCommit(this::onCountryEditCommit);
-
-        genderTc.setCellFactory(TextFieldTableCell.forTableColumn());
-        genderTc.setOnEditCommit(this::onGenderEditCommit);
-
-        userTable.getSelectionModel().setCellSelectionEnabled(true);
+//        // Add listener for TableView row editing
+//        usernameTc.setCellFactory(TextFieldTableCell.forTableColumn());
+//        usernameTc.setOnEditCommit(this::onNameEditCommit);
+//
+//        emailTc.setCellFactory(TextFieldTableCell.forTableColumn());
+//        emailTc.setOnEditCommit(this::onEmailEditCommit);
+//
+//        countryTc.setCellFactory(TextFieldTableCell.forTableColumn());
+//        countryTc.setOnEditCommit(this::onCountryEditCommit);
+//
+//        genderTc.setCellFactory(TextFieldTableCell.forTableColumn());
+//        genderTc.setOnEditCommit(this::onGenderEditCommit);
+//
+//        userTable.getSelectionModel().setCellSelectionEnabled(true);
         // Add your listener for the onEdit event of each row here
 
         //Bind the user List to the Table
         userTable.setItems(userTableList);
     }
 
-    private void onNameEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
-        UserModel editedEmployee = event.getRowValue();
-        editedEmployee.setName(event.getNewValue());
-        userDao.updateUserName(editedEmployee.getName(),editedEmployee.getPhoneNumber());
-        ContactCallbackHandler handler  = new ContactCallbackHandler();
-        //OnlineUserManager.getFriendsFromOnlineList();
-       // handler.updateContactName(editedEmployee.getPhoneNumber(),
-        // editedEmployee.getName(),);
+//    private void onNameEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+//        UserModel editedEmployee = event.getRowValue();
+//        editedEmployee.setName(event.getNewValue());
+//        userDao.updateUserName(editedEmployee.getName(),editedEmployee.getPhoneNumber());
+//
+//        //Notify All online contacts
+//        ContactCallbackHandler handler  = new ContactCallbackHandler();
+//        List<User> users = userDao.getAllContactsByPhone(editedEmployee.getPhoneNumber());
+//
+//        List<RemoteCallbackInterface> onlineFriends = OnlineUserManager.
+//                getFriendsFromOnlineList(users.stream()
+//                        .map(User::getPhoneNumber)
+//                        .toList());
+//
+//        handler.updateContactName(editedEmployee.getPhoneNumber(),editedEmployee.getName(),onlineFriends);
+//
+//
+//    }
 
-    }
+//    private void onGenderEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+//        UserModel editedEmployee = event.getRowValue();
+//        try {
+//            editedEmployee.setGender(Gender.valueOf(event.getNewValue().toUpperCase()));
+//            userDao.updateUserGender(editedEmployee.getGender(),editedEmployee.getPhoneNumber());
+//        } catch (IllegalArgumentException e) {
+//
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Illegal Argument");
+//            alert.setHeaderText(null); // No header text
+//            alert.setContentText("Please enter a correct Gender");
+//            // Show the alert box
+//            alert.showAndWait();
+//        }
+//    }
 
-    private void onGenderEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
-        UserModel editedEmployee = event.getRowValue();
-        try {
-            editedEmployee.setGender(Gender.valueOf(event.getNewValue().toUpperCase()));
-            userDao.updateUserGender(editedEmployee.getGender(),editedEmployee.getPhoneNumber());
-        } catch (IllegalArgumentException e) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Illegal Argument");
-            alert.setHeaderText(null); // No header text
-            alert.setContentText("Please enter a correct Gender");
-            // Show the alert box
-            alert.showAndWait();
-        }
-    }
-
-    private void onEmailEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
-        UserModel editedEmployee = event.getRowValue();
-        editedEmployee.setEmail(event.getNewValue());
-        userDao.updateUserEmail(editedEmployee.getEmail(),editedEmployee.getPhoneNumber());
-    }
-
-    private void onCountryEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
-        UserModel editedEmployee = event.getRowValue();
-        editedEmployee.setCountry(event.getNewValue());
-        userDao.updateUserCountry(editedEmployee.getCountry(),editedEmployee.getPhoneNumber());
-    }
+//    private void onEmailEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+//        UserModel editedEmployee = event.getRowValue();
+//        editedEmployee.setEmail(event.getNewValue());
+//        userDao.updateUserEmail(editedEmployee.getEmail(),editedEmployee.getPhoneNumber());
+//    }
+//
+//    private void onCountryEditCommit(TableColumn.CellEditEvent<UserModel, String> event) {
+//        UserModel editedEmployee = event.getRowValue();
+//        editedEmployee.setCountry(event.getNewValue());
+//        userDao.updateUserCountry(editedEmployee.getCountry(),editedEmployee.getPhoneNumber());
+//    }
 
     @FXML
     void searchByPhone(ActionEvent event) {
