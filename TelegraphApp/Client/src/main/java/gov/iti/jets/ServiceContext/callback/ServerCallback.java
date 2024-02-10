@@ -33,6 +33,26 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     public ServerCallback() throws RemoteException {
 
     }
+    @Override
+    public boolean isAlive() throws RemoteException {
+        return true;
+    }
+
+    /**
+     * @throws RemoteException
+     */
+    @Override
+    public void serverShutdown() throws RemoteException {
+
+    }
+
+    /**
+     * @throws RemoteException
+     */
+    @Override
+    public void serverStart() throws RemoteException {
+
+    }
 
     @Override
     public void recieveMessage(MessageDTO message) {

@@ -58,7 +58,13 @@ public class AttachmentServiceImpl extends UnicastRemoteObject implements Remote
         attachmentCallbackHandler.sendAttachmentToContacts(attachmentDTO,friendsCallBacks);
 
         //Remove the sender before notification
-        conversationParticipants.removeIf(s-> s.contains(attachmentDTO.getSenderPhone()));
+        for(String sender : conversationParticipants)
+        {
+            if(sender.equals(attachmentDTO.getSenderPhone()))
+            {
+                conversationParticipants.remove(sender);
+            }
+        }
         friendsCallBacks = OnlineUserManager.getFriendsFromOnlineList(conversationParticipants);
 
         //Send the notification

@@ -10,7 +10,7 @@ import gov.iti.jets.Domain.enums.NotificationType;
 import gov.iti.jets.Domain.enums.UserStatus;
 import gov.iti.jets.Persistence.dao.UserDao;
 import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
-import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
+import gov.iti.jets.Service.CallbackHandlers.ServerControlCallbackHandler;
 import gov.iti.jets.Service.Utilities.FileSystemUtil;
 import gov.iti.jets.Service.Utilities.FileType;
 import gov.iti.jets.Service.Utilities.OnlineUserManager;
@@ -25,11 +25,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 
 
@@ -38,11 +36,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.rmi.RemoteException;
-import java.rmi.server.RemoteCall;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -280,11 +275,13 @@ public class DashboardController implements Initializable {
     void searchByPhone(ActionEvent event) {
         if (!phoneInput.getText().isEmpty()) {
             String phoneNo = phoneInput.getText();
+            phoneInput.clear();
             User userDomain = userDao.getById(phoneNo);
             if (userDomain != null) {
                 UserModel user = UserMapper.mapToUserModel(userDomain);
                 // Replace all table data with the selected employee
                 userTableList.setAll(user);
+                phoneInput.clear();
             } else {
                 // Employee not found, show a modal alert
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -457,9 +454,9 @@ public class DashboardController implements Initializable {
         String notificationBody = announcementTextfield.getText();
         String type = NotificationType.SYSTEM.toString();
         NotificationDTO announcement = new NotificationDTO("1", type, LocalDateTime.now(), notificationBody);
-        if (!OnlineUserManager.getOnlineUsers().isEmpty()) {
+        if (!OnlineUserManager.getOnlineUsersCallbackInterfaces().isEmpty()) {
 
-            OnlineUserManager.getOnlineUsers().stream().forEach((e) -> {
+            OnlineUserManager.getOnlineUsersCallbackInterfaces().stream().forEach((e) -> {
                 try {
                     e.recieveNotification(announcement);
                 } catch (RemoteException ex) {
@@ -468,6 +465,7 @@ public class DashboardController implements Initializable {
             });
             Platform.runLater(() -> appendToAnnouncementLog(notificationBody));
         }
+        announcementTextfield.clear();
     }
     //--------------------------------PROCESSLOG--------------------------------------------------
     private void initializeProcessLog() {
@@ -477,11 +475,19 @@ public class DashboardController implements Initializable {
     public void appendToProcessLog(String message) {
         processLogList.add(message);
     }
+
     //---------------------------------SERVERSTATUS-------------------------------------------------
     @FXML
     private void toggleServer(ActionEvent event) {
-        serverOnline = !serverOnline;
+        List<RemoteCallbackInterface> allUsers = OnlineUserManager.getOnlineUsersCallbackInterfaces();
+        ServerControlCallbackHandler handler = new ServerControlCallbackHandler();
 
+        if(serverOnline)
+            handler.serverShutdown(allUsers);
+        else
+            handler.serverRestart(allUsers);
+
+        serverOnline = !serverOnline;
         updateStatus();
     }
     private void updateStatus() {
