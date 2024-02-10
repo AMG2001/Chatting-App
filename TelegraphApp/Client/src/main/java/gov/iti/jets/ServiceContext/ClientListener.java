@@ -3,6 +3,8 @@ package gov.iti.jets.ServiceContext;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientListener {
 
@@ -12,6 +14,8 @@ public class ClientListener {
     // Variable to store the received IP address
     private String receivedIpAddress;
 
+    private ExecutorService executorService;
+
     public ClientListener() {
         try {
             // Use the same multicast address and port as the server
@@ -20,6 +24,7 @@ public class ClientListener {
 
             socket = new MulticastSocket(multicastPort);
             socket.joinGroup(multicastAddress);
+            executorService = Executors.newSingleThreadExecutor();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,13 +33,13 @@ public class ClientListener {
     public void startListening() {
         if (!isListening) {
             isListening = true;
-            new Thread(this::listenLoop).start();
-        }
+            executorService.submit(this::listenLoop);        }
     }
 
     public void stopListening() {
         if (isListening) {
             isListening = false;
+            executorService.shutdownNow();  // Attempt to stop the executor service
             socket.close();
         }
     }
@@ -64,6 +69,7 @@ public class ClientListener {
                 if (!(receivedIpAddress.isEmpty())) {
                     System.out.println("Desired IP address received. Stopping listening.");
                     stopListening();
+                    break;
                 }
 
                 // Sleep for a specified interval before the next check

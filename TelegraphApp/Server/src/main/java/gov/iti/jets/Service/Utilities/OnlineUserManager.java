@@ -26,19 +26,19 @@ public class OnlineUserManager {
 
     public static void addOnlineUser(String phone, RemoteCallbackInterface user){
         //TODO Handle user already existing
-        if(onlineUsers.isEmpty()) {
-            if(!crashHandler.isLivenessCheckingActive())
-                crashHandler.startLivenessChecking();
-        }
+//        if(onlineUsers.isEmpty()) {
+//            if(!crashHandler.isLivenessCheckingActive())
+//                crashHandler.startLivenessChecking();
+//        }
         onlineUsers.put(phone,user);
         ProcessLog.appendToProcessLog("User "+ phone +" Added to Callback Interface");
 
     }
     public static void removeOnlineUser(String phone){
         //TODO handle user not exiting in the hashset
-        if(onlineUsers.size() == 1)
-            crashHandler.stopLivenessChecking();
-        onlineUsers.remove(phone);
+//        if(onlineUsers.size() == 1)
+//            crashHandler.stopLivenessChecking();
+//        onlineUsers.remove(phone);
         ProcessLog.appendToProcessLog("User  "+ phone + " from Callback Interface");
     }
 

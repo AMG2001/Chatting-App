@@ -10,12 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ClientLivenessChecker {
 
-    private ScheduledExecutorService scheduler;
-    private volatile boolean livenessCheckingActive;
-    public ClientLivenessChecker(){
-        this.scheduler = Executors.newScheduledThreadPool(1);
-        livenessCheckingActive = false;
-    }
+    private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private volatile boolean livenessCheckingActive = false;
     public void startLivenessChecking(){
             scheduler.scheduleAtFixedRate(this::checkLiveness,
                     0, 5, TimeUnit.SECONDS); // Adjust the interval as needed
