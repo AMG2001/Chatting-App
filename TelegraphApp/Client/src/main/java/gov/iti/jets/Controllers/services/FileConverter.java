@@ -1,5 +1,4 @@
 package gov.iti.jets.Controllers.services;
-
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
 
 import javax.imageio.ImageIO;
