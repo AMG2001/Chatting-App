@@ -53,7 +53,6 @@ public class FileSystemUtil {
      * @throws IOException If an I/O error occurs.
      */
     public static byte[] getBytesFromFile(String filePath) {
-        //TODO handle exceptions
         Path path = Path.of(filePath);
         try {
             return Files.readAllBytes(path);

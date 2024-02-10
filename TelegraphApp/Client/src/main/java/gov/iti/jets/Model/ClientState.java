@@ -33,18 +33,18 @@ public class ClientState {
      ************************************** Requests Observables **************************************
      */
     public ObservableList<RequestReceiveModel> receivedRequestsList; // ✅ Initialized .
-    public ObservableList<RequestSendModel> sentRequestsList;
+    public ObservableList<RequestSendModel> sentRequestsList;// ✅ Initialized .
 
     /*
      *************************************** Conversations Observables ********************************
      */
-    public ObservableList<ConversationCard> conversationsList = FXCollections.observableArrayList();
+    public ObservableList<ConversationCard> conversationsList;// ✅ Initialized .
 
     /*
      *************************************** Messages Observables ********************************
      */
     public ObservableList<ChatBotChatMessageController> chatBotChatMessages;// ✅ Initialized .
-    public HashMap<Integer, ObservableList<MessageController>> conversationsMessagesList = new HashMap<>();
+    public HashMap<Integer, ObservableList<MessageController>> conversationsMessagesList;// ✅ Initialized .
 
     /*
      *************************************** Contacts - Groups  Observables ********************************
@@ -74,6 +74,9 @@ public class ClientState {
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
         attachmentsMap = new HashMap<>();
+        conversationsMessagesList = new HashMap<>();
+        conversationsList = FXCollections.observableArrayList();
+        sentRequestsList = FXCollections.observableArrayList();
     }
 
     public void loadAllUserData() {
@@ -104,11 +107,11 @@ public class ClientState {
         receivedRequestsList = FXCollections.observableArrayList();
         // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
-        // Chatbot
         chatBotChatMessages = FXCollections.observableArrayList();
-        // Attachments .
         attachmentsMap = new HashMap<>();
-
+        conversationsMessagesList = new HashMap<>();
+        conversationsList = FXCollections.observableArrayList();
+        sentRequestsList = FXCollections.observableArrayList();
     }
 
     public static ClientState getInstance() {

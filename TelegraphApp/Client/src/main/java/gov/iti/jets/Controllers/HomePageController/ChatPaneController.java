@@ -11,6 +11,7 @@ import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.ServiceContext.AttachmentService;
 import gov.iti.jets.ServiceContext.MessageService;
 import gov.iti.jets.ServiceContext.UserService;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,22 +42,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ChatPaneController {
-
     @FXML
     private Button btn_sendAttachment;
-
     @FXML
     private VBox chatArea;
-
     @FXML
     private ImageView chatImage;
-
     @FXML
     private Text chatName;
-
     @FXML
     private ListView<MessageController> lv_chatMessages;
-
     @FXML
     private HBox message_send_area;
     @FXML

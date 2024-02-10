@@ -60,6 +60,7 @@ public class ProfilePageController {
     @FXML
     private ComboBox<String> statusMenuButton;
     private UserModel userModel;
+    private boolean isUserImageChanged = false, isUserNameChanged = false;
 
     @FXML
     public void initialize() {
@@ -102,63 +103,45 @@ public class ProfilePageController {
 
     @FXML
     void saveChanges(ActionEvent event) {
-        boolean isPicChanged = true;
-        if (img_userImage.getImage() == userModel.getProfilePic()) {
-            isPicChanged = false;
+        if (!tf_userName.getText().trim().equals(userModel.getUserName())) {
+            isUserNameChanged = true;
         }
-
-        if (tf_email.getText() != userModel.getEmail() || tf_userName.getText() != userModel.getUserName() ||
-                tf_country.getText() != userModel.getCountry() || ta_bio.getText() != userModel.getBio() ||
-                img_userImage.getImage() != userModel.getProfilePic() || datePicker.getValue() != userModel.getDob()
-        )//TODO amgad ... password will be added here
-        {
-//            userModel = new UserModel(
-//                    ClientState.getInstance().getLoggedinUserModel().getUserPhone(),
-//                    userModel.getPassword(),
-//                    tf_userName.getText(), tf_email.getText(), tf_country.getText(),
-//                    ClientState.getInstance().getLoggedinUserModel().getStatus(),
-//                    ClientState.getInstance().getLoggedinUserModel().getGender(),
-//                    ta_bio.getText(), datePicker.getValue(),
-//                    , img_userImage.getImage()
-//            );
-//
-//            ClientState.getInstance().setLoggedinUserProperty(userModel);
-
-//            userModel =  ClientState.getInstance().getLoggedinUserModel();
-            tf_email.setText(userModel.getEmail());
-            tf_userName.setText(userModel.getUserName());
-            tf_country.setText(userModel.getCountry());
-            ta_bio.setText(userModel.getBio());
-            img_userImage.setImage(userModel.getProfilePic());
-            datePicker.setValue(userModel.getDob());
-            //TODO amgad ... password will be added here
-
-
-            UpdatedUserDTO updatedUserDTO = new UpdatedUserDTO(tf_phoneNumber.getText(), tf_userName.getText(),
-                    tf_email.getText(), userModel.getPassword(), datePicker.getValue(), tf_country.getText(),
-                    tf_gender.getText(), ta_bio.getText(), FileConverter.convert_imageToBytes(img_userImage.getImage()),
-                    isPicChanged);
-            //check if you will change  userModel.getPassword() with tf_password.getText()
+        System.out.println("Save Changes Button Clicked");
+        if (isUserImageChanged) {
+            String newName = tf_userName.getText().trim();
+            Image newImage = img_userImage.getImage();
+            UpdatedUserDTO updatedUserDTO = new UpdatedUserDTO(userModel.getUserPhone(), newName, userModel.getEmail(), userModel.getPassword(), userModel.getDob(), userModel.getCountry(), userModel.getGender(), userModel.getBio(), FileConverter.convert_imageToBytes(newImage), true);
             try {
-                //update in data base
                 UserService.getInstance().getRemoteService().updateUser(updatedUserDTO);
+                // String userPhone, String password, String userName, String email, String country, String status, String gender, String bio, LocalDate dob, Image profilePic
+                UserModel newUserModel = new UserModel(userModel.getUserPhone(), userModel.getPassword(), newName, tf_email.getText().trim(), userModel.getCountry(), userModel.getStatus(), userModel.getGender(), ta_bio.getText().trim(), datePicker.getValue(), newImage);
+                ClientState.getInstance().setLoggedinUserProperty(newUserModel);
+                CustomDialogs.showInformativeDialog("User Data Updated Successfully !!");
+                isUserImageChanged = false;
+                isUserNameChanged = false;
             } catch (RemoteException e) {
-                System.out.println(e.getMessage());
+                CustomDialogs.showErrorDialog("Error while updating user data in Server !!" + e.getMessage());
+            }
+        } else if (isUserNameChanged) {
+            String newName = tf_userName.getText().trim();
+            Image newImage = img_userImage.getImage();
+            UpdatedUserDTO updatedUserDTO = new UpdatedUserDTO(userModel.getUserPhone(), newName, userModel.getEmail(), userModel.getPassword(), userModel.getDob(), userModel.getCountry(), userModel.getGender(), userModel.getBio(), FileConverter.convert_imageToBytes(newImage), false);
+            try {
+                UserService.getInstance().getRemoteService().updateUser(updatedUserDTO);
+                // String userPhone, String password, String userName, String email, String country, String status, String gender, String bio, LocalDate dob, Image profilePic
+                UserModel newUserModel = new UserModel(userModel.getUserPhone(), userModel.getPassword(), newName, tf_email.getText().trim(), userModel.getCountry(), userModel.getStatus(), userModel.getGender(), ta_bio.getText().trim(), datePicker.getValue(), newImage);
+                ClientState.getInstance().setLoggedinUserProperty(newUserModel);
+                CustomDialogs.showInformativeDialog("User Data Updated Successfully !!");
+                isUserNameChanged = false;
+            } catch (RemoteException e) {
+                CustomDialogs.showErrorDialog("Error while updating user data in Server !!" + e.getMessage());
             }
         }
-        // bt2kd an el email mfehosh 7aga et8aert
-        //ht check 3la ely b3do
-        // law 7aga at8airt ... h3ml el setText ll7aga elly at8airt b kza . get kza
-        //bs el awl h8airha f userModel f client state
-        //w b3d kda htnady mn el users services function esmha update user ... hna htb3t rmi ll server w a5leh y update
-        //htzhr dialog t2olo an el process done successfull
-        //a5r 7aga law el user 8air el sora 5leh true
+        Navigator.navigateToHomePage();
     }
 
     @FXML
     void openFilesDialog(ActionEvent event) {
-        // TODO , implement ti to allow user to change the image .
-        // You can find the same code in RegisterPageController .
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choose an image");
@@ -166,7 +149,9 @@ public class ProfilePageController {
             if (file != null) {
                 try {
                     img_userImage.setImage(new Image(file.toURI().toString()));
+                    isUserImageChanged = true;
                 } catch (RuntimeException re) {
+                    isUserImageChanged = false;
                     re.printStackTrace();
                 }
             } else {

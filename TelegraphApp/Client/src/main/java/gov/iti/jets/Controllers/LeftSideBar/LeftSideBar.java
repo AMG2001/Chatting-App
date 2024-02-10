@@ -71,6 +71,7 @@ public class LeftSideBar {
             System.out.println("Stored User in Application : " + ClientState.getInstance().getLoggedinUserModel().getUserName() + " and Phone number : " + ClientState.getInstance().getLoggedinUserModel().getUserPhone());
             LogoutDTO logoutDTO = new LogoutDTO(ClientState.getInstance().getLoggedinUserModel().getUserName(), ClientState.getInstance().getLoggedinUserModel().getUserPhone());
             UserService.getInstance().getRemoteService().logout(logoutDTO);
+            ClientState.getInstance().logoutUser();
             isErrorOccured = false;
         } catch (RemoteException e) {
             isErrorOccured = true;
