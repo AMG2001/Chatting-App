@@ -72,16 +72,11 @@ public class ChatPaneController {
     VBox layout;
     FXMLLoader loader;
     ConversationCard contactCardData;
-    String clientName, clientPhoneNumber;
-    Image clientImage;
 
     @FXML
     public void initialize() {
         changeListViewCellFactory();
         setSendButtonAction();
-        clientName = ClientState.getInstance().getLoggedinUserModel().getUserName();
-        clientPhoneNumber = ClientState.getInstance().getLoggedinUserModel().getUserPhone();
-        clientImage = ClientState.getInstance().getLoggedinUserModel().getProfilePic();
     }
 
     private void setSendButtonAction() {
@@ -178,10 +173,10 @@ public class ChatPaneController {
         if (messageArea.getText().isEmpty()) {
             CustomDialogs.showErrorDialog("You can't leave message area empty !!");
         } else {
-            MessageController messageController = new MessageController(clientPhoneNumber, messageArea.getText(), LocalDateTime.now(), clientImage);
+            MessageController messageController = new MessageController(ClientState.getInstance().loggedinUser.getValue().getUserPhone(), messageArea.getText(), LocalDateTime.now(), ClientState.getInstance().loggedinUser.getValue().getProfilePic());
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessageBody(messageArea.getText());
-            messageDTO.setSenderPhone(clientPhoneNumber);
+            messageDTO.setSenderPhone(ClientState.getInstance().loggedinUser.getValue().getUserPhone());
             messageDTO.setConversationId(contactCardData.getConversationID());
             messageDTO.setTimeStamp(LocalDateTime.now());
             messageArea.clear();

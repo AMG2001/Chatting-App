@@ -156,7 +156,7 @@ public class ClientState {
             UserService.getInstance().getRemoteService().getContacts(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
                 ContactModel contactModel = new ContactModel(contactDTO);
                 contactsList.add(contactModel);
-                conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getPhoneNumber(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus(), contactModel.getStatusCircleColor()));
+                conversationsList.add(new ConversationCard(contactModel));
             });
         } catch (RemoteException e) {
             CustomDialogs.showErrorDialog("Error while loading all contacts : " + e.getMessage());

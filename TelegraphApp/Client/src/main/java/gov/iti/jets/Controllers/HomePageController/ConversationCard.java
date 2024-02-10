@@ -2,6 +2,8 @@ package gov.iti.jets.Controllers.HomePageController;
 
 import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.services.ConversationsServicesClass;
+import gov.iti.jets.Controllers.services.FileConverter;
+import gov.iti.jets.Model.User.ContactModel;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,17 +43,17 @@ public class ConversationCard {
         return phoneNumber;
     }
 
-    public ConversationCard(int conversationID, String phoneNumber, String name, Image image, String status, Color color) {
+    public ConversationCard(ContactModel contactModel) {
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ContactCard.fxml"));
             loader.setController(this);
             layout = loader.load();
-            this.conversationID = conversationID;
+            this.conversationID = contactModel.getConversation().getConversationId();
             this.phoneNumber = phoneNumber;
-            this.status_circle.setFill(color);
-            text_contactName.setText(name);
-            img_contact.setImage(image);
-            status_text.setText(status);
+            this.status_circle.setFill(contactModel.getStatusCircleColor());
+            text_contactName.setText(contactModel.getName());
+            img_contact.setImage(FileConverter.convert_bytesToImage(contactModel.getProfilepic()));
+            status_text.setText(contactModel.getStatus());
         } catch (IOException e) {
             System.err.println("###### Error while loading Parameterized Constructor on ContactCardDataModel");
             e.printStackTrace();

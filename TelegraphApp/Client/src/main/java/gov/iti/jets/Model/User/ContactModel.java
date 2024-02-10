@@ -38,7 +38,7 @@ public class ContactModel {
             this.statusCircleColor.set(newColor);
         });
         this.name.set(dto.getName());
-        this.conversation = new ConversationModel(dto.getConversation()); // Assuming ConversationDTO has a constructor
+        this.conversation = new ConversationModel(dto.getConversation());
         this.profilepic.set(dto.getProfilepic());
     }
 
