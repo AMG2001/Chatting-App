@@ -47,6 +47,7 @@ public class LoginPageController {
                 if (userDTO != null) {
                     UserModel userModel = new UserModel(userDTO);
                     ClientState.getInstance().setLoggedinUserProperty(userModel);
+                    ClientState.getInstance().loadAllUserData();
                 } else {
                     System.out.println("User DTO is Null");
                     CustomDialogs.showErrorDialog("Please Enter Valid Phone Number or Password");
