@@ -10,15 +10,6 @@ import java.nio.file.StandardOpenOption;
 public class FileSystemUtil {
 
     public static final String ATTACHMENT_DIRECTORY = System.getProperty("user.home") + "/telegraph/attachment";
-
-    /**
-     * Store a byte array as a file in the specified directory.
-     *
-     * @param bytes    The byte array to be stored.
-     * @param fileName The name of the file.
-     * @return The absolute path of the saved file.
-     * @throws IOException If an I/O error occurs.
-     */
     public static String storeByteArrayAsFile(byte[] bytes, String fileName) {
         // Ensure the fileName includes the extension
         if (bytes == null || fileName == null || !fileName.contains(".")) {
@@ -42,23 +33,13 @@ public class FileSystemUtil {
         // Create the file path
         Path filePath = directoryPath.resolve(fileName);
         // Check if the file already exists
-        if (!Files.exists(filePath)) {
-            // If the file doesn't exist, write the byte array to the file
-            new Thread(() -> {
-                try {
-                    Files.write(filePath, bytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-                } catch (IOException e) {
-                    CustomDialogs.showErrorDialog("Error writing bytes onto file: " + e.getMessage());
-                }
-            }).start();
-        } else {
-            // If the file exists, open the folder containing the file and make it active
+        new Thread(() -> {
             try {
-                Desktop.getDesktop().open(filePath.getParent().toFile());
+                Files.write(filePath, bytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             } catch (IOException e) {
-                System.out.println("Error opening directory: " + e.getMessage());
+                CustomDialogs.showErrorDialog("Error writing bytes onto file: " + e.getMessage());
             }
-        }
+        }).start();
         // Return the absolute path of the saved file
         return filePath.toAbsolutePath().toString();
     }

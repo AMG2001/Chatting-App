@@ -71,7 +71,7 @@ public class ChatPaneController {
     private Button btn_sendMessage;
     VBox layout;
     FXMLLoader loader;
-    ConversationCard contactCardData;
+    ConversationCard conversationCardData;
 
     @FXML
     public void initialize() {
@@ -104,11 +104,13 @@ public class ChatPaneController {
     }
 
     public ChatPaneController(ConversationCard conversationCard) {
+        System.out.println("In ChatPane Controller");
+        System.out.println(conversationCard.getPhoneNumber());
         try {
             loader = new FXMLLoader(getClass().getResource("/Dashboard/ChatArea/chatPane.fxml"));
             loader.setController(this);
             layout = loader.load();
-            this.contactCardData = conversationCard;
+            this.conversationCardData = conversationCard;
             chatImage.setImage(conversationCard.img_contact.getImage());
             chatName.setText(conversationCard.text_contactName.getText());
             receiverStatus.setText(conversationCard.status_text.getText());
@@ -177,7 +179,7 @@ public class ChatPaneController {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessageBody(messageArea.getText());
             messageDTO.setSenderPhone(ClientState.getInstance().loggedinUser.getValue().getUserPhone());
-            messageDTO.setConversationId(contactCardData.getConversationID());
+            messageDTO.setConversationId(conversationCardData.getConversationID());
             messageDTO.setTimeStamp(LocalDateTime.now());
             messageArea.clear();
             try {
@@ -192,7 +194,7 @@ public class ChatPaneController {
 
     @FXML
     void showAttachmentsPane(ActionEvent event) {
-        StagesLauncher.LaunchNewStage(new AttachmentPaneViewer(contactCardData.getConversationID()).getLayout(), "Attachment Pane", 400, 500);
+        StagesLauncher.LaunchNewStage(new AttachmentPaneViewer(conversationCardData.getConversationID()).getLayout(), "Attachment Pane", 400, 500);
     }
 
     private void pickAttachmentAndSentIt(int conversationID) {
@@ -201,16 +203,19 @@ public class ChatPaneController {
             fileChooser.setTitle("Choose an attachment");
             File file = fileChooser.showOpenDialog(null);
             if (file != null) {
+                AttachmentDTO attachmentDTO = new AttachmentDTO();
+                attachmentDTO.setConversationId(conversationID);
+                attachmentDTO.setAttachmentName(getFileNameWithoutExtension(file));
+                attachmentDTO.setSenderPhone(conversationCardData.getPhoneNumber());
+                attachmentDTO.setAttachmentType(getFileExtension(file));
+                attachmentDTO.setAttachment(Files.readAllBytes(file.toPath()));
                 try {
-                    AttachmentDTO attachmentDTO = new AttachmentDTO();
-                    attachmentDTO.setConversationId(conversationID);
-                    attachmentDTO.setAttachmentName(getFileNameWithoutExtension(file));
-                    attachmentDTO.setSenderPhone(clientPhoneNumber);
-                    attachmentDTO.setAttachmentType(getFileExtension(file));
-                    attachmentDTO.setAttachment(Files.readAllBytes(file.toPath()));
+                    System.out.println(attachmentDTO.toString());
                     AttachmentService.getInstance().getRemoteService().sendAttachment(attachmentDTO);
                 } catch (RuntimeException re) {
-                    CustomDialogs.showErrorDialog("Error while Choosing an Attachment : " + re.getMessage());
+                    CustomDialogs.showErrorDialog("Error while Sending an Attachment : " + re.getMessage());
+                    System.out.println("Error while Sending an Attachment : " + re.getMessage());
+                    re.printStackTrace();
                 }
             } else {
                 CustomDialogs.showErrorDialog("You Must choose an attachment !!");

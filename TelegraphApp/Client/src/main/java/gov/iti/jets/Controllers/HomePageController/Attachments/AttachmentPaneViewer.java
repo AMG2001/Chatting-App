@@ -49,9 +49,8 @@ public class AttachmentPaneViewer {
         try {
             if (ClientState.getInstance().attachmentsMap.containsKey(conversationID)) {
                 // this mean that attachments are loaded from server before , Just get them .
-                lv_attachments.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().attachmentsMap.get(
-                        conversationID
-                )));
+                lv_attachments.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().attachmentsMap.get(conversationID)));
+                bindListOnListViewAndChangeSetCell(ClientState.getInstance().attachmentsMap.get(conversationID));
             } else {
                 // this mean that attachments are not loaded from server before , get them from server .
                 // get all attachments for this conversation from server 👇🏻👇🏻 .
@@ -86,12 +85,13 @@ public class AttachmentPaneViewer {
             protected void updateItem(AttachmentsController attachmentsController, boolean empty) {
                 super.updateItem(attachmentsController, empty);
                 if (empty || attachmentsController == null) {
-                    setGraphic(null);
+                    Platform.runLater(() -> setGraphic(null));
                 } else {
-                    setGraphic(attachmentsController.getLayout());
+                    Platform.runLater(() -> setGraphic(attachmentsController.getLayout()));
                 }
             }
         });
+
         // Override the action of the ListView .
         lv_attachments.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double-click detected

@@ -49,7 +49,7 @@ public class ConversationCard {
             loader.setController(this);
             layout = loader.load();
             this.conversationID = contactModel.getConversation().getConversationId();
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = contactModel.getPhoneNumber();
             this.status_circle.setFill(contactModel.getStatusCircleColor());
             text_contactName.setText(contactModel.getName());
             img_contact.setImage(FileConverter.convert_bytesToImage(contactModel.getProfilepic()));
