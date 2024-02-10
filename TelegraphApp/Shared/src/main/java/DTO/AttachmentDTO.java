@@ -7,14 +7,12 @@ import java.io.Serializable;
 public class AttachmentDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = Long.MIN_VALUE;
-
     private int attachmentId;
     private String senderPhone;
     private String attachmentType;
     private int conversationId;
     private String attachmentName;
     private byte[] attachment;
-
     public AttachmentDTO(int attachmentId, String senderPhone, String attachmentType, int conversationId, String attachmentName, byte[] attachment) {
         this.attachmentId = attachmentId;
         this.senderPhone = senderPhone;
@@ -23,7 +21,6 @@ public class AttachmentDTO implements Serializable {
         this.attachmentName = attachmentName;
         this.attachment = attachment;
     }
-
     public String getSenderPhone() {
         return senderPhone;
     }

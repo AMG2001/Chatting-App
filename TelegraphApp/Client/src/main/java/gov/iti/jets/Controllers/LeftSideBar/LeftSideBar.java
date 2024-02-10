@@ -102,7 +102,7 @@ public class LeftSideBar {
 
     @FXML
     void addGroup(ActionEvent event) {
-        StagesLauncher.LaunchNewStage(new CreateGroupPaneController().layout, "Create New Group", 400, 500);
+        StagesLauncher.LaunchNewStage(new CreateGroupPaneController().layout, "Create New Group", 395, 525);
     }
 
     @FXML
