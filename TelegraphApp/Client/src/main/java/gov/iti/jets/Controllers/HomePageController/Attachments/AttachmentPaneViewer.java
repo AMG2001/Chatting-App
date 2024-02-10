@@ -19,7 +19,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
+import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -93,20 +97,29 @@ public class AttachmentPaneViewer {
             if (event.getClickCount() == 2) { // Double-click detected
                 AttachmentsController selectedController = lv_attachments.getSelectionModel().getSelectedItem();
                 if (selectedController != null) {
-                    try {
-                        byte[] fileBytes = AttachmentService.getInstance().getRemoteService().getAttachmentData(selectedController.getAttachmentModel().getConversationId(), selectedController.getAttachmentModel().getAttachmentId());
-                        CustomDialogs.showInformativeDialogWithActions("Do you want to Download file with name : " + selectedController.getAttachmentModel().getAttachmentName(), () -> {
-                            FileSystemUtil.storeByteArrayAsFile(fileBytes, selectedController.getAttachmentModel().getAttachmentName());
+                    String fileName = selectedController.getAttachmentModel().getAttachmentName() + selectedController.getAttachmentModel().getAttachmentType();
+                    Path filePath = Paths.get(FileSystemUtil.ATTACHMENT_DIRECTORY, fileName);
+                    if (Files.exists(filePath)) {
+                        // If the file exists, open the folder containing the file
+                        try {
+                            Desktop.getDesktop().open(filePath.getParent().toFile());
+                        } catch (IOException e) {
+                            System.out.println("Error opening directory: " + e.getMessage());
+                        }
+                    } else {
+                        // If the file doesn't exist, fetch it from the server and store it locally
+                        try {
+                            byte[] fileBytes = AttachmentService.getInstance().getRemoteService().getAttachmentData(selectedController.getAttachmentModel().getConversationId(), selectedController.getAttachmentModel().getAttachmentId());
+                            FileSystemUtil.storeByteArrayAsFile(fileBytes, fileName);
                             CustomDialogs.showInformativeDialog("File : \" " + selectedController.getAttachmentModel().getAttachmentName() + " \" Downloaded Successfully .");
-                        }, () -> {
-
-                        });
-                    } catch (RemoteException e) {
-                        CustomDialogs.showErrorDialog("Error while downloading attachment : " + e.getMessage());
+                        } catch (RemoteException e) {
+                            CustomDialogs.showErrorDialog("Error while downloading attachment : " + e.getMessage());
+                        }
                     }
                 }
             }
         });
+
     }
 
     public ListView<AttachmentsController> getLayout() {
