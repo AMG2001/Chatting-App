@@ -6,12 +6,16 @@ import DTO.Request.RequestRecieveDTO;
 import DTO.Request.RequestResponseDTO;
 import DTO.User.ContactDTO;
 import RemoteInterfaces.callback.RemoteCallbackInterface;
+import gov.iti.jets.Client;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
 import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Controllers.services.ConversationsServicesClass;
 import gov.iti.jets.Controllers.services.FileConverter;
+import gov.iti.jets.Controllers.services.FileSystemUtil;
+import gov.iti.jets.Model.AttachmentModel;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
 import gov.iti.jets.Model.Requests.RequestReceiveModel;
@@ -53,7 +57,18 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     @Override
     public void recieveAttachment(AttachmentDTO attachment) throws RemoteException {
-
+        AttachmentModel attachmentModel = new AttachmentModel(attachment);
+        if (ClientState.getInstance().attachmentsMap.containsKey(attachmentModel.getConversationId())) {
+            AttachmentsController attachmentsController = new AttachmentsController(attachmentModel);
+            ClientState.getInstance().attachmentsMap.get(attachment.getConversationId()).add(attachmentsController);
+            FileSystemUtil.storeByteArrayAsFile(attachment.getAttachment(), attachment.getAttachmentName() + attachment.getAttachmentType());
+        } else {
+            ObservableList<AttachmentsController> newAttachmentsList = FXCollections.observableArrayList();
+            ClientState.getInstance().attachmentsMap.put(attachment.getConversationId(), newAttachmentsList);
+            AttachmentsController attachmentsController = new AttachmentsController(attachmentModel);
+            ClientState.getInstance().attachmentsMap.get(attachment.getConversationId()).add(attachmentsController);
+            FileSystemUtil.storeByteArrayAsFile(attachment.getAttachment(), attachment.getAttachmentName() + attachment.getAttachmentType());
+        }
     }
 
     @Override
