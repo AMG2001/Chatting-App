@@ -35,8 +35,8 @@ public class EmailsService {
                     Message.RecipientType.TO,
                     new InternetAddress(receiver, true)
             );
-            message.setSubject("Testing Gmail SSL");
-            message.setText("Dear Recipient,\n\n Please do not spam my email!");
+            message.setSubject(subject);
+            message.setText(emailContent);
             System.out.println("Sending message...");
             Transport.send(message);
 
