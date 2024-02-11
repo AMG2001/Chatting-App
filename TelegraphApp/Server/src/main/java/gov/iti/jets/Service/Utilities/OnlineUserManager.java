@@ -2,6 +2,11 @@ package gov.iti.jets.Service.Utilities;
 
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.AdminPanel.ProcessLog;
+import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.UserStatus;
+import gov.iti.jets.Persistence.dao.UserDao;
+import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
+import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +43,7 @@ public class OnlineUserManager {
         //TODO handle user not exiting in the hashset
 //        if(onlineUsers.size() == 1)
 //            crashHandler.stopLivenessChecking();
-//        onlineUsers.remove(phone);
-        ProcessLog.appendToProcessLog("User  "+ phone + " from Callback Interface");
+        onlineUsers.remove(phone);
     }
 
     public static List<RemoteCallbackInterface> getFriendsFromOnlineList(List<String> phones) {
