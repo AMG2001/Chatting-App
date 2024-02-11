@@ -24,4 +24,8 @@ public class Navigator {
     public static void navigateToLogin() {
         AppViews.getInstance().showLoginPage();
     }
+
+    public static void navigateToServerShutdown() {
+        AppViews.getInstance().showServerShutdownPage();
+    }
 }

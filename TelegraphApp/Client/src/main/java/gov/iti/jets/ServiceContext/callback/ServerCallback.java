@@ -13,8 +13,10 @@ import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Controllers.services.ConversationsServicesClass;
+import gov.iti.jets.Controllers.services.Emails.EmailsService;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FileSystemUtil;
+import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Model.AttachmentModel;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
@@ -31,6 +33,26 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServerCallback extends UnicastRemoteObject implements RemoteCallbackInterface {
     public ServerCallback() throws RemoteException {
+
+    }
+
+    @Override
+    public boolean isAlive() throws RemoteException {
+        return true;
+    }
+
+    @Override
+    public void serverShutdown() throws RemoteException {
+        EmailsService emailsService = new EmailsService();
+        emailsService.sendEmail(ClientState.getInstance().getLoggedinUserModel().getEmail(), "Telegraph Server State", "Server is Currently Down , we are working to fix it as fast as we can  , Thanks for your patience");
+        Navigator.navigateToServerShutdown();
+    }
+
+    @Override
+    public void serverStart() throws RemoteException {
+        EmailsService emailsService = new EmailsService();
+        emailsService.sendEmail(ClientState.getInstance().getLoggedinUserModel().getEmail(), "Telegraph Server State", "Server is Currently Live , You can use Telegraph Services again , Thanks for your patience");
+        Navigator.navigateToServerShutdown();
 
     }
 
@@ -90,7 +112,7 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
     public void updateRequest(RequestResponseDTO request) throws RemoteException {
         // if the Requests Accepted .them remove the request and add the user in
         RequestResponseModel requestResponseModel = new RequestResponseModel(request);
-        if (requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_ACCEPTED || requestResponseModel.getRequestStatus() == CustomEnums.RequestStatus_DENIED) {
+        if (requestResponseModel.getRequestStatus().equals(CustomEnums.RequestStatus_ACCEPTED) || requestResponseModel.getRequestStatus().equals(CustomEnums.RequestStatus_DENIED)) {
             Platform.runLater(() -> {
                 ClientState.getInstance().sentRequestsList.removeIf(requestSendModel -> requestSendModel.getSenderPhone().equals(requestResponseModel.getSenderPhone()));
             });
@@ -102,30 +124,27 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
         ContactModel contactModel = new ContactModel(newContact);
         Platform.runLater(() -> ClientState.getInstance().contactsList.add(contactModel));
         Platform.runLater(() -> {
-            ClientState.getInstance().conversationsList.add(
-                    new ConversationCard(
-                            contactModel.getConversation().getConversationId(),
-                            contactModel.getPhoneNumber(),
-                            contactModel.getName(),
-                            FileConverter.convert_bytesToImage(contactModel.getProfilepic()),
-                            contactModel.getStatus(), contactModel.getStatusCircleColor()));
+            ClientState.getInstance().conversationsList.add(new ConversationCard(contactModel));
         });
     }
 
     @Override
     public void addGroup(GroupDTO newGroup) throws RemoteException {
-
+        ConversationCard conversationCard = new ConversationCard(newGroup);
+        Platform.runLater(() -> ClientState.getInstance().conversationsList.add(conversationCard));
     }
 
 
     @Override
     public void updateContactName(String phone, String name) throws RemoteException {
-
+        ClientState.getInstance().contactsList.stream().filter(contactModel -> contactModel.getPhoneNumber().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.setName(name));
+        ClientState.getInstance().conversationsList.stream().filter(conversationCard -> conversationCard.getPhoneNumber().equals(phone)).findFirst().ifPresent(conversationCard -> conversationCard.text_contactName.setText(name));
     }
 
     @Override
     public void updateContactPic(String phone, byte[] picture) throws RemoteException {
-
+        ClientState.getInstance().contactsList.stream().filter(contactModel -> contactModel.getPhoneNumber().equals(phone)).findFirst().ifPresent(contactModel -> contactModel.setProfilepic(picture));
+        ClientState.getInstance().conversationsList.stream().filter(conversationCard -> conversationCard.getPhoneNumber().equals(phone)).findFirst().ifPresent(conversationCard -> conversationCard.img_contact.setImage(FileConverter.convert_bytesToImage(picture)));
     }
 
     @Override
@@ -148,6 +167,4 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
                     });
         });
     }
-
-
 }

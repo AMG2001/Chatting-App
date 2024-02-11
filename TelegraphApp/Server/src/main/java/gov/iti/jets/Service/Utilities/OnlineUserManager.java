@@ -2,22 +2,27 @@ package gov.iti.jets.Service.Utilities;
 
 import RemoteInterfaces.callback.RemoteCallbackInterface;
 import gov.iti.jets.AdminPanel.ProcessLog;
+import gov.iti.jets.Domain.User;
+import gov.iti.jets.Domain.enums.UserStatus;
+import gov.iti.jets.Persistence.dao.UserDao;
+import gov.iti.jets.Persistence.doaImpl.UserDoaImpl;
+import gov.iti.jets.Service.CallbackHandlers.ContactCallbackHandler;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 //TODO create effective logging
 public class OnlineUserManager {
+    private static final ClientLivenessChecker crashHandler = new ClientLivenessChecker();
     private static ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers = new ConcurrentHashMap<>();
 
-    OnlineUserManager(){
-        onlineUsers = new ConcurrentHashMap<>();
+    public static List<RemoteCallbackInterface> getOnlineUsersCallbackInterfaces() {
+        return  onlineUsers.values().stream().toList();
     }
 
-    public static List<RemoteCallbackInterface> getOnlineUsers() {
-        return  onlineUsers.values().stream().toList();
+    public static ConcurrentHashMap<String, RemoteCallbackInterface> getOnlineUsers() {
+        return onlineUsers;
     }
 
     public static void setOnlineUsers(ConcurrentHashMap<String, RemoteCallbackInterface> onlineUsers) {
@@ -26,14 +31,19 @@ public class OnlineUserManager {
 
     public static void addOnlineUser(String phone, RemoteCallbackInterface user){
         //TODO Handle user already existing
+//        if(onlineUsers.isEmpty()) {
+//            if(!crashHandler.isLivenessCheckingActive())
+//                crashHandler.startLivenessChecking();
+//        }
         onlineUsers.put(phone,user);
-        ProcessLog.appendToProcessLog("User Added to Callback Interface");
+        ProcessLog.appendToProcessLog("User "+ phone +" Added to Callback Interface");
 
     }
     public static void removeOnlineUser(String phone){
         //TODO handle user not exiting in the hashset
+//        if(onlineUsers.size() == 1)
+//            crashHandler.stopLivenessChecking();
         onlineUsers.remove(phone);
-        ProcessLog.appendToProcessLog("User removed from Callback Interface");
     }
 
     public static List<RemoteCallbackInterface> getFriendsFromOnlineList(List<String> phones) {

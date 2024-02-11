@@ -39,10 +39,10 @@ public class AppViews {
         currentScene.setRoot(AppPages.getHomePageView());
         stage.setTitle("Telegraph - Home Page");
         stage.setMinHeight(780);
-        stage.setMinWidth(1100);
-        stage.setWidth(1100);
+        stage.setMinWidth(1200);
+        stage.setWidth(1200);
         stage.setHeight(780);
-        stage.setMaxWidth(1100);
+        stage.setMaxWidth(1200);
         stage.setMaxHeight(770);
     }
 
@@ -68,6 +68,18 @@ public class AppViews {
         stage.setHeight(800);
         stage.setMaxWidth(1100);
         stage.setMaxHeight(800);
+    }
+
+    public void showServerShutdownPage() {
+        Scene currentScene = stage.getScene();
+        currentScene.setRoot(AppPages.getServerShutdownPage());
+        stage.setTitle("Server Out");
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
+        stage.setWidth(600);
+        stage.setHeight(400);
+        stage.setMaxWidth(600);
+        stage.setMaxHeight(400);
     }
 
     public void showLoginPage() {

@@ -1,8 +1,6 @@
 package gov.iti.jets.Controllers.HomePageController.Attachments;
 
 import DTO.AttachmentDTO;
-import gov.iti.jets.Client;
-import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.services.CustomDialogs;
 import gov.iti.jets.Controllers.services.FileSystemUtil;
 import gov.iti.jets.Model.AttachmentModel;
@@ -14,8 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
@@ -49,9 +45,8 @@ public class AttachmentPaneViewer {
         try {
             if (ClientState.getInstance().attachmentsMap.containsKey(conversationID)) {
                 // this mean that attachments are loaded from server before , Just get them .
-                lv_attachments.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().attachmentsMap.get(
-                        conversationID
-                )));
+                lv_attachments.itemsProperty().bind(new SimpleListProperty<>(ClientState.getInstance().attachmentsMap.get(conversationID)));
+                bindListOnListViewAndChangeSetCell(ClientState.getInstance().attachmentsMap.get(conversationID));
             } else {
                 // this mean that attachments are not loaded from server before , get them from server .
                 // get all attachments for this conversation from server 👇🏻👇🏻 .
@@ -86,12 +81,13 @@ public class AttachmentPaneViewer {
             protected void updateItem(AttachmentsController attachmentsController, boolean empty) {
                 super.updateItem(attachmentsController, empty);
                 if (empty || attachmentsController == null) {
-                    setGraphic(null);
+                    Platform.runLater(() -> setGraphic(null));
                 } else {
-                    setGraphic(attachmentsController.getLayout());
+                    Platform.runLater(() -> setGraphic(attachmentsController.getLayout()));
                 }
             }
         });
+
         // Override the action of the ListView .
         lv_attachments.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double-click detected

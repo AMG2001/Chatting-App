@@ -11,6 +11,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface RemoteCallbackInterface extends Remote {
+
+    boolean isAlive() throws RemoteException;
+    void serverShutdown() throws RemoteException;
+    void serverStart() throws RemoteException;
     void recieveMessage(MessageDTO message) throws RemoteException;
     void recieveAttachment(AttachmentDTO attachment) throws RemoteException;
 

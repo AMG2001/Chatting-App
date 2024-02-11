@@ -1,5 +1,6 @@
 package gov.iti.jets.Model;
 
+import gov.iti.jets.Client;
 import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
 import gov.iti.jets.Controllers.HomePageController.ConversationCard;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
@@ -10,6 +11,7 @@ import gov.iti.jets.Model.Requests.RequestReceiveModel;
 import gov.iti.jets.Model.Requests.RequestSendModel;
 import gov.iti.jets.Model.User.ContactModel;
 import gov.iti.jets.Model.User.UserModel;
+import gov.iti.jets.ServiceContext.GroupService;
 import gov.iti.jets.ServiceContext.RequestService;
 import gov.iti.jets.ServiceContext.UserService;
 import javafx.application.Platform;
@@ -31,18 +33,18 @@ public class ClientState {
      ************************************** Requests Observables **************************************
      */
     public ObservableList<RequestReceiveModel> receivedRequestsList; // ✅ Initialized .
-    public ObservableList<RequestSendModel> sentRequestsList;
+    public ObservableList<RequestSendModel> sentRequestsList;// ✅ Initialized .
 
     /*
      *************************************** Conversations Observables ********************************
      */
-    public ObservableList<ConversationCard> conversationsList = FXCollections.observableArrayList();
+    public ObservableList<ConversationCard> conversationsList;// ✅ Initialized .
 
     /*
      *************************************** Messages Observables ********************************
      */
     public ObservableList<ChatBotChatMessageController> chatBotChatMessages;// ✅ Initialized .
-    public HashMap<Integer, ObservableList<MessageController>> conversationsMessagesList = new HashMap<>();
+    public HashMap<Integer, ObservableList<MessageController>> conversationsMessagesList;// ✅ Initialized .
 
     /*
      *************************************** Contacts - Groups  Observables ********************************
@@ -72,9 +74,28 @@ public class ClientState {
         contactsList = FXCollections.observableArrayList();
         chatBotChatMessages = FXCollections.observableArrayList();
         attachmentsMap = new HashMap<>();
+        conversationsMessagesList = new HashMap<>();
+        conversationsList = FXCollections.observableArrayList();
+        sentRequestsList = FXCollections.observableArrayList();
+    }
+
+    public void loadAllUserData() {
         Platform.runLater(() -> loadAllRequests());
         Platform.runLater(() -> loadAllContacts());
-        // TODO load all Groups .
+        loadAllGroups();
+    }
+
+    private void loadAllGroups() {
+        Platform.runLater(() -> {
+            try {
+                UserService.getInstance().getRemoteService().getGroups(getLoggedinUserModel().getUserPhone()).stream().forEach(groupDTO -> {
+                    ConversationCard conversationCard = new ConversationCard(groupDTO);
+                    conversationsList.add(conversationCard);
+                });
+            } catch (RemoteException e) {
+                CustomDialogs.showErrorDialog("Error while Loading Client Groups" + e.getMessage());
+            }
+        });
     }
 
     public void logoutUser() {
@@ -86,11 +107,11 @@ public class ClientState {
         receivedRequestsList = FXCollections.observableArrayList();
         // Contacts initialization .
         contactsList = FXCollections.observableArrayList();
-        // Chatbot
         chatBotChatMessages = FXCollections.observableArrayList();
-        // Attachments .
         attachmentsMap = new HashMap<>();
-
+        conversationsMessagesList = new HashMap<>();
+        conversationsList = FXCollections.observableArrayList();
+        sentRequestsList = FXCollections.observableArrayList();
     }
 
     public static ClientState getInstance() {
@@ -156,14 +177,14 @@ public class ClientState {
             UserService.getInstance().getRemoteService().getContacts(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {
                 ContactModel contactModel = new ContactModel(contactDTO);
                 contactsList.add(contactModel);
-                conversationsList.add(new ConversationCard(contactModel.getConversation().getConversationId(), contactModel.getPhoneNumber(), contactModel.getName(), FileConverter.convert_bytesToImage(contactModel.getProfilepic()), contactModel.getStatus(), contactModel.getStatusCircleColor()));
+                conversationsList.add(new ConversationCard(contactModel));
             });
         } catch (RemoteException e) {
             CustomDialogs.showErrorDialog("Error while loading all contacts : " + e.getMessage());
         }
     }
 
-    // TODO Implement Load Groups .
+// TODO Implement Load Groups .
 //    private void loadAllGroups() {
 //        try {
 //            UserService.getInstance().getRemoteService().getGroups(loggedinUser.getValue().getUserPhone()).stream().forEach(contactDTO -> {

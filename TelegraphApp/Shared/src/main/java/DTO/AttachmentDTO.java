@@ -3,23 +3,34 @@ package DTO;
 import java.io.Serial;
 import java.io.Serializable;
 
+
 public class AttachmentDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = Long.MIN_VALUE;
     private int attachmentId;
+    private String senderPhone;
     private String attachmentType;
     private int conversationId;
     private String attachmentName;
     private byte[] attachment;
-    public AttachmentDTO(){
-
-    }
-    public AttachmentDTO(int attachmentId, String attachmentType, int conversationId, String attachmentName, byte[] attachment) {
+    public AttachmentDTO(int attachmentId, String senderPhone, String attachmentType, int conversationId, String attachmentName, byte[] attachment) {
         this.attachmentId = attachmentId;
+        this.senderPhone = senderPhone;
         this.attachmentType = attachmentType;
         this.conversationId = conversationId;
         this.attachmentName = attachmentName;
         this.attachment = attachment;
+    }
+    public String getSenderPhone() {
+        return senderPhone;
+    }
+
+    public void setSenderPhone(String senderPhone) {
+        this.senderPhone = senderPhone;
+    }
+
+    public AttachmentDTO(){
+
     }
 
     public int getConversationId() {
@@ -56,6 +67,17 @@ public class AttachmentDTO implements Serializable {
 
     public byte[] getAttachment() {
         return attachment;
+    }
+
+    @Override
+    public String toString() {
+        return "AttachmentDTO{" +
+                "attachmentId=" + attachmentId +
+                ", senderPhone='" + senderPhone + '\'' +
+                ", attachmentType='" + attachmentType + '\'' +
+                ", conversationId=" + conversationId +
+                ", attachmentName='" + attachmentName + '\'' +
+                '}';
     }
 
     public void setAttachment(byte[] attachment) {

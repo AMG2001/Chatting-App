@@ -1,10 +1,14 @@
 package gov.iti.jets.Controllers.config;
 
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentPaneViewer;
+import gov.iti.jets.Controllers.HomePageController.Attachments.AttachmentsController;
+import gov.iti.jets.Controllers.ServerState.ServerShutDownController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
 public class AppPages {
-    private static Pane homePageView, updateInfoView, registerPage, loginPage;
+    private static Pane homePageView, updateInfoView, registerPage, loginPage, serverShutdownPage;
 
     public static Pane rebuildHomePageView() {
         try {
@@ -29,13 +33,11 @@ public class AppPages {
     }
 
     public static Pane getUpdateInfoView() {
-        if (updateInfoView == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Profile/Profile.fxml"));
-                updateInfoView = loader.load();
-            } catch (Exception e) {
-                System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Update Info View : " + e.getMessage());
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(AppPages.class.getResource("/Profile/Profile.fxml"));
+            updateInfoView = loader.load();
+        } catch (Exception e) {
+            System.out.println("❌❌❌❌❌❌❌❌❌❌❌❌ Error while loading Update Info View : " + e.getMessage());
         }
         return updateInfoView;
     }
@@ -62,5 +64,9 @@ public class AppPages {
             }
         }
         return loginPage;
+    }
+
+    public static Pane getServerShutdownPage() {
+        return new ServerShutDownController().getLayout();
     }
 }

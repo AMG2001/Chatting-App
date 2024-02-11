@@ -49,6 +49,7 @@ public class HomePageController {
 
     private void setListViewItemsAction() {
         lv_onlineContacts.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("Selected : " + newVal.text_contactName.getText());
             if (newVal != null) {
                 right_pane.getChildren().clear();
                 ChatPaneController chatPaneController = new ChatPaneController(newVal);
@@ -56,6 +57,4 @@ public class HomePageController {
             }
         });
     }
-
-
 }

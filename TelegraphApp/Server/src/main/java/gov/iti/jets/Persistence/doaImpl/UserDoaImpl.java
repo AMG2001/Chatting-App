@@ -114,7 +114,6 @@ public class UserDoaImpl implements UserDao {
                 System.out.println(e.getMessage());
             }
         }
-        ProcessLog.appendToProcessLog("All Users Fetched from DB");
         return users;
     }
 
