@@ -70,6 +70,18 @@ public class AppViews {
         stage.setMaxHeight(800);
     }
 
+    public void showServerShutdownPage() {
+        Scene currentScene = stage.getScene();
+        currentScene.setRoot(AppPages.getServerShutdownPage());
+        stage.setTitle("Server Out");
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
+        stage.setWidth(600);
+        stage.setHeight(400);
+        stage.setMaxWidth(600);
+        stage.setMaxHeight(400);
+    }
+
     public void showLoginPage() {
         Scene currentScene = stage.getScene();
         currentScene.setRoot(AppPages.getLoginPageView());

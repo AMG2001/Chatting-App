@@ -13,8 +13,10 @@ import gov.iti.jets.Controllers.Shared.CustomEnums;
 import gov.iti.jets.Controllers.Shared.Messages.MessageController;
 import gov.iti.jets.Controllers.Shared.Notifications.CustomNotifications;
 import gov.iti.jets.Controllers.services.ConversationsServicesClass;
+import gov.iti.jets.Controllers.services.Emails.EmailsService;
 import gov.iti.jets.Controllers.services.FileConverter;
 import gov.iti.jets.Controllers.services.FileSystemUtil;
+import gov.iti.jets.Controllers.services.Navigator;
 import gov.iti.jets.Model.AttachmentModel;
 import gov.iti.jets.Model.ClientState;
 import gov.iti.jets.Model.NotificationModel;
@@ -34,24 +36,23 @@ public class ServerCallback extends UnicastRemoteObject implements RemoteCallbac
 
     }
 
-    //    @Override
+    @Override
     public boolean isAlive() throws RemoteException {
         return true;
     }
 
-    /**
-     * @throws RemoteException
-     */
-//    @Override
+    @Override
     public void serverShutdown() throws RemoteException {
-
+        EmailsService emailsService = new EmailsService();
+        emailsService.sendEmail(ClientState.getInstance().getLoggedinUserModel().getEmail(), "Telegraph Server State", "Server is Currently Down , we are working to fix it as fast as we can  , Thanks for your patience");
+        Navigator.navigateToServerShutdown();
     }
 
-    /**
-     * @throws RemoteException
-     */
-//    @Override
+    @Override
     public void serverStart() throws RemoteException {
+        EmailsService emailsService = new EmailsService();
+        emailsService.sendEmail(ClientState.getInstance().getLoggedinUserModel().getEmail(), "Telegraph Server State", "Server is Currently Live , You can use Telegraph Services again , Thanks for your patience");
+        Navigator.navigateToServerShutdown();
 
     }
 

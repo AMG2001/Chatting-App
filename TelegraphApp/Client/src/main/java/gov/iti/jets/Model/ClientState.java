@@ -82,7 +82,7 @@ public class ClientState {
     public void loadAllUserData() {
         Platform.runLater(() -> loadAllRequests());
         Platform.runLater(() -> loadAllContacts());
-//        loadAllGroups();
+        loadAllGroups();
     }
 
     private void loadAllGroups() {
