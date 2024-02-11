@@ -30,7 +30,6 @@ public class ClientLivenessChecker {
         HashMap<String, RemoteCallbackInterface> onlineUsers = new HashMap<>(OnlineUserManager.getOnlineUsers());
 
         if (onlineUsers.isEmpty()) {
-            stopLivenessChecking();
             return;
         }
         for (HashMap.Entry<String, RemoteCallbackInterface> entry : onlineUsers.entrySet()) {
